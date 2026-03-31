@@ -84,7 +84,7 @@ export default async function HomePage() {
             <p className="mx-auto mt-4 max-w-xl leading-relaxed text-ink-500 text-[clamp(0.95rem,3.4vw,1.125rem)]">
               Verified remote jobs in one place — truly work-from-anywhere roles with no country, region, or time
               zone strings attached, plus remote jobs based in your region. Pulled straight from company hiring
-              systems and enriched with salary, skills, and benefits.
+              systems and enriched with skills, benefits, and salary where it&apos;s disclosed.
             </p>
 
             {FEATURES.newsletter && (
@@ -96,7 +96,7 @@ export default async function HomePage() {
               </div>
             )}
 
-            <dl className="mx-auto mt-8 grid max-w-md grid-cols-3 divide-x divide-ink-100 overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card">
+            <dl className="mx-auto mt-8 grid max-w-md grid-cols-3 divide-x divide-ink-100 overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card max-[360px]:gap-y-2 max-[360px]:divide-x-0">
               {stats.map(([value, label, hint]) => (
                 <div key={label} title={hint} className="min-w-0 cursor-help px-1.5 py-3.5 sm:px-2">
                   <dt className="font-display text-lg font-extrabold tabular-nums text-ink-900 sm:text-xl md:text-2xl">{value}</dt>

@@ -53,7 +53,14 @@ export function toText(html: string): string {
 }
 
 /** Sanitize a description's HTML for safe rendering (spec: "sanitized HTML body"). */
+// ATS-vendor "about us" boilerplate a scraper can grab instead of the real job
+// description (e.g. Greenhouse's mission text on an unrelated company's posting).
+const VENDOR_BOILERPLATE = /mission at Greenhouse|make hiring work for everyone|Greenhouse Software|Lever builds modern recruiting/i;
+
 export function sanitizeDescription(html: string): string {
+  // Reject vendor boilerplate so callers fall back to a clean generic line
+  // rather than publishing the wrong company's copy.
+  if (VENDOR_BOILERPLATE.test(html || "")) return "";
   const clean = sanitizeHtml(repairText(html), {
     allowedTags: [
       "p", "br", "b", "strong", "i", "em", "u", "ul", "ol", "li",

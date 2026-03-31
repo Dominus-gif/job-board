@@ -49,7 +49,7 @@ const TIERS: Record<SalaryTier, SalaryTierInfo> = {
     segments: 3,
     hint: "High pay — midpoint of $150k+ (USD-equivalent).",
     text: "text-emerald-700",
-    chip: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+    chip: "bg-emerald-50 text-emerald-700",
     dot: "bg-emerald-500",
   },
   medium: {
@@ -59,7 +59,7 @@ const TIERS: Record<SalaryTier, SalaryTierInfo> = {
     segments: 2,
     hint: "Mid pay — midpoint of $90k–$150k (USD-equivalent).",
     text: "text-brand-700",
-    chip: "bg-brand-50 text-brand-700 ring-brand-200",
+    chip: "bg-brand-50 text-brand-700",
     dot: "bg-brand-500",
   },
   good: {
@@ -69,7 +69,7 @@ const TIERS: Record<SalaryTier, SalaryTierInfo> = {
     segments: 1,
     hint: "Entry pay — midpoint under $90k (USD-equivalent).",
     text: "text-amber-700",
-    chip: "bg-amber-50 text-amber-800 ring-amber-200",
+    chip: "bg-amber-50 text-amber-800",
     dot: "bg-amber-500",
   },
 };

@@ -30,17 +30,6 @@ function highlight(text: string, q?: string): React.ReactNode {
   return <>{parts}</>;
 }
 
-/** Small 3-segment pay meter (shape, not colour, carries the signal). */
-function PayMeter({ segments, className = "" }: { segments: number; className?: string }) {
-  return (
-    <span className={`inline-flex items-center gap-0.5 ${className}`} aria-hidden>
-      {[1, 2, 3].map((n) => (
-        <span key={n} className={`h-2.5 w-1 rounded-sm ${n <= segments ? "bg-current" : "bg-current opacity-25"}`} />
-      ))}
-    </span>
-  );
-}
-
 export function JobCard({
   job,
   onSkillClick,
@@ -65,7 +54,7 @@ export function JobCard({
   return (
     <Link
       href={`/jobs/${job.slug}`}
-      className={`group relative flex items-start gap-4 rounded-xl border p-5 transition-colors duration-150 ${
+      className={`group relative flex scroll-mt-24 items-start gap-4 rounded-xl border p-5 transition-colors duration-150 ${
         inactive
           ? "border-ink-100 bg-ink-50/60 opacity-75"
           : job.is_featured
@@ -89,7 +78,7 @@ export function JobCard({
           )}
           {!inactive && job.is_featured && <StatusBadge kind="featured" />}
           {!inactive && isNew && <StatusBadge kind="new" />}
-          <h3 className="truncate font-display text-[15px] font-semibold leading-snug text-ink-900 group-hover:text-brand-600">
+          <h3 className="line-clamp-2 min-w-0 font-display text-[15px] font-semibold leading-snug text-ink-900 group-hover:text-brand-600">
             {highlight(job.title, highlightQuery)}
           </h3>
         </div>
@@ -119,8 +108,8 @@ export function JobCard({
           <span className="chip">{job.category}</span>
           {/* Salary is shown in the right rail on ≥sm; surface it here on mobile. */}
           {salary && tier && (
-            <span title={tier.hint} className={`chip font-semibold ring-1 ring-inset sm:hidden ${tier.chip}`}>
-              <PayMeter segments={tier.segments} /> {salary}
+            <span title={tier.hint} className={`chip font-semibold sm:hidden ${tier.chip}`}>
+              {tier.glyph} {salary}
             </span>
           )}
           {job.skills.slice(0, 4).map((s) =>
@@ -157,8 +146,7 @@ export function JobCard({
 
       <div className="hidden flex-shrink-0 flex-col items-end gap-1.5 sm:flex">
         {salary && tier ? (
-          <span title={tier.hint} className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold ring-1 ring-inset ${tier.chip}`}>
-            <PayMeter segments={tier.segments} />
+          <span title={tier.hint} className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold ring-1 ring-inset ring-ink-100 ${tier.chip}`}>
             {salary}
           </span>
         ) : (

@@ -36,11 +36,13 @@ export const metadata: Metadata = {
     title: "Remote Jobs From Anywhere in the World | AnywhereJobs",
     description: SITE.description,
     url: SITE.url,
+    images: [{ url: "/api/og", width: 1200, height: 630, alt: "AnywhereJobs — remote jobs you can do from anywhere" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Remote Jobs From Anywhere | AnywhereJobs",
     description: SITE.description,
+    images: ["/api/og"],
   },
   alternates: {
     types: { "application/rss+xml": `${SITE.url}/rss.xml` },

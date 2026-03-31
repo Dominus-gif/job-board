@@ -32,6 +32,14 @@ function cleanDomain(d: string | undefined | null): string | undefined {
 function domainFromUrl(u: string): string | undefined {
   try { return cleanDomain(new URL(u).hostname.replace(/^www\./, "")); } catch { return undefined; }
 }
+// ATS-vendor "about us" boilerplate that scrapers sometimes grab instead of the
+// real job description (e.g. Greenhouse's own mission text attached to unrelated
+// companies). Drop it so the excerpt falls back to the clean generic line.
+const VENDOR_BOILERPLATE = /mission at Greenhouse|make hiring work for everyone|Greenhouse Software|Lever builds modern recruiting|about (Ashby|Workable|Greenhouse|Lever)\b/i;
+function cleanDesc(html: string | undefined | null): string {
+  return VENDOR_BOILERPLATE.test(html || "") ? "" : html || "";
+}
+
 function excerpt(html: string): string {
   const t = (html || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
   return t ? `<p>${t.slice(0, 1400)}${t.length > 1400 ? "…" : ""}</p>` : "";
@@ -64,7 +72,7 @@ const roleJobs: Job[] = dedupedRoles.map((rec, i) => {
     company_name: rec.company.trim(),
     company_domain: cleanDomain(rec.domain),
     title: rec.title.trim(),
-    description_html: excerpt(rec.desc) || `<p>${rec.title.trim()} at ${rec.company.trim()}. See the full description and apply directly on the company's job page.</p>`,
+    description_html: excerpt(cleanDesc(rec.desc)) || `<p>${rec.title.trim()} at ${rec.company.trim()}. See the full description and apply directly on the company's job page.</p>`,
     apply_url: rec.apply,
     location_raw: rec.location,
     employment_type: "Full-Time",
@@ -86,7 +94,7 @@ const dirJobs: Job[] = (curated as DirRec[])
       company_name: rec.company,
       company_domain: domainFromUrl(rec.url),
       title: rec.title,
-      description_html: rec.desc,
+      description_html: cleanDesc(rec.desc) || `<p>${rec.title} at ${rec.company}. See the full description and apply directly on the company's job page.</p>`,
       apply_url: rec.url,
       location_raw: rec.location,
       employment_type: "Full-Time",

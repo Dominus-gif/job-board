@@ -176,7 +176,7 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
 
               {/* Highlighted salary block, color-coded by bracket */}
               {salary && tier ? (
-                <div className={`mt-4 rounded-xl p-4 ring-1 ring-inset ${tier.chip}`}>
+                <div className={`mt-4 rounded-xl p-4 ring-1 ring-inset ring-ink-100 ${tier.chip}`}>
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider">
                       <WalletIcon className="h-4 w-4" /> Salary

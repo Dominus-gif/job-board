@@ -57,7 +57,7 @@ export function SharePopover({ slug, title }: { slug: string; title: string }) {
         aria-expanded={open}
         aria-label="Share job"
         title="Share"
-        className="flex h-8 w-8 items-center justify-center rounded-md border border-ink-100 bg-white text-ink-400 transition hover:border-ink-200 hover:text-ink-700"
+        className="flex h-10 w-10 items-center justify-center rounded-md border border-ink-100 bg-white text-ink-400 transition hover:border-ink-200 hover:text-ink-700"
       >
         <ShareIcon />
       </button>
