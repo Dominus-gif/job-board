@@ -36,14 +36,6 @@ export default function ContactPage() {
         Applying should always be free. If a listing asks you to pay or looks fraudulent, email{" "}
         <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a> with the link and we’ll remove it promptly.
       </p>
-
-      <h2>Follow us</h2>
-      <p>
-        Find us on{" "}
-        <a href={SITE.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>,{" "}
-        <a href={SITE.social.twitter} target="_blank" rel="noopener noreferrer">X</a>, and{" "}
-        <a href={SITE.social.discord} target="_blank" rel="noopener noreferrer">Discord</a>.
-      </p>
     </LegalShell>
   );
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getSubscriberCount } from "@/lib/db";
 import { NewsletterForm } from "@/components/NewsletterForm";
-import { GlobeIcon, WalletIcon, BuildingIcon, CheckIcon, CalendarIcon, SparkIcon } from "@/components/icons";
+import { GlobeIcon, WalletIcon, BuildingIcon, CheckIcon, CalendarIcon, SparkIcon, LogoMark } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "The Work-From-Anywhere Newsletter",
@@ -77,12 +77,17 @@ export default function NewsletterPage() {
 
         {/* Sample preview + promises */}
         <section className="grid grid-cols-1 gap-8 pt-14 lg:grid-cols-2 lg:items-center">
+          {/* Email digest preview (no OS window chrome). */}
           <div className="card overflow-hidden">
-            <div className="flex items-center gap-2 border-b border-ink-100 bg-ink-50 px-5 py-3 text-sm">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-300" />
-              <span className="h-2.5 w-2.5 rounded-full bg-amber-300" />
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
-              <span className="ml-2 text-ink-400">This week in remote — 12 new roles</span>
+            <div className="bg-gradient-to-br from-brand-700 to-brand-500 px-6 py-5 text-white">
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-2 font-display text-sm font-bold">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white/15 p-1"><LogoMark /></span>
+                  AnywhereJobs Weekly
+                </span>
+                <span className="text-xs font-medium text-white/75">Tuesday · Issue #48</span>
+              </div>
+              <p className="mt-3 font-display text-lg font-extrabold leading-snug">12 new work-from-anywhere roles this week</p>
             </div>
             <div className="space-y-3 p-5">
               {[
@@ -90,10 +95,10 @@ export default function NewsletterPage() {
                 ["Product Designer", "Doist", "€70k–€95k"],
                 ["Customer Support Lead", "Hotjar", "€40k–€55k"],
               ].map(([role, co, pay]) => (
-                <div key={role} className="flex items-center justify-between gap-3 rounded-xl border border-ink-100 px-4 py-3">
+                <div key={role} className="flex items-center justify-between gap-3 rounded-xl border border-ink-100 px-4 py-3 transition hover:border-brand-200">
                   <div>
                     <p className="font-semibold text-ink-900">{role}</p>
-                    <p className="text-sm text-ink-500">{co} · Anywhere in the World</p>
+                    <p className="text-sm text-ink-500">{co}</p>
                   </div>
                   <span className="rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-inset ring-emerald-100">
                     {pay}
@@ -101,6 +106,9 @@ export default function NewsletterPage() {
                 </div>
               ))}
               <p className="pt-1 text-center text-xs text-ink-400">…and nine more, every Tuesday.</p>
+            </div>
+            <div className="border-t border-ink-100 bg-ink-50/60 px-5 py-3 text-center text-xs text-ink-400">
+              You’re reading a sample of the AnywhereJobs weekly digest.
             </div>
           </div>
 

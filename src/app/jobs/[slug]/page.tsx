@@ -14,6 +14,7 @@ import { InterestButton } from "@/components/InterestButton";
 import { StarRating } from "@/components/StarRating";
 import { ShareButtons } from "@/components/ShareButtons";
 import { AdSlot } from "@/components/AdSlot";
+import { CompanyLogo } from "@/components/CompanyLogo";
 import {
   GlobeIcon, BriefcaseIcon, CalendarIcon, WalletIcon, TagIcon, CheckIcon, BuildingIcon, ArrowUpRightIcon,
 } from "@/components/icons";
@@ -90,8 +91,7 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
 
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
             <div className="flex items-start gap-4">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={job.company_logo} alt={`${job.company_name} logo`} width={64} height={64}
+              <CompanyLogo src={job.company_logo} name={job.company_name} size={64}
                 className="h-16 w-16 flex-shrink-0 rounded-2xl border border-ink-100 bg-white object-contain p-1.5" />
               <div className="min-w-0">
                 <div className="mb-2 flex flex-wrap items-center gap-2">

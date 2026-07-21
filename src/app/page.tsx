@@ -5,7 +5,7 @@ import { CategoryBar } from "@/components/CategoryBar";
 import { JobList } from "@/components/JobList";
 import { JobBoard } from "@/components/JobBoard";
 import { NewsletterForm } from "@/components/NewsletterForm";
-import { Faq } from "@/components/Faq";
+import { FaqSection } from "@/components/FaqSection";
 import { AdSlot } from "@/components/AdSlot";
 
 const HOME_FAQ = [
@@ -122,11 +122,7 @@ export default async function HomePage() {
 
         {/* FAQ */}
         <section className="py-16">
-          <div className="mb-6">
-            <span className="eyebrow">Questions</span>
-            <h2 className="mt-2 font-display text-2xl font-extrabold text-ink-900">Frequently asked</h2>
-          </div>
-          <Faq items={HOME_FAQ} />
+          <FaqSection items={HOME_FAQ} />
         </section>
       </div>
     </div>

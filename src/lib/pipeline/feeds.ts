@@ -94,7 +94,55 @@ async function arbeitnow(): Promise<RawJob[]> {
 }
 
 // Verified aggregator feeds only. RemoteOK was removed for source quality.
-const FEEDS: (() => Promise<RawJob[]>)[] = [remotive, jobicy, arbeitnow];
+/* ------------------------------- Himalayas ------------------------------- */
+// himalayas.app/jobs/api — structured remote jobs with explicit location and
+// timezone restrictions, so we can accept only the genuinely worldwide ones.
+async function himalayas(): Promise<RawJob[]> {
+  const data = await getJson("https://himalayas.app/jobs/api?limit=100");
+  if (!data?.jobs) return [];
+  return data.jobs.map((j: any): RawJob => {
+    const locs: string[] = j.locationRestrictions || [];
+    const tz: string[] = j.timezoneRestrictions || [];
+    // Only mark as worldwide when there are no location AND no timezone limits.
+    const location = locs.length === 0 && tz.length === 0 ? "Worldwide" : [...locs, ...tz].join(", ");
+    return {
+      external_id: `himalayas::${j.guid || j.applicationLink}`,
+      provider: "himalayas",
+      company_name: j.companyName,
+      company_logo: j.companyLogo || undefined,
+      title: j.title,
+      description_html: j.description || j.excerpt || "",
+      apply_url: j.applicationLink,
+      location_raw: location,
+      posted_at: j.pubDate,
+      employment_type: empType(j.employmentType),
+      salary_raw: money(j.minSalary, j.maxSalary),
+    };
+  });
+}
+
+/* ----------------------------- Working Nomads --------------------------- */
+// workingnomads.com/api/exposed_jobs — curated remote jobs; the filter keeps
+// only the location-independent ones.
+async function workingnomads(): Promise<RawJob[]> {
+  const data = await getJson("https://www.workingnomads.com/api/exposed_jobs/");
+  const jobs = Array.isArray(data) ? data : data?.jobs;
+  if (!Array.isArray(jobs)) return [];
+  return jobs.map((j: any): RawJob => ({
+    external_id: `workingnomads::${j.url}`,
+    provider: "workingnomads",
+    company_name: j.company_name,
+    title: j.title,
+    description_html: j.description || "",
+    apply_url: j.url,
+    location_raw: j.location || "",
+    posted_at: j.pub_date,
+  }));
+}
+
+// Verified aggregator feeds. RemoteOK was removed for source quality. Every
+// job still passes the strict worldwide filter before it can be published.
+const FEEDS: (() => Promise<RawJob[]>)[] = [remotive, jobicy, arbeitnow, himalayas, workingnomads];
 
 /** Run every aggregator feed; a failing feed yields [] and never aborts. */
 export async function ingestFeeds(): Promise<RawJob[]> {

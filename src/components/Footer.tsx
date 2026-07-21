@@ -3,14 +3,6 @@ import { SITE } from "@/lib/site";
 import { CATEGORIES, categoryToSlug } from "@/lib/taxonomy";
 import { LogoMark } from "./icons";
 
-const social = [
-  ["Discord", SITE.social.discord],
-  ["LinkedIn", SITE.social.linkedin],
-  ["Reddit", SITE.social.reddit],
-  ["X", SITE.social.twitter],
-  ["Facebook", SITE.social.facebook],
-];
-
 export function Footer() {
   return (
     <footer className="mt-20 bg-ink-900 text-ink-200">
@@ -23,11 +15,12 @@ export function Footer() {
             <span className="font-display text-lg font-extrabold text-white">{SITE.name}</span>
           </div>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-300">{SITE.tagline}</p>
-          <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm">
-            {social.map(([label, href]) => (
-              <a key={label} href={href} className="text-ink-300 transition hover:text-white">{label}</a>
-            ))}
-          </div>
+          <Link
+            href="/newsletter"
+            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/15"
+          >
+            Get the weekly digest
+          </Link>
         </div>
 
         <FooterCol title="Categories">

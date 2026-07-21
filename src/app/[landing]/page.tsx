@@ -5,7 +5,7 @@ import { allLandingSlugs, resolveLanding } from "@/lib/landing";
 import { abs } from "@/lib/site";
 import { CategoryBar } from "@/components/CategoryBar";
 import { JobBoard } from "@/components/JobBoard";
-import { Faq } from "@/components/Faq";
+import { FaqSection } from "@/components/FaqSection";
 
 export const dynamicParams = true;
 export const revalidate = 1800;
@@ -74,10 +74,8 @@ export default async function LandingPage({ params }: { params: { landing: strin
           )}
         </section>
 
-        <section className="max-w-3xl py-16">
-          <span className="eyebrow">Questions</span>
-          <h2 className="mb-5 mt-2 font-display text-2xl font-extrabold text-ink-900">Frequently asked</h2>
-          <Faq items={view.faq} />
+        <section className="py-16">
+          <FaqSection items={view.faq} />
         </section>
       </div>
     </div>

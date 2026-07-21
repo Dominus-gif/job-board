@@ -13,13 +13,6 @@ export const SITE = {
     return url.replace(/\/$/, "");
   },
   contactEmail: "hello@anywherejobs.example",
-  social: {
-    discord: "https://discord.gg/anywherejobs",
-    linkedin: "https://linkedin.com/company/anywherejobs",
-    reddit: "https://reddit.com/r/anywherejobs",
-    facebook: "https://facebook.com/anywherejobs",
-    twitter: "https://x.com/anywherejobs",
-  },
 };
 
 export function abs(path: string): string {

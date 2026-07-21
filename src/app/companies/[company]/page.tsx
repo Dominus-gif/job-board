@@ -88,14 +88,24 @@ export default async function CompanyPage({ params }: { params: { company: strin
             <h2 className="mb-4 mt-2 font-display text-xl font-extrabold text-ink-900">What employees say</h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {company.reviews.map((r) => (
-                <div key={r.source} className="card p-5">
-                  <p className="font-display font-bold text-ink-900">{r.source}</p>
+                <a
+                  key={r.source}
+                  href={r.url || reviewUrl(r.source, company)}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  className="card group p-5 transition hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-lift"
+                >
+                  <div className="flex items-center justify-between">
+                    <p className="font-display font-bold text-ink-900">{r.source}</p>
+                    <ArrowUpRightIcon className="h-4 w-4 text-ink-300 transition group-hover:text-brand-600" />
+                  </div>
                   <div className="mt-2"><StarRating rating={r.rating} count={r.count} /></div>
-                </div>
+                  <p className="mt-2 text-xs font-medium text-brand-700">Read reviews on {r.source} →</p>
+                </a>
               ))}
             </div>
             <p className="mt-3 text-xs text-ink-400">
-              Ratings aggregated from public employer-review sources. Figures are indicative — check each site for the latest.
+              Ratings aggregated from public employer-review sources. Figures are indicative — open each site for the latest.
             </p>
           </section>
         )}
@@ -111,6 +121,17 @@ export default async function CompanyPage({ params }: { params: { company: strin
       </div>
     </div>
   );
+}
+
+/** Build a working link to a company's page on a given review site. */
+function reviewUrl(source: string, c: NonNullable<Awaited<ReturnType<typeof getCompanyBySlug>>>): string {
+  const q = encodeURIComponent(c.name);
+  const s = source.toLowerCase();
+  if (s.includes("glassdoor")) return `https://www.glassdoor.com/Search/results.htm?keyword=${q}`;
+  if (s.includes("comparably")) return `https://www.comparably.com/companies/${c.slug}`;
+  if (s.includes("indeed")) return `https://www.indeed.com/cmp/${encodeURIComponent(c.name.replace(/\s+/g, "-"))}`;
+  if (s.includes("ambition")) return `https://www.ambitionbox.com/reviews/${c.slug}-reviews`;
+  return `https://www.google.com/search?q=${q}+${encodeURIComponent(source)}+reviews`;
 }
 
 /** Compose a 5–6 line company profile from structured fields (or use an override). */

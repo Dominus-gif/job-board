@@ -3,6 +3,7 @@ import type { Job } from "@/lib/types";
 import { formatSalary, salaryTier } from "@/lib/salary";
 import { timeAgo } from "@/lib/format";
 import { CheckIcon } from "./icons";
+import { CompanyLogo } from "./CompanyLogo";
 
 export function JobCard({
   job,
@@ -28,12 +29,9 @@ export function JobCard({
     >
       {job.is_featured && <span className="absolute inset-y-0 left-0 w-1 rounded-l-2xl bg-accent-400" aria-hidden />}
 
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <CompanyLogo
         src={job.company_logo}
-        alt={`${job.company_name} logo`}
-        width={52}
-        height={52}
+        name={job.company_name}
         className="h-[52px] w-[52px] flex-shrink-0 rounded-xl border border-ink-100 bg-white object-contain p-1 transition group-hover:border-brand-200"
       />
 

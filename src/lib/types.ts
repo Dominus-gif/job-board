@@ -28,7 +28,9 @@ export type AtsProvider =
   | "remotive"
   | "remoteok"
   | "jobicy"
-  | "arbeitnow";
+  | "arbeitnow"
+  | "himalayas"
+  | "workingnomads";
 
 export type JobSource = "ats" | "manual";
 
