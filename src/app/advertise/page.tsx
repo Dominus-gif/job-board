@@ -4,11 +4,35 @@ import { getAllJobs, getSubscriberCount } from "@/lib/db";
 import { GlobeIcon, WalletIcon, BuildingIcon, SparkIcon, CheckIcon, ArrowUpRightIcon, BriefcaseIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "Advertise to Remote Workers Worldwide",
+  title: "Advertise & Sponsor — Reach Remote Workers Worldwide",
   description:
-    "Put your product in front of an engaged, global audience of remote-first professionals. Featured job listings, newsletter placements, and site sponsorships on AnywhereJobs.",
+    "Advertise to an engaged, global audience of remote-first professionals, or sponsor AnywhereJobs. Featured job listings, weekly-newsletter placements, and monthly website sponsorships.",
   alternates: { canonical: "/advertise" },
 };
+
+const tiers = [
+  {
+    name: "Community",
+    price: "$99",
+    period: "/mo",
+    highlight: false,
+    perks: ["Logo in the site footer", "Supporter badge on your posts", "Our public thanks"],
+  },
+  {
+    name: "Growth",
+    price: "$499",
+    period: "/mo",
+    highlight: true,
+    perks: ["Everything in Community", "Logo on the homepage", "Monthly newsletter mention", "1 featured job / month"],
+  },
+  {
+    name: "Partner",
+    price: "Custom",
+    period: "",
+    highlight: false,
+    perks: ["Everything in Growth", "Site-wide branding", "Dedicated newsletter feature", "Unlimited featured jobs"],
+  },
+];
 
 export default async function AdvertisePage() {
   const subs = getSubscriberCount();
@@ -58,17 +82,17 @@ export default async function AdvertisePage() {
       <section className="relative overflow-hidden border-b border-ink-100 bg-white">
         <div className="pointer-events-none absolute inset-0 bg-meridian opacity-50 [background-size:44px_44px] [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" aria-hidden />
         <div className="relative mx-auto max-w-3xl px-4 pt-14 pb-14 text-center">
-          <span className="eyebrow justify-center">Advertise</span>
+          <span className="eyebrow justify-center">Advertise &amp; Sponsor</span>
           <h1 className="mt-4 font-display text-4xl font-extrabold leading-tight text-ink-900 md:text-5xl">
             Reach remote workers, <span className="text-brand-600">everywhere</span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-ink-500">
-            AnywhereJobs is where location-independent professionals — developers, designers, marketers, and operators —
-            come to make their next move. Put your product in front of them at exactly the right moment.
+            AnywhereJobs is where location-independent professionals come to make their next move. Advertise a
+            product, take a slot in our weekly newsletter, or sponsor the site — all in one place.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <a href="mailto:ads@anywherejobs.example" className="btn-primary">Get the media kit</a>
-            <Link href="/hiring" className="btn-ghost">Post a featured job</Link>
+            <a href="#sponsorship" className="btn-ghost">See sponsorship tiers</a>
           </div>
         </div>
       </section>
@@ -137,6 +161,43 @@ export default async function AdvertisePage() {
           </div>
         </section>
 
+        {/* Sponsorship tiers */}
+        <section id="sponsorship" className="scroll-mt-24 pt-16">
+          <div className="text-center">
+            <span className="eyebrow justify-center">Sponsor the site</span>
+            <h2 className="mt-2 font-display text-2xl font-extrabold text-ink-900 md:text-3xl">Ongoing sponsorship</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-ink-500">
+              We keep every listing genuinely location-independent so people anywhere can find real remote work.
+              Sponsors keep the lights on — and get their brand in front of a worldwide, remote-first audience every day.
+            </p>
+          </div>
+          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
+            {tiers.map((t) => (
+              <div key={t.name} className={`relative flex flex-col rounded-2xl border p-6 ${t.highlight ? "border-brand-300 bg-brand-50/40 shadow-lift ring-1 ring-brand-200" : "card"}`}>
+                {t.highlight && (
+                  <span className="absolute -top-3 left-6 rounded-full bg-brand-600 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
+                    Most popular
+                  </span>
+                )}
+                <h3 className="font-display text-lg font-bold text-ink-900">{t.name}</h3>
+                <p className="mt-1 font-display text-3xl font-extrabold text-brand-700">
+                  {t.price}<span className="text-lg text-ink-400">{t.period}</span>
+                </p>
+                <ul className="mt-4 flex-1 space-y-2.5 text-sm text-ink-700">
+                  {t.perks.map((perk) => (
+                    <li key={perk} className="flex items-start gap-2">
+                      <CheckIcon className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-500" /> {perk}
+                    </li>
+                  ))}
+                </ul>
+                <a href="mailto:sponsor@anywherejobs.example" className={`mt-6 ${t.highlight ? "btn-primary" : "btn-ghost"} w-full`}>
+                  Become a sponsor
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* How it works */}
         <section className="pt-16">
           <div className="text-center">
@@ -172,8 +233,8 @@ export default async function AdvertisePage() {
                 <a href="mailto:ads@anywherejobs.example" className="btn-primary">
                   Get the media kit <ArrowUpRightIcon className="h-4 w-4" />
                 </a>
-                <Link href="/sponsor" className="rounded-xl border border-white/20 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10">
-                  See sponsorships
+                <Link href="/hiring" className="rounded-xl border border-white/20 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10">
+                  Post a featured job
                 </Link>
               </div>
             </div>

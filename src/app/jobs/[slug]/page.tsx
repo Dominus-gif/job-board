@@ -10,7 +10,6 @@ import { JobList } from "@/components/JobList";
 import { ScamNotice, ReferralNudge } from "@/components/ScamNotice";
 import { InactiveNotice } from "@/components/InactiveNotice";
 import { LivenessProvider, ApplyButton, InactiveBanner } from "@/components/JobLiveness";
-import { InterestButton } from "@/components/InterestButton";
 import { StarRating } from "@/components/StarRating";
 import { ShareButtons } from "@/components/ShareButtons";
 import { AdSlot } from "@/components/AdSlot";
@@ -228,9 +227,8 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
               )}
 
               <ApplyButton applyUrl={job.apply_url} label="Apply now" className="btn-primary mt-6 w-full" />
-              <div className="mt-3">
-                <InterestButton slug={job.slug} initialInterest={job.interest} />
-              </div>
+              {/* "I'm interested" is paused until a database is connected so the
+                  count can persist across refreshes. See README "Interest". */}
             </div>
 
             {/* Company card */}

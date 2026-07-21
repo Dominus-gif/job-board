@@ -16,6 +16,10 @@ const nextConfig = {
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
     ],
   },
+  async redirects() {
+    // Sponsor is merged into the Advertise page.
+    return [{ source: "/sponsor", destination: "/advertise", permanent: true }];
+  },
 };
 
 export default nextConfig;
