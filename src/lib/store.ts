@@ -58,12 +58,16 @@ async function refresh(): Promise<Job[]> {
       const report = await ingestAndProcess(companies);
       const jobs = withOverrides(report.jobs);
       if (jobs.length > 0) {
+        console.log(`[store] live ingest ok: ${jobs.length} jobs (from ${report.fetched} fetched).`);
         cache = { jobs, at: Date.now(), live: true };
         return jobs;
       }
-    } catch {
-      // fall through to seed
+      console.warn(`[store] live ingest returned 0 jobs (fetched ${report.fetched}) — using seed. Check network access to ATS APIs.`);
+    } catch (err) {
+      console.warn("[store] live ingest failed — using seed:", (err as Error)?.message);
     }
+  } else {
+    console.log("[store] ANYWHERE_LIVE=false — using seed data.");
   }
   const seed = processSeed();
   cache = { jobs: seed, at: Date.now(), live: false };

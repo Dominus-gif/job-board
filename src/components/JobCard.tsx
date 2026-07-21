@@ -21,14 +21,12 @@ export function JobCard({
   return (
     <Link
       href={`/jobs/${job.slug}`}
-      className={`group relative flex items-start gap-5 rounded-2xl border bg-white p-5 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lift ${
+      className={`group relative flex items-start gap-5 rounded-2xl border p-5 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lift ${
         job.is_featured
-          ? "border-accent-200 ring-1 ring-accent-200"
-          : "border-ink-100 hover:border-brand-300 hover:ring-2 hover:ring-brand-100"
+          ? "border-accent-200 bg-gradient-to-br from-accent-50/70 to-white ring-1 ring-inset ring-accent-100 hover:border-accent-300"
+          : "border-ink-100 bg-white hover:border-brand-300 hover:ring-2 hover:ring-brand-100"
       }`}
     >
-      {job.is_featured && <span className="absolute inset-y-0 left-0 w-1 rounded-l-2xl bg-accent-400" aria-hidden />}
-
       <CompanyLogo
         src={job.company_logo}
         name={job.company_name}

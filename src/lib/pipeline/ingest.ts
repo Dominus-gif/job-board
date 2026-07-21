@@ -177,14 +177,22 @@ export const ADAPTERS: Partial<Record<AtsProvider, AtsAdapter>> = {
   smartrecruiters,
 };
 
-/** Poll every company on the allow-list and return all raw jobs. */
+/**
+ * Poll every company on the allow-list and return all raw jobs. Each board is
+ * isolated: a single failing/misbehaving board yields [] and never aborts the
+ * whole run (which would otherwise collapse the feed back to seed data).
+ */
 export async function ingestAll(companies: Company[]): Promise<RawJob[]> {
   const batches = await Promise.all(
     companies.map(async (company) => {
-      const adapter = company.provider ? ADAPTERS[company.provider] : undefined;
-      if (!adapter) return [];
-      const jobs = await adapter.fetchBoard(company);
-      return jobs;
+      try {
+        const adapter = company.provider ? ADAPTERS[company.provider] : undefined;
+        if (!adapter) return [];
+        return await adapter.fetchBoard(company);
+      } catch (err) {
+        console.warn(`[ingest] board failed for ${company.name} (${company.provider}):`, (err as Error)?.message);
+        return [];
+      }
     })
   );
   return batches.flat();
