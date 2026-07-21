@@ -1,13 +1,12 @@
-import { getCompanyAllowList } from "@/lib/db";
-import { ingestAndProcess } from "@/lib/pipeline";
+import { revalidatePath } from "next/cache";
+import { forceRefresh } from "@/lib/store";
 
 /**
- * Scheduled ingestion endpoint (spec section 3 — hourly cron).
+ * Scheduled ingestion endpoint (the automatic updater on serverless hosts).
  *
- * Deploy as a Vercel Cron / scheduled worker hitting this route. It polls every
- * company on the allow-list, runs the filter + enrichment pipeline, and returns
- * a report. In this demo it does NOT persist — wire the returned `jobs` into
- * your Postgres upsert here (see README "Storage" / "Ingestion").
+ * Vercel Cron hits this route on a schedule. It re-scrapes every ATS board +
+ * feed (via forceRefresh), then revalidates the key pages so the live site
+ * shows the fresh listings — no manual action required.
  *
  * Auth: Vercel Cron automatically sends `Authorization: Bearer $CRON_SECRET`.
  * We accept that, or an `INGEST_SECRET` via the same header or `?secret=`.
@@ -15,6 +14,8 @@ import { ingestAndProcess } from "@/lib/pipeline";
  */
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
+
+const REVALIDATE = ["/", "/companies", "/page/1"];
 
 export async function GET(req: Request) {
   const secret = process.env.CRON_SECRET || process.env.INGEST_SECRET;
@@ -27,17 +28,14 @@ export async function GET(req: Request) {
     }
   }
 
-  const companies = getCompanyAllowList();
-  const report = await ingestAndProcess(companies);
+  const jobs = await forceRefresh();
+  for (const path of REVALIDATE) {
+    try {
+      revalidatePath(path);
+    } catch {
+      /* revalidation is best-effort */
+    }
+  }
 
-  // TODO(persistence): upsert report.jobs into Postgres and unpublish expired.
-  return Response.json({
-    ok: true,
-    ranAt: new Date().toISOString(),
-    fetched: report.fetched,
-    deduped: report.deduped,
-    accepted: report.accepted,
-    rejected: report.rejected,
-    sampleRejections: report.rejections.slice(0, 10),
-  });
+  return Response.json({ ok: true, ranAt: new Date().toISOString(), jobs: jobs.length });
 }

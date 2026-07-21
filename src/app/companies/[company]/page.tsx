@@ -4,6 +4,7 @@ import { getCompanies, getCompanyBySlug, getJobsByCompany } from "@/lib/db";
 import { abs } from "@/lib/site";
 import { JobList } from "@/components/JobList";
 import { StarRating } from "@/components/StarRating";
+import { CompanyLogo } from "@/components/CompanyLogo";
 import { CalendarIcon, UsersIcon, PinIcon, BriefcaseIcon, ArrowUpRightIcon, CheckIcon } from "@/components/icons";
 
 export const dynamicParams = true;
@@ -41,8 +42,7 @@ export default async function CompanyPage({ params }: { params: { company: strin
       <section className="border-b border-ink-100 bg-white">
         <div className="mx-auto max-w-5xl px-4 py-10">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={company.logo} alt={`${company.name} logo`} width={80} height={80}
+            <CompanyLogo src={company.logo} name={company.name} domain={company.domain} size={80}
               className="h-20 w-20 flex-shrink-0 rounded-2xl border border-ink-100 bg-white object-contain p-2" />
             <div className="min-w-0">
               <div className="mb-1.5 inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-emerald-700 ring-1 ring-inset ring-emerald-100">

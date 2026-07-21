@@ -91,7 +91,7 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
 
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
             <div className="flex items-start gap-4">
-              <CompanyLogo src={job.company_logo} name={job.company_name} size={64}
+              <CompanyLogo src={job.company_logo} name={job.company_name} domain={job.company_domain} size={64}
                 className="h-16 w-16 flex-shrink-0 rounded-2xl border border-ink-100 bg-white object-contain p-1.5" />
               <div className="min-w-0">
                 <div className="mb-2 flex flex-wrap items-center gap-2">
@@ -237,8 +237,8 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
             <div className="card p-5">
               <h2 className="font-display text-base font-bold text-ink-900">About the company</h2>
               <div className="mt-4 flex items-center gap-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={job.company_logo} alt="" width={44} height={44} className="h-11 w-11 rounded-xl border border-ink-100 bg-white object-contain p-1" />
+                <CompanyLogo src={job.company_logo} name={job.company_name} domain={job.company_domain} size={44}
+                  className="h-11 w-11 rounded-xl border border-ink-100 bg-white object-contain p-1" />
                 <div className="min-w-0">
                   <p className="truncate font-semibold text-ink-900">{job.company_name}</p>
                   {job.company_domain && (

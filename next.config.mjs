@@ -5,12 +5,15 @@ const nextConfig = {
   // runtime rather than bundled into server vendor-chunks.
   experimental: {
     serverComponentsExternalPackages: ["sanitize-html"],
+    // Enables src/instrumentation.ts, which starts the background job refresher.
+    instrumentationHook: true,
   },
   images: {
     remotePatterns: [
+      { protocol: "https", hostname: "unavatar.io" },
+      { protocol: "https", hostname: "www.google.com" },
       { protocol: "https", hostname: "logo.clearbit.com" },
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
-      { protocol: "https", hostname: "www.google.com" },
     ],
   },
 };

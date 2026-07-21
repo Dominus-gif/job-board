@@ -25,7 +25,7 @@ const FEATURED_IDS = new Set(["seed:gitlab:1", "seed:close:8"]);
 
 export const companies: Company[] = (companiesSeed as Company[]).map((c) => ({
   ...c,
-  logo: c.logo || resolveLogo({ domain: c.domain, name: c.name }),
+  logo: resolveLogo({ domain: c.domain, name: c.name }),
 }));
 
 function withOverrides(jobs: Job[]): Job[] {

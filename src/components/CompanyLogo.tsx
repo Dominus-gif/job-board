@@ -1,35 +1,45 @@
 "use client";
 
-import { useState } from "react";
-import { placeholderLogo } from "@/lib/pipeline/logo";
+import { useMemo, useState } from "react";
+import { logoCandidates, placeholderLogo } from "@/lib/pipeline/logo";
 
 /**
- * Company logo with graceful fallback: if the imported logo URL fails to load
- * (e.g. the logo provider has no record), it swaps to a generated initial-based
- * placeholder so no listing ever shows a broken image.
+ * Company logo with a robust fallback chain. It tries, in order: a feed-supplied
+ * logo → unavatar (aggregated brand logos) → Google favicon → a generated
+ * initial badge. If one fails to load it advances to the next, so every listing
+ * shows a recognizable mark for the hiring company and never a broken image.
  */
 export function CompanyLogo({
   src,
   name,
+  domain,
   size = 52,
   className = "",
 }: {
-  src: string;
+  src?: string;
   name: string;
+  domain?: string;
   size?: number;
   className?: string;
 }) {
-  const [failed, setFailed] = useState(false);
-  const finalSrc = failed || !src ? placeholderLogo(name) : src;
+  const candidates = useMemo(
+    () => logoCandidates({ domain, name, provided: src }),
+    [domain, name, src]
+  );
+  const [i, setI] = useState(0);
+  const finalSrc = i < candidates.length ? candidates[i] : placeholderLogo(name);
+
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
+      key={finalSrc}
       src={finalSrc}
       alt={`${name} logo`}
       width={size}
       height={size}
       loading="lazy"
-      onError={() => setFailed(true)}
+      referrerPolicy="no-referrer"
+      onError={() => setI((x) => x + 1)}
       className={className}
     />
   );

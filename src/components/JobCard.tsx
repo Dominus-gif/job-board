@@ -30,6 +30,7 @@ export function JobCard({
       <CompanyLogo
         src={job.company_logo}
         name={job.company_name}
+        domain={job.company_domain}
         className="h-[52px] w-[52px] flex-shrink-0 rounded-xl border border-ink-100 bg-white object-contain p-1 transition group-hover:border-brand-200"
       />
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getCompanies } from "@/lib/db";
 import { StarRating } from "@/components/StarRating";
+import { CompanyLogo } from "@/components/CompanyLogo";
 
 export const metadata: Metadata = {
   title: "Companies Hiring Worldwide",
@@ -27,8 +28,7 @@ export default async function CompaniesPage() {
           <Link key={c.slug} href={`/companies/${c.slug}`}
             className="card p-5 transition hover:-translate-y-0.5 hover:shadow-lift">
             <div className="flex items-center gap-4">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={c.logo} alt={`${c.name} logo`} width={48} height={48}
+              <CompanyLogo src={c.logo} name={c.name} domain={c.domain} size={48}
                 className="h-12 w-12 flex-shrink-0 rounded-xl border border-ink-100 bg-white object-contain p-1" />
               <div className="min-w-0">
                 <p className="truncate font-display font-bold text-ink-900">{c.name}</p>
