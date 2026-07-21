@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+@layer base {
+  body {
+    @apply bg-paper text-ink-900 antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+  ::selection {
+    @apply bg-brand-600 text-white;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-paper;
+  }
+}
+
+@layer components {
+  /* Section eyebrow — a small brand label with a clean line accent. */
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.1em] text-brand-600;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply h-0.5 w-6 rounded-full bg-brand-500;
+  }
+  /* Small section label (Salary, Skills, Benefits…). */
+  .field-label {
+    @apply text-xs font-semibold uppercase tracking-wide text-ink-400;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition focus-visible:ring-2;
+  }
+  .btn-primary {
+    @apply btn bg-brand-600 text-white shadow-sm hover:bg-brand-700 active:bg-brand-800;
+  }
+  .btn-dark {
+    @apply btn bg-ink-900 text-white hover:bg-ink-800;
+  }
+  .btn-ghost {
+    @apply btn border border-ink-200 bg-white text-ink-800 hover:border-brand-300 hover:text-brand-700;
+  }
+
+  /* Meta chip used on job cards and detail pages. */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-ink-50 px-3 py-1.5 text-[13px] font-medium text-ink-600 ring-1 ring-inset ring-ink-100;
+  }
+  .card {
+    @apply rounded-2xl border border-ink-100 bg-white shadow-card;
+  }
+  /* "Trending" badge — a gentle pulsing glow to draw the eye. */
+  .badge-trending {
+    animation: trending-glow 1.8s ease-in-out infinite;
+  }
+}
+
+/* Gold flashing "Trending" badge. */
+@keyframes trending-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(227, 168, 31, 0); background-color: #fdf7e7; }
+  50% { box-shadow: 0 0 0 5px rgba(227, 168, 31, 0.28); background-color: #faedc4; }
+}
+@keyframes trending-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+/* Prose for legal / informational pages. */
+.prose-legal h2 { @apply mt-8 mb-2 font-display text-xl font-bold text-ink-900; }
+.prose-legal h3 { @apply mt-6 mb-2 font-display text-base font-bold text-ink-900; }
+.prose-legal p { @apply my-3 leading-relaxed text-ink-600; }
+.prose-legal ul { @apply my-3 list-disc space-y-1.5 pl-6 text-ink-600 marker:text-brand-400; }
+.prose-legal a { @apply font-medium text-brand-700 underline decoration-brand-200 underline-offset-2 hover:decoration-brand-500; }
+.prose-legal strong { @apply font-semibold text-ink-900; }
+
+/* Rendered ATS description bodies. */
+.prose-job :where(h1, h2, h3, h4) {
+  @apply font-display font-semibold text-ink-900 mt-7 mb-2;
+}
+.prose-job h3 { @apply text-lg; }
+.prose-job p { @apply my-3 leading-relaxed text-ink-700; }
+.prose-job ul { @apply my-3 list-disc pl-6 space-y-1.5 text-ink-700 marker:text-brand-400; }
+.prose-job ol { @apply my-3 list-decimal pl-6 space-y-1.5 text-ink-700 marker:text-brand-400; }
+.prose-job a { @apply text-brand-700 underline decoration-brand-200 underline-offset-2 hover:decoration-brand-500; }
+.prose-job strong { @apply font-semibold text-ink-900; }
+.prose-job blockquote { @apply border-l-2 border-brand-200 pl-4 italic text-ink-600; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "external_id": "seed:gitlab:1",
+    "provider": "greenhouse",
+    "company_name": "GitLab",
+    "company_domain": "gitlab.com",
+    "title": "Senior Backend Engineer, Ruby",
+    "apply_url": "https://boards.greenhouse.io/gitlab/jobs/1",
+    "location_raw": "Remote, Worldwide",
+    "employment_type": "Full-Time",
+    "posted_at": "2026-07-14T09:00:00.000Z",
+    "description_html": "<p>GitLab is an all-remote company and you can <strong>work from anywhere in the world</strong>. We are hiring a Senior Backend Engineer to build scalable APIs in <em>Ruby on Rails</em> backed by <em>PostgreSQL</em> and Redis, deployed on AWS with Kubernetes.</p><h3>Compensation</h3><p>The base salary range for this role is $119,900.00 to $193,200.00 USD.</p><h3>Benefits</h3><ul><li>Home office budget and equipment stipend</li><li>Learning budget for courses and certifications</li><li>Health insurance and a retirement plan (401k)</li><li>Unlimited PTO</li></ul>"
+  },
+  {
+    "external_id": "seed:automattic:2",
+    "provider": "greenhouse",
+    "company_name": "Automattic",
+    "company_domain": "automattic.com",
+    "title": "Frontend Engineer (React)",
+    "apply_url": "https://boards.greenhouse.io/automattic/jobs/2",
+    "location_raw": "Anywhere in the World",
+    "employment_type": "Full-Time",
+    "posted_at": "2026-07-16T09:00:00.000Z",
+    "description_html": "<p>Automattic is fully distributed with no location restriction. Build delightful web interfaces with <strong>React</strong>, TypeScript and Tailwind. We ship WordPress.com to millions.</p><p>Salary: $90,000 to $150,000 USD depending on experience.</p><ul><li>Coworking stipend for a co-working space near you</li><li>Learning budget</li><li>Health insurance</li></ul>"
+  },
+  {
+    "external_id": "seed:zapier:3",
+    "provider": "greenhouse",
+    "company_name": "Zapier",
+    "company_domain": "zapier.com",
+    "title": "Fullstack Engineer",
+    "apply_url": "https://boards.greenhouse.io/zapier/jobs/3",
+    "location_raw": "Remote (Global)",
+    "employment_type": "Full-Time",
+    "posted_at": "2026-07-12T09:00:00.000Z",
+    "description_html": "<p>Zapier is 100% remote, worldwide. Work across the stack with <strong>Python</strong> (Django), <strong>Node.js</strong> and <strong>React</strong>. GraphQL experience a plus.</p><p>The pay range is $145,000 to $210,000 USD.</p><ul><li>Equipment budget for your home office</li><li>Retirement plan</li><li>Health insurance and parental leave</li></ul>"
+  },
+  {
+    "external_id": "seed:doist:4",
+    "provider": "lever",
+    "company_name": "Doist",
+    "company_domain": "doist.com",
+    "title": "Product Designer",
+    "apply_url": "https://jobs.lever.co/doist/4",
+    "location_raw": "Worldwide",
+    "employment_type": "Full-Time",
+    "posted_at": "2026-07-15T09:00:00.000Z",
+    "description_html": "<p>Doist is location independent — work from anywhere. We're looking for a Product Designer fluent in <strong>Figma</strong> to craft UX for Todoist and Twist. Strong UI/UX portfolio required.</p><p>€70,000 – €95,000 EUR.</p><ul><li>Learning budget and conference budget</li><li>Coworking stipend</li></ul>"
+  },
+  {
+    "external_id": "seed:remotecom:5",
+    "provider": "greenhouse",
+    "company_name": "Remote",
+    "company_domain": "remote.com",
+    "title": "DevOps Engineer",
+    "apply_url": "https://boards.greenhouse.io/remotecom/jobs/5",
+    "location_raw": "Remote - Anywhere",
+    "employment_type": "Full-Time",
+    "posted_at": "2026-07-13T09:00:00.000Z",
+    "description_html": "<p>Remote hires globally with no timezone restriction. Own our infrastructure: <strong>Kubernetes</strong>, <strong>Terraform</strong>, AWS and CI/CD via GitHub Actions.</p><p>Compensation: $110,000 to $160,000 USD.</p><ul><li>Home office budget</li><li>Health insurance</li><li>Retirement plan and stock options</li></ul>"
+  },
+  {
+    "external_id": "seed:hotjar:6",
+    "provider": "workable",
+    "company_name": "Hotjar",
+    "company_domain": "hotjar.com",
+    "title": "Customer Support Specialist",
+    "apply_url": "https://hotjar.workable.com/j/6",
+    "location_raw": "Fully remote, worldwide",
+    "employment_type": "Full-Time",
+    "posted_at": "2026-07-17T09:00:00.000Z",
+    "description_html": "<p>Hotjar is fully remote worldwide. Help customers over email and chat using Zendesk and Intercom. No cold calling — this is a no-talking, written support role.</p><p>€40,000 to €55,000 EUR.</p><ul><li>Learning budget</li><li>Health insurance</li><li>Unlimited time off</li></ul>"
+  },
+  {
+    "external_id": "seed:toggl:7",
+    "provider": "workable",
+    "company_name": "Toggl",
+    "company_domain": "toggl.com",
+    "title": "Growth Marketing Manager",
+    "apply_url": "https://toggl.workable.com/j/7",
+    "location_raw": "Anywhere",
+    "employment_type": "Full-Time",
+    "posted_at": "2026-07-11T09:00:00.000Z",
+    "description_html": "<p>Toggl is a work-from-anywhere company. Lead growth and SEO, own content and demand generation. Experience with HubSpot preferred.</p><p>$80,000 to $120,000 USD.</p><ul><li>Coworking stipend</li><li>Learning budget for courses</li></ul>"
+  },
+  {
+    "external_id": "seed:close:8",
+    "provider": "ashby",
+    "company_name": "Close",
+    "company_domain": "close.com",
+    "title": "Account Executive (Remote)",
+    "apply_url": "https://jobs.ashbyhq.com/close/8",
+    "location_raw": "Global remote",
+    "employment_type": "Full-Time",
+    "posted_at": "2026-07-10T09:00:00.000Z",
+    "description_html": "<p>Close is a globally remote SaaS company with no location restriction. Sell our CRM to SMBs. Salesforce or HubSpot experience is a plus.</p><p>OTE $130,000 to $180,000 USD.</p><ul><li>Home office equipment budget</li><li>Health insurance</li><li>Retirement plan</li></ul>"
+  },
+  {
+    "external_id": "seed:aha:9",
+    "provider": "greenhouse",
+    "company_name": "Aha!",
+    "company_domain": "aha.io",
+    "title": "Product Manager",
+    "apply_url": "https://boards.greenhouse.io/aha/jobs/9",
+    "location_raw": "Remote worldwide",
+    "employment_type": "Full-Time",
+    "posted_at": "2026-07-09T09:00:00.000Z",
+    "description_html": "<p>Aha! is location independent. Own product management for our roadmap software. Partner with engineering and design to ship.</p><p>$120,000 to $170,000 USD.</p><ul><li>Learning budget</li><li>Health insurance and retirement plan</li></ul>"
+  },
+  {
+    "external_id": "seed:chess:10",
+    "provider": "lever",
+    "company_name": "Chess.com",
+    "company_domain": "chess.com",
+    "title": "Part-Time Frontend Developer",
+    "apply_url": "https://jobs.lever.co/chess/10",
+    "location_raw": "Worldwide (no location restriction)",
+    "employment_type": "Part-Time",
+    "posted_at": "2026-07-08T09:00:00.000Z",
+    "description_html": "<p>Chess.com is fully remote worldwide. This is a part-time role building UI in <strong>Vue</strong> and JavaScript. No experience required — juniors welcome, we provide mentorship.</p><p>$45,000 to $70,000 USD pro-rated.</p><ul><li>Equipment budget</li><li>Learning budget</li></ul>"
+  }
+]
