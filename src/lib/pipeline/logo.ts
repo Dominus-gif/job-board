@@ -23,10 +23,16 @@ export function logoCandidates(opts: { domain?: string; name: string; provided?:
   const list: string[] = [];
   if (provided && /^https?:\/\//.test(provided)) list.push(provided);
   if (domain) {
-    // unavatar aggregates Clearbit/logo providers/favicons; good quality, no key.
-    list.push(`https://unavatar.io/${encodeURIComponent(domain)}?fallback=false`);
-    // Google's favicon service — very reliable fallback that always renders.
-    list.push(`https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128`);
+    const d = encodeURIComponent(domain);
+    // True HQ vector/raster brand logos when a Logo.dev token is configured
+    // (free tier at logo.dev). Best quality; optional.
+    const token = process.env.NEXT_PUBLIC_LOGO_TOKEN;
+    if (token) list.push(`https://img.logo.dev/${d}?token=${token}&size=256&format=png&retina=true`);
+    // Google's favicon service at 256 returns the largest native icon a site
+    // has (often 180–256px) — the crispest keyless source.
+    list.push(`https://www.google.com/s2/favicons?domain=${d}&sz=256`);
+    // unavatar aggregates logo providers/favicons; clean 404 on unknown.
+    list.push(`https://unavatar.io/${d}?fallback=false`);
   }
   return Array.from(new Set(list));
 }
