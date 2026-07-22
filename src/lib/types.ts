@@ -18,6 +18,9 @@ export type Category =
 
 export type EmploymentType = "Full-Time" | "Part-Time" | "Contract";
 
+/** worldwide = do it from anywhere; regional = remote but restricted to a region. */
+export type JobScope = "worldwide" | "regional";
+
 export type AtsProvider =
   | "ashby"
   | "greenhouse"
@@ -79,7 +82,10 @@ export interface Job {
   apply_url: string;
   posted_at: string; // ISO
   expires_at: string; // ISO ("Apply before")
-  location: "Anywhere in the World";
+  /** "Anywhere in the World" for worldwide roles; the region string for regional. */
+  location: string;
+  /** worldwide = truly location-independent; regional = remote but region-locked. */
+  scope: JobScope;
   employment_type: EmploymentType;
   salary: Salary;
   category: Category;

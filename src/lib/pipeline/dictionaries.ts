@@ -124,6 +124,38 @@ export const DISQUALIFYING_PHRASES: string[] = [
 ];
 
 /**
+ * Truly on-site / hybrid indicators. A job with one of these is NOT remote at
+ * all, so it's rejected entirely (not even eligible for the regional board).
+ */
+export const ONSITE_PHRASES: string[] = [
+  "hybrid",
+  "on-site",
+  "onsite",
+  "on site",
+  "in-office",
+  "in office",
+  "in the office",
+  "office-based",
+  "office based",
+  "within commuting distance",
+];
+
+/**
+ * Signals that a role is remote (even if region-locked). Used to route a
+ * non-worldwide job to the "Remote — regional" board rather than rejecting it.
+ */
+export const REMOTE_SIGNALS: string[] = [
+  "remote",
+  "work from home",
+  "wfh",
+  "distributed team",
+  "fully distributed",
+  "telecommute",
+  "home-based",
+  "home based",
+];
+
+/**
  * If the location field matches one of these, it's a clean accept for that
  * field (still subject to description disqualifiers).
  */

@@ -1,5 +1,5 @@
-import type { FilterResult, RawJob } from "../types";
-import { ANYWHERE_LOCATION_TOKENS, ANYWHERE_SIGNALS, DISQUALIFYING_PHRASES } from "./dictionaries";
+import type { FilterResult, JobScope, RawJob } from "../types";
+import { ANYWHERE_LOCATION_TOKENS, ANYWHERE_SIGNALS, DISQUALIFYING_PHRASES, ONSITE_PHRASES, REMOTE_SIGNALS } from "./dictionaries";
 import { containsPhrase, firstMatch, toText } from "./text";
 
 /**
@@ -54,4 +54,43 @@ export function filterJob(job: RawJob): FilterResult {
     accepted: false,
     reason: "Rejected: no explicit worldwide signal and location is ambiguous.",
   };
+}
+
+export interface Classification {
+  scope: JobScope | "rejected";
+  region?: string; // for regional roles, the location/region string
+  reason: string;
+}
+
+/**
+ * Classify a job into three buckets:
+ *   - "worldwide": passes the strict Work-From-Anywhere filter (main board).
+ *   - "regional":  a genuinely remote role, but restricted to a country/region
+ *                  (e.g. "Remote, US") — shown on the clearly-labelled regional board.
+ *   - "rejected":  on-site/hybrid or not clearly remote — never shown.
+ *
+ * The worldwide bucket uses `filterJob` unchanged, so the main promise is intact.
+ */
+export function classifyJob(job: RawJob): Classification {
+  const worldwide = filterJob(job);
+  if (worldwide.accepted) return { scope: "worldwide", reason: worldwide.reason };
+
+  const location = (job.location_raw || "").toLowerCase().trim();
+  const descText = toText(job.description_html || "");
+  const haystack = `${location} \n ${descText}`;
+
+  // On-site / hybrid → not remote at all → rejected.
+  const onsite = firstMatch(haystack, ONSITE_PHRASES);
+  if (onsite) return { scope: "rejected", reason: `On-site/hybrid ("${onsite}").` };
+
+  // Remote (per the location, description, or an inherently-remote feed source)
+  // but region-locked → regional board.
+  const feedProvider = ["remotive", "jobicy", "arbeitnow", "himalayas", "workingnomads", "remoteok"].includes(job.provider);
+  const remote = feedProvider || firstMatch(haystack, REMOTE_SIGNALS);
+  if (remote) {
+    const region = (job.location_raw || "").trim().replace(/\s*;\s*/g, " · ") || "Remote";
+    return { scope: "regional", region, reason: "Remote, but restricted to a region." };
+  }
+
+  return { scope: "rejected", reason: "Not clearly a remote role." };
 }

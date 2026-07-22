@@ -15,7 +15,7 @@ import { ShareButtons } from "@/components/ShareButtons";
 import { AdSlot } from "@/components/AdSlot";
 import { CompanyLogo } from "@/components/CompanyLogo";
 import {
-  GlobeIcon, BriefcaseIcon, CalendarIcon, WalletIcon, TagIcon, CheckIcon, BuildingIcon, ArrowUpRightIcon,
+  GlobeIcon, BriefcaseIcon, CalendarIcon, WalletIcon, TagIcon, CheckIcon, BuildingIcon, ArrowUpRightIcon, PinIcon,
 } from "@/components/icons";
 
 // Render live-added slugs on demand, and revalidate so removed jobs flip to
@@ -105,9 +105,13 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
                       Trending
                     </span>
                   )}
-                  {job.verified && (
+                  {job.scope === "worldwide" ? (
                     <span className="inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-emerald-700 ring-1 ring-inset ring-emerald-100">
                       <CheckIcon className="h-3.5 w-3.5" /> Verified remote
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 rounded-md bg-amber-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-amber-800 ring-1 ring-inset ring-amber-200">
+                      <PinIcon className="h-3.5 w-3.5" /> Regional remote
                     </span>
                   )}
                 </div>
@@ -120,6 +124,9 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
                   Posted {formatDate(job.posted_at)}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
+                  {job.scope === "regional" && (
+                    <span className="chip bg-amber-50 text-amber-800 ring-amber-200"><PinIcon className="h-3.5 w-3.5" /> {job.location}</span>
+                  )}
                   <span className="chip"><BriefcaseIcon className="h-3.5 w-3.5" /> {job.employment_type}</span>
                   <span className="chip"><TagIcon className="h-3.5 w-3.5" /> {job.category}</span>
                   {salary && tier && (
@@ -145,6 +152,16 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <article className="lg:col-span-2">
             <InactiveBanner />
+            {job.scope === "regional" && (
+              <div className="mb-6 flex gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+                <PinIcon className="mt-0.5 h-5 w-5 flex-shrink-0 text-amber-500" />
+                <p>
+                  This role is <strong>fully remote</strong> but the employer can only hire in{" "}
+                  <strong>{job.location}</strong>. Make sure you&apos;re eligible to work there before applying.{" "}
+                  <Link href="/" className="font-semibold underline">See work-from-anywhere jobs →</Link>
+                </p>
+              </div>
+            )}
             <h2 className="font-display text-lg font-bold text-ink-900">About this role</h2>
             <div className="prose-job mt-3 max-w-none" dangerouslySetInnerHTML={{ __html: job.description_html }} />
             <AdSlot />

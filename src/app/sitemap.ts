@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticPages = [
     "/", "/companies", "/hiring", "/advertise", "/newsletter", "/rss-feeds",
-    "/about", "/contact", "/privacy", "/terms",
+    "/remote-regional-jobs", "/about", "/contact", "/privacy", "/terms",
   ].map((path) => ({ url: abs(path), lastModified: now, changeFrequency: "daily" as const, priority: path === "/" ? 1 : 0.6 }));
 
   const landings = (await allLandingSlugs()).map((slug) => ({

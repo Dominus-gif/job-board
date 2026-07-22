@@ -17,11 +17,12 @@ export function jobPostingJsonLd(job: Job) {
       logo: job.company_logo.startsWith("http") ? job.company_logo : undefined,
       sameAs: job.company_domain ? `https://${job.company_domain}` : undefined,
     },
-    // Truly location-independent: fully remote worldwide.
+    // Remote; worldwide roles accept applicants anywhere, regional ones are
+    // restricted to a specific country/region.
     jobLocationType: "TELECOMMUTE",
     applicantLocationRequirements: {
       "@type": "AdministrativeArea",
-      name: "Anywhere in the World",
+      name: job.scope === "regional" ? job.location : "Anywhere in the World",
     },
     directApply: false,
     url: abs(`/jobs/${job.slug}`),

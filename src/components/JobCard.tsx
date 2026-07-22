@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Job } from "@/lib/types";
 import { formatSalary, salaryTier } from "@/lib/salary";
 import { timeAgo } from "@/lib/format";
-import { CheckIcon } from "./icons";
+import { CheckIcon, PinIcon } from "./icons";
 import { CompanyLogo } from "./CompanyLogo";
 
 export function JobCard({
@@ -62,6 +62,11 @@ export function JobCard({
         </p>
 
         <div className="mt-3.5 flex flex-wrap items-center gap-2">
+          {job.scope === "regional" && (
+            <span className="chip bg-amber-50 text-amber-800 ring-amber-200">
+              <PinIcon className="h-3.5 w-3.5" /> {job.location}
+            </span>
+          )}
           <span className="chip">{job.employment_type}</span>
           <span className="chip">{job.category}</span>
           {/* Salary is shown in the right rail on ≥sm; surface it here on mobile. */}

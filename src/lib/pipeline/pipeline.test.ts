@@ -27,9 +27,9 @@ describe("pipeline end-to-end", () => {
     expect(report.deduped).toBe(1);
   });
 
-  it("rejects a disqualified job mixed into the batch", () => {
-    const bad: RawJob = {
-      external_id: "bad",
+  it("routes a US-only remote job to the regional board (not worldwide, not rejected)", () => {
+    const regional: RawJob = {
+      external_id: "regional",
       provider: "lever",
       company_name: "Nope Inc",
       title: "Engineer",
@@ -37,8 +37,26 @@ describe("pipeline end-to-end", () => {
       apply_url: "https://x",
       location_raw: "Remote (US)",
     };
-    const report = runPipeline([bad, seed[0] as RawJob]);
-    expect(report.accepted).toBe(1);
+    const report = runPipeline([regional, seed[0] as RawJob]);
+    expect(report.accepted).toBe(1); // worldwide (the seed job)
+    expect(report.regionalCount).toBe(1); // the US-only remote job
+    expect(report.regional[0].scope).toBe("regional");
+    expect(report.regional[0].location).toContain("US");
+  });
+
+  it("rejects a truly on-site job entirely", () => {
+    const onsite: RawJob = {
+      external_id: "onsite",
+      provider: "lever",
+      company_name: "Office Co",
+      title: "Engineer",
+      description_html: "<p>Hybrid role, 3 days in-office in Berlin.</p>",
+      apply_url: "https://x",
+      location_raw: "Berlin, Germany",
+    };
+    const report = runPipeline([onsite]);
+    expect(report.accepted).toBe(0);
+    expect(report.regionalCount).toBe(0);
     expect(report.rejected).toBe(1);
   });
 });

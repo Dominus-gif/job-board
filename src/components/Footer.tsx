@@ -24,9 +24,10 @@ export function Footer() {
         </div>
 
         <FooterCol title="Categories">
-          {CATEGORIES.slice(0, 6).map((c) => (
+          {CATEGORIES.slice(0, 5).map((c) => (
             <FooterLink key={c} href={`/remote-${categoryToSlug(c)}-jobs`}>{c}</FooterLink>
           ))}
+          <FooterLink href="/remote-regional-jobs">Remote — regional</FooterLink>
         </FooterCol>
 
         <FooterCol title="Company">

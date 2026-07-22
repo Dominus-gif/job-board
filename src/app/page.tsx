@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAllJobs, getCompanies, getJobsByCategory, getSubscriberCount } from "@/lib/db";
+import { getAllJobs, getCompanies, getJobsByCategory, getRegionalCount, getSubscriberCount } from "@/lib/db";
 import { categoryToSlug } from "@/lib/taxonomy";
 import { CategoryBar } from "@/components/CategoryBar";
 import { JobList } from "@/components/JobList";
@@ -7,6 +7,7 @@ import { JobBoard } from "@/components/JobBoard";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { FaqSection } from "@/components/FaqSection";
 import { AdSlot } from "@/components/AdSlot";
+import { PinIcon, ArrowUpRightIcon } from "@/components/icons";
 
 const HOME_FAQ = [
   {
@@ -37,6 +38,7 @@ export default async function HomePage() {
   const jobs = await getAllJobs();
   const subscribers = getSubscriberCount();
   const companies = await getCompanies();
+  const regionalCount = await getRegionalCount();
   const previews = await Promise.all(
     PREVIEW_ORDER.map(async (category) => ({ category, list: (await getJobsByCategory(category)).slice(0, 4) }))
   );
@@ -100,6 +102,28 @@ export default async function HomePage() {
           <SectionHeader eyebrow="Live feed" title="All jobs" href="/page/1" linkLabel="Paginated view" />
           <JobBoard jobs={jobs} />
         </section>
+
+        {regionalCount > 0 && (
+          <Link
+            href="/remote-regional-jobs"
+            className="mt-6 flex flex-col items-start justify-between gap-3 rounded-2xl border border-amber-200 bg-amber-50/70 p-5 transition hover:border-amber-300 hover:shadow-card sm:flex-row sm:items-center"
+          >
+            <div className="flex items-start gap-3">
+              <span className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-700">
+                <PinIcon className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="font-display font-bold text-ink-900">Open to region-locked remote roles?</p>
+                <p className="mt-0.5 text-sm text-ink-600">
+                  {regionalCount.toLocaleString("en-US")} more remote jobs are restricted to a specific country or region.
+                </p>
+              </div>
+            </div>
+            <span className="inline-flex flex-shrink-0 items-center gap-1 text-sm font-semibold text-amber-800">
+              Browse regional jobs <ArrowUpRightIcon className="h-4 w-4" />
+            </span>
+          </Link>
+        )}
 
         <AdSlot />
 

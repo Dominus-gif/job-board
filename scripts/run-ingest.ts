@@ -22,8 +22,9 @@ async function main() {
   console.log("─".repeat(40));
   console.log(`fetched : ${report.fetched}`);
   console.log(`deduped : ${report.deduped}`);
-  console.log(`accepted: ${report.accepted}`);
-  console.log(`rejected: ${report.rejected}`);
+  console.log(`worldwide: ${report.accepted}`);
+  console.log(`regional : ${report.regionalCount}`);
+  console.log(`rejected : ${report.rejected}`);
 
   if (report.rejections.length) {
     console.log("\nRejections:");

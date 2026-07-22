@@ -2,14 +2,14 @@ import type { Company, Job, RawJob } from "../types";
 import { jobSlug, slugify, stableSuffix } from "../slug";
 import { baselineInterest, IN_DEMAND_THRESHOLD } from "../interest";
 import { sanitizeDescription, toText } from "./text";
-import { filterJob } from "./filter";
+import { filterJob, classifyJob } from "./filter";
 import { enrich } from "./enrich";
 import { dedupeRaw } from "./dedupe";
 import { ingestAll } from "./ingest";
 import { ingestFeeds } from "./feeds";
 import { resolveLogo } from "./logo";
 
-export { filterJob } from "./filter";
+export { filterJob, classifyJob } from "./filter";
 export { enrich, extractSkills, classifyCategory, extractBenefits, parseSalary, formatSalary } from "./enrich";
 export { ingestAll, ADAPTERS } from "./ingest";
 export { dedupeRaw } from "./dedupe";
@@ -20,17 +20,24 @@ const DAY = 24 * 60 * 60 * 1000;
 export interface PipelineReport {
   fetched: number;
   deduped: number;
-  accepted: number;
+  accepted: number; // worldwide
+  regionalCount: number;
   rejected: number;
-  jobs: Job[];
+  jobs: Job[]; // worldwide
+  regional: Job[]; // remote but region-locked
   rejections: { title: string; company: string; reason: string }[];
 }
 
 /**
- * Convert a single accepted RawJob into a published Job record
- * (runs Stage C enrichment). `slugSeed` keeps slugs deterministic in tests.
+ * Convert a single RawJob into a published Job record (runs Stage C enrichment).
+ * `scope`/`region` place it on the worldwide or regional board; `slugSeed` keeps
+ * slugs deterministic in tests.
  */
-export function toPublishedJob(raw: RawJob, opts: { slugSeed?: number } = {}): Job {
+export function toPublishedJob(
+  raw: RawJob,
+  opts: { slugSeed?: number; scope?: Job["scope"]; region?: string } = {}
+): Job {
+  const scope = opts.scope ?? "worldwide";
   const enriched = enrich(raw);
   const postedAt = raw.posted_at ? new Date(raw.posted_at) : new Date();
   const expiresAt = new Date(postedAt.getTime() + 60 * DAY); // spec: +60 days
@@ -53,7 +60,8 @@ export function toPublishedJob(raw: RawJob, opts: { slugSeed?: number } = {}): J
     apply_url: raw.apply_url,
     posted_at: postedAt.toISOString(),
     expires_at: expiresAt.toISOString(),
-    location: "Anywhere in the World",
+    location: scope === "regional" ? opts.region || raw.location_raw || "Remote" : "Anywhere in the World",
+    scope,
     employment_type: raw.employment_type || "Full-Time",
     salary: enriched.salary,
     category: enriched.category,
@@ -78,24 +86,29 @@ export function toPublishedJob(raw: RawJob, opts: { slugSeed?: number } = {}): J
  */
 export function runPipeline(rawJobs: RawJob[]): PipelineReport {
   const deduped = dedupeRaw(rawJobs);
-  const jobs: Job[] = [];
+  const jobs: Job[] = []; // worldwide
+  const regional: Job[] = []; // remote but region-locked
   const rejections: PipelineReport["rejections"] = [];
 
   for (const raw of deduped) {
-    const verdict = filterJob(raw);
-    if (!verdict.accepted) {
-      rejections.push({ title: raw.title, company: raw.company_name, reason: verdict.reason });
-      continue;
+    const c = classifyJob(raw);
+    if (c.scope === "worldwide") {
+      jobs.push(toPublishedJob(raw, { scope: "worldwide" }));
+    } else if (c.scope === "regional") {
+      regional.push(toPublishedJob(raw, { scope: "regional", region: c.region }));
+    } else {
+      rejections.push({ title: raw.title, company: raw.company_name, reason: c.reason });
     }
-    jobs.push(toPublishedJob(raw));
   }
 
   return {
     fetched: rawJobs.length,
     deduped: deduped.length,
     accepted: jobs.length,
+    regionalCount: regional.length,
     rejected: rejections.length,
     jobs,
+    regional,
     rejections,
   };
 }

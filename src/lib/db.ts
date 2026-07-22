@@ -32,11 +32,29 @@ function applyInterest(job: Job): Job {
 
 /* -------------------------------- queries -------------------------------- */
 
+/** The main board: only truly worldwide, location-independent roles. */
 export async function getAllJobs(): Promise<Job[]> {
   const jobs = await loadJobs();
-  return jobs.filter((j) => j.status === "published").map(applyInterest).sort(byRank);
+  return jobs
+    .filter((j) => j.status === "published" && j.scope === "worldwide")
+    .map(applyInterest)
+    .sort(byRank);
 }
 
+/** The "Remote — regional" board: genuinely remote, but region-locked roles. */
+export async function getRegionalJobs(): Promise<Job[]> {
+  const jobs = await loadJobs();
+  return jobs
+    .filter((j) => j.status === "published" && j.scope === "regional")
+    .map(applyInterest)
+    .sort(byRank);
+}
+
+export async function getRegionalCount(): Promise<number> {
+  return (await loadJobs()).filter((j) => j.scope === "regional").length;
+}
+
+/** Look up any job by slug (worldwide OR regional). */
 export async function getJobBySlug(slug: string): Promise<Job | undefined> {
   const jobs = await loadJobs();
   const job = jobs.find((j) => j.slug === slug);

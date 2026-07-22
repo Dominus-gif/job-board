@@ -51,26 +51,48 @@ interface Cache {
 }
 let cache: Cache | null = null;
 let inflight: Promise<Job[]> | null = null;
+// The last successful LIVE result. Once we've been live we never downgrade to
+// seed — a failed re-scrape keeps serving this so listings and job pages don't
+// suddenly collapse to the 10 seed jobs.
+let lastGoodLive: Job[] | null = null;
+
+const RETRY_MS = 3 * 60 * 1000; // after a failed live pull, retry in ~3 min
+
+// Age a cache entry so it expires after `ms` instead of the full TTL.
+function agedAt(ms: number): number {
+  return Date.now() - TTL_MS + ms;
+}
 
 async function refresh(): Promise<Job[]> {
   if (LIVE_ENABLED) {
     try {
       const report = await ingestAndProcess(companies);
-      const jobs = withOverrides(report.jobs);
+      // Cache worldwide + regional jobs together; db.ts splits them by scope.
+      const jobs = withOverrides([...report.jobs, ...report.regional]);
       if (jobs.length > 0) {
-        console.log(`[store] live ingest ok: ${jobs.length} jobs (from ${report.fetched} fetched).`);
+        console.log(`[store] live ingest ok: ${report.jobs.length} worldwide + ${report.regionalCount} regional (from ${report.fetched} fetched).`);
+        lastGoodLive = jobs;
         cache = { jobs, at: Date.now(), live: true };
         return jobs;
       }
-      console.warn(`[store] live ingest returned 0 jobs (fetched ${report.fetched}) — using seed. Check network access to ATS APIs.`);
+      console.warn(`[store] live ingest returned 0 jobs (fetched ${report.fetched}).`);
     } catch (err) {
-      console.warn("[store] live ingest failed — using seed:", (err as Error)?.message);
+      console.warn("[store] live ingest failed:", (err as Error)?.message);
+    }
+    // Live failed or returned 0. Never downgrade to seed once we've had live
+    // data — keep the last good result and retry soon.
+    if (lastGoodLive) {
+      console.warn(`[store] keeping last good live data (${lastGoodLive.length} jobs); retrying in ~${RETRY_MS / 60000}m.`);
+      cache = { jobs: lastGoodLive, at: agedAt(RETRY_MS), live: true };
+      return lastGoodLive;
     }
   } else {
     console.log("[store] ANYWHERE_LIVE=false — using seed data.");
   }
+  // No live data ever obtained (offline, or LIVE disabled) — use seed, but keep
+  // retrying soon so we switch to live as soon as the network is reachable.
   const seed = processSeed();
-  cache = { jobs: seed, at: Date.now(), live: false };
+  cache = { jobs: seed, at: LIVE_ENABLED ? agedAt(RETRY_MS) : Date.now(), live: false };
   return seed;
 }
 
