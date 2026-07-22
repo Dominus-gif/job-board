@@ -43,10 +43,11 @@ export default async function HomePage() {
     PREVIEW_ORDER.map(async (category) => ({ category, list: (await getJobsByCategory(category)).slice(0, 4) }))
   );
 
+  const totalRoles = jobs.length + regionalCount;
   const stats = [
-    [jobs.length.toString(), "open roles"],
-    [companies.length.toString(), "hiring companies"],
-    ["Earth", "your only limit"],
+    [totalRoles.toLocaleString("en-US"), "open remote roles"],
+    [jobs.length.toLocaleString("en-US"), "work-from-anywhere"],
+    [regionalCount.toLocaleString("en-US"), "region-based"],
   ] as const;
 
   return (

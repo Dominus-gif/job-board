@@ -32,22 +32,20 @@ function applyInterest(job: Job): Job {
 
 /* -------------------------------- queries -------------------------------- */
 
+/** Every published job (worldwide + regional), interest-folded and ranked. */
+async function allPublished(): Promise<Job[]> {
+  const jobs = await loadJobs();
+  return jobs.filter((j) => j.status === "published").map(applyInterest).sort(byRank);
+}
+
 /** The main board: only truly worldwide, location-independent roles. */
 export async function getAllJobs(): Promise<Job[]> {
-  const jobs = await loadJobs();
-  return jobs
-    .filter((j) => j.status === "published" && j.scope === "worldwide")
-    .map(applyInterest)
-    .sort(byRank);
+  return (await allPublished()).filter((j) => j.scope === "worldwide");
 }
 
 /** The "Remote — regional" board: genuinely remote, but region-locked roles. */
 export async function getRegionalJobs(): Promise<Job[]> {
-  const jobs = await loadJobs();
-  return jobs
-    .filter((j) => j.status === "published" && j.scope === "regional")
-    .map(applyInterest)
-    .sort(byRank);
+  return (await allPublished()).filter((j) => j.scope === "regional");
 }
 
 export async function getRegionalCount(): Promise<number> {
@@ -106,22 +104,41 @@ export async function getAllSkills(): Promise<{ skill: string; count: number }[]
 
 /* ------------------------------- companies ------------------------------- */
 
-export async function getCompanies(): Promise<(Company & { jobCount: number })[]> {
-  const jobs = await getAllJobs();
-  const counts = new Map<string, number>();
-  for (const j of jobs) counts.set(j.company_slug, (counts.get(j.company_slug) ?? 0) + 1);
-  return allowList
-    .map((c) => ({ ...c, jobCount: counts.get(c.slug) ?? 0 }))
-    .filter((c) => c.jobCount > 0)
-    .sort((a, b) => b.jobCount - a.jobCount || a.name.localeCompare(b.name));
+/**
+ * Every company we have at least one role for (worldwide OR regional) — not just
+ * the curated allow-list. Allow-list companies keep their rich profile (rating,
+ * reviews, founded…); companies discovered via feeds get a minimal profile from
+ * the job data. `worldwideCount` lets pages show the split.
+ */
+export type CompanyListing = Company & { jobCount: number; worldwideCount: number };
+
+export async function getCompanies(): Promise<CompanyListing[]> {
+  const jobs = await allPublished();
+  const allow = new Map(allowList.map((c) => [c.slug, c]));
+  const map = new Map<string, CompanyListing>();
+  for (const j of jobs) {
+    if (!j.company_slug) continue;
+    let entry = map.get(j.company_slug);
+    if (!entry) {
+      const a = allow.get(j.company_slug);
+      entry = a
+        ? { ...a, jobCount: 0, worldwideCount: 0 }
+        : { slug: j.company_slug, name: j.company_name, domain: j.company_domain, logo: j.company_logo, jobCount: 0, worldwideCount: 0 };
+      map.set(j.company_slug, entry);
+    }
+    entry.jobCount++;
+    if (j.scope === "worldwide") entry.worldwideCount++;
+  }
+  return [...map.values()].sort((a, b) => b.jobCount - a.jobCount || a.name.localeCompare(b.name));
 }
 
-export async function getCompanyBySlug(slug: string): Promise<(Company & { jobCount: number }) | undefined> {
+export async function getCompanyBySlug(slug: string): Promise<CompanyListing | undefined> {
   return (await getCompanies()).find((c) => c.slug === slug);
 }
 
+/** All of a company's roles — worldwide and regional. */
 export async function getJobsByCompany(slug: string): Promise<Job[]> {
-  return (await getAllJobs()).filter((j) => j.company_slug === slug);
+  return (await allPublished()).filter((j) => j.company_slug === slug);
 }
 
 /* ------------------------------ pagination ------------------------------- */

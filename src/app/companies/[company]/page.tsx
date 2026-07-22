@@ -11,7 +11,10 @@ export const dynamicParams = true;
 export const revalidate = 1800;
 
 export async function generateStaticParams() {
-  return (await getCompanies()).map((c) => ({ company: c.slug }));
+  // Pre-build companies with a few roles; the long tail renders on demand.
+  return (await getCompanies())
+    .filter((c) => c.jobCount >= 2)
+    .map((c) => ({ company: c.slug }));
 }
 
 export async function generateMetadata({ params }: { params: { company: string } }): Promise<Metadata> {
@@ -19,7 +22,7 @@ export async function generateMetadata({ params }: { params: { company: string }
   if (!company) return {};
   return {
     title: `${company.name} — Remote Jobs, Reviews & Company Profile`,
-    description: `${company.name} hires globally with no location restriction. See company details, ratings from Glassdoor and more, plus their ${company.jobCount} open work-from-anywhere roles.`,
+    description: `${company.name} company profile: details, employee ratings from Glassdoor and more, and their ${company.jobCount} open remote ${company.jobCount === 1 ? "role" : "roles"}${company.worldwideCount > 0 ? ` (${company.worldwideCount} work-from-anywhere)` : ""}.`,
     alternates: { canonical: abs(`/companies/${company.slug}`) },
   };
 }
@@ -29,11 +32,16 @@ export default async function CompanyPage({ params }: { params: { company: strin
   if (!company) notFound();
   const jobs = await getJobsByCompany(company.slug);
 
+  const worldwide = company.worldwideCount;
+  const regional = company.jobCount - worldwide;
+  const rolesValue = worldwide > 0 && regional > 0
+    ? `${company.jobCount} (${worldwide} worldwide)`
+    : `${company.jobCount} remote`;
   const facts = [
     company.founded ? { icon: <CalendarIcon className="h-5 w-5" />, label: "Founded", value: String(company.founded) } : null,
     company.employees ? { icon: <UsersIcon className="h-5 w-5" />, label: "Employees", value: company.employees } : null,
     company.headquarters ? { icon: <PinIcon className="h-5 w-5" />, label: "Base", value: company.headquarters } : null,
-    { icon: <BriefcaseIcon className="h-5 w-5" />, label: "Open roles", value: `${company.jobCount} remote` },
+    { icon: <BriefcaseIcon className="h-5 w-5" />, label: "Open roles", value: rolesValue },
   ].filter(Boolean) as { icon: React.ReactNode; label: string; value: string }[];
 
   return (
@@ -45,9 +53,15 @@ export default async function CompanyPage({ params }: { params: { company: strin
             <CompanyLogo src={company.logo} name={company.name} domain={company.domain} size={80}
               className="h-20 w-20 flex-shrink-0 rounded-2xl border border-ink-100 bg-white object-contain p-2" />
             <div className="min-w-0">
-              <div className="mb-1.5 inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-emerald-700 ring-1 ring-inset ring-emerald-100">
-                <CheckIcon className="h-3.5 w-3.5" /> Hires worldwide
-              </div>
+              {worldwide > 0 ? (
+                <div className="mb-1.5 inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-emerald-700 ring-1 ring-inset ring-emerald-100">
+                  <CheckIcon className="h-3.5 w-3.5" /> Hires worldwide
+                </div>
+              ) : (
+                <div className="mb-1.5 inline-flex items-center gap-1 rounded-md bg-amber-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-amber-800 ring-1 ring-inset ring-amber-200">
+                  <PinIcon className="h-3.5 w-3.5" /> Hires remotely (region-based)
+                </div>
+              )}
               <h1 className="font-display text-3xl font-extrabold text-ink-900 md:text-4xl">{company.name}</h1>
               <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-ink-500">
                 {company.rating != null && <StarRating rating={company.rating} count={company.review_count} />}
@@ -113,9 +127,14 @@ export default async function CompanyPage({ params }: { params: { company: strin
         {/* Jobs */}
         <section className="mt-12">
           <span className="eyebrow">Open roles</span>
-          <h2 className="mb-5 mt-2 font-display text-xl font-extrabold text-ink-900">
-            {company.jobCount} location-independent {company.jobCount === 1 ? "role" : "roles"} at {company.name}
+          <h2 className="mb-2 mt-2 font-display text-xl font-extrabold text-ink-900">
+            {company.jobCount} remote {company.jobCount === 1 ? "role" : "roles"} at {company.name}
           </h2>
+          {worldwide > 0 && regional > 0 && (
+            <p className="mb-5 text-sm text-ink-500">
+              {worldwide} work-from-anywhere · {regional} region-based
+            </p>
+          )}
           <JobList jobs={jobs} />
         </section>
       </div>
@@ -148,7 +167,9 @@ function companyAbout(c: NonNullable<Awaited<ReturnType<typeof getCompanyBySlug>
       : `${c.name} ${remote}.`
   );
   s.push(
-    `They hire globally with no country, region, or timezone restriction, so every role listed here is one you can genuinely do from anywhere in the world.`
+    c.worldwideCount > 0
+      ? `They hire remotely${c.worldwideCount === c.jobCount ? " with no country restriction, so every role below is one you can do from anywhere in the world" : `, including ${c.worldwideCount} work-from-anywhere ${c.worldwideCount === 1 ? "role" : "roles"} open worldwide`}.`
+      : `They hire remotely, though their current openings are tied to specific countries or regions (shown on each role below).`
   );
   if (c.rating != null) {
     s.push(

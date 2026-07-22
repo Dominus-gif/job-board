@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { Job } from "@/lib/types";
 import { SALARY_BANDS, salaryMidpointUsd } from "@/lib/salary";
+import { availableRegions, jobRegions } from "@/lib/region";
 import { JobCard } from "./JobCard";
 import { SearchIcon, CloseIcon } from "./icons";
 
@@ -24,8 +25,14 @@ export function JobBoard({ jobs, pageSize = 12 }: { jobs: Job[]; pageSize?: numb
   const [skills, setSkills] = useState<string[]>([]);
   const [band, setBand] = useState("any");
   const [emp, setEmp] = useState<EmpFilter>("all");
+  const [region, setRegion] = useState("any");
   const [salaryOnly, setSalaryOnly] = useState(false);
   const [visible, setVisible] = useState(pageSize);
+
+  // Region filter only appears when the feed actually spans regions (i.e. the
+  // regional board); the worldwide board is all "Anywhere" → one region → hidden.
+  const regions = useMemo(() => availableRegions(jobs), [jobs]);
+  const showRegions = regions.length > 1;
 
   // Trending = the most common skills across the current job set.
   const trending = useMemo(() => {
@@ -55,13 +62,14 @@ export function JobBoard({ jobs, pageSize = 12 }: { jobs: Job[]; pageSize?: numb
         for (const s of selected) if (!jobSkills.has(s)) return false;
       }
       if (emp !== "all" && j.employment_type !== emp) return false;
+      if (region !== "any" && !jobRegions(j.location).includes(region)) return false;
       const mid = salaryMidpointUsd(j.salary);
       if (salaryOnly && mid == null) return false;
       if (floor > 0 && (mid == null || mid < floor)) return false;
       return true;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [jobs, query, skills, band, emp, salaryOnly]);
+  }, [jobs, query, skills, band, emp, region, salaryOnly]);
 
   const shown = filtered.slice(0, visible);
   const reset = () => setVisible(pageSize);
@@ -125,6 +133,17 @@ export function JobBoard({ jobs, pageSize = 12 }: { jobs: Job[]; pageSize?: numb
       {/* Filters */}
       <div className="mt-5 rounded-2xl border border-ink-100 bg-white p-4 shadow-card">
         <div className="flex flex-col gap-4">
+          {showRegions && (
+            <FilterGroup label="Region">
+              <FilterChip active={region === "any"} onClick={() => { setRegion("any"); reset(); }}>All regions</FilterChip>
+              {regions.map((r) => (
+                <FilterChip key={r} active={region === r} onClick={() => { setRegion(r); reset(); }}>
+                  {r}
+                </FilterChip>
+              ))}
+            </FilterGroup>
+          )}
+
           <FilterGroup label="Salary">
             {SALARY_BANDS.map((b) => (
               <FilterChip key={b.id} active={band === b.id} onClick={() => { setBand(b.id); reset(); }}>
