@@ -8,6 +8,8 @@
   },
   "scripts": {
     "dev": "next dev",
+    "snapshot": "tsx scripts/build-snapshot.ts",
+    "prebuild": "tsx scripts/build-snapshot.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

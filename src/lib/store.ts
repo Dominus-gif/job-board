@@ -1,24 +1,29 @@
 /**
- * Live job store.
+ * Job store.
  *
- * The source of truth is LIVE ATS data: on demand it polls the company
- * allow-list, runs the ingestion pipeline, and caches the accepted jobs for a
- * short TTL. This is what makes apply links real and keeps the board current —
- * a posting removed upstream simply stops appearing on the next refresh
- * ("auto-unpublish", spec section 8).
+ * Reliability model (works on ephemeral serverless like Vercel):
+ *   1. A build-time SNAPSHOT of every job (generated/snapshot.json) is the
+ *      always-available baseline — bundled with the deployment, so a fresh
+ *      serverless instance instantly has the full list and never collapses to
+ *      the 10-job seed.
+ *   2. loadJobs() returns cached/baseline data IMMEDIATELY and refreshes live in
+ *      the background — a page render never blocks on (or fails because of) a
+ *      slow live scrape.
+ *   3. Live scrapes upgrade the cache when they succeed (real apply links, fresh
+ *      listings); on failure the baseline/last-good data is kept.
  *
- * If live fetching is disabled (ANYWHERE_LIVE=false) or fails/returns nothing
- * (offline, blocked network), it falls back to the bundled seed so the app
- * still renders. `db.ts` is the only consumer.
+ * `db.ts` is the only consumer.
  */
 import type { Company, Job, RawJob } from "./types";
 import { ingestAndProcess, toPublishedJob } from "./pipeline";
 import { resolveLogo } from "./pipeline/logo";
 import companiesSeed from "./seed/companies.json";
 import rawSeedJobs from "./seed/raw-jobs.json";
+import snapshotJobs from "./generated/snapshot.json";
 
 const TTL_MS = Number(process.env.ANYWHERE_CACHE_TTL_MS ?? 30 * 60 * 1000); // 30 min
 const LIVE_ENABLED = process.env.ANYWHERE_LIVE !== "false";
+const IS_BUILD = process.env.NEXT_PHASE === "phase-production-build";
 
 /** IDs promoted to paid/featured placements (spec: manual). Seed-only demo. */
 const FEATURED_IDS = new Set(["seed:gitlab:1", "seed:close:8"]);
@@ -44,6 +49,13 @@ function processSeed(): Job[] {
   );
 }
 
+/**
+ * Always-available baseline: the build-time snapshot of real jobs, or (if the
+ * snapshot is empty, e.g. the build had no network) the small bundled seed.
+ */
+const snapshot = withOverrides(snapshotJobs as Job[]);
+const baseline: Job[] = snapshot.length > 0 ? snapshot : processSeed();
+
 interface Cache {
   jobs: Job[];
   at: number;
@@ -51,23 +63,20 @@ interface Cache {
 }
 let cache: Cache | null = null;
 let inflight: Promise<Job[]> | null = null;
-// The last successful LIVE result. Once we've been live we never downgrade to
-// seed — a failed re-scrape keeps serving this so listings and job pages don't
-// suddenly collapse to the 10 seed jobs.
 let lastGoodLive: Job[] | null = null;
 
-const RETRY_MS = 3 * 60 * 1000; // after a failed live pull, retry in ~3 min
+const RETRY_MS = 3 * 60 * 1000; // after a failed/empty live pull, retry in ~3 min
 
 // Age a cache entry so it expires after `ms` instead of the full TTL.
 function agedAt(ms: number): number {
   return Date.now() - TTL_MS + ms;
 }
 
+/** Perform an actual live scrape; keep baseline/last-good on failure. */
 async function refresh(): Promise<Job[]> {
   if (LIVE_ENABLED) {
     try {
       const report = await ingestAndProcess(companies);
-      // Cache worldwide + regional jobs together; db.ts splits them by scope.
       const jobs = withOverrides([...report.jobs, ...report.regional]);
       if (jobs.length > 0) {
         console.log(`[store] live ingest ok: ${report.jobs.length} worldwide + ${report.regionalCount} regional (from ${report.fetched} fetched).`);
@@ -75,46 +84,61 @@ async function refresh(): Promise<Job[]> {
         cache = { jobs, at: Date.now(), live: true };
         return jobs;
       }
-      console.warn(`[store] live ingest returned 0 jobs (fetched ${report.fetched}).`);
+      console.warn(`[store] live ingest returned 0 jobs (fetched ${report.fetched}) — keeping baseline.`);
     } catch (err) {
-      console.warn("[store] live ingest failed:", (err as Error)?.message);
+      console.warn("[store] live ingest failed — keeping baseline:", (err as Error)?.message);
     }
-    // Live failed or returned 0. Never downgrade to seed once we've had live
-    // data — keep the last good result and retry soon.
-    if (lastGoodLive) {
-      console.warn(`[store] keeping last good live data (${lastGoodLive.length} jobs); retrying in ~${RETRY_MS / 60000}m.`);
-      cache = { jobs: lastGoodLive, at: agedAt(RETRY_MS), live: true };
-      return lastGoodLive;
-    }
-  } else {
-    console.log("[store] ANYWHERE_LIVE=false — using seed data.");
   }
-  // No live data ever obtained (offline, or LIVE disabled) — use seed, but keep
-  // retrying soon so we switch to live as soon as the network is reachable.
-  const seed = processSeed();
-  cache = { jobs: seed, at: LIVE_ENABLED ? agedAt(RETRY_MS) : Date.now(), live: false };
-  return seed;
+  // Never downgrade to the tiny seed: keep last-good-live, else the snapshot.
+  const fallback = lastGoodLive ?? baseline;
+  cache = { jobs: fallback, at: agedAt(RETRY_MS), live: !!lastGoodLive };
+  return fallback;
 }
 
-/** All active jobs, from cache when fresh, else a (de-duplicated) refresh. */
+/** Kick a background live refresh (non-blocking); at most one at a time. */
+function scheduleBackgroundRefresh(): void {
+  if (!LIVE_ENABLED || IS_BUILD || inflight) return;
+  inflight = refresh().finally(() => {
+    inflight = null;
+  });
+}
+
+/**
+ * Return jobs immediately (cache → last-good → snapshot), and refresh live in
+ * the background. Never blocks a request on a live scrape, so a slow/failed
+ * scrape can't collapse the board or time out a serverless function.
+ */
 export async function loadJobs(): Promise<Job[]> {
   if (cache && Date.now() - cache.at < TTL_MS) return cache.jobs;
+
+  // At build time, block on a live scrape so prerendered pages get full, fresh
+  // data (with complete descriptions). If it fails, refresh() falls back to the
+  // snapshot, so the build still succeeds.
+  if (IS_BUILD) {
+    if (!inflight) inflight = refresh().finally(() => { inflight = null; });
+    return inflight;
+  }
+
+  // At runtime, serve the snapshot/last-good immediately and refresh live in the
+  // background — never block a request on a scrape (this is what previously let
+  // a slow/failed scrape collapse the board to seed on Vercel).
+  if (!cache) cache = { jobs: lastGoodLive ?? baseline, at: agedAt(RETRY_MS), live: !!lastGoodLive };
+  scheduleBackgroundRefresh();
+  return cache.jobs;
+}
+
+/** Whether the current data came from a live scrape (vs. the snapshot). */
+export async function isLive(): Promise<boolean> {
+  await loadJobs();
+  return cache?.live ?? false;
+}
+
+/** Force a blocking live pull (used by the cron endpoint and the scheduler). */
+export async function forceRefresh(): Promise<Job[]> {
   if (!inflight) {
     inflight = refresh().finally(() => {
       inflight = null;
     });
   }
   return inflight;
-}
-
-/** Whether the current data came from live ATS boards (vs. seed fallback). */
-export async function isLive(): Promise<boolean> {
-  await loadJobs();
-  return cache?.live ?? false;
-}
-
-/** Force a fresh pull (used by the cron endpoint). */
-export async function forceRefresh(): Promise<Job[]> {
-  cache = null;
-  return loadJobs();
 }
