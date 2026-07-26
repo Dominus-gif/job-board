@@ -98,3 +98,80 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Dark theme. The app uses scale-based utilities (bg-white, text-ink-900…),
+   so we remap the common surface/text/border utilities under .dark. Enabled
+   via the ThemeToggle (class on <html>).
+   ───────────────────────────────────────────────────────────────────────── */
+:root.dark { color-scheme: dark; }
+
+.dark body { background-color: #0b1120; color: #eef2f9; }
+
+/* Surfaces */
+.dark .bg-paper { background-color: #0b1120 !important; }
+.dark .bg-white { background-color: #141d33 !important; }
+.dark .bg-white\/70 { background-color: rgba(20, 29, 51, 0.7) !important; }
+.dark .bg-white\/85 { background-color: rgba(15, 22, 40, 0.85) !important; }
+.dark .bg-white\/95 { background-color: rgba(15, 22, 40, 0.95) !important; }
+.dark .bg-ink-50 { background-color: #1c2740 !important; }
+.dark .bg-ink-50\/60 { background-color: rgba(28, 39, 64, 0.6) !important; }
+.dark .bg-ink-50\/50 { background-color: rgba(28, 39, 64, 0.5) !important; }
+.dark .bg-ink-100 { background-color: #24304a !important; }
+
+/* Coloured tints */
+.dark .bg-brand-50 { background-color: rgba(76, 99, 240, 0.15) !important; }
+.dark .bg-brand-100 { background-color: rgba(76, 99, 240, 0.22) !important; }
+.dark .bg-amber-50 { background-color: rgba(224, 168, 31, 0.13) !important; }
+.dark .bg-amber-50\/70 { background-color: rgba(224, 168, 31, 0.1) !important; }
+.dark .bg-amber-50\/60 { background-color: rgba(224, 168, 31, 0.1) !important; }
+.dark .bg-amber-100 { background-color: rgba(224, 168, 31, 0.2) !important; }
+.dark .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.14) !important; }
+.dark .bg-accent-50 { background-color: rgba(224, 168, 31, 0.13) !important; }
+.dark .bg-accent-400 { background-color: #e3a81f !important; }
+.dark .bg-red-300 { background-color: #f87171 !important; }
+
+/* Text */
+.dark .text-ink-900 { color: #eef2f9 !important; }
+.dark .text-ink-800 { color: #dbe2ee !important; }
+.dark .text-ink-700 { color: #c1cadb !important; }
+.dark .text-ink-600 { color: #a7b2c8 !important; }
+.dark .text-ink-500 { color: #8a97ae !important; }
+.dark .text-ink-400 { color: #71809a !important; }
+.dark .text-brand-700, .dark .text-brand-800 { color: #9fb4ff !important; }
+.dark .text-brand-600 { color: #8fabff !important; }
+.dark .text-amber-800, .dark .text-amber-900 { color: #f0c56a !important; }
+.dark .text-amber-700 { color: #e9b44c !important; }
+.dark .text-emerald-700 { color: #5fe0a0 !important; }
+.dark .text-emerald-800 { color: #6fe6ab !important; }
+.dark .text-emerald-600 { color: #4dd694 !important; }
+.dark .text-accent-600, .dark .text-accent-700 { color: #efc54f !important; }
+
+/* Borders, rings, dividers */
+.dark .border-ink-100 { border-color: #27324c !important; }
+.dark .border-ink-200 { border-color: #33405e !important; }
+.dark .border-ink-300 { border-color: #3d4c6d !important; }
+.dark .border-amber-200 { border-color: rgba(224, 168, 31, 0.35) !important; }
+.dark .border-brand-200 { border-color: rgba(76, 99, 240, 0.35) !important; }
+.dark .border-brand-300 { border-color: rgba(76, 99, 240, 0.5) !important; }
+.dark .border-emerald-100 { border-color: rgba(16, 185, 129, 0.3) !important; }
+.dark .border-accent-200, .dark .border-accent-300 { border-color: rgba(224, 168, 31, 0.4) !important; }
+.dark .ring-ink-100 { --tw-ring-color: #27324c !important; }
+.dark .ring-ink-200 { --tw-ring-color: #33405e !important; }
+.dark .ring-brand-100 { --tw-ring-color: rgba(76, 99, 240, 0.3) !important; }
+.dark .ring-brand-200 { --tw-ring-color: rgba(76, 99, 240, 0.4) !important; }
+.dark .ring-amber-100, .dark .ring-amber-200 { --tw-ring-color: rgba(224, 168, 31, 0.35) !important; }
+.dark .ring-emerald-100 { --tw-ring-color: rgba(16, 185, 129, 0.3) !important; }
+.dark .ring-accent-100, .dark .ring-accent-300 { --tw-ring-color: rgba(224, 168, 31, 0.4) !important; }
+.dark .divide-ink-100 > :not([hidden]) ~ :not([hidden]) { border-color: #27324c !important; }
+
+/* Inputs */
+.dark input, .dark textarea { background-color: #141d33 !important; color: #eef2f9; border-color: #33405e; }
+.dark input::placeholder, .dark textarea::placeholder { color: #6d7a93 !important; }
+
+/* Misc */
+.dark .shadow-card { box-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.4) !important; }
+.dark .shadow-lift { box-shadow: 0 10px 30px -12px rgba(0,0,0,0.6) !important; }
+.dark .bg-meridian { background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px) !important; }
+.dark :focus-visible { --tw-ring-offset-color: #0b1120; }
+.dark .btn-ghost { background-color: #141d33; }

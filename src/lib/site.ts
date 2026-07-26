@@ -20,6 +20,16 @@ export function abs(path: string): string {
 }
 
 /**
+ * Feature flags. Temporarily disabled sections — flip back to `true` to
+ * re-enable. When off: their pages 404, nav/footer links are hidden, and the
+ * email-capture (newsletter) fields are removed everywhere.
+ */
+export const FEATURES = {
+  newsletter: false,
+  advertise: false,
+};
+
+/**
  * Google AdSense configuration. Set NEXT_PUBLIC_ADSENSE_CLIENT to your
  * publisher id (e.g. "ca-pub-1234567890123456") to switch ads on everywhere:
  * the loader script, the account meta tag, ads.txt, and every <AdSlot>.

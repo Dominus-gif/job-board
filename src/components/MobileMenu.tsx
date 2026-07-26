@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { FEATURES } from "@/lib/site";
 
-const LINKS = [
+const LINKS: [string, string][] = [
   ["Browse jobs", "/remote-backend-jobs"],
   ["Companies", "/companies"],
-  ["Newsletter", "/newsletter"],
-  ["Advertise", "/advertise"],
+  ...(FEATURES.newsletter ? ([["Newsletter", "/newsletter"]] as [string, string][]) : []),
+  ...(FEATURES.advertise ? ([["Advertise", "/advertise"]] as [string, string][]) : []),
   ["RSS feeds", "/rss-feeds"],
 ];
 

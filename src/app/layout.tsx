@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
-import { SITE, ADSENSE } from "@/lib/site";
+import { SITE, ADSENSE, FEATURES } from "@/lib/site";
 import { getSubscriberCount } from "@/lib/db";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { NewsletterCtaGate } from "@/components/NewsletterCtaGate";
+import { themeInitScript } from "@/components/ThemeToggle";
 
 const display = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -49,7 +50,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${body.variable} ${display.variable}`}>
+    <html lang="en" className={`${body.variable} ${display.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="min-h-screen flex flex-col">
         {ADSENSE.enabled && (
           <Script
@@ -62,9 +66,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
         <Header />
         <main className="flex-1">{children}</main>
-        <NewsletterCtaGate>
-          <NewsletterCta count={getSubscriberCount()} />
-        </NewsletterCtaGate>
+        {FEATURES.newsletter && (
+          <NewsletterCtaGate>
+            <NewsletterCta count={getSubscriberCount()} />
+          </NewsletterCtaGate>
+        )}
         <Footer />
       </body>
     </html>

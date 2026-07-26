@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { getAllJobs, getSubscriberCount } from "@/lib/db";
+import { FEATURES } from "@/lib/site";
 import { GlobeIcon, WalletIcon, BuildingIcon, SparkIcon, CheckIcon, ArrowUpRightIcon, BriefcaseIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
@@ -8,6 +10,7 @@ export const metadata: Metadata = {
   description:
     "Advertise to an engaged, global audience of remote-first professionals, or sponsor AnywhereJobs. Featured job listings, weekly-newsletter placements, and monthly website sponsorships.",
   alternates: { canonical: "/advertise" },
+  robots: FEATURES.advertise ? undefined : { index: false, follow: false },
 };
 
 const tiers = [
@@ -35,6 +38,7 @@ const tiers = [
 ];
 
 export default async function AdvertisePage() {
+  if (!FEATURES.advertise) notFound();
   const subs = getSubscriberCount();
   const jobs = await getAllJobs();
 

@@ -17,7 +17,7 @@ export function InactiveNotice() {
       </p>
       <div className="mt-6 flex flex-wrap justify-center gap-3">
         <Link href="/" className="btn-primary">Browse active jobs</Link>
-        <Link href="/newsletter" className="btn-ghost">Get weekly job alerts</Link>
+        <Link href="/companies" className="btn-ghost">Explore companies</Link>
       </div>
     </div>
   );

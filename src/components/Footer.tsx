@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SITE } from "@/lib/site";
+import { SITE, FEATURES } from "@/lib/site";
 import { CATEGORIES, categoryToSlug } from "@/lib/taxonomy";
 import { LogoMark } from "./icons";
 
@@ -16,10 +16,10 @@ export function Footer() {
           </div>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-300">{SITE.tagline}</p>
           <Link
-            href="/newsletter"
+            href="/page/1"
             className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/15"
           >
-            Get the weekly digest
+            Browse all jobs
           </Link>
         </div>
 
@@ -33,8 +33,8 @@ export function Footer() {
         <FooterCol title="Company">
           <FooterLink href="/about">About</FooterLink>
           <FooterLink href="/hiring">Post a job</FooterLink>
-          <FooterLink href="/advertise">Advertise</FooterLink>
-          <FooterLink href="/newsletter">Newsletter</FooterLink>
+          {FEATURES.advertise && <FooterLink href="/advertise">Advertise</FooterLink>}
+          {FEATURES.newsletter && <FooterLink href="/newsletter">Newsletter</FooterLink>}
           <FooterLink href="/rss-feeds">RSS feeds</FooterLink>
           <FooterLink href="/contact">Contact</FooterLink>
         </FooterCol>

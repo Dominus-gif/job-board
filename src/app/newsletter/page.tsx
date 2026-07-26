@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getSubscriberCount } from "@/lib/db";
+import { FEATURES } from "@/lib/site";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { GlobeIcon, WalletIcon, BuildingIcon, CheckIcon, CalendarIcon, SparkIcon, LogoMark } from "@/components/icons";
 
@@ -8,6 +10,7 @@ export const metadata: Metadata = {
   description:
     "A free weekly email with the best new truly location-independent jobs — hand-filtered, salary-tagged, and delivered every Tuesday. No spam, unsubscribe anytime.",
   alternates: { canonical: "/newsletter" },
+  robots: FEATURES.newsletter ? undefined : { index: false, follow: false },
 };
 
 const inside = [
@@ -25,6 +28,7 @@ const promises = [
 ];
 
 export default function NewsletterPage() {
+  if (!FEATURES.newsletter) notFound();
   const subscribers = getSubscriberCount();
 
   return (

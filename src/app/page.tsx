@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getAllJobs, getCompanies, getJobsByCategory, getRegionalCount, getSubscriberCount } from "@/lib/db";
+import { FEATURES } from "@/lib/site";
 import { categoryToSlug } from "@/lib/taxonomy";
 import { CategoryBar } from "@/components/CategoryBar";
 import { JobList } from "@/components/JobList";
@@ -73,12 +74,19 @@ export default async function HomePage() {
               company hiring systems and enriched with salary, skills, and benefits.
             </p>
 
-            <div className="mx-auto mt-6 max-w-lg">
-              <NewsletterForm buttonLabel="Get weekly jobs" />
-              <p className="mt-2 text-xs text-ink-400">
-                Join {subscribers.toLocaleString("en-US")} subscribers · one email a week · no spam
-              </p>
-            </div>
+            {FEATURES.newsletter ? (
+              <div className="mx-auto mt-6 max-w-lg">
+                <NewsletterForm buttonLabel="Get weekly jobs" />
+                <p className="mt-2 text-xs text-ink-400">
+                  Join {subscribers.toLocaleString("en-US")} subscribers · one email a week · no spam
+                </p>
+              </div>
+            ) : (
+              <div className="mt-6 flex flex-wrap justify-center gap-3">
+                <Link href="/page/1" className="btn-primary">Browse all jobs</Link>
+                <Link href="/hiring" className="btn-ghost">Post a job</Link>
+              </div>
+            )}
 
             <dl className="mx-auto mt-8 grid max-w-md grid-cols-3 divide-x divide-ink-100 rounded-2xl border border-ink-100 bg-white shadow-card">
               {stats.map(([value, label]) => (

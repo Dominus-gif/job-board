@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SITE } from "@/lib/site";
+import { SITE, FEATURES } from "@/lib/site";
 import { LegalShell } from "@/components/LegalShell";
 
 export const metadata: Metadata = {
@@ -41,8 +41,8 @@ export default function AboutPage() {
 
       <h2>Get in touch</h2>
       <p>
-        Hiring globally and want to reach our audience? See <Link href="/hiring">Post a job</Link> or{" "}
-        <Link href="/advertise">Advertise</Link>. For anything else,{" "}
+        Hiring globally and want to reach our audience? See <Link href="/hiring">Post a job</Link>
+        {FEATURES.advertise && <> or <Link href="/advertise">Advertise</Link></>}. For anything else,{" "}
         <Link href="/contact">contact us</Link>.
       </p>
     </LegalShell>

@@ -1,13 +1,14 @@
 import Link from "next/link";
-import { SITE } from "@/lib/site";
+import { SITE, FEATURES } from "@/lib/site";
 import { LogoMark } from "./icons";
 import { MobileMenu } from "./MobileMenu";
+import { ThemeToggle } from "./ThemeToggle";
 
-const NAV = [
+const NAV: [string, string][] = [
   ["Browse jobs", "/remote-backend-jobs"],
   ["Companies", "/companies"],
-  ["Newsletter", "/newsletter"],
-  ["Advertise", "/advertise"],
+  ...(FEATURES.newsletter ? ([["Newsletter", "/newsletter"]] as [string, string][]) : []),
+  ...(FEATURES.advertise ? ([["Advertise", "/advertise"]] as [string, string][]) : []),
 ];
 
 export function Header() {
@@ -32,6 +33,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-1">
+          <ThemeToggle />
           <Link href="/hiring" className="btn-primary hidden md:inline-flex">
             Post a job
           </Link>
