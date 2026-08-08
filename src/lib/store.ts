@@ -34,14 +34,6 @@ export const companies: Company[] = [...(companiesSeed as Company[]), NORDHARTON
   logo: resolveLogo({ domain: c.domain, name: c.name }),
 }));
 
-/**
- * Always-present, hand-curated featured jobs (e.g. NordHarton). Merged into the
- * baseline and every live result so they never depend on a scrape and stay
- * pinned. Kept separate from the ATS allow-list so ingest never tries to fetch
- * a board for them.
- */
-const MANUAL_JOBS: Job[] = [...NORDHARTON_JOBS];
-
 function withOverrides(jobs: Job[]): Job[] {
   const now = Date.now();
   return jobs
@@ -59,11 +51,38 @@ function processSeed(): Job[] {
 }
 
 /**
- * Always-available baseline: the build-time snapshot of real jobs, or (if the
- * snapshot is empty, e.g. the build had no network) the small bundled seed.
+ * Always-present, hand-curated featured jobs (e.g. NordHarton). CRITICAL: these
+ * are unioned into every served result *after* the live/baseline decision (see
+ * `serve()`), and are NEVER counted when deciding whether a live scrape
+ * succeeded or whether the snapshot is present. Counting them there once let a
+ * fully-failed scrape look "successful" (length ≥ 3) and collapse the whole
+ * board to just these few jobs. Kept out of the ATS allow-list so ingest never
+ * fetches a board for them.
  */
-const snapshot = withOverrides([...MANUAL_JOBS, ...(snapshotJobs as Job[])]);
-const baseline: Job[] = snapshot.length > 0 ? snapshot : withOverrides([...MANUAL_JOBS, ...processSeed()]);
+const manualJobs: Job[] = withOverrides([...NORDHARTON_JOBS]);
+
+/** Union the always-on manual jobs onto a set of real (scraped/snapshot) jobs. */
+function serve(realJobs: Job[]): Job[] {
+  return [...manualJobs, ...realJobs];
+}
+
+/**
+ * Always-available baseline of REAL jobs: the build-time snapshot, or (only if
+ * the snapshot is genuinely empty) the small bundled seed. Manual jobs are NOT
+ * part of the baseline — they're added at `serve()` time.
+ */
+const snapshot = withOverrides(snapshotJobs as Job[]);
+const baseline: Job[] = snapshot.length > 0 ? snapshot : processSeed();
+
+/**
+ * Floor a live scrape must clear to REPLACE the baseline. A healthy scrape
+ * returns ~1000 jobs; a partially-failed one (Vercel egress hiccup, ATS rate
+ * limit, cold DNS) can return a handful. Accepting those would shrink the board,
+ * so we only trust a live result that's at least half the baseline (min 100).
+ * This — plus the committed snapshot — is what guarantees the board can never
+ * collapse to a near-empty list again.
+ */
+const LIVE_FLOOR = Math.max(100, Math.floor(baseline.length * 0.5));
 
 interface Cache {
   jobs: Job[];
@@ -86,14 +105,16 @@ async function refresh(): Promise<Job[]> {
   if (LIVE_ENABLED) {
     try {
       const report = await ingestAndProcess(companies);
-      const jobs = withOverrides([...MANUAL_JOBS, ...report.jobs, ...report.regional]);
-      if (jobs.length > 0) {
+      const live = withOverrides([...report.jobs, ...report.regional]);
+      // Only trust a live result that's comprehensive — never let a partial or
+      // empty scrape replace the full baseline (this is the collapse guard).
+      if (live.length >= LIVE_FLOOR) {
         console.log(`[store] live ingest ok: ${report.jobs.length} worldwide + ${report.regionalCount} regional (from ${report.fetched} fetched).`);
-        lastGoodLive = jobs;
-        cache = { jobs, at: Date.now(), live: true };
-        return jobs;
+        lastGoodLive = live;
+        cache = { jobs: live, at: Date.now(), live: true };
+        return live;
       }
-      console.warn(`[store] live ingest returned 0 jobs (fetched ${report.fetched}) — keeping baseline.`);
+      console.warn(`[store] live ingest returned ${live.length} jobs (< floor ${LIVE_FLOOR}, fetched ${report.fetched}) — keeping baseline.`);
     } catch (err) {
       console.warn("[store] live ingest failed — keeping baseline:", (err as Error)?.message);
     }
@@ -113,11 +134,12 @@ function scheduleBackgroundRefresh(): void {
 }
 
 /**
- * Return jobs immediately (cache → last-good → snapshot), and refresh live in
- * the background. Never blocks a request on a live scrape, so a slow/failed
- * scrape can't collapse the board or time out a serverless function.
+ * Real (scraped/snapshot) jobs, served immediately (cache → last-good →
+ * snapshot) with a background live refresh. Never blocks a request on a live
+ * scrape, so a slow/failed scrape can't collapse the board or time out a
+ * serverless function. Manual jobs are added by the public `loadJobs()` wrapper.
  */
-export async function loadJobs(): Promise<Job[]> {
+async function loadRealJobs(): Promise<Job[]> {
   if (cache && Date.now() - cache.at < TTL_MS) return cache.jobs;
 
   // At build time, block on a live scrape so prerendered pages get full, fresh
@@ -136,6 +158,11 @@ export async function loadJobs(): Promise<Job[]> {
   return cache.jobs;
 }
 
+/** Public read: the real jobs plus the always-on manual (featured) jobs. */
+export async function loadJobs(): Promise<Job[]> {
+  return serve(await loadRealJobs());
+}
+
 /** Whether the current data came from a live scrape (vs. the snapshot). */
 export async function isLive(): Promise<boolean> {
   await loadJobs();
@@ -149,5 +176,5 @@ export async function forceRefresh(): Promise<Job[]> {
       inflight = null;
     });
   }
-  return inflight;
+  return serve(await inflight);
 }
