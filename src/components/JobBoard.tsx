@@ -216,7 +216,7 @@ function FilterChip({ active, onClick, children }: { active: boolean; onClick: (
       type="button"
       onClick={onClick}
       className={`rounded-full px-3 py-1 text-sm font-medium transition ${
-        active ? "bg-ink-900 text-white" : "bg-ink-50 text-ink-600 ring-1 ring-ink-100 hover:text-ink-900 hover:ring-brand-300"
+        active ? "bg-brand-600 text-white" : "bg-ink-50 text-ink-600 ring-1 ring-ink-100 hover:text-ink-900 hover:ring-brand-300"
       }`}
     >
       {children}

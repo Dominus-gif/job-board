@@ -6,6 +6,7 @@ import { abs } from "@/lib/site";
 import { CategoryBar } from "@/components/CategoryBar";
 import { JobBoard } from "@/components/JobBoard";
 import { FaqSection } from "@/components/FaqSection";
+import { jobListJsonLd } from "@/lib/jsonld";
 
 export const dynamicParams = true;
 export const revalidate = 1800;
@@ -19,7 +20,8 @@ export async function generateMetadata({ params }: { params: { landing: string }
   if (!view) return {};
   const url = abs(`/${view.slug}`);
   return {
-    title: view.metaTitle,
+    // metaTitle already carries "| AnywhereJobs"; use absolute to skip the template.
+    title: { absolute: view.metaTitle },
     description: view.metaDescription,
     alternates: {
       canonical: url,
@@ -34,13 +36,16 @@ export default async function LandingPage({ params }: { params: { landing: strin
   const view = await resolveLanding(params.landing);
   if (!view) notFound();
 
-  const jsonLd = {
-    "@context": "https://schema.org/",
-    "@type": "CollectionPage",
-    name: view.metaTitle,
-    description: view.metaDescription,
-    url: abs(`/${view.slug}`),
-  };
+  const jsonLd = [
+    {
+      "@context": "https://schema.org/",
+      "@type": "CollectionPage",
+      name: view.metaTitle,
+      description: view.metaDescription,
+      url: abs(`/${view.slug}`),
+    },
+    jobListJsonLd(view.jobs, view.title),
+  ];
 
   return (
     <div>

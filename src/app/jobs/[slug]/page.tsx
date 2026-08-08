@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllJobs, getCompanyBySlug, getJobBySlug, getJobsByCompany, getSimilarJobs } from "@/lib/db";
+import { getAllJobs, getRegionalJobs, getCompanyBySlug, getJobBySlug, getJobsByCompany, getSimilarJobs } from "@/lib/db";
 import { formatSalary, salaryTier } from "@/lib/salary";
 import { formatDate, daysUntil } from "@/lib/format";
 import { abs } from "@/lib/site";
@@ -24,7 +24,10 @@ export const dynamicParams = true;
 export const revalidate = 1800;
 
 export async function generateStaticParams() {
-  return (await getAllJobs()).map((job) => ({ slug: job.slug }));
+  // Pre-render every listing — worldwide and regional — so each is a static,
+  // indexable page.
+  const [worldwide, regional] = await Promise.all([getAllJobs(), getRegionalJobs()]);
+  return [...worldwide, ...regional].map((job) => ({ slug: job.slug }));
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
@@ -32,10 +35,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!job) {
     return { title: "Job no longer active", robots: { index: false, follow: true } };
   }
-  const title = `${job.title} at ${job.company_name} — Remote Worldwide`;
-  const description = `${job.title} at ${job.company_name}. Work from anywhere in the world — ${job.employment_type}${
+  // Keyword-rich, scope-accurate title: worldwide roles say "Remote Worldwide",
+  // region-locked ones name the region (honest + better long-tail keywords).
+  const locinfo = job.scope === "worldwide" ? "Remote Worldwide" : `Remote Job (${job.location})`;
+  const title = `${job.title} at ${job.company_name} — ${locinfo}`;
+  const where = job.scope === "worldwide" ? "Work from anywhere in the world" : `Remote within ${job.location}`;
+  const description = `${job.title} — remote ${job.category} job at ${job.company_name}. ${where} — ${job.employment_type}${
     formatSalary(job.salary) ? `, ${formatSalary(job.salary)}` : ""
-  }. Apply free.`;
+  }. Apply free on AnywhereJobs.`;
   const url = abs(`/jobs/${job.slug}`);
   return {
     title,

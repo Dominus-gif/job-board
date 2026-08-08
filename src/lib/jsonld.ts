@@ -1,6 +1,42 @@
 import type { Job } from "./types";
 import { abs, SITE } from "./site";
 
+/** Organization + WebSite JSON-LD for the site (brand/knowledge-panel signals). */
+export function siteJsonLd() {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: SITE.name,
+      url: SITE.url,
+      description: SITE.description,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: `${SITE.name} — Remote Jobs`,
+      url: SITE.url,
+      description: SITE.description,
+    },
+  ];
+}
+
+/** ItemList JSON-LD of job postings — helps Google crawl/rank the listings. */
+export function jobListJsonLd(jobs: Job[], name = "Remote Jobs") {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name,
+    numberOfItems: jobs.length,
+    itemListElement: jobs.slice(0, 25).map((j, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: abs(`/jobs/${j.slug}`),
+      name: `${j.title} at ${j.company_name}`,
+    })),
+  };
+}
+
 /** schema.org JobPosting JSON-LD (spec section 6 — critical for SEO). */
 export function jobPostingJsonLd(job: Job) {
   const base: Record<string, unknown> = {

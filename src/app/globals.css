@@ -23,13 +23,23 @@
 }
 
 @layer components {
-  /* Section eyebrow — a small brand label with a clean line accent. */
+  /* Section eyebrow — a bold brand label with a straight, tapered brush
+     underline. The underline is a mask filled with currentColor, so it always
+     matches the label's text colour (brand by default, gold on the regional
+     page, etc.) in both light and dark themes. */
   .eyebrow {
-    @apply inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.1em] text-brand-600;
+    @apply relative inline-flex items-center pb-2 text-sm font-extrabold uppercase tracking-[0.18em] text-brand-600;
   }
-  .eyebrow::before {
+  .eyebrow::after {
     content: "";
-    @apply h-0.5 w-6 rounded-full bg-brand-500;
+    position: absolute;
+    left: 0;
+    right: -0.25rem;
+    bottom: 0.125rem;
+    height: 7px;
+    background-color: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M1.5 4 Q 100 2.3 198.5 4 Q 100 5.7 1.5 4 Z' fill='%23000'/%3E%3C/svg%3E") no-repeat 0 0 / 100% 100%;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M1.5 4 Q 100 2.3 198.5 4 Q 100 5.7 1.5 4 Z' fill='%23000'/%3E%3C/svg%3E") no-repeat 0 0 / 100% 100%;
   }
   /* Small section label (Salary, Skills, Benefits…). */
   .field-label {
@@ -166,8 +176,10 @@
 .dark .divide-ink-100 > :not([hidden]) ~ :not([hidden]) { border-color: #27324c !important; }
 
 /* Inputs */
-.dark input, .dark textarea { background-color: #141d33 !important; color: #eef2f9; border-color: #33405e; }
+.dark input:not([type="checkbox"]):not([type="radio"]),
+.dark textarea { background-color: #141d33 !important; color: #eef2f9; border-color: #33405e; }
 .dark input::placeholder, .dark textarea::placeholder { color: #6d7a93 !important; }
+.dark input[type="checkbox"], .dark input[type="radio"] { accent-color: #4c63f0; }
 
 /* Misc */
 .dark .shadow-card { box-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.4) !important; }
@@ -175,3 +187,14 @@
 .dark .bg-meridian { background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px) !important; }
 .dark :focus-visible { --tw-ring-offset-color: #0b1120; }
 .dark .btn-ghost { background-color: #141d33; }
+
+/* Tailwind slate-* utilities (RSS feeds, admin, pagination, forms) aren't part
+   of the ink scale, so they stayed light in dark mode. Remap them here. */
+.dark .bg-slate-50 { background-color: #1c2740 !important; }
+.dark .bg-slate-100 { background-color: #1c2740 !important; }
+.dark .hover\:bg-slate-200:hover { background-color: #24304a !important; }
+.dark .border-slate-100 { border-color: #27324c !important; }
+.dark .border-slate-200 { border-color: #27324c !important; }
+.dark .border-slate-300 { border-color: #33405e !important; }
+.dark .text-slate-400 { color: #8a97ae !important; }
+.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]) { border-color: #27324c !important; }

@@ -3,10 +3,42 @@ import { SITE, FEATURES } from "@/lib/site";
 import { CATEGORIES, categoryToSlug } from "@/lib/taxonomy";
 import { LogoMark } from "./icons";
 
+/** Remote jobs by location — high-intent geo searches (US & European markets). */
+const LOCATION_LINKS: { href: string; label: string }[] = [
+  { href: "/remote-jobs-in-usa", label: "Remote Jobs in the USA" },
+  { href: "/remote-jobs-in-europe", label: "Remote Jobs in Europe" },
+  { href: "/remote-jobs-in-uk", label: "Remote Jobs in the UK" },
+  { href: "/remote-jobs-in-germany", label: "Remote Jobs in Germany" },
+  { href: "/remote-jobs-in-canada", label: "Remote Jobs in Canada" },
+];
+
+/**
+ * Keyword-rich internal links surfaced on every page (site-wide footer). Real,
+ * relevant pages with descriptive anchor text — this is legitimate internal
+ * linking that spreads ranking signal, not keyword stuffing.
+ */
+const POPULAR_SEARCHES: { href: string; label: string }[] = [
+  { href: "/work-from-home-jobs", label: "Work From Home Jobs" },
+  { href: "/remote-jobs-in-usa", label: "Remote Jobs USA" },
+  { href: "/remote-jobs-in-europe", label: "Remote Jobs Europe" },
+  { href: "/remote-backend-jobs", label: "Remote Developer Jobs" },
+  { href: "/remote-frontend-jobs", label: "Remote Frontend Jobs" },
+  { href: "/remote-fullstack-jobs", label: "Remote Full-Stack Jobs" },
+  { href: "/remote-devops-jobs", label: "Remote DevOps & Cloud Jobs" },
+  { href: "/remote-design-jobs", label: "Remote Design Jobs" },
+  { href: "/remote-product-jobs", label: "Remote Product Manager Jobs" },
+  { href: "/remote-sales-marketing-jobs", label: "Remote Marketing Jobs" },
+  { href: "/remote-customer-support-jobs", label: "Remote Customer Support Jobs" },
+  { href: "/remote-management-finance-jobs", label: "Remote Finance Jobs" },
+  { href: "/remote-part-time-jobs", label: "Part-Time Remote Jobs" },
+  { href: "/fully-remote-no-experience-jobs", label: "Entry-Level Remote Jobs" },
+  { href: "/remote-jobs-with-health-insurance", label: "Remote Jobs With Health Insurance" },
+];
+
 export function Footer() {
   return (
     <footer className="mt-20 bg-ink-900 text-ink-200">
-      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-10 px-4 py-14 md:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-10 px-4 py-14 md:grid-cols-5">
         <div className="col-span-2">
           <div className="flex items-center gap-2.5">
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 p-1.5 text-white">
@@ -19,9 +51,15 @@ export function Footer() {
             href="/page/1"
             className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/15"
           >
-            Browse all jobs
+            Browse all remote jobs
           </Link>
         </div>
+
+        <FooterCol title="By location">
+          {LOCATION_LINKS.map((l) => (
+            <FooterLink key={l.href} href={l.href}>{l.label}</FooterLink>
+          ))}
+        </FooterCol>
 
         <FooterCol title="Categories">
           {CATEGORIES.slice(0, 5).map((c) => (
@@ -38,6 +76,24 @@ export function Footer() {
           <FooterLink href="/rss-feeds">RSS feeds</FooterLink>
           <FooterLink href="/contact">Contact</FooterLink>
         </FooterCol>
+      </div>
+
+      {/* Popular searches — keyword-rich internal links on every page. */}
+      <div className="border-t border-white/10">
+        <div className="mx-auto max-w-6xl px-4 py-8">
+          <h4 className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">Popular remote job searches</h4>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {POPULAR_SEARCHES.map((s) => (
+              <Link
+                key={s.href}
+                href={s.href}
+                className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-ink-300 transition hover:border-white/20 hover:bg-white/10 hover:text-white"
+              >
+                {s.label}
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="border-t border-white/10">

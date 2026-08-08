@@ -12,13 +12,16 @@
 import type { Job } from "./types";
 import { CATEGORIES, categoryToSlug, CATEGORY_INTRO, slugToCategory } from "./taxonomy";
 import {
+  getAllJobs,
   getAllSkills,
   getJobsByBenefit,
   getJobsByCategory,
   getJobsBySkill,
   getJobsByEmploymentType,
   getJobsWhere,
+  getRegionalJobs,
 } from "./db";
+import { jobRegions } from "./region";
 import { toText } from "./pipeline/text";
 
 export interface FaqItem {
@@ -163,6 +166,120 @@ const BENEFIT_LANDINGS: Record<string, string> = {
   "remote-jobs-with-learning-budget": "learning-budget",
 };
 
+/* -------------------------------------------------------------------------- */
+/* Geo-targeted landing pages (US & European markets).                        */
+/*                                                                            */
+/* The honest angle: every *worldwide* role is one a US/EU seeker can do from */
+/* home (no work-authorization or timezone gate), so these pages surface the  */
+/* worldwide board PLUS any region-locked roles that match the geo. This wins */
+/* high-intent geo searches ("remote jobs usa", "remote jobs europe") without */
+/* diluting the worldwide board.                                              */
+/* -------------------------------------------------------------------------- */
+interface GeoConfig {
+  slug: string;
+  region: string; // region.ts label used to pull in matching regional roles
+  place: string; // "the United States"
+  short: string; // "the US"
+  title: string;
+  metaTitle: string;
+  metaDescription: string;
+  intro: string;
+}
+
+const GEO_PAGES: Record<string, GeoConfig> = {
+  "remote-jobs-in-usa": {
+    slug: "remote-jobs-in-usa",
+    region: "United States",
+    place: "the United States",
+    short: "the US",
+    title: "Remote Jobs in the USA — Work From Home Anywhere in the US",
+    metaTitle: "Remote Jobs in the USA — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Find remote jobs in the USA you can do from home — thousands of work-from-anywhere roles open to US candidates, plus jobs hiring specifically in the United States. Software, marketing, design, support, finance & more. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in the United States. Every worldwide role here is open to US candidates with no work-authorization or timezone gate — plus roles hiring specifically across the US. Work from home in New York, California, Texas, or anywhere in between.",
+  },
+  "remote-jobs-in-europe": {
+    slug: "remote-jobs-in-europe",
+    region: "Europe",
+    place: "Europe",
+    short: "Europe",
+    title: "Remote Jobs in Europe — Work From Home Across the EU",
+    metaTitle: "Remote Jobs in Europe — Work From Home Across the EU (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Browse remote jobs in Europe you can do from home — work-from-anywhere roles open to European candidates, plus jobs hiring across the EU. Tech, marketing, customer support, design & finance. English-speaking, no relocation. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Europe. Every worldwide role here is open to candidates across the EU, UK, and the wider continent — no relocation, no timezone gate — plus roles hiring specifically in Europe. Work from home in Germany, the Netherlands, Portugal, Spain, Ireland, the Nordics, and beyond.",
+  },
+  "remote-jobs-in-uk": {
+    slug: "remote-jobs-in-uk",
+    region: "UK",
+    place: "the United Kingdom",
+    short: "the UK",
+    title: "Remote Jobs in the UK — Work From Home Anywhere in Britain",
+    metaTitle: "Remote Jobs in the UK — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Find remote jobs in the UK you can do from home — work-from-anywhere roles open to UK candidates, plus jobs hiring specifically across Britain. Software, marketing, support, design & finance. No commute, no relocation. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in the UK. Every worldwide role here is open to British candidates with no timezone gate — plus roles hiring specifically across the UK. Work from home in London, Manchester, Edinburgh, or anywhere else.",
+  },
+  "remote-jobs-in-germany": {
+    slug: "remote-jobs-in-germany",
+    region: "Europe",
+    place: "Germany",
+    short: "Germany",
+    title: "Remote Jobs in Germany — Work From Home (English-Speaking)",
+    metaTitle: "Remote Jobs in Germany — English-Speaking, Work From Home | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Browse remote jobs in Germany you can do from home — English-speaking, work-from-anywhere roles open to candidates in Germany, plus roles hiring across Europe. Tech, marketing, design, finance & support. 100% home office. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Germany. Every worldwide role here is open to candidates based in Germany — many English-speaking, 100% home office, no relocation — plus roles hiring across Europe. Work from home in Berlin, Munich, Hamburg, or anywhere in the country.",
+  },
+  "remote-jobs-in-canada": {
+    slug: "remote-jobs-in-canada",
+    region: "Canada",
+    place: "Canada",
+    short: "Canada",
+    title: "Remote Jobs in Canada — Work From Home Anywhere in Canada",
+    metaTitle: "Remote Jobs in Canada — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Find remote jobs in Canada you can do from home — work-from-anywhere roles open to Canadian candidates, plus jobs hiring specifically across Canada. Software, marketing, design, support & finance. No relocation. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Canada. Every worldwide role here is open to Canadian candidates with no timezone gate — plus roles hiring specifically across Canada. Work from home in Toronto, Vancouver, Montréal, or anywhere else.",
+  },
+};
+
+/** Jobs for a geo page: the worldwide board + regional roles matching the geo. */
+async function geoJobs(region: string): Promise<Job[]> {
+  const [worldwide, regional] = await Promise.all([getAllJobs(), getRegionalJobs()]);
+  const matched = regional.filter((j) => jobRegions(j.location).includes(region));
+  // Worldwide first (the honest headline offer), then geo-specific regional roles.
+  return [...worldwide, ...matched];
+}
+
+function geoView(cfg: GeoConfig, jobs: Job[]): LandingView {
+  return {
+    slug: cfg.slug,
+    title: cfg.title,
+    metaTitle: cfg.metaTitle,
+    metaDescription: cfg.metaDescription,
+    intro: cfg.intro,
+    jobs,
+    faq: [
+      {
+        q: `Can I really do these remote jobs from ${cfg.place}?`,
+        a: `Yes. Every worldwide role on this page has no country, work-authorization, or timezone requirement, so you can do it from anywhere in ${cfg.place}. We also include roles that hire specifically in ${cfg.short}, clearly labelled on each card.`,
+      },
+      {
+        q: `Are these remote jobs in ${cfg.short} open to applicants right now?`,
+        a: `Yes — listings are pulled continuously from company hiring systems and refreshed automatically, so what you see is currently open. You apply free, directly on the employer's site.`,
+      },
+      ...BASE_FAQ,
+    ],
+    rss: `/${cfg.slug}/rss.xml`,
+  };
+}
+
 /** Resolve a landing slug to a full view, or null if it isn't a known page. */
 export async function resolveLanding(slug: string): Promise<LandingView | null> {
   // 1. Category pages: /remote-<category>-jobs
@@ -187,6 +304,12 @@ export async function resolveLanding(slug: string): Promise<LandingView | null> 
         rss: `/${slug}/rss.xml`,
       };
     }
+  }
+
+  // 1b. Geo-targeted pages: /remote-jobs-in-<place>
+  const geo = GEO_PAGES[slug];
+  if (geo) {
+    return geoView(geo, await geoJobs(geo.region));
   }
 
   // 2. Curated SEO pages (some are benefit-backed).
@@ -240,7 +363,8 @@ export async function resolveLanding(slug: string): Promise<LandingView | null> 
 export async function allLandingSlugs(): Promise<string[]> {
   const categorySlugs = CATEGORIES.map((c) => `remote-${categoryToSlug(c)}-jobs`);
   const seoSlugs = Object.keys(SEO_PAGES);
+  const geoSlugs = Object.keys(GEO_PAGES);
   const skills = await getAllSkills();
   const skillSlugs = skills.map((s) => `remote-${s.skill.replace(/[.]/g, "-")}-jobs`);
-  return Array.from(new Set([...categorySlugs, ...seoSlugs, ...skillSlugs]));
+  return Array.from(new Set([...categorySlugs, ...seoSlugs, ...geoSlugs, ...skillSlugs]));
 }

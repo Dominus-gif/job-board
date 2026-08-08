@@ -20,6 +20,7 @@ import { resolveLogo } from "./pipeline/logo";
 import companiesSeed from "./seed/companies.json";
 import rawSeedJobs from "./seed/raw-jobs.json";
 import snapshotJobs from "./generated/snapshot.json";
+import { NORDHARTON_COMPANY, NORDHARTON_JOBS } from "./seed/nordharton";
 
 const TTL_MS = Number(process.env.ANYWHERE_CACHE_TTL_MS ?? 30 * 60 * 1000); // 30 min
 const LIVE_ENABLED = process.env.ANYWHERE_LIVE !== "false";
@@ -28,10 +29,18 @@ const IS_BUILD = process.env.NEXT_PHASE === "phase-production-build";
 /** IDs promoted to paid/featured placements (spec: manual). Seed-only demo. */
 const FEATURED_IDS = new Set(["seed:gitlab:1", "seed:close:8"]);
 
-export const companies: Company[] = (companiesSeed as Company[]).map((c) => ({
+export const companies: Company[] = [...(companiesSeed as Company[]), NORDHARTON_COMPANY].map((c) => ({
   ...c,
   logo: resolveLogo({ domain: c.domain, name: c.name }),
 }));
+
+/**
+ * Always-present, hand-curated featured jobs (e.g. NordHarton). Merged into the
+ * baseline and every live result so they never depend on a scrape and stay
+ * pinned. Kept separate from the ATS allow-list so ingest never tries to fetch
+ * a board for them.
+ */
+const MANUAL_JOBS: Job[] = [...NORDHARTON_JOBS];
 
 function withOverrides(jobs: Job[]): Job[] {
   const now = Date.now();
@@ -53,8 +62,8 @@ function processSeed(): Job[] {
  * Always-available baseline: the build-time snapshot of real jobs, or (if the
  * snapshot is empty, e.g. the build had no network) the small bundled seed.
  */
-const snapshot = withOverrides(snapshotJobs as Job[]);
-const baseline: Job[] = snapshot.length > 0 ? snapshot : processSeed();
+const snapshot = withOverrides([...MANUAL_JOBS, ...(snapshotJobs as Job[])]);
+const baseline: Job[] = snapshot.length > 0 ? snapshot : withOverrides([...MANUAL_JOBS, ...processSeed()]);
 
 interface Cache {
   jobs: Job[];
@@ -77,7 +86,7 @@ async function refresh(): Promise<Job[]> {
   if (LIVE_ENABLED) {
     try {
       const report = await ingestAndProcess(companies);
-      const jobs = withOverrides([...report.jobs, ...report.regional]);
+      const jobs = withOverrides([...MANUAL_JOBS, ...report.jobs, ...report.regional]);
       if (jobs.length > 0) {
         console.log(`[store] live ingest ok: ${report.jobs.length} worldwide + ${report.regionalCount} regional (from ${report.fetched} fetched).`);
         lastGoodLive = jobs;

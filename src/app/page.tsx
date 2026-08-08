@@ -9,6 +9,7 @@ import { NewsletterForm } from "@/components/NewsletterForm";
 import { FaqSection } from "@/components/FaqSection";
 import { AdSlot } from "@/components/AdSlot";
 import { PinIcon, ArrowUpRightIcon } from "@/components/icons";
+import { siteJsonLd, jobListJsonLd } from "@/lib/jsonld";
 
 const HOME_FAQ = [
   {
@@ -51,8 +52,14 @@ export default async function HomePage() {
     [regionalCount.toLocaleString("en-US"), "region-based"],
   ] as const;
 
+  const jsonLd = [...siteJsonLd(), jobListJsonLd(jobs, "Remote Jobs You Can Do From Anywhere")];
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-ink-100 bg-white">
         <div
@@ -63,9 +70,9 @@ export default async function HomePage() {
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow justify-center">Work from anywhere · any timezone</span>
             <h1 className="mt-4 font-display text-[2.15rem] font-extrabold leading-[1.06] text-ink-900 sm:text-4xl md:text-5xl">
-              Every job here is{" "}
+              Remote jobs you can do from{" "}
               <span className="bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent">
-                truly location-independent
+                anywhere in the world
               </span>
               .
             </h1>
@@ -108,7 +115,7 @@ export default async function HomePage() {
 
         {/* All Jobs feed with salary / type filters */}
         <section className="pt-8">
-          <SectionHeader eyebrow="Live feed" title="All jobs" href="/page/1" linkLabel="Paginated view" />
+          <SectionHeader eyebrow="Live feed" title="All remote jobs" href="/page/1" linkLabel="Browse all remote jobs" />
           <JobBoard jobs={jobs} />
         </section>
 
@@ -146,7 +153,7 @@ export default async function HomePage() {
                 eyebrow="Category"
                 title={category}
                 href={`/remote-${categoryToSlug(category)}-jobs`}
-                linkLabel={`All ${category}`}
+                linkLabel={`All remote ${category} jobs`}
               />
               <JobList jobs={list} />
             </section>
@@ -174,13 +181,22 @@ function SectionHeader({
   linkLabel: string;
 }) {
   return (
-    <div className="mb-5 flex items-end justify-between gap-4">
+    <div className="mb-6 flex flex-col gap-4 border-b border-ink-100 pb-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
         <span className="eyebrow">{eyebrow}</span>
-        <h2 className="mt-1.5 font-display text-2xl font-extrabold text-ink-900">{title}</h2>
+        <div className="mt-4 flex items-center gap-3">
+          <span className="h-7 w-1.5 rounded-full bg-gradient-to-b from-brand-500 to-brand-300" aria-hidden />
+          <h2 className="font-display text-[1.6rem] font-extrabold leading-none tracking-tight text-ink-900 md:text-[1.85rem]">
+            {title}
+          </h2>
+        </div>
       </div>
-      <Link href={href} className="whitespace-nowrap text-sm font-semibold text-brand-700 hover:text-brand-800">
-        {linkLabel} →
+      <Link
+        href={href}
+        className="group inline-flex items-center gap-2 self-start rounded-full border border-ink-200 bg-white px-4 py-2 text-sm font-semibold text-ink-700 shadow-sm transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 hover:shadow-md sm:self-auto"
+      >
+        {linkLabel}
+        <ArrowUpRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </Link>
     </div>
   );

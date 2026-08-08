@@ -5,6 +5,15 @@ import { timeAgo } from "@/lib/format";
 import { CheckIcon, PinIcon } from "./icons";
 import { CompanyLogo } from "./CompanyLogo";
 
+/** Small filled star for the Featured badge. */
+function StarBadgeIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+      <path d="M12 2.5l2.9 6.06 6.6.86-4.85 4.54 1.24 6.54L12 17.9l-5.89 3.1 1.24-6.54L2.5 9.42l6.6-.86L12 2.5z" />
+    </svg>
+  );
+}
+
 export function JobCard({
   job,
   onSkillClick,
@@ -21,12 +30,17 @@ export function JobCard({
   return (
     <Link
       href={`/jobs/${job.slug}`}
-      className={`group relative flex items-start gap-5 rounded-2xl border p-5 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lift ${
+      className={`group relative flex items-start gap-5 overflow-hidden rounded-2xl border p-5 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lift ${
         job.is_featured
-          ? "border-accent-200 bg-gradient-to-br from-accent-50/70 to-white ring-1 ring-inset ring-accent-100 hover:border-accent-300"
+          ? "border-accent-200 bg-[#fdf9ef] ring-1 ring-inset ring-accent-200/60 hover:border-accent-300 hover:shadow-[0_12px_32px_-14px_rgba(227,168,31,0.55)] dark:border-accent-400/25 dark:bg-[#15120a] dark:ring-accent-400/15 dark:hover:border-accent-400/45"
           : "border-ink-100 bg-white hover:border-brand-300 hover:ring-2 hover:ring-brand-100"
       }`}
     >
+      {/* Gold accent spine marks a featured/sponsored placement in both themes. */}
+      {job.is_featured && (
+        <span aria-hidden className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-accent-300 via-accent-400 to-accent-500" />
+      )}
+
       <CompanyLogo
         src={job.company_logo}
         name={job.company_name}
@@ -37,8 +51,8 @@ export function JobCard({
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           {job.is_featured && (
-            <span className="rounded-md bg-accent-400 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-ink-900">
-              Featured
+            <span className="inline-flex items-center gap-1 rounded-md bg-gradient-to-r from-accent-300 to-accent-400 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-[#231803] shadow-sm">
+              <StarBadgeIcon className="h-3 w-3" /> Featured
             </span>
           )}
           {!job.is_featured && job.in_demand && (

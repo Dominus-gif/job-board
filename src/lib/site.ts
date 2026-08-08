@@ -3,7 +3,7 @@ export const SITE = {
   name: "AnywhereJobs",
   tagline: "The only job board where every job is truly location-independent.",
   description:
-    "Hand-filtered remote jobs you can do from anywhere in the world — no country, region, or timezone restriction. Ever.",
+    "Browse remote jobs you can do from anywhere in the world — truly location-independent roles with no country, region, or timezone restriction, plus region-based remote jobs. Fresh listings from top company boards, updated continuously.",
   get url() {
     // Explicit override wins; otherwise auto-detect the Vercel URL so canonical
     // links, sitemap, RSS and JSON-LD are correct without any manual config.

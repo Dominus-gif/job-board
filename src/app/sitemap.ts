@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllJobs, getCompanies } from "@/lib/db";
+import { getAllJobs, getRegionalJobs, getCompanies } from "@/lib/db";
 import { allLandingSlugs } from "@/lib/landing";
 import { abs, FEATURES } from "@/lib/site";
 
@@ -29,7 +29,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  const jobs = (await getAllJobs()).map((job) => ({
+  // Every listing gets its own indexable URL — worldwide and regional alike.
+  const [worldwide, regional] = await Promise.all([getAllJobs(), getRegionalJobs()]);
+  const jobs = [...worldwide, ...regional].map((job) => ({
     url: abs(`/jobs/${job.slug}`),
     lastModified: new Date(job.posted_at),
     changeFrequency: "weekly" as const,
