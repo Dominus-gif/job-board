@@ -69,12 +69,8 @@ export default async function HomePage() {
         <div className="relative mx-auto max-w-5xl px-4 pt-11 pb-12 md:pt-14 md:pb-14">
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow justify-center">Work from anywhere · any timezone</span>
-            <h1 className="mt-4 font-display text-[2.15rem] font-extrabold leading-[1.06] text-ink-900 sm:text-4xl md:text-5xl">
-              Remote jobs you can do from{" "}
-              <span className="bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent">
-                anywhere in the world
-              </span>
-              .
+            <h1 className="mt-4 font-display text-[2.1rem] font-bold leading-[1.1] tracking-[-0.02em] text-ink-900 sm:text-4xl md:text-5xl">
+              Remote jobs you can do from anywhere in the world.
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-ink-500 md:text-lg">
               Verified remote roles with no country, region, or timezone strings attached — pulled straight from
@@ -181,22 +177,17 @@ function SectionHeader({
   linkLabel: string;
 }) {
   return (
-    <div className="mb-6 flex flex-col gap-4 border-b border-ink-100 pb-4 sm:flex-row sm:items-end sm:justify-between">
+    <div className="mb-5 flex items-end justify-between gap-4 border-b border-ink-100 pb-3">
       <div>
         <span className="eyebrow">{eyebrow}</span>
-        <div className="mt-4 flex items-center gap-3">
-          <span className="h-7 w-1.5 rounded-full bg-gradient-to-b from-brand-500 to-brand-300" aria-hidden />
-          <h2 className="font-display text-[1.6rem] font-extrabold leading-none tracking-tight text-ink-900 md:text-[1.85rem]">
-            {title}
-          </h2>
-        </div>
+        <h2 className="mt-2 font-display text-xl font-semibold tracking-tight text-ink-900 md:text-2xl">{title}</h2>
       </div>
       <Link
         href={href}
-        className="group inline-flex items-center gap-2 self-start rounded-full border border-ink-200 bg-white px-4 py-2 text-sm font-semibold text-ink-700 shadow-sm transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 hover:shadow-md sm:self-auto"
+        className="group inline-flex flex-shrink-0 items-center gap-1 text-sm font-medium text-brand-600 hover:text-brand-700"
       >
         {linkLabel}
-        <ArrowUpRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
       </Link>
     </div>
   );

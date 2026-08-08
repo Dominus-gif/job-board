@@ -7,7 +7,7 @@ function Submit() {
   const { pending } = useFormStatus();
   return (
     <button type="submit" disabled={pending}
-      className="rounded-lg bg-brand-600 px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-brand-700 disabled:opacity-60">
+      className="btn-primary px-6 py-3 disabled:opacity-60">
       {pending ? "Submitting…" : "Submit job for review"}
     </button>
   );

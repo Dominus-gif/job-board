@@ -8,38 +8,25 @@
 
 @layer base {
   body {
-    @apply bg-paper text-ink-900 antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+    @apply bg-paper text-ink-800 antialiased;
+    font-feature-settings: "cv05", "ss01";
   }
   h1, h2, h3, h4 {
-    @apply font-display tracking-tight;
+    @apply font-display tracking-[-0.011em] text-ink-900;
   }
+  /* Notion's soft blue text selection. */
   ::selection {
-    @apply bg-brand-600 text-white;
+    background-color: rgba(35, 131, 226, 0.24);
   }
   :focus-visible {
-    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-paper;
+    @apply outline-none ring-2 ring-brand-400 ring-offset-2 ring-offset-paper;
   }
 }
 
 @layer components {
-  /* Section eyebrow — a bold brand label with a straight, tapered brush
-     underline. The underline is a mask filled with currentColor, so it always
-     matches the label's text colour (brand by default, gold on the regional
-     page, etc.) in both light and dark themes. */
+  /* Section eyebrow — a quiet Notion-style label: small, uppercase, muted. */
   .eyebrow {
-    @apply relative inline-flex items-center pb-2 text-sm font-extrabold uppercase tracking-[0.18em] text-brand-600;
-  }
-  .eyebrow::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: -0.25rem;
-    bottom: 0.125rem;
-    height: 7px;
-    background-color: currentColor;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M1.5 4 Q 100 2.3 198.5 4 Q 100 5.7 1.5 4 Z' fill='%23000'/%3E%3C/svg%3E") no-repeat 0 0 / 100% 100%;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M1.5 4 Q 100 2.3 198.5 4 Q 100 5.7 1.5 4 Z' fill='%23000'/%3E%3C/svg%3E") no-repeat 0 0 / 100% 100%;
+    @apply inline-flex items-center text-xs font-semibold uppercase tracking-[0.08em] text-ink-500;
   }
   /* Small section label (Salary, Skills, Benefits…). */
   .field-label {
@@ -47,39 +34,44 @@
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition focus-visible:ring-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition focus-visible:ring-2;
   }
+  /* Primary action = solid near-black (flips to a light solid in dark mode). */
   .btn-primary {
-    @apply btn bg-brand-600 text-white shadow-sm hover:bg-brand-700 active:bg-brand-800;
+    @apply btn bg-ink-900 text-white hover:bg-ink-800 active:bg-ink-700;
   }
   .btn-dark {
     @apply btn bg-ink-900 text-white hover:bg-ink-800;
   }
   .btn-ghost {
-    @apply btn border border-ink-200 bg-white text-ink-800 hover:border-brand-300 hover:text-brand-700;
+    @apply btn border border-ink-200 bg-white text-ink-700 hover:bg-ink-50 hover:text-ink-900;
   }
 
+  /* Selected/active state (filter pills, active nav) — solid near-black in light,
+     flips to solid near-white in dark. No blue anywhere. */
+  .pill-on {
+    @apply bg-ink-900 text-white;
+  }
+  /* Featured badge — a tasteful solid chip that adapts to the theme. */
+  .badge-featured {
+    @apply inline-flex items-center gap-1 rounded-md bg-ink-800 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white;
+  }
   /* Meta chip used on job cards and detail pages. */
   .chip {
-    @apply inline-flex items-center gap-1.5 rounded-full bg-ink-50 px-3 py-1.5 text-[13px] font-medium text-ink-600 ring-1 ring-inset ring-ink-100;
+    @apply inline-flex items-center gap-1.5 rounded-md bg-ink-50 px-2.5 py-1 text-[13px] font-medium text-ink-600 ring-1 ring-inset ring-ink-100;
   }
   .card {
-    @apply rounded-2xl border border-ink-100 bg-white shadow-card;
+    @apply rounded-xl border border-ink-100 bg-white shadow-card;
   }
-  /* "Trending" badge — a gentle pulsing glow to draw the eye. */
+  /* "Trending" badge — static and quiet (no glow/pulse). */
   .badge-trending {
-    animation: trending-glow 1.8s ease-in-out infinite;
+    background-color: theme(colors.brand.50);
   }
 }
 
-/* Gold flashing "Trending" badge. */
-@keyframes trending-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(227, 168, 31, 0); background-color: #fdf7e7; }
-  50% { box-shadow: 0 0 0 5px rgba(227, 168, 31, 0.28); background-color: #faedc4; }
-}
 @keyframes trending-blink {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.2; }
+  50% { opacity: 0.35; }
 }
 
 /* Prose for legal / informational pages. */
@@ -116,85 +108,109 @@
    ───────────────────────────────────────────────────────────────────────── */
 :root.dark { color-scheme: dark; }
 
-.dark body { background-color: #0b1120; color: #eef2f9; }
+.dark body {
+  background-color: #191919; /* Notion dark canvas */
+  color: rgba(255, 255, 255, 0.81);
+}
 
-/* Surfaces */
-.dark .bg-paper { background-color: #0b1120 !important; }
-.dark .bg-white { background-color: #141d33 !important; }
-.dark .bg-white\/70 { background-color: rgba(20, 29, 51, 0.7) !important; }
-.dark .bg-white\/85 { background-color: rgba(15, 22, 40, 0.85) !important; }
-.dark .bg-white\/95 { background-color: rgba(15, 22, 40, 0.95) !important; }
-.dark .bg-ink-50 { background-color: #1c2740 !important; }
-.dark .bg-ink-50\/60 { background-color: rgba(28, 39, 64, 0.6) !important; }
-.dark .bg-ink-50\/50 { background-color: rgba(28, 39, 64, 0.5) !important; }
-.dark .bg-ink-100 { background-color: #24304a !important; }
+/* Surfaces — Notion dark greys */
+.dark .bg-paper { background-color: #191919 !important; }
+.dark .bg-white { background-color: #202020 !important; }
+.dark .bg-white\/70 { background-color: rgba(32, 32, 32, 0.7) !important; }
+.dark .bg-white\/85 { background-color: rgba(25, 25, 25, 0.85) !important; }
+.dark .bg-white\/95 { background-color: rgba(25, 25, 25, 0.95) !important; }
+.dark .bg-ink-50 { background-color: #252525 !important; }
+.dark .bg-ink-50\/60 { background-color: rgba(37, 37, 37, 0.6) !important; }
+.dark .bg-ink-50\/50 { background-color: rgba(37, 37, 37, 0.5) !important; }
+.dark .bg-ink-100 { background-color: #2c2c2c !important; }
 
-/* Coloured tints */
-.dark .bg-brand-50 { background-color: rgba(76, 99, 240, 0.15) !important; }
-.dark .bg-brand-100 { background-color: rgba(76, 99, 240, 0.22) !important; }
-.dark .bg-amber-50 { background-color: rgba(224, 168, 31, 0.13) !important; }
+/* In dark mode the blue accent reads muddy against #191919, so brand/accent
+   surfaces, borders, rings and accent text all become NEUTRAL WHITE instead
+   (blue is kept only in light mode). Solid selected pills — bg-brand-500 — stay
+   blue on purpose as a clear "active" affordance. */
+.dark .bg-brand-50 { background-color: rgba(255, 255, 255, 0.055) !important; }
+.dark .bg-brand-100 { background-color: rgba(255, 255, 255, 0.10) !important; }
+.dark .bg-accent-50 { background-color: rgba(255, 255, 255, 0.055) !important; }
+.dark .bg-accent-400 { background-color: rgba(255, 255, 255, 0.9) !important; }
+/* Amber/emerald kept for salary-tier & region semantics */
+.dark .bg-amber-50 { background-color: rgba(224, 168, 31, 0.12) !important; }
 .dark .bg-amber-50\/70 { background-color: rgba(224, 168, 31, 0.1) !important; }
 .dark .bg-amber-50\/60 { background-color: rgba(224, 168, 31, 0.1) !important; }
-.dark .bg-amber-100 { background-color: rgba(224, 168, 31, 0.2) !important; }
+.dark .bg-amber-100 { background-color: rgba(224, 168, 31, 0.18) !important; }
 .dark .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.14) !important; }
-.dark .bg-accent-50 { background-color: rgba(224, 168, 31, 0.13) !important; }
-.dark .bg-accent-400 { background-color: #e3a81f !important; }
 .dark .bg-red-300 { background-color: #f87171 !important; }
 
-/* Text */
-.dark .text-ink-900 { color: #eef2f9 !important; }
-.dark .text-ink-800 { color: #dbe2ee !important; }
-.dark .text-ink-700 { color: #c1cadb !important; }
-.dark .text-ink-600 { color: #a7b2c8 !important; }
-.dark .text-ink-500 { color: #8a97ae !important; }
-.dark .text-ink-400 { color: #71809a !important; }
-.dark .text-brand-700, .dark .text-brand-800 { color: #9fb4ff !important; }
-.dark .text-brand-600 { color: #8fabff !important; }
+/* Text — Notion's translucent whites */
+.dark .text-ink-900 { color: rgba(255, 255, 255, 0.9) !important; }
+.dark .text-ink-800 { color: rgba(255, 255, 255, 0.81) !important; }
+.dark .text-ink-700 { color: rgba(255, 255, 255, 0.68) !important; }
+.dark .text-ink-600 { color: rgba(255, 255, 255, 0.56) !important; }
+.dark .text-ink-500 { color: rgba(255, 255, 255, 0.46) !important; }
+.dark .text-ink-400 { color: rgba(255, 255, 255, 0.38) !important; }
+.dark .text-brand-500, .dark .text-brand-600, .dark .text-brand-700, .dark .text-brand-800, .dark .text-brand-900 { color: rgba(255, 255, 255, 0.88) !important; }
 .dark .text-amber-800, .dark .text-amber-900 { color: #f0c56a !important; }
 .dark .text-amber-700 { color: #e9b44c !important; }
 .dark .text-emerald-700 { color: #5fe0a0 !important; }
 .dark .text-emerald-800 { color: #6fe6ab !important; }
 .dark .text-emerald-600 { color: #4dd694 !important; }
-.dark .text-accent-600, .dark .text-accent-700 { color: #efc54f !important; }
+.dark .text-accent-600, .dark .text-accent-700 { color: rgba(255, 255, 255, 0.88) !important; }
 
-/* Borders, rings, dividers */
-.dark .border-ink-100 { border-color: #27324c !important; }
-.dark .border-ink-200 { border-color: #33405e !important; }
-.dark .border-ink-300 { border-color: #3d4c6d !important; }
+/* Borders, rings, dividers — Notion hairlines */
+.dark .border-ink-100 { border-color: rgba(255, 255, 255, 0.094) !important; }
+.dark .border-ink-200 { border-color: rgba(255, 255, 255, 0.14) !important; }
+.dark .border-ink-300 { border-color: rgba(255, 255, 255, 0.2) !important; }
 .dark .border-amber-200 { border-color: rgba(224, 168, 31, 0.35) !important; }
-.dark .border-brand-200 { border-color: rgba(76, 99, 240, 0.35) !important; }
-.dark .border-brand-300 { border-color: rgba(76, 99, 240, 0.5) !important; }
+.dark .border-brand-200 { border-color: rgba(255, 255, 255, 0.16) !important; }
+.dark .border-brand-300 { border-color: rgba(255, 255, 255, 0.26) !important; }
 .dark .border-emerald-100 { border-color: rgba(16, 185, 129, 0.3) !important; }
-.dark .border-accent-200, .dark .border-accent-300 { border-color: rgba(224, 168, 31, 0.4) !important; }
-.dark .ring-ink-100 { --tw-ring-color: #27324c !important; }
-.dark .ring-ink-200 { --tw-ring-color: #33405e !important; }
-.dark .ring-brand-100 { --tw-ring-color: rgba(76, 99, 240, 0.3) !important; }
-.dark .ring-brand-200 { --tw-ring-color: rgba(76, 99, 240, 0.4) !important; }
+.dark .border-accent-200, .dark .border-accent-300 { border-color: rgba(255, 255, 255, 0.16) !important; }
+.dark .ring-ink-100 { --tw-ring-color: rgba(255, 255, 255, 0.094) !important; }
+.dark .ring-ink-200 { --tw-ring-color: rgba(255, 255, 255, 0.14) !important; }
+.dark .ring-brand-100 { --tw-ring-color: rgba(255, 255, 255, 0.14) !important; }
+.dark .ring-brand-200 { --tw-ring-color: rgba(255, 255, 255, 0.24) !important; }
 .dark .ring-amber-100, .dark .ring-amber-200 { --tw-ring-color: rgba(224, 168, 31, 0.35) !important; }
 .dark .ring-emerald-100 { --tw-ring-color: rgba(16, 185, 129, 0.3) !important; }
-.dark .ring-accent-100, .dark .ring-accent-300 { --tw-ring-color: rgba(224, 168, 31, 0.4) !important; }
-.dark .divide-ink-100 > :not([hidden]) ~ :not([hidden]) { border-color: #27324c !important; }
+.dark .ring-accent-100, .dark .ring-accent-300 { --tw-ring-color: rgba(255, 255, 255, 0.2) !important; }
+.dark .divide-ink-100 > :not([hidden]) ~ :not([hidden]) { border-color: rgba(255, 255, 255, 0.094) !important; }
 
 /* Inputs */
 .dark input:not([type="checkbox"]):not([type="radio"]),
-.dark textarea { background-color: #141d33 !important; color: #eef2f9; border-color: #33405e; }
-.dark input::placeholder, .dark textarea::placeholder { color: #6d7a93 !important; }
-.dark input[type="checkbox"], .dark input[type="radio"] { accent-color: #4c63f0; }
+.dark textarea { background-color: #202020 !important; color: rgba(255,255,255,0.81); border-color: rgba(255,255,255,0.14); }
+.dark input::placeholder, .dark textarea::placeholder { color: rgba(255,255,255,0.34) !important; }
+.dark input[type="checkbox"], .dark input[type="radio"] { accent-color: #2383e2; }
 
 /* Misc */
-.dark .shadow-card { box-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.4) !important; }
-.dark .shadow-lift { box-shadow: 0 10px 30px -12px rgba(0,0,0,0.6) !important; }
-.dark .bg-meridian { background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px) !important; }
-.dark :focus-visible { --tw-ring-offset-color: #0b1120; }
-.dark .btn-ghost { background-color: #141d33; }
+.dark .shadow-card { box-shadow: 0 1px 2px rgba(0,0,0,0.4) !important; }
+.dark .shadow-lift { box-shadow: 0 8px 22px -10px rgba(0,0,0,0.6) !important; }
+.dark .bg-meridian { background-image: none !important; }
+.dark :focus-visible { --tw-ring-offset-color: #191919; }
+.dark .btn-ghost { background-color: transparent; color: rgba(255,255,255,0.81); }
+.dark .btn-ghost:hover { background-color: #252525; }
+/* Primary button flips to a light solid with dark text in dark mode. */
+.dark .btn-primary { background-color: #ffffff !important; color: #191919 !important; }
+.dark .btn-primary:hover { background-color: #e7e7e5 !important; }
+
+/* Selected pill + featured badge flip to a light solid with dark text in dark. */
+.dark .pill-on { background-color: #f6f6f4 !important; color: #191919 !important; }
+.dark .badge-featured { background-color: #e6e6e4 !important; color: #191919 !important; }
+
+/* HOVER variants of the blue accent (e.g. breadcrumbs, share buttons) also go
+   neutral-white in dark — the base text/border overrides don't match the
+   `hover:` variant class names, so hovering leaked blue. */
+.dark .hover\:text-brand-600:hover,
+.dark .hover\:text-brand-700:hover,
+.dark .hover\:text-brand-800:hover { color: rgba(255, 255, 255, 0.88) !important; }
+.dark .hover\:border-brand-200:hover,
+.dark .hover\:border-brand-300:hover,
+.dark .hover\:border-brand-400:hover { border-color: rgba(255, 255, 255, 0.26) !important; }
 
 /* Tailwind slate-* utilities (RSS feeds, admin, pagination, forms) aren't part
    of the ink scale, so they stayed light in dark mode. Remap them here. */
-.dark .bg-slate-50 { background-color: #1c2740 !important; }
-.dark .bg-slate-100 { background-color: #1c2740 !important; }
-.dark .hover\:bg-slate-200:hover { background-color: #24304a !important; }
-.dark .border-slate-100 { border-color: #27324c !important; }
-.dark .border-slate-200 { border-color: #27324c !important; }
-.dark .border-slate-300 { border-color: #33405e !important; }
-.dark .text-slate-400 { color: #8a97ae !important; }
-.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]) { border-color: #27324c !important; }
+.dark .bg-slate-50 { background-color: #252525 !important; }
+.dark .bg-slate-100 { background-color: #252525 !important; }
+.dark .hover\:bg-slate-200:hover { background-color: #2c2c2c !important; }
+.dark .border-slate-100 { border-color: rgba(255, 255, 255, 0.094) !important; }
+.dark .border-slate-200 { border-color: rgba(255, 255, 255, 0.094) !important; }
+.dark .border-slate-300 { border-color: rgba(255, 255, 255, 0.14) !important; }
+.dark .text-slate-400 { color: rgba(255, 255, 255, 0.46) !important; }
+.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]) { border-color: rgba(255, 255, 255, 0.094) !important; }

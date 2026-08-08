@@ -102,13 +102,11 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
               <div className="min-w-0">
                 <div className="mb-2 flex flex-wrap items-center gap-2">
                   {job.is_featured && (
-                    <span className="rounded-md bg-accent-400 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-ink-900">
-                      Featured
-                    </span>
+                    <span className="badge-featured px-2.5 py-1 text-xs">Featured</span>
                   )}
                   {!job.is_featured && job.in_demand && (
-                    <span className="badge-trending inline-flex items-center gap-1.5 rounded-md bg-accent-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-accent-600 ring-1 ring-inset ring-accent-300">
-                      <span className="h-1.5 w-1.5 rounded-full bg-accent-500 [animation:trending-blink_1.1s_ease-in-out_infinite]" aria-hidden />
+                    <span className="inline-flex items-center gap-1.5 rounded-md bg-ink-50 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-ink-500 ring-1 ring-inset ring-ink-100">
+                      <span className="h-1.5 w-1.5 rounded-full bg-ink-400" aria-hidden />
                       Trending
                     </span>
                   )}

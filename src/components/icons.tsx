@@ -141,6 +141,28 @@ export const SparkIcon = (p: IconProps) => (
   </Base>
 );
 
+export const BookmarkIcon = ({ filled, ...p }: IconProps & { filled?: boolean }) => (
+  <Base {...p} fill={filled ? "currentColor" : "none"}>
+    <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.2L5 21V4a1 1 0 0 1 1-1Z" />
+  </Base>
+);
+
+export const ShareIcon = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7" />
+    <path d="M16 6l-4-4-4 4" />
+    <path d="M12 2v13" />
+  </Base>
+);
+
+export const RssIcon = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M4 11a9 9 0 0 1 9 9" />
+    <path d="M4 4a16 16 0 0 1 16 16" />
+    <circle cx="5" cy="19" r="1.4" fill="currentColor" stroke="none" />
+  </Base>
+);
+
 /** Small brand logo mark — a meridian globe, no emoji. */
 export const LogoMark = (p: IconProps) => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden className="h-full w-full" {...p}>

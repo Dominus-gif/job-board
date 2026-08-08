@@ -7,7 +7,7 @@
  * swap for Postgres (replace the bodies with SQL; keep the async signatures).
  */
 import type { Category, Company, Job, JobSubmission, Subscriber } from "./types";
-import { companies as allowList, loadJobs, isLive } from "./store";
+import { companies as allowList, loadJobs, isLive, getSnapshotPool } from "./store";
 import { IN_DEMAND_THRESHOLD, runtimeInterest } from "./interest";
 
 export { isLive } from "./store";
@@ -57,6 +57,34 @@ export async function getJobBySlug(slug: string): Promise<Job | undefined> {
   const jobs = await loadJobs();
   const job = jobs.find((j) => j.slug === slug);
   return job ? applyInterest(job) : undefined;
+}
+
+/**
+ * Inactive / archived listings: jobs the deployment has known (the build
+ * snapshot) that are no longer live — removed, stopped, or expired. Marked
+ * inactive so the UI can show "no longer accepting applications".
+ */
+export async function getArchivedJobs(): Promise<Job[]> {
+  const active = new Set((await loadJobs()).map((j) => j.slug));
+  const seen = new Set<string>();
+  const out: Job[] = [];
+  for (const j of getSnapshotPool()) {
+    if (active.has(j.slug) || seen.has(j.slug)) continue;
+    seen.add(j.slug);
+    out.push({ ...j, is_active: false, status: "expired" });
+  }
+  return out.sort((a, b) => new Date(b.posted_at).getTime() - new Date(a.posted_at).getTime());
+}
+
+export async function getArchivedCount(): Promise<number> {
+  return (await getArchivedJobs()).length;
+}
+
+/** Is a specific slug in the archive (removed/stopped/expired)? */
+export async function isArchived(slug: string): Promise<boolean> {
+  const active = new Set((await loadJobs()).map((j) => j.slug));
+  if (active.has(slug)) return false;
+  return getSnapshotPool().some((j) => j.slug === slug);
 }
 
 export async function getJobsByCategory(category: Category): Promise<Job[]> {

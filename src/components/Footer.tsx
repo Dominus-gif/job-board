@@ -53,6 +53,14 @@ export function Footer() {
           >
             Browse all remote jobs
           </Link>
+          <div className="mt-4">
+            <Link
+              href="/archived"
+              className="text-sm text-ink-300 underline-offset-2 transition hover:text-white hover:underline"
+            >
+              Inactive / Archived listings
+            </Link>
+          </div>
         </div>
 
         <FooterCol title="By location">

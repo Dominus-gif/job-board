@@ -98,7 +98,7 @@ export function JobBoard({ jobs, pageSize = 12 }: { jobs: Job[]; pageSize?: numb
               key={s}
               type="button"
               onClick={() => toggleSkill(s)}
-              className="inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-3 py-1 text-sm font-medium text-white transition hover:bg-brand-700"
+              className="pill-on inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-sm font-medium transition hover:opacity-90"
             >
               {s} <CloseIcon className="h-3.5 w-3.5" />
             </button>
@@ -120,8 +120,8 @@ export function JobBoard({ jobs, pageSize = 12 }: { jobs: Job[]; pageSize?: numb
               onClick={() => toggleSkill(s)}
               className={`rounded-full px-3 py-1 text-sm font-medium lowercase transition ${
                 selected.has(s.toLowerCase())
-                  ? "bg-brand-600 text-white"
-                  : "bg-ink-50 text-ink-600 ring-1 ring-ink-100 hover:text-brand-700 hover:ring-brand-300"
+                  ? "pill-on"
+                  : "bg-ink-50 text-ink-600 ring-1 ring-ink-100 hover:text-ink-900 hover:ring-ink-200"
               }`}
             >
               {s}
@@ -216,7 +216,7 @@ function FilterChip({ active, onClick, children }: { active: boolean; onClick: (
       type="button"
       onClick={onClick}
       className={`rounded-full px-3 py-1 text-sm font-medium transition ${
-        active ? "bg-brand-600 text-white" : "bg-ink-50 text-ink-600 ring-1 ring-ink-100 hover:text-ink-900 hover:ring-brand-300"
+        active ? "pill-on" : "bg-ink-50 text-ink-600 ring-1 ring-ink-100 hover:text-ink-900 hover:ring-ink-200"
       }`}
     >
       {children}

@@ -3,6 +3,8 @@ import { SITE, FEATURES } from "@/lib/site";
 import { LogoMark } from "./icons";
 import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "./ThemeToggle";
+import { BookmarksLink } from "./BookmarksLink";
+import { NavLinks } from "./NavLinks";
 
 const NAV: [string, string][] = [
   ["Browse jobs", "/remote-backend-jobs"],
@@ -24,12 +26,9 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-7 text-sm font-medium text-ink-600 md:flex">
-          {NAV.map(([label, href]) => (
-            <Link key={href} href={href} className="transition hover:text-ink-900">
-              {label}
-            </Link>
-          ))}
+        <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
+          <NavLinks items={NAV} />
+          <BookmarksLink />
         </nav>
 
         <div className="flex items-center gap-1">

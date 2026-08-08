@@ -143,7 +143,7 @@ export default async function AdvertisePage() {
             {products.map((p) => (
               <div key={p.name} className={`relative flex flex-col rounded-2xl border p-6 ${p.highlight ? "border-brand-300 bg-brand-50/40 shadow-lift ring-1 ring-brand-200" : "card"}`}>
                 {p.highlight && (
-                  <span className="absolute -top-3 left-6 rounded-full bg-brand-600 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
+                  <span className="absolute -top-3 left-6 rounded-full bg-brand-300 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-black">
                     Most popular
                   </span>
                 )}
@@ -179,7 +179,7 @@ export default async function AdvertisePage() {
             {tiers.map((t) => (
               <div key={t.name} className={`relative flex flex-col rounded-2xl border p-6 ${t.highlight ? "border-brand-300 bg-brand-50/40 shadow-lift ring-1 ring-brand-200" : "card"}`}>
                 {t.highlight && (
-                  <span className="absolute -top-3 left-6 rounded-full bg-brand-600 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
+                  <span className="absolute -top-3 left-6 rounded-full bg-brand-300 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-black">
                     Most popular
                   </span>
                 )}

@@ -163,6 +163,14 @@ export async function loadJobs(): Promise<Job[]> {
   return serve(await loadRealJobs());
 }
 
+/**
+ * Every job the deployment has ever known (the raw build snapshot). Used to
+ * surface listings that have since been removed/stopped on the archive page.
+ */
+export function getSnapshotPool(): Job[] {
+  return snapshotJobs as Job[];
+}
+
 /** Whether the current data came from a live scrape (vs. the snapshot). */
 export async function isLive(): Promise<boolean> {
   await loadJobs();

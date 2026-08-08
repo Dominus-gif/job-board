@@ -7,6 +7,7 @@ import { FEATURES } from "@/lib/site";
 const LINKS: [string, string][] = [
   ["Browse jobs", "/remote-backend-jobs"],
   ["Companies", "/companies"],
+  ["Bookmarks", "/bookmarks"],
   ...(FEATURES.newsletter ? ([["Newsletter", "/newsletter"]] as [string, string][]) : []),
   ...(FEATURES.advertise ? ([["Advertise", "/advertise"]] as [string, string][]) : []),
   ["RSS feeds", "/rss-feeds"],
