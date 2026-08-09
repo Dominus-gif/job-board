@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { SITE, FEATURES } from "@/lib/site";
 import { CATEGORIES, categoryToSlug } from "@/lib/taxonomy";
+import { TOOLS } from "@/lib/tools";
+import { getAllPosts } from "@/lib/posts";
 import { LogoMark } from "./icons";
 
 /** Remote jobs by location — high-intent geo searches (US & European markets). */
@@ -36,54 +38,73 @@ const POPULAR_SEARCHES: { href: string; label: string }[] = [
 ];
 
 export function Footer() {
+  const posts = getAllPosts().slice(0, 3);
   return (
     <footer className="mt-20 bg-ink-900 text-ink-200">
-      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-10 px-4 py-14 md:grid-cols-5">
-        <div className="col-span-2">
-          <div className="flex items-center gap-2.5">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 p-1.5 text-white">
-              <LogoMark />
-            </span>
-            <span className="font-display text-lg font-extrabold text-white">{SITE.name}</span>
-          </div>
-          <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-300">{SITE.tagline}</p>
-          <Link
-            href="/page/1"
-            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/15"
-          >
-            Browse all remote jobs
-          </Link>
-          <div className="mt-4">
+      <div className="mx-auto max-w-6xl px-4 py-14">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,3.2fr)]">
+          <div>
+            <div className="flex items-center gap-2.5">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 p-1.5 text-white">
+                <LogoMark />
+              </span>
+              <span className="font-display text-lg font-extrabold text-white">{SITE.name}</span>
+            </div>
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-300">{SITE.tagline}</p>
             <Link
-              href="/archived"
-              className="text-sm text-ink-300 underline-offset-2 transition hover:text-white hover:underline"
+              href="/page/1"
+              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/15"
             >
-              Inactive / Archived listings
+              Browse all remote jobs
             </Link>
+            <div className="mt-4">
+              <Link
+                href="/archived"
+                className="text-sm text-ink-300 underline-offset-2 transition hover:text-white hover:underline"
+              >
+                Inactive / Archived listings
+              </Link>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
+            <FooterCol title="By location">
+              {LOCATION_LINKS.map((l) => (
+                <FooterLink key={l.href} href={l.href}>{l.label}</FooterLink>
+              ))}
+            </FooterCol>
+
+            <FooterCol title="Categories">
+              {CATEGORIES.slice(0, 5).map((c) => (
+                <FooterLink key={c} href={`/remote-${categoryToSlug(c)}-jobs`}>{c}</FooterLink>
+              ))}
+              <FooterLink href="/remote-regional-jobs">Remote — regional</FooterLink>
+            </FooterCol>
+
+            <FooterCol title="Tools">
+              {TOOLS.map((t) => (
+                <FooterLink key={t.slug} href={`/tools/${t.slug}`}>{t.short}</FooterLink>
+              ))}
+              <FooterLink href="/tools">All tools</FooterLink>
+            </FooterCol>
+
+            <FooterCol title="Posts">
+              {posts.map((p) => (
+                <FooterLink key={p.slug} href={`/posts/${p.slug}`}>{p.title}</FooterLink>
+              ))}
+              <FooterLink href="/posts">All posts</FooterLink>
+            </FooterCol>
+
+            <FooterCol title="Company">
+              <FooterLink href="/about">About</FooterLink>
+              <FooterLink href="/hiring">Post a job</FooterLink>
+              {FEATURES.advertise && <FooterLink href="/advertise">Advertise</FooterLink>}
+              {FEATURES.newsletter && <FooterLink href="/newsletter">Newsletter</FooterLink>}
+              <FooterLink href="/rss-feeds">RSS feeds</FooterLink>
+              <FooterLink href="/contact">Contact</FooterLink>
+            </FooterCol>
           </div>
         </div>
-
-        <FooterCol title="By location">
-          {LOCATION_LINKS.map((l) => (
-            <FooterLink key={l.href} href={l.href}>{l.label}</FooterLink>
-          ))}
-        </FooterCol>
-
-        <FooterCol title="Categories">
-          {CATEGORIES.slice(0, 5).map((c) => (
-            <FooterLink key={c} href={`/remote-${categoryToSlug(c)}-jobs`}>{c}</FooterLink>
-          ))}
-          <FooterLink href="/remote-regional-jobs">Remote — regional</FooterLink>
-        </FooterCol>
-
-        <FooterCol title="Company">
-          <FooterLink href="/about">About</FooterLink>
-          <FooterLink href="/hiring">Post a job</FooterLink>
-          {FEATURES.advertise && <FooterLink href="/advertise">Advertise</FooterLink>}
-          {FEATURES.newsletter && <FooterLink href="/newsletter">Newsletter</FooterLink>}
-          <FooterLink href="/rss-feeds">RSS feeds</FooterLink>
-          <FooterLink href="/contact">Contact</FooterLink>
-        </FooterCol>
       </div>
 
       {/* Popular searches — keyword-rich internal links on every page. */}

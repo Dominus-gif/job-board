@@ -20,7 +20,7 @@ const body = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Remote Jobs You Can Do From Anywhere in the World | AnywhereJobs",
+    default: "Remote Jobs From Anywhere in the World | AnywhereJobs",
     // Puts the "remote jobs" keyword in every page's <title>.
     template: "%s | AnywhereJobs — Remote Jobs",
   },
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: SITE.name,
-    title: "Remote Jobs You Can Do From Anywhere in the World | AnywhereJobs",
+    title: "Remote Jobs From Anywhere in the World | AnywhereJobs",
     description: SITE.description,
     url: SITE.url,
   },

@@ -94,6 +94,27 @@
 .prose-job strong { @apply font-semibold text-ink-900; }
 .prose-job blockquote { @apply border-l-2 border-brand-200 pl-4 italic text-ink-600; }
 
+/* Editorial post body. */
+.prose-post h2 { @apply mt-9 mb-3 font-display text-xl font-bold tracking-tight text-ink-900; }
+.prose-post h3 { @apply mt-6 mb-2 font-display text-base font-bold text-ink-900; }
+.prose-post p { @apply my-4 leading-relaxed text-ink-700; }
+.prose-post ul { @apply my-4 list-disc space-y-2 pl-6 text-ink-700 marker:text-ink-300; }
+.prose-post ol { @apply my-4 list-decimal space-y-2 pl-6 text-ink-700 marker:text-ink-400; }
+.prose-post li { @apply leading-relaxed; }
+.prose-post a { @apply font-medium text-brand-600 underline decoration-brand-200 underline-offset-2 hover:decoration-brand-500; }
+.prose-post strong { @apply font-semibold text-ink-900; }
+.prose-post em { @apply italic; }
+.prose-post blockquote { @apply my-5 border-l-2 border-ink-200 pl-4 text-ink-600 italic; }
+
+/* World Time Buddy — premium range slider. */
+.wtb-range { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 9999px; background: #e9e9e7; cursor: pointer; }
+.wtb-range::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; border-radius: 9999px; background: #2b2a26; border: 3px solid #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.28); transition: transform 0.1s; }
+.wtb-range::-webkit-slider-thumb:active { transform: scale(1.12); }
+.wtb-range::-moz-range-thumb { height: 20px; width: 20px; border: 3px solid #fff; border-radius: 9999px; background: #2b2a26; box-shadow: 0 1px 5px rgba(0,0,0,0.28); }
+.dark .wtb-range { background: #333; }
+.dark .wtb-range::-webkit-slider-thumb { background: #f6f6f4; border-color: #202020; }
+.dark .wtb-range::-moz-range-thumb { background: #f6f6f4; border-color: #202020; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

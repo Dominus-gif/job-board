@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { getAllJobs, getRegionalJobs, getCompanies } from "@/lib/db";
 import { allLandingSlugs } from "@/lib/landing";
+import { getAllPosts } from "@/lib/posts";
+import { TOOLS } from "@/lib/tools";
 import { abs, FEATURES } from "@/lib/site";
 
 export const revalidate = 1800;
@@ -9,11 +11,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const staticPages = [
-    "/", "/companies", "/hiring", "/rss-feeds", "/remote-regional-jobs",
+    "/", "/companies", "/hiring", "/rss-feeds", "/remote-regional-jobs", "/tools", "/posts",
     "/about", "/contact", "/privacy", "/terms",
     ...(FEATURES.advertise ? ["/advertise"] : []),
     ...(FEATURES.newsletter ? ["/newsletter"] : []),
   ].map((path) => ({ url: abs(path), lastModified: now, changeFrequency: "daily" as const, priority: path === "/" ? 1 : 0.6 }));
+
+  const posts = getAllPosts().map((p) => ({
+    url: abs(`/posts/${p.slug}`),
+    lastModified: new Date(p.updated ?? p.date),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  const tools = TOOLS.map((t) => ({
+    url: abs(`/tools/${t.slug}`),
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
 
   const landings = (await allLandingSlugs()).map((slug) => ({
     url: abs(`/${slug}`),
@@ -38,5 +54,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: job.is_featured ? 0.9 : 0.7,
   }));
 
-  return [...staticPages, ...landings, ...companies, ...jobs];
+  return [...staticPages, ...landings, ...companies, ...posts, ...tools, ...jobs];
 }
