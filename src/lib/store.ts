@@ -21,8 +21,11 @@ import companiesSeed from "./seed/companies.json";
 import rawSeedJobs from "./seed/raw-jobs.json";
 import snapshotJobs from "./generated/snapshot.json";
 import { NORDHARTON_COMPANY, NORDHARTON_JOBS } from "./seed/nordharton";
-import { CURATED_JOBS } from "./seed/curated";
-import { CURATED_ROLE_JOBS } from "./seed/curated-roles";
+// Prebuilt at `prebuild` (scripts/build-curated.ts) and committed. Loading a
+// plain JSON array here means a cold serverless instance does ZERO enrichment
+// work for the ~10k curated jobs — it just parses them — so they're always
+// present and the board can't fall back to the snapshot on Vercel.
+import curatedJobs from "./generated/curated-jobs.json";
 
 const TTL_MS = Number(process.env.ANYWHERE_CACHE_TTL_MS ?? 30 * 60 * 1000); // 30 min
 const LIVE_ENABLED = process.env.ANYWHERE_LIVE !== "false";
@@ -61,7 +64,7 @@ function processSeed(): Job[] {
  * board to just these few jobs. Kept out of the ATS allow-list so ingest never
  * fetches a board for them.
  */
-const manualJobs: Job[] = withOverrides([...NORDHARTON_JOBS, ...CURATED_ROLE_JOBS, ...CURATED_JOBS]);
+const manualJobs: Job[] = withOverrides([...NORDHARTON_JOBS, ...(curatedJobs as Job[])]);
 
 /** Union the always-on manual jobs onto a set of real (scraped/snapshot) jobs. */
 function serve(realJobs: Job[]): Job[] {
