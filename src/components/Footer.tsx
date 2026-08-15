@@ -5,13 +5,20 @@ import { TOOLS } from "@/lib/tools";
 import { getAllPosts } from "@/lib/posts";
 import { LogoMark } from "./icons";
 
-/** Remote jobs by location — high-intent geo searches (US & European markets). */
+/** Remote jobs by location — high-intent geo searches (countries + key cities). */
 const LOCATION_LINKS: { href: string; label: string }[] = [
-  { href: "/remote-jobs-in-usa", label: "Remote Jobs in the USA" },
-  { href: "/remote-jobs-in-europe", label: "Remote Jobs in Europe" },
-  { href: "/remote-jobs-in-uk", label: "Remote Jobs in the UK" },
-  { href: "/remote-jobs-in-germany", label: "Remote Jobs in Germany" },
-  { href: "/remote-jobs-in-canada", label: "Remote Jobs in Canada" },
+  { href: "/remote-jobs-in-the-bay-area", label: "Bay Area / San Francisco" },
+  { href: "/remote-jobs-in-new-york", label: "New York" },
+  { href: "/remote-jobs-in-london", label: "London" },
+  { href: "/remote-jobs-in-berlin", label: "Berlin" },
+  { href: "/remote-jobs-in-amsterdam", label: "Amsterdam" },
+  { href: "/remote-jobs-in-japan", label: "Japan" },
+  { href: "/remote-jobs-in-india", label: "India" },
+  { href: "/remote-jobs-in-usa", label: "USA" },
+  { href: "/remote-jobs-in-europe", label: "Europe" },
+  { href: "/remote-jobs-in-uk", label: "UK" },
+  { href: "/remote-jobs-in-germany", label: "Germany" },
+  { href: "/remote-jobs-in-canada", label: "Canada" },
 ];
 
 /**
@@ -23,6 +30,8 @@ const POPULAR_SEARCHES: { href: string; label: string }[] = [
   { href: "/work-from-home-jobs", label: "Work From Home Jobs" },
   { href: "/remote-jobs-in-usa", label: "Remote Jobs USA" },
   { href: "/remote-jobs-in-europe", label: "Remote Jobs Europe" },
+  { href: "/remote-jobs-in-the-bay-area", label: "Remote Jobs Bay Area" },
+  { href: "/remote-jobs-in-london", label: "Remote Jobs London" },
   { href: "/remote-backend-jobs", label: "Remote Developer Jobs" },
   { href: "/remote-frontend-jobs", label: "Remote Frontend Jobs" },
   { href: "/remote-fullstack-jobs", label: "Remote Full-Stack Jobs" },

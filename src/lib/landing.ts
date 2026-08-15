@@ -177,9 +177,10 @@ const BENEFIT_LANDINGS: Record<string, string> = {
 /* -------------------------------------------------------------------------- */
 interface GeoConfig {
   slug: string;
-  region: string; // region.ts label used to pull in matching regional roles
-  place: string; // "the United States"
-  short: string; // "the US"
+  region?: string; // region.ts bucket (broad — country/continent pages)
+  keywords?: RegExp; // location substring match (city/area pages, e.g. Bay Area)
+  place: string; // "the United States" / "the Bay Area"
+  short: string; // "the US" / "the Bay Area"
   title: string;
   metaTitle: string;
   metaDescription: string;
@@ -247,12 +248,122 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     intro:
       "Remote jobs you can do from anywhere in Canada. Every worldwide role here is open to Canadian candidates with no timezone gate — plus roles hiring specifically across Canada. Work from home in Toronto, Vancouver, Montréal, or anywhere else.",
   },
+  "remote-jobs-in-the-bay-area": {
+    slug: "remote-jobs-in-the-bay-area",
+    keywords: /san francisco|bay area|palo alto|mountain view|menlo|santa clara|sunnyvale|cupertino|redwood|san jose|berkeley|oakland/i,
+    place: "the Bay Area",
+    short: "the Bay Area",
+    title: "Remote Jobs in the Bay Area — San Francisco & Silicon Valley",
+    metaTitle: "Remote Jobs in the Bay Area (San Francisco) — Hiring Now | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote and hybrid jobs in the San Francisco Bay Area — work-from-anywhere roles open to Bay Area candidates, plus roles hiring across SF, Silicon Valley, Oakland and San Jose. AI, software, fintech, design & more. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in the San Francisco Bay Area. Every worldwide role here is open to Bay Area candidates — plus thousands of roles hiring specifically across San Francisco, Silicon Valley, Oakland, San Jose and Palo Alto, many at fast-growing AI and tech companies.",
+  },
+  "remote-jobs-in-new-york": {
+    slug: "remote-jobs-in-new-york",
+    keywords: /new york|nyc|manhattan|brooklyn/i,
+    place: "New York",
+    short: "New York",
+    title: "Remote Jobs in New York — Work From Home in NYC",
+    metaTitle: "Remote Jobs in New York (NYC) — Work From Home | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in New York you can do from home — work-from-anywhere roles open to NYC candidates, plus jobs hiring specifically across New York City. Software, fintech, marketing, design & more. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in New York. Every worldwide role here is open to New York candidates — plus roles hiring specifically across NYC, from fintech and media to software and design.",
+  },
+  "remote-jobs-in-london": {
+    slug: "remote-jobs-in-london",
+    keywords: /london|england|\buk\b|united kingdom/i,
+    place: "London",
+    short: "London",
+    title: "Remote Jobs in London — Work From Home in the UK",
+    metaTitle: "Remote Jobs in London — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in London you can do from home — work-from-anywhere roles open to London candidates, plus roles hiring specifically across London and the UK. Tech, finance, marketing, design & support. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in London. Every worldwide role here is open to London candidates with no timezone gate — plus roles hiring specifically across London and the wider UK.",
+  },
+  "remote-jobs-in-berlin": {
+    slug: "remote-jobs-in-berlin",
+    keywords: /berlin|munich|hamburg|frankfurt/i,
+    place: "Berlin",
+    short: "Berlin",
+    title: "Remote Jobs in Berlin — English-Speaking, Work From Home",
+    metaTitle: "Remote Jobs in Berlin — English-Speaking, Work From Home | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Berlin you can do from home — English-speaking, work-from-anywhere roles open to Berlin candidates, plus roles hiring across Germany. Tech, product, design & more. 100% home office, visa options. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Berlin. Every worldwide role here is open to Berlin candidates — many English-speaking — plus roles hiring specifically across Berlin and Germany, including visa-sponsoring employers.",
+  },
+  "remote-jobs-in-amsterdam": {
+    slug: "remote-jobs-in-amsterdam",
+    keywords: /amsterdam|netherlands|rotterdam|utrecht|the hague/i,
+    place: "Amsterdam",
+    short: "the Netherlands",
+    title: "Remote Jobs in Amsterdam — Work From Home in the Netherlands",
+    metaTitle: "Remote Jobs in Amsterdam (Netherlands) — Work From Home | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Amsterdam and the Netherlands you can do from home — English-speaking, work-from-anywhere roles plus roles hiring across the Netherlands. Tech, product, design & finance. Visa options. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Amsterdam and the Netherlands. Every worldwide role here is open to Dutch candidates — many English-speaking — plus roles hiring specifically across Amsterdam, Rotterdam and Utrecht.",
+  },
+  "remote-jobs-in-japan": {
+    slug: "remote-jobs-in-japan",
+    keywords: /japan|tokyo|osaka|kyoto|yokohama/i,
+    place: "Japan",
+    short: "Japan",
+    title: "Remote Jobs in Japan — English-Speaking & Visa-Sponsored",
+    metaTitle: "Remote Jobs in Japan — English-Speaking, Visa-Sponsored | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote and on-site tech jobs in Japan — English-speaking engineering roles at companies that sponsor work visas and relocate to Tokyo, plus work-from-anywhere roles open to candidates in Japan. Apply free.",
+    intro:
+      "Remote and relocation tech jobs in Japan. Includes English-speaking engineering roles at Tokyo companies that sponsor work visas, plus worldwide roles you can do from anywhere in Japan.",
+  },
+  "remote-jobs-in-india": {
+    slug: "remote-jobs-in-india",
+    keywords: /india|bangalore|bengaluru|mumbai|delhi|hyderabad|pune|chennai|gurgaon|noida/i,
+    place: "India",
+    short: "India",
+    title: "Remote Jobs in India — Work From Home Anywhere in India",
+    metaTitle: "Remote Jobs in India — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in India you can do from home — work-from-anywhere roles open to Indian candidates, plus roles hiring specifically across Bengaluru, Hyderabad, Mumbai and Pune. Software, support, design & more. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in India. Every worldwide role here is open to Indian candidates — plus roles hiring specifically across Bengaluru, Hyderabad, Mumbai, Pune and Delhi NCR.",
+  },
+  "remote-jobs-in-singapore": {
+    slug: "remote-jobs-in-singapore",
+    keywords: /singapore/i,
+    place: "Singapore",
+    short: "Singapore",
+    title: "Remote Jobs in Singapore — Work From Home in Singapore",
+    metaTitle: "Remote Jobs in Singapore — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Singapore you can do from home — work-from-anywhere roles open to candidates in Singapore, plus roles hiring specifically in Singapore. Tech, fintech, product & design. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Singapore. Every worldwide role here is open to Singapore candidates — plus roles hiring specifically across Singapore's tech and fintech scene.",
+  },
+  "remote-jobs-in-australia": {
+    slug: "remote-jobs-in-australia",
+    keywords: /australia|sydney|melbourne|brisbane|perth/i,
+    place: "Australia",
+    short: "Australia",
+    title: "Remote Jobs in Australia — Work From Home Anywhere in Australia",
+    metaTitle: "Remote Jobs in Australia — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Australia you can do from home — work-from-anywhere roles open to Australian candidates, plus roles hiring specifically across Sydney, Melbourne and Brisbane. Software, product, design & more. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Australia. Every worldwide role here is open to Australian candidates — plus roles hiring specifically across Sydney, Melbourne, Brisbane and Perth.",
+  },
 };
 
 /** Jobs for a geo page: the worldwide board + regional roles matching the geo. */
-async function geoJobs(region: string): Promise<Job[]> {
+async function geoJobs(cfg: GeoConfig): Promise<Job[]> {
   const [worldwide, regional] = await Promise.all([getAllJobs(), getRegionalJobs()]);
-  const matched = regional.filter((j) => jobRegions(j.location).includes(region));
+  const matched = cfg.keywords
+    ? regional.filter((j) => cfg.keywords!.test(j.location)) // city/area pages
+    : regional.filter((j) => jobRegions(j.location).includes(cfg.region!)); // country/continent
   // Worldwide first (the honest headline offer), then geo-specific regional roles.
   return [...worldwide, ...matched];
 }
@@ -309,7 +420,7 @@ export async function resolveLanding(slug: string): Promise<LandingView | null> 
   // 1b. Geo-targeted pages: /remote-jobs-in-<place>
   const geo = GEO_PAGES[slug];
   if (geo) {
-    return geoView(geo, await geoJobs(geo.region));
+    return geoView(geo, await geoJobs(geo));
   }
 
   // 2. Curated SEO pages (some are benefit-backed).
