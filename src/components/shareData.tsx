@@ -24,25 +24,43 @@ export interface ShareNetwork {
   icon: ReactNode;
 }
 
-/** Build the share-network links + promo copy for a job URL. */
-export function buildShareNetworks(url: string, title: string, message?: string): ShareNetwork[] {
-  const promo = message ?? `${title} — work from anywhere in the world. Found on AnywhereJobs, the only job board where every job is truly location-independent.`;
-  const u = encodeURIComponent(url);
-  const t = encodeURIComponent(title);
-  const m = encodeURIComponent(promo);
-  const mUrl = encodeURIComponent(`${promo}\n\n${url}`);
-  return [
-    { label: "Share on X", href: `https://twitter.com/intent/tweet?url=${u}&text=${m}&hashtags=remotejobs,workfromanywhere&via=anywherejobs`, icon: <XIcon /> },
-    { label: "Share on LinkedIn", href: `https://www.linkedin.com/sharing/share-offsite/?url=${u}`, icon: <LinkedInIcon /> },
-    { label: "Share on Facebook", href: `https://www.facebook.com/sharer/sharer.php?u=${u}&quote=${m}`, icon: <FacebookIcon /> },
-    { label: "Share on WhatsApp", href: `https://api.whatsapp.com/send?text=${mUrl}`, icon: <WhatsAppIcon /> },
-    { label: "Share on Reddit", href: `https://www.reddit.com/submit?url=${u}&title=${t}`, icon: <RedditIcon /> },
-    { label: "Share on Telegram", href: `https://t.me/share/url?url=${u}&text=${m}`, icon: <TelegramIcon /> },
-    { label: "Share by email", href: `mailto:?subject=${t}&body=${mUrl}`, icon: <MailIcon /> },
-  ];
+/** Truncate to `max` characters with an ellipsis, on a word boundary if easy. */
+function clamp(s: string, max: number): string {
+  if (s.length <= max) return s;
+  const cut = s.slice(0, Math.max(0, max - 1));
+  const sp = cut.lastIndexOf(" ");
+  return (sp > max * 0.6 ? cut.slice(0, sp) : cut).trimEnd() + "…";
 }
 
-export function shareCopyText(url: string, title: string, message?: string): string {
-  const promo = message ?? `${title} — work from anywhere in the world. Found on AnywhereJobs.`;
-  return `${promo}\n\n${url}`;
+/**
+ * Build share-network links for a job URL. Each network gets a message tailored
+ * to its character limit so nothing is ever truncated by the platform:
+ *   - X/Twitter: whole post ≤ 250 chars (the link counts as ~23 via t.co).
+ *   - Reddit: title ≤ 300 (the link is a separate field).
+ *   - Facebook quote ≤ 280; Telegram/WhatsApp kept tidy; LinkedIn takes no text.
+ * Social buttons share link + message; the Copy button (elsewhere) copies the
+ * link only.
+ */
+export function buildShareNetworks(url: string, title: string, message?: string): ShareNetwork[] {
+  const base = message ?? `${title} — a remote job you can do from anywhere. Via AnywhereJobs.`;
+  const enc = encodeURIComponent;
+  const u = enc(url);
+  const t = enc(title);
+
+  // X: budget = 250 total − 24 for the trailing space + t.co link.
+  const xText = clamp(base, 250 - 24);
+  const tgText = clamp(base, 700);
+  const waText = `${clamp(base, 700)}\n\n${url}`;
+  const fbQuote = clamp(base, 280);
+  const redditTitle = clamp(base, 300);
+
+  return [
+    { label: "Share on X", href: `https://twitter.com/intent/tweet?text=${enc(xText)}&url=${u}`, icon: <XIcon /> },
+    { label: "Share on LinkedIn", href: `https://www.linkedin.com/sharing/share-offsite/?url=${u}`, icon: <LinkedInIcon /> },
+    { label: "Share on Facebook", href: `https://www.facebook.com/sharer/sharer.php?u=${u}&quote=${enc(fbQuote)}`, icon: <FacebookIcon /> },
+    { label: "Share on WhatsApp", href: `https://api.whatsapp.com/send?text=${enc(waText)}`, icon: <WhatsAppIcon /> },
+    { label: "Share on Reddit", href: `https://www.reddit.com/submit?url=${u}&title=${enc(redditTitle)}`, icon: <RedditIcon /> },
+    { label: "Share on Telegram", href: `https://t.me/share/url?url=${u}&text=${enc(tgText)}`, icon: <TelegramIcon /> },
+    { label: "Share by email", href: `mailto:?subject=${t}&body=${enc(`${base}\n\n${url}`)}`, icon: <MailIcon /> },
+  ];
 }

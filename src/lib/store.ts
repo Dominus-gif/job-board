@@ -21,6 +21,8 @@ import companiesSeed from "./seed/companies.json";
 import rawSeedJobs from "./seed/raw-jobs.json";
 import snapshotJobs from "./generated/snapshot.json";
 import { NORDHARTON_COMPANY, NORDHARTON_JOBS } from "./seed/nordharton";
+import { CURATED_JOBS } from "./seed/curated";
+import { CURATED_ROLE_JOBS } from "./seed/curated-roles";
 
 const TTL_MS = Number(process.env.ANYWHERE_CACHE_TTL_MS ?? 30 * 60 * 1000); // 30 min
 const LIVE_ENABLED = process.env.ANYWHERE_LIVE !== "false";
@@ -59,7 +61,7 @@ function processSeed(): Job[] {
  * board to just these few jobs. Kept out of the ATS allow-list so ingest never
  * fetches a board for them.
  */
-const manualJobs: Job[] = withOverrides([...NORDHARTON_JOBS]);
+const manualJobs: Job[] = withOverrides([...NORDHARTON_JOBS, ...CURATED_ROLE_JOBS, ...CURATED_JOBS]);
 
 /** Union the always-on manual jobs onto a set of real (scraped/snapshot) jobs. */
 function serve(realJobs: Job[]): Job[] {

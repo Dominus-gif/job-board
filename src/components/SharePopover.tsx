@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ShareIcon } from "./icons";
-import { buildShareNetworks, shareCopyText, LinkIcon } from "./shareData";
+import { buildShareNetworks, LinkIcon } from "./shareData";
 
 /**
  * A share icon button that opens a small "Share this job" popover with all the
@@ -36,7 +36,7 @@ export function SharePopover({ slug, title }: { slug: string; title: string }) {
     e.preventDefault();
     e.stopPropagation();
     try {
-      await navigator.clipboard.writeText(shareCopyText(url, title));
+      await navigator.clipboard.writeText(url); // link only
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
     } catch {
@@ -63,12 +63,19 @@ export function SharePopover({ slug, title }: { slug: string; title: string }) {
       </button>
 
       {open && (
-        <div
-          role="dialog"
-          aria-label="Share this job"
-          onClick={(e) => e.preventDefault()}
-          className="absolute right-0 z-50 mt-2 w-64 rounded-xl border border-ink-100 bg-white p-4 shadow-lift"
-        >
+        <>
+          {/* Mobile backdrop — the panel becomes a bottom sheet below sm. */}
+          <div
+            className="fixed inset-0 z-40 bg-black/40 sm:hidden"
+            aria-hidden
+            onClick={() => setOpen(false)}
+          />
+          <div
+            role="dialog"
+            aria-label="Share this job"
+            onClick={(e) => e.preventDefault()}
+            className="fixed inset-x-4 bottom-4 z-50 w-auto rounded-xl border border-ink-100 bg-white p-4 shadow-lift sm:absolute sm:inset-x-auto sm:bottom-auto sm:right-0 sm:mt-2 sm:w-64"
+          >
           <p className="font-display text-sm font-semibold text-ink-900">Share this job</p>
           <p className="mt-0.5 text-xs text-ink-500">Know someone who works from anywhere? Send it their way.</p>
           <div className="mt-3 flex flex-wrap gap-1.5">
@@ -94,7 +101,8 @@ export function SharePopover({ slug, title }: { slug: string; title: string }) {
           >
             <LinkIcon /> {copied ? "Copied!" : "Copy link"}
           </button>
-        </div>
+          </div>
+        </>
       )}
     </div>
   );

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllJobs, getRegionalJobs, getCompanyBySlug, getJobBySlug, getJobsByCompany, getSimilarJobs } from "@/lib/db";
+import { getAllJobs, getCompanyBySlug, getJobBySlug, getJobsByCompany, getSimilarJobs } from "@/lib/db";
 import { formatSalary, salaryTier } from "@/lib/salary";
 import { formatDate, daysUntil } from "@/lib/format";
 import { abs } from "@/lib/site";
@@ -24,10 +24,10 @@ export const dynamicParams = true;
 export const revalidate = 1800;
 
 export async function generateStaticParams() {
-  // Pre-render every listing — worldwide and regional — so each is a static,
-  // indexable page.
-  const [worldwide, regional] = await Promise.all([getAllJobs(), getRegionalJobs()]);
-  return [...worldwide, ...regional].map((job) => ({ slug: job.slug }));
+  // Pre-render worldwide listings; the large regional set renders on demand
+  // (dynamicParams) and is still fully indexable via the sitemap. This keeps the
+  // build fast now that the curated directory adds thousands of regional roles.
+  return (await getAllJobs()).map((job) => ({ slug: job.slug }));
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
