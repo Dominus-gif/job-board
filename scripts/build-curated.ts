@@ -20,8 +20,17 @@ import realSlugs from "../src/lib/seed/real-company-slugs.json";
 const DAY = 24 * 60 * 60 * 1000;
 const slugify = (n: string) => n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 const HAS_REAL = new Set(realSlugs as string[]);
+
+// ATS / applicant-tracking hosts — never the company's own domain, so using them
+// for the logo would show the ATS icon (Greenhouse, Ashby…) instead of the
+// employer's. When we hit one, drop it so the logo resolves from the name.
+const ATS_HOST = /greenhouse|lever\.co|ashbyhq|workable\.com|smartrecruiters|myworkday|workday|bamboohr|recruitee|breezy|jobvite|icims|teamtailor|personio|join\.com|gem\.com|paylocity|rippling|ripplingats|dover\.com|wellfound|angel\.co|notion\.so|airtable\.com|docs\.google|forms\.gle|linkedin\.com|indeed\.com/i;
+function cleanDomain(d: string | undefined | null): string | undefined {
+  if (!d) return undefined;
+  return ATS_HOST.test(d) ? undefined : d;
+}
 function domainFromUrl(u: string): string | undefined {
-  try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return undefined; }
+  try { return cleanDomain(new URL(u).hostname.replace(/^www\./, "")); } catch { return undefined; }
 }
 function excerpt(html: string): string {
   const t = (html || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
@@ -37,7 +46,7 @@ const roleJobs: Job[] = (roles as RoleRec[]).map((rec, i) => {
     external_id: `curated-role:${i}`,
     provider: "greenhouse",
     company_name: rec.company.trim(),
-    company_domain: rec.domain || undefined,
+    company_domain: cleanDomain(rec.domain),
     title: rec.title.trim(),
     description_html: excerpt(rec.desc) || `<p>${rec.title.trim()} at ${rec.company.trim()}. See the full description and apply directly on the company's job page.</p>`,
     apply_url: rec.apply,
