@@ -20,13 +20,16 @@ const EMP_OPTIONS: { id: EmpFilter; label: string }[] = [
  * from any job card), trending searches, and salary/type filters. Filtering is
  * instant; results reveal incrementally via "Show more".
  */
-export function JobBoard({ jobs, pageSize = 12 }: { jobs: Job[]; pageSize?: number }) {
+const PER_PAGE_OPTIONS = [50, 100, 200];
+
+export function JobBoard({ jobs, pageSize = 50 }: { jobs: Job[]; pageSize?: number }) {
   const [query, setQuery] = useState("");
   const [skills, setSkills] = useState<string[]>([]);
   const [band, setBand] = useState("any");
   const [emp, setEmp] = useState<EmpFilter>("all");
   const [region, setRegion] = useState("any");
   const [salaryOnly, setSalaryOnly] = useState(false);
+  const [perPage, setPerPage] = useState(pageSize);
   const [visible, setVisible] = useState(pageSize);
 
   // Region filter only appears when the feed actually spans regions (i.e. the
@@ -46,7 +49,7 @@ export function JobBoard({ jobs, pageSize = 12 }: { jobs: Job[]; pageSize?: numb
   function toggleSkill(skill: string) {
     const key = skill.toLowerCase();
     setSkills((prev) => (prev.map((s) => s.toLowerCase()).includes(key) ? prev.filter((s) => s.toLowerCase() !== key) : [...prev, skill]));
-    setVisible(pageSize);
+    setVisible(perPage);
   }
 
   const filtered = useMemo(() => {
@@ -72,7 +75,7 @@ export function JobBoard({ jobs, pageSize = 12 }: { jobs: Job[]; pageSize?: numb
   }, [jobs, query, skills, band, emp, region, salaryOnly]);
 
   const shown = filtered.slice(0, visible);
-  const reset = () => setVisible(pageSize);
+  const reset = () => setVisible(perPage);
 
   return (
     <div>
@@ -174,8 +177,27 @@ export function JobBoard({ jobs, pageSize = 12 }: { jobs: Job[]; pageSize?: numb
         </div>
       </div>
 
-      <div className="mb-3 mt-5 text-xs font-semibold uppercase tracking-wide text-ink-400">
-        {filtered.length} {filtered.length === 1 ? "role" : "roles"}
+      <div className="mb-3 mt-5 flex items-center justify-between gap-3">
+        <span className="text-xs font-semibold uppercase tracking-wide text-ink-400">
+          {filtered.length.toLocaleString("en-US")} {filtered.length === 1 ? "role" : "roles"}
+        </span>
+        <label className="flex items-center gap-2 text-xs font-medium text-ink-500">
+          Show
+          <span className="relative">
+            <select
+              value={perPage}
+              onChange={(e) => { const n = Number(e.target.value); setPerPage(n); setVisible(n); }}
+              aria-label="Listings per page"
+              className="appearance-none rounded-md border border-ink-200 bg-white py-1.5 pl-3 pr-8 text-sm font-medium text-ink-800 transition hover:border-ink-300 focus:border-ink-300 focus:outline-none focus:ring-2 focus:ring-ink-200"
+            >
+              {PER_PAGE_OPTIONS.map((n) => <option key={n} value={n}>{n}</option>)}
+            </select>
+            <svg viewBox="0 0 24 24" className="pointer-events-none absolute right-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-ink-400" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </span>
+          per page
+        </label>
       </div>
 
       {shown.length === 0 ? (
@@ -192,7 +214,7 @@ export function JobBoard({ jobs, pageSize = 12 }: { jobs: Job[]; pageSize?: numb
 
       {visible < filtered.length && (
         <div className="mt-6 text-center">
-          <button type="button" onClick={() => setVisible((v) => v + pageSize)} className="btn-ghost">
+          <button type="button" onClick={() => setVisible((v) => v + perPage)} className="btn-ghost">
             Show more roles
           </button>
         </div>

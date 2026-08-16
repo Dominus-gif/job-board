@@ -356,6 +356,138 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     intro:
       "Remote jobs you can do from anywhere in Australia. Every worldwide role here is open to Australian candidates — plus roles hiring specifically across Sydney, Melbourne, Brisbane and Perth.",
   },
+  "remote-jobs-in-seattle": {
+    slug: "remote-jobs-in-seattle",
+    keywords: /seattle|bellevue|redmond|kirkland/i,
+    place: "Seattle",
+    short: "Seattle",
+    title: "Remote Jobs in Seattle — Work From Home in Seattle",
+    metaTitle: "Remote Jobs in Seattle — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Seattle you can do from home — work-from-anywhere roles open to Seattle candidates, plus roles hiring across Seattle, Bellevue and Redmond. Cloud, AI, software & more. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Seattle. Every worldwide role here is open to Seattle candidates — plus roles hiring specifically across Seattle, Bellevue and Redmond, home to major cloud and AI employers.",
+  },
+  "remote-jobs-in-toronto": {
+    slug: "remote-jobs-in-toronto",
+    keywords: /toronto|ontario|waterloo|ottawa/i,
+    place: "Toronto",
+    short: "Toronto",
+    title: "Remote Jobs in Toronto — Work From Home in Canada",
+    metaTitle: "Remote Jobs in Toronto — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Toronto you can do from home — work-from-anywhere roles open to Toronto candidates, plus roles hiring across Toronto, Waterloo and Ottawa. Software, fintech, design & more. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Toronto. Every worldwide role here is open to Toronto candidates — plus roles hiring specifically across Toronto, Waterloo and Ottawa.",
+  },
+  "remote-jobs-in-austin": {
+    slug: "remote-jobs-in-austin",
+    keywords: /austin/i,
+    place: "Austin",
+    short: "Austin",
+    title: "Remote Jobs in Austin — Work From Home in Austin, Texas",
+    metaTitle: "Remote Jobs in Austin, TX — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Austin you can do from home — work-from-anywhere roles open to Austin candidates, plus roles hiring specifically in Austin, Texas. Software, crypto, fintech & more. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Austin. Every worldwide role here is open to Austin candidates — plus roles hiring specifically across Austin, Texas's fast-growing tech scene.",
+  },
+  "remote-jobs-in-los-angeles": {
+    slug: "remote-jobs-in-los-angeles",
+    keywords: /los angeles|santa monica|pasadena|culver city|el segundo/i,
+    place: "Los Angeles",
+    short: "LA",
+    title: "Remote Jobs in Los Angeles — Work From Home in LA",
+    metaTitle: "Remote Jobs in Los Angeles (LA) — Work From Home | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Los Angeles you can do from home — work-from-anywhere roles open to LA candidates, plus roles hiring across Los Angeles, Santa Monica and Culver City. Media, software, AI & more. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Los Angeles. Every worldwide role here is open to LA candidates — plus roles hiring specifically across Los Angeles, Santa Monica and Culver City.",
+  },
+  "remote-jobs-in-chicago": {
+    slug: "remote-jobs-in-chicago",
+    keywords: /chicago/i,
+    place: "Chicago",
+    short: "Chicago",
+    title: "Remote Jobs in Chicago — Work From Home in Chicago",
+    metaTitle: "Remote Jobs in Chicago — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Chicago you can do from home — work-from-anywhere roles open to Chicago candidates, plus roles hiring specifically in Chicago. Software, fintech, logistics & more. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Chicago. Every worldwide role here is open to Chicago candidates — plus roles hiring specifically across Chicago.",
+  },
+  "remote-jobs-in-boston": {
+    slug: "remote-jobs-in-boston",
+    keywords: /boston|cambridge, ma/i,
+    place: "Boston",
+    short: "Boston",
+    title: "Remote Jobs in Boston — Work From Home in Boston",
+    metaTitle: "Remote Jobs in Boston — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Boston you can do from home — work-from-anywhere roles open to Boston candidates, plus roles hiring across Boston and Cambridge. Biotech, software, AI & more. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Boston. Every worldwide role here is open to Boston candidates — plus roles hiring specifically across Boston and Cambridge, a biotech and software hub.",
+  },
+  "remote-jobs-in-vancouver": {
+    slug: "remote-jobs-in-vancouver",
+    keywords: /vancouver/i,
+    place: "Vancouver",
+    short: "Vancouver",
+    title: "Remote Jobs in Vancouver — Work From Home in Canada",
+    metaTitle: "Remote Jobs in Vancouver — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Vancouver you can do from home — work-from-anywhere roles open to Vancouver candidates, plus roles hiring specifically in Vancouver, BC. Software, gaming, design & more. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Vancouver. Every worldwide role here is open to Vancouver candidates — plus roles hiring specifically across Vancouver, BC.",
+  },
+  "remote-jobs-in-paris": {
+    slug: "remote-jobs-in-paris",
+    keywords: /paris|france/i,
+    place: "Paris",
+    short: "France",
+    title: "Remote Jobs in Paris — Work From Home in France",
+    metaTitle: "Remote Jobs in Paris (France) — Work From Home | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Paris and France you can do from home — work-from-anywhere roles plus roles hiring across Paris. Tech, product, design & finance. English-speaking, visa options. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Paris and France. Every worldwide role here is open to French candidates — many English-speaking — plus roles hiring specifically across Paris.",
+  },
+  "remote-jobs-in-madrid": {
+    slug: "remote-jobs-in-madrid",
+    keywords: /madrid|barcelona|spain/i,
+    place: "Madrid",
+    short: "Spain",
+    title: "Remote Jobs in Madrid & Barcelona — Work From Home in Spain",
+    metaTitle: "Remote Jobs in Madrid & Barcelona (Spain) — Work From Home | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Madrid, Barcelona and Spain you can do from home — English-speaking, work-from-anywhere roles plus roles hiring across Spain. Tech, product & design. Visa options. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Spain. Every worldwide role here is open to Spanish candidates — many English-speaking — plus roles hiring specifically across Madrid and Barcelona.",
+  },
+  "remote-jobs-in-dublin": {
+    slug: "remote-jobs-in-dublin",
+    keywords: /dublin|ireland/i,
+    place: "Dublin",
+    short: "Ireland",
+    title: "Remote Jobs in Dublin — Work From Home in Ireland",
+    metaTitle: "Remote Jobs in Dublin (Ireland) — Work From Home | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Dublin and Ireland you can do from home — English-speaking, work-from-anywhere roles plus roles hiring across Dublin. Tech, SaaS, finance & more. Visa options. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Dublin and Ireland. Every worldwide role here is open to Irish candidates — plus roles hiring specifically across Dublin, Europe's tech-HQ hub.",
+  },
+  "remote-jobs-in-bengaluru": {
+    slug: "remote-jobs-in-bengaluru",
+    keywords: /bangalore|bengaluru/i,
+    place: "Bengaluru",
+    short: "Bengaluru",
+    title: "Remote Jobs in Bengaluru — Work From Home in Bangalore",
+    metaTitle: "Remote Jobs in Bengaluru (Bangalore) — Work From Home | AnywhereJobs — Remote Jobs",
+    metaDescription:
+      "Remote jobs in Bengaluru you can do from home — work-from-anywhere roles open to candidates in Bangalore, plus roles hiring specifically in Bengaluru. Software, data, AI & more. Apply free.",
+    intro:
+      "Remote jobs you can do from anywhere in Bengaluru. Every worldwide role here is open to candidates in Bangalore — plus roles hiring specifically across Bengaluru, India's tech capital.",
+  },
 };
 
 /** Jobs for a geo page: the worldwide board + regional roles matching the geo. */
