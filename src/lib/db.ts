@@ -43,6 +43,11 @@ export async function getAllJobs(): Promise<Job[]> {
   return (await allPublished()).filter((j) => j.scope === "worldwide");
 }
 
+/** Every published job (worldwide + regional), ranked — for the /jobs search page. */
+export async function getSearchableJobs(): Promise<Job[]> {
+  return allPublished();
+}
+
 /** The "Remote — regional" board: genuinely remote, but region-locked roles. */
 export async function getRegionalJobs(): Promise<Job[]> {
   return (await allPublished()).filter((j) => j.scope === "regional");

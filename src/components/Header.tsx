@@ -7,7 +7,7 @@ import { BookmarksLink } from "./BookmarksLink";
 import { NavLinks } from "./NavLinks";
 
 const NAV: [string, string][] = [
-  ["Browse jobs", "/remote-backend-jobs"],
+  ["Browse jobs", "/jobs"],
   ["Companies", "/companies"],
   ...(FEATURES.newsletter ? ([["Newsletter", "/newsletter"]] as [string, string][]) : []),
   ...(FEATURES.advertise ? ([["Advertise", "/advertise"]] as [string, string][]) : []),

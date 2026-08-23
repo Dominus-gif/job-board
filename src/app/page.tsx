@@ -69,10 +69,10 @@ export default async function HomePage() {
         <div className="relative mx-auto max-w-5xl px-4 pt-11 pb-12 md:pt-14 md:pb-14">
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow justify-center">Work from anywhere · any timezone</span>
-            <h1 className="mt-4 font-display text-[2.1rem] font-bold leading-[1.1] tracking-[-0.02em] text-ink-900 sm:text-4xl md:text-5xl">
+            <h1 className="mt-4 font-display font-bold leading-[1.08] tracking-[-0.02em] text-ink-900 text-[clamp(1.7rem,6.2vw,3rem)] text-balance">
               Remote jobs you can do from anywhere in the world.
             </h1>
-            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-ink-500 md:text-lg">
+            <p className="mx-auto mt-4 max-w-xl leading-relaxed text-ink-500 text-[clamp(0.95rem,3.4vw,1.125rem)]">
               Verified remote roles with no country, region, or timezone strings attached — pulled straight from
               company hiring systems and enriched with salary, skills, and benefits.
             </p>
@@ -91,11 +91,11 @@ export default async function HomePage() {
               </div>
             )}
 
-            <dl className="mx-auto mt-8 grid max-w-md grid-cols-3 divide-x divide-ink-100 rounded-2xl border border-ink-100 bg-white shadow-card">
+            <dl className="mx-auto mt-8 grid max-w-md grid-cols-3 divide-x divide-ink-100 overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card">
               {stats.map(([value, label]) => (
-                <div key={label} className="px-2 py-3.5">
-                  <dt className="font-display text-xl font-extrabold text-ink-900 md:text-2xl">{value}</dt>
-                  <dd className="mt-0.5 text-[11px] font-medium uppercase tracking-wider text-ink-400">{label}</dd>
+                <div key={label} className="min-w-0 px-1.5 py-3.5 sm:px-2">
+                  <dt className="font-display text-lg font-extrabold tabular-nums text-ink-900 sm:text-xl md:text-2xl">{value}</dt>
+                  <dd className="mt-0.5 text-[10px] font-medium uppercase tracking-wide text-ink-400 sm:text-[11px] sm:tracking-wider">{label}</dd>
                 </div>
               ))}
             </dl>
@@ -177,8 +177,8 @@ function SectionHeader({
   linkLabel: string;
 }) {
   return (
-    <div className="mb-5 flex items-end justify-between gap-4 border-b border-ink-100 pb-3">
-      <div>
+    <div className="mb-5 flex flex-col items-start gap-1.5 border-b border-ink-100 pb-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+      <div className="min-w-0">
         <span className="eyebrow">{eyebrow}</span>
         <h2 className="mt-2 font-display text-xl font-semibold tracking-tight text-ink-900 md:text-2xl">{title}</h2>
       </div>

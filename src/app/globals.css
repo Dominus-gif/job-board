@@ -7,9 +7,16 @@
 }
 
 @layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
   body {
     @apply bg-paper text-ink-800 antialiased;
     font-feature-settings: "cv05", "ss01";
+    /* Guard against any child forcing horizontal scroll on small screens.
+       `clip` (not `hidden`) avoids creating a scroll container, so sticky
+       headers keep working. */
+    overflow-x: clip;
   }
   h1, h2, h3, h4 {
     @apply font-display tracking-[-0.011em] text-ink-900;

@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-mobile-check:
+    runs-on: ubuntu-latest
+    env:
+      ANYWHERE_LIVE: "false"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      # Type-check + production build must succeed (catches build regressions).
+      - run: npm run build
+      # Mobile layout guard: fails if any key page scrolls horizontally at 390px.
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test

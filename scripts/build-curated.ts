@@ -40,8 +40,18 @@ function excerpt(html: string): string {
 interface DirRec { source: string; company: string; url: string; title: string; desc: string; salary: string; location: string; scope: "worldwide" | "regional"; }
 interface RoleRec { company: string; domain: string | null; title: string; desc: string; apply: string; location: string; scope: "worldwide" | "regional"; salary: string; }
 
+// Some ATS boards post the same role once per location (e.g. 4x "Enterprise
+// Account Manager" from one company) — collapse those to a single listing.
+const seenRole = new Set<string>();
+const dedupedRoles = (roles as RoleRec[]).filter((r) => {
+  const key = `${r.company.trim().toLowerCase()}::${r.title.trim().toLowerCase()}`;
+  if (seenRole.has(key)) return false;
+  seenRole.add(key);
+  return true;
+});
+
 // Real, individually-scraped ATS roles (direct apply links).
-const roleJobs: Job[] = (roles as RoleRec[]).map((rec, i) => {
+const roleJobs: Job[] = dedupedRoles.map((rec, i) => {
   const raw: RawJob = {
     external_id: `curated-role:${i}`,
     provider: "greenhouse",

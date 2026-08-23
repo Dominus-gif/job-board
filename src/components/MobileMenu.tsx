@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FEATURES } from "@/lib/site";
 
 const LINKS: [string, string][] = [
-  ["Browse jobs", "/remote-backend-jobs"],
+  ["Browse jobs", "/jobs"],
   ["Companies", "/companies"],
   ["Bookmarks", "/bookmarks"],
   ...(FEATURES.newsletter ? ([["Newsletter", "/newsletter"]] as [string, string][]) : []),

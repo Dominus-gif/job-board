@@ -3,6 +3,7 @@ import { getAllJobs, getRegionalJobs, getCompanies } from "@/lib/db";
 import { allLandingSlugs } from "@/lib/landing";
 import { getAllPosts } from "@/lib/posts";
 import { TOOLS } from "@/lib/tools";
+import { CATEGORIES } from "@/lib/taxonomy";
 import { abs, FEATURES } from "@/lib/site";
 
 export const revalidate = 1800;
@@ -11,11 +12,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const staticPages = [
-    "/", "/companies", "/hiring", "/rss-feeds", "/remote-regional-jobs", "/tools", "/posts",
+    "/", "/jobs", "/companies", "/hiring", "/rss-feeds", "/remote-regional-jobs", "/tools", "/posts",
     "/about", "/contact", "/privacy", "/terms",
     ...(FEATURES.advertise ? ["/advertise"] : []),
     ...(FEATURES.newsletter ? ["/newsletter"] : []),
   ].map((path) => ({ url: abs(path), lastModified: now, changeFrequency: "daily" as const, priority: path === "/" ? 1 : 0.6 }));
+
+  // Indexable /jobs filter facets (category + region) — long-tail SEO surfaces.
+  const REGION_FACETS = ["United States", "Europe", "UK", "Asia-Pacific", "Canada", "India"];
+  const jobFacets = [
+    ...CATEGORIES.map((c) => `/jobs?category=${encodeURIComponent(c)}`),
+    ...REGION_FACETS.map((r) => `/jobs?region=${encodeURIComponent(r)}`),
+  ].map((path) => ({ url: abs(path), lastModified: now, changeFrequency: "daily" as const, priority: 0.6 }));
 
   const posts = getAllPosts().map((p) => ({
     url: abs(`/posts/${p.slug}`),
@@ -54,5 +62,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: job.is_featured ? 0.9 : 0.7,
   }));
 
-  return [...staticPages, ...landings, ...companies, ...posts, ...tools, ...jobs];
+  return [...staticPages, ...jobFacets, ...landings, ...companies, ...posts, ...tools, ...jobs];
 }

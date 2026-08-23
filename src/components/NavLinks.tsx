@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 
 /** True when the current path belongs to a nav destination. */
 export function navIsActive(href: string, path: string): boolean {
-  if (href.startsWith("/remote-")) {
+  if (href === "/jobs") {
     // "Browse jobs" owns the whole job-browsing surface.
-    return path.startsWith("/remote-") || path.startsWith("/page") || path.startsWith("/jobs");
+    return path.startsWith("/jobs") || path.startsWith("/remote-") || path.startsWith("/page");
   }
   return path === href || path.startsWith(`${href}/`);
 }
