@@ -27,6 +27,12 @@ const MEDIUM_MIN = 90_000;
 export interface SalaryTierInfo {
   tier: SalaryTier;
   label: string;
+  /** Shape+text indicator (colour-blind safe): "$" / "$$" / "$$$". */
+  glyph: string;
+  /** Number of filled segments (of 3) for a small bar meter. */
+  segments: number;
+  /** Plain-language tooltip explaining the rating. */
+  hint: string;
   /** Text color for the salary value. */
   text: string;
   /** Chip/badge background + ring, e.g. on a JobCard. */
@@ -39,20 +45,29 @@ const TIERS: Record<SalaryTier, SalaryTierInfo> = {
   high: {
     tier: "high",
     label: "High",
+    glyph: "$$$",
+    segments: 3,
+    hint: "High pay — midpoint of $150k+ (USD-equivalent).",
     text: "text-emerald-700",
     chip: "bg-emerald-50 text-emerald-700 ring-emerald-200",
     dot: "bg-emerald-500",
   },
   medium: {
     tier: "medium",
-    label: "Medium",
+    label: "Mid",
+    glyph: "$$",
+    segments: 2,
+    hint: "Mid pay — midpoint of $90k–$150k (USD-equivalent).",
     text: "text-brand-700",
     chip: "bg-brand-50 text-brand-700 ring-brand-200",
     dot: "bg-brand-500",
   },
   good: {
     tier: "good",
-    label: "Good",
+    label: "Entry",
+    glyph: "$",
+    segments: 1,
+    hint: "Entry pay — midpoint under $90k (USD-equivalent).",
     text: "text-amber-700",
     chip: "bg-amber-50 text-amber-800 ring-amber-200",
     dot: "bg-amber-500",

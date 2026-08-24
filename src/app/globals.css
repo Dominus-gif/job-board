@@ -30,6 +30,12 @@
   }
 }
 
+/* Light-mode WCAG-AA contrast: ink-400 (#9B9A97, 2.8:1) and ink-500 (#787774,
+   4.4:1) secondary text fail/borderline on white. Bump them to AA-passing
+   shades in LIGHT mode only — dark mode keeps its own overrides. */
+:root:not(.dark) .text-ink-400 { color: #605e59; }
+:root:not(.dark) .text-ink-500 { color: #4a4842; }
+
 @layer components {
   /* Section eyebrow — a quiet Notion-style label: small, uppercase, muted. */
   .eyebrow {

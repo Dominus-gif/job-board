@@ -8,7 +8,7 @@ import { JobBoard } from "@/components/JobBoard";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { FaqSection } from "@/components/FaqSection";
 import { AdSlot } from "@/components/AdSlot";
-import { PinIcon, ArrowUpRightIcon } from "@/components/icons";
+import { PinIcon, ArrowUpRightIcon, SearchIcon } from "@/components/icons";
 import { siteJsonLd, jobListJsonLd } from "@/lib/jsonld";
 
 const HOME_FAQ = [
@@ -47,9 +47,9 @@ export default async function HomePage() {
 
   const totalRoles = jobs.length + regionalCount;
   const stats = [
-    [totalRoles.toLocaleString("en-US"), "open remote roles"],
-    [jobs.length.toLocaleString("en-US"), "work-from-anywhere"],
-    [regionalCount.toLocaleString("en-US"), "region-based"],
+    [totalRoles.toLocaleString("en-US"), "Open roles"],
+    [jobs.length.toLocaleString("en-US"), "Anywhere"],
+    [regionalCount.toLocaleString("en-US"), "Regional"],
   ] as const;
 
   const jsonLd = [...siteJsonLd(), jobListJsonLd(jobs, "Remote Jobs You Can Do From Anywhere")];
@@ -77,17 +77,12 @@ export default async function HomePage() {
               company hiring systems and enriched with salary, skills, and benefits.
             </p>
 
-            {FEATURES.newsletter ? (
+            {FEATURES.newsletter && (
               <div className="mx-auto mt-6 max-w-lg">
                 <NewsletterForm buttonLabel="Get weekly jobs" />
                 <p className="mt-2 text-xs text-ink-400">
                   Join {subscribers.toLocaleString("en-US")} subscribers · one email a week · no spam
                 </p>
-              </div>
-            ) : (
-              <div className="mt-6 flex flex-wrap justify-center gap-3">
-                <Link href="/page/1" className="btn-primary">Browse all jobs</Link>
-                <Link href="/hiring" className="btn-ghost">Post a job</Link>
               </div>
             )}
 
@@ -95,10 +90,25 @@ export default async function HomePage() {
               {stats.map(([value, label]) => (
                 <div key={label} className="min-w-0 px-1.5 py-3.5 sm:px-2">
                   <dt className="font-display text-lg font-extrabold tabular-nums text-ink-900 sm:text-xl md:text-2xl">{value}</dt>
-                  <dd className="mt-0.5 text-[10px] font-medium uppercase tracking-wide text-ink-400 sm:text-[11px] sm:tracking-wider">{label}</dd>
+                  <dd className="mt-0.5 flex min-h-[2em] items-center justify-center text-[10px] font-medium uppercase tracking-wide text-ink-400 sm:text-[11px] sm:tracking-wider">{label}</dd>
                 </div>
               ))}
             </dl>
+
+            {/* Primary hero action: search (goes to the indexable /jobs page). */}
+            <form action="/jobs" method="get" className="mx-auto mt-8 max-w-xl">
+              <div className="relative">
+                <SearchIcon className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-ink-400" />
+                <input
+                  type="search"
+                  name="q"
+                  placeholder="Search roles, companies, or skills…"
+                  aria-label="Search remote jobs"
+                  className="w-full rounded-xl border border-ink-200 bg-white py-3.5 pl-12 pr-24 text-ink-900 shadow-card placeholder:text-ink-400 focus:border-ink-300 focus:outline-none focus:ring-2 focus:ring-ink-200"
+                />
+                <button type="submit" className="btn-primary absolute right-1.5 top-1/2 -translate-y-1/2 py-2">Search</button>
+              </div>
+            </form>
           </div>
         </div>
       </section>
@@ -111,7 +121,7 @@ export default async function HomePage() {
 
         {/* All Jobs feed with salary / type filters */}
         <section className="pt-8">
-          <SectionHeader eyebrow="Live feed" title="All remote jobs" href="/page/1" linkLabel="Browse all remote jobs" />
+          <SectionHeader eyebrow="Latest roles" title="All remote jobs" href="/jobs" linkLabel="Browse all remote jobs" />
           <JobBoard jobs={jobs} />
         </section>
 

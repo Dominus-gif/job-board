@@ -14,6 +14,7 @@ import { StarRating } from "@/components/StarRating";
 import { ShareButtons } from "@/components/ShareButtons";
 import { AdSlot } from "@/components/AdSlot";
 import { CompanyLogo } from "@/components/CompanyLogo";
+import { StatusBadge } from "@/components/StatusBadge";
 import {
   GlobeIcon, BriefcaseIcon, CalendarIcon, WalletIcon, TagIcon, CheckIcon, BuildingIcon, ArrowUpRightIcon, PinIcon,
 } from "@/components/icons";
@@ -101,15 +102,7 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
                 className="h-16 w-16 flex-shrink-0 rounded-2xl border border-ink-100 bg-white object-contain p-1.5" />
               <div className="min-w-0">
                 <div className="mb-2 flex flex-wrap items-center gap-2">
-                  {job.is_featured && (
-                    <span className="badge-featured px-2.5 py-1 text-xs">Featured</span>
-                  )}
-                  {!job.is_featured && job.in_demand && (
-                    <span className="inline-flex items-center gap-1.5 rounded-md bg-ink-50 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-ink-500 ring-1 ring-inset ring-ink-100">
-                      <span className="h-1.5 w-1.5 rounded-full bg-ink-400" aria-hidden />
-                      Trending
-                    </span>
-                  )}
+                  {job.is_featured && <StatusBadge kind="featured" />}
                   {job.scope === "worldwide" ? (
                     <span className="inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-emerald-700 ring-1 ring-inset ring-emerald-100">
                       <CheckIcon className="h-3.5 w-3.5" /> Verified remote

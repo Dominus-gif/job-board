@@ -5,13 +5,18 @@ import { timeAgo } from "@/lib/format";
 import { CheckIcon, PinIcon } from "./icons";
 import { CompanyLogo } from "./CompanyLogo";
 import { JobCardActions } from "./JobCardActions";
+import { StatusBadge } from "./StatusBadge";
 
-/** Small filled star for the Featured badge. */
-function StarBadgeIcon({ className }: { className?: string }) {
+const NEW_MS = 5 * 24 * 60 * 60 * 1000;
+
+/** Small 3-segment pay meter (shape, not colour, carries the signal). */
+function PayMeter({ segments, className = "" }: { segments: number; className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
-      <path d="M12 2.5l2.9 6.06 6.6.86-4.85 4.54 1.24 6.54L12 17.9l-5.89 3.1 1.24-6.54L2.5 9.42l6.6-.86L12 2.5z" />
-    </svg>
+    <span className={`inline-flex items-center gap-0.5 ${className}`} aria-hidden>
+      {[1, 2, 3].map((n) => (
+        <span key={n} className={`h-2.5 w-1 rounded-sm ${n <= segments ? "bg-current" : "bg-current opacity-25"}`} />
+      ))}
+    </span>
   );
 }
 
@@ -29,6 +34,7 @@ export function JobCard({
   const salary = formatSalary(job.salary);
   const tier = salaryTier(job.salary);
   const active = new Set(activeSkills.map((s) => s.toLowerCase()));
+  const isNew = !job.is_featured && Date.now() - new Date(job.posted_at).getTime() < NEW_MS;
 
   return (
     <Link
@@ -55,17 +61,8 @@ export function JobCard({
               Closed
             </span>
           )}
-          {!inactive && job.is_featured && (
-            <span className="badge-featured">
-              <StarBadgeIcon className="h-2.5 w-2.5" /> Featured
-            </span>
-          )}
-          {!inactive && !job.is_featured && job.in_demand && (
-            <span className="inline-flex items-center gap-1 rounded-md bg-ink-50 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-ink-500 ring-1 ring-inset ring-ink-100">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-500" aria-hidden />
-              Trending
-            </span>
-          )}
+          {!inactive && job.is_featured && <StatusBadge kind="featured" />}
+          {!inactive && isNew && <StatusBadge kind="new" />}
           <h3 className="truncate font-display text-[15px] font-semibold leading-snug text-ink-900 group-hover:text-brand-600">
             {job.title}
           </h3>
@@ -96,8 +93,8 @@ export function JobCard({
           <span className="chip">{job.category}</span>
           {/* Salary is shown in the right rail on ≥sm; surface it here on mobile. */}
           {salary && tier && (
-            <span className={`chip font-semibold ring-1 ring-inset sm:hidden ${tier.chip}`}>
-              <span className={`h-1.5 w-1.5 rounded-full ${tier.dot}`} aria-hidden /> {salary}
+            <span title={tier.hint} className={`chip font-semibold ring-1 ring-inset sm:hidden ${tier.chip}`}>
+              <PayMeter segments={tier.segments} /> {salary}
             </span>
           )}
           {job.skills.slice(0, 4).map((s) =>
@@ -132,16 +129,21 @@ export function JobCard({
 
       <div className="hidden flex-shrink-0 flex-col items-end gap-1.5 sm:flex">
         {salary && tier ? (
-          <span className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold ring-1 ring-inset ${tier.chip}`}>
-            <span className={`h-1.5 w-1.5 rounded-full ${tier.dot}`} aria-hidden />
+          <span title={tier.hint} className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold ring-1 ring-inset ${tier.chip}`}>
+            <PayMeter segments={tier.segments} />
             {salary}
           </span>
         ) : (
-          <span className="rounded-md bg-ink-50 px-2.5 py-1 text-xs text-ink-400 ring-1 ring-inset ring-ink-100">
+          <span className="rounded-md bg-ink-50 px-2.5 py-1 text-xs text-ink-500 ring-1 ring-inset ring-ink-100">
             Salary undisclosed
           </span>
         )}
-        {tier && <span className="text-[11px] font-medium uppercase tracking-wide text-ink-400">{tier.label} pay</span>}
+        {tier && (
+          <span title={tier.hint} className="inline-flex cursor-help items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-ink-500">
+            <span className={tier.text}>{tier.glyph}</span> {tier.label} pay
+            <svg viewBox="0 0 24 24" className="h-3 w-3 text-ink-400" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" strokeLinecap="round" /></svg>
+          </span>
+        )}
         <time className="text-xs text-ink-400" dateTime={job.posted_at}>{timeAgo(job.posted_at)}</time>
         <div className="mt-1"><JobCardActions job={job} /></div>
       </div>
