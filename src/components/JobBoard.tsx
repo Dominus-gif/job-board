@@ -22,9 +22,10 @@ const EMP_OPTIONS: { id: EmpFilter; label: string }[] = [
  */
 const PER_PAGE_OPTIONS = [50, 100, 200];
 
-export function JobBoard({ jobs, pageSize = 50 }: { jobs: Job[]; pageSize?: number }) {
+export function JobBoard({ jobs, pageSize = 50, showSearch = true }: { jobs: Job[]; pageSize?: number; showSearch?: boolean }) {
   const [query, setQuery] = useState("");
   const [skills, setSkills] = useState<string[]>([]);
+  const [category, setCategory] = useState("all");
   const [band, setBand] = useState("any");
   const [emp, setEmp] = useState<EmpFilter>("all");
   const [region, setRegion] = useState("any");
@@ -37,6 +38,9 @@ export function JobBoard({ jobs, pageSize = 50 }: { jobs: Job[]; pageSize?: numb
   // regional board); the worldwide board is all "Anywhere" → one region → hidden.
   const regions = useMemo(() => availableRegions(jobs), [jobs]);
   const showRegions = regions.length > 1;
+  // Category rail: only when the feed spans more than one category.
+  const categories = useMemo(() => Array.from(new Set(jobs.map((j) => j.category))).sort(), [jobs]);
+  const showCategories = categories.length > 1;
 
   const selected = new Set(skills.map((s) => s.toLowerCase()));
 
@@ -58,6 +62,7 @@ export function JobBoard({ jobs, pageSize = 50 }: { jobs: Job[]; pageSize?: numb
         const jobSkills = new Set(j.skills.map((s) => s.toLowerCase()));
         for (const s of selected) if (!jobSkills.has(s)) return false;
       }
+      if (category !== "all" && j.category !== category) return false;
       if (emp !== "all" && j.employment_type !== emp) return false;
       if (region !== "any" && !jobRegions(j.location).includes(region)) return false;
       const mid = salaryMidpointUsd(j.salary);
@@ -66,15 +71,23 @@ export function JobBoard({ jobs, pageSize = 50 }: { jobs: Job[]; pageSize?: numb
       return true;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [jobs, query, skills, band, emp, region, salaryOnly]);
+  }, [jobs, query, skills, category, band, emp, region, salaryOnly]);
 
   const shown = filtered.slice(0, visible);
   const reset = () => setVisible(perPage);
   const activeCount =
-    (band !== "any" ? 1 : 0) + (emp !== "all" ? 1 : 0) + (region !== "any" ? 1 : 0) + (salaryOnly ? 1 : 0) + skills.length;
+    (category !== "all" ? 1 : 0) + (band !== "any" ? 1 : 0) + (emp !== "all" ? 1 : 0) + (region !== "any" ? 1 : 0) + (salaryOnly ? 1 : 0) + skills.length;
 
   const filterControls = (
     <div className="flex flex-col gap-5">
+      {showCategories && (
+        <FilterGroup label="Category">
+          <FilterChip active={category === "all"} onClick={() => { setCategory("all"); reset(); }}>All roles</FilterChip>
+          {categories.map((c) => (
+            <FilterChip key={c} active={category === c} onClick={() => { setCategory(c); reset(); }}>{c}</FilterChip>
+          ))}
+        </FilterGroup>
+      )}
       {showRegions && (
         <FilterGroup label="Region">
           <FilterChip active={region === "any"} onClick={() => { setRegion("any"); reset(); }}>All regions</FilterChip>
@@ -111,18 +124,20 @@ export function JobBoard({ jobs, pageSize = 50 }: { jobs: Job[]; pageSize?: numb
 
   return (
     <div>
-      {/* Search */}
-      <div className="relative">
-        <SearchIcon className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-ink-400" />
-        <input
-          type="search"
-          value={query}
-          onChange={(e) => { setQuery(e.target.value); reset(); }}
-          placeholder="Search roles, companies, or skills…"
-          aria-label="Search jobs"
-          className="w-full rounded-xl border border-ink-200 bg-white py-3.5 pl-12 pr-4 text-ink-900 shadow-card placeholder:text-ink-400 focus:border-ink-300 focus:outline-none focus:ring-2 focus:ring-ink-200"
-        />
-      </div>
+      {/* Search (hidden when a page-level search already exists, e.g. the home hero). */}
+      {showSearch && (
+        <div className="relative">
+          <SearchIcon className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-ink-400" />
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => { setQuery(e.target.value); reset(); }}
+            placeholder="Search roles, companies, or skills…"
+            aria-label="Search jobs"
+            className="w-full rounded-xl border border-ink-200 bg-white py-3.5 pl-12 pr-4 text-ink-900 shadow-card placeholder:text-ink-400 focus:border-ink-300 focus:outline-none focus:ring-2 focus:ring-ink-200"
+          />
+        </div>
+      )}
 
       {/* Selected skills */}
       {skills.length > 0 && (

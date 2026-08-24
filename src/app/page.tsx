@@ -2,7 +2,6 @@ import Link from "next/link";
 import { getAllJobs, getCompanies, getJobsByCategory, getRegionalCount, getSubscriberCount } from "@/lib/db";
 import { FEATURES } from "@/lib/site";
 import { categoryToSlug } from "@/lib/taxonomy";
-import { CategoryBar } from "@/components/CategoryBar";
 import { JobList } from "@/components/JobList";
 import { JobBoard } from "@/components/JobBoard";
 import { NewsletterForm } from "@/components/NewsletterForm";
@@ -102,11 +101,14 @@ export default async function HomePage() {
                 <input
                   type="search"
                   name="q"
-                  placeholder="Search roles, companies, or skills…"
+                  placeholder="Search roles, companies…"
                   aria-label="Search remote jobs"
-                  className="w-full rounded-xl border border-ink-200 bg-white py-3.5 pl-12 pr-24 text-ink-900 shadow-card placeholder:text-ink-400 focus:border-ink-300 focus:outline-none focus:ring-2 focus:ring-ink-200"
+                  className="w-full rounded-xl border border-ink-200 bg-white py-3.5 pl-12 pr-14 text-ink-900 shadow-card placeholder:text-ink-400 focus:border-ink-300 focus:outline-none focus:ring-2 focus:ring-ink-200 sm:pr-24"
                 />
-                <button type="submit" className="btn-primary absolute right-1.5 top-1/2 -translate-y-1/2 py-2">Search</button>
+                <button type="submit" aria-label="Search" className="btn-primary absolute right-1.5 top-1/2 -translate-y-1/2 px-3 py-2">
+                  <SearchIcon className="h-4 w-4 sm:hidden" />
+                  <span className="hidden sm:inline">Search</span>
+                </button>
               </div>
             </form>
           </div>
@@ -114,15 +116,11 @@ export default async function HomePage() {
       </section>
 
       <div className="mx-auto max-w-6xl px-4">
-        {/* Category filter bar */}
+        {/* All Jobs feed — category / salary / type filters live in the rail.
+            Search is omitted here: the hero already owns the search action. */}
         <section className="pt-10">
-          <CategoryBar />
-        </section>
-
-        {/* All Jobs feed with salary / type filters */}
-        <section className="pt-8">
           <SectionHeader eyebrow="Latest roles" title="All remote jobs" href="/jobs" linkLabel="Browse all remote jobs" />
-          <JobBoard jobs={jobs} />
+          <JobBoard jobs={jobs} showSearch={false} />
         </section>
 
         {regionalCount > 0 && (

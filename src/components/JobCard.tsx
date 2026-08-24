@@ -9,6 +9,24 @@ import { StatusBadge } from "./StatusBadge";
 
 const NEW_MS = 5 * 24 * 60 * 60 * 1000;
 
+/** Wrap the first case-insensitive occurrence of `q` in <mark> (search highlight). */
+function highlight(text: string, q?: string): React.ReactNode {
+  if (!q) return text;
+  const needle = q.trim().toLowerCase();
+  if (!needle) return text;
+  const i = text.toLowerCase().indexOf(needle);
+  if (i < 0) return text;
+  return (
+    <>
+      {text.slice(0, i)}
+      <mark className="rounded bg-brand-100 px-0.5 text-brand-800 dark:bg-brand-500/25 dark:text-inherit">
+        {text.slice(i, i + needle.length)}
+      </mark>
+      {text.slice(i + needle.length)}
+    </>
+  );
+}
+
 /** Small 3-segment pay meter (shape, not colour, carries the signal). */
 function PayMeter({ segments, className = "" }: { segments: number; className?: string }) {
   return (
@@ -25,11 +43,13 @@ export function JobCard({
   onSkillClick,
   activeSkills = [],
   inactive = false,
+  highlightQuery,
 }: {
   job: Job;
   onSkillClick?: (skill: string) => void;
   activeSkills?: string[];
   inactive?: boolean;
+  highlightQuery?: string;
 }) {
   const salary = formatSalary(job.salary);
   const tier = salaryTier(job.salary);
@@ -64,7 +84,7 @@ export function JobCard({
           {!inactive && job.is_featured && <StatusBadge kind="featured" />}
           {!inactive && isNew && <StatusBadge kind="new" />}
           <h3 className="truncate font-display text-[15px] font-semibold leading-snug text-ink-900 group-hover:text-brand-600">
-            {job.title}
+            {highlight(job.title, highlightQuery)}
           </h3>
         </div>
 
