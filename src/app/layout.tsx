@@ -8,7 +8,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { NewsletterCtaGate } from "@/components/NewsletterCtaGate";
-import { themeInitScript } from "@/components/ThemeToggle";
+import { themeInitScript, ThemeGuard } from "@/components/ThemeToggle";
 
 // Notion-style: one clean sans (Inter) for everything; headings are just bold.
 const body = Inter({
@@ -56,6 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="min-h-screen flex flex-col">
+        <ThemeGuard />
         {ADSENSE.enabled && (
           <Script
             id="adsbygoogle-init"

@@ -166,13 +166,17 @@ export function JobCard({
             Salary undisclosed
           </span>
         )}
-        {tier && (
-          <span title={tier.hint} className="inline-flex cursor-help items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-ink-500">
-            <span className={tier.text}>{tier.glyph}</span> {tier.label} pay
-            <svg viewBox="0 0 24 24" className="h-3 w-3 text-ink-400" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" strokeLinecap="round" /></svg>
-          </span>
-        )}
-        <time className="text-xs text-ink-400" dateTime={job.posted_at}>{timeAgo(job.posted_at)}</time>
+        {/* Pay-tier label + timestamp share one row so a disclosed-salary card
+            isn't a row taller than its title column (which left an empty band). */}
+        <div className="flex items-center gap-2">
+          {tier && (
+            <span title={tier.hint} className="inline-flex cursor-help items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-ink-500">
+              <span className={tier.text}>{tier.glyph}</span> {tier.label} pay
+              <svg viewBox="0 0 24 24" className="h-3 w-3 text-ink-400" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" strokeLinecap="round" /></svg>
+            </span>
+          )}
+          <time className="text-xs text-ink-400" dateTime={job.posted_at}>{timeAgo(job.posted_at)}</time>
+        </div>
         <div className="mt-1"><JobCardActions job={job} /></div>
       </div>
     </Link>

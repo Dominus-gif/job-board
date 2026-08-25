@@ -50,9 +50,9 @@ export default async function HomePage() {
 
   const totalRoles = jobs.length + regionalCount;
   const stats = [
-    [totalRoles.toLocaleString("en-US"), "Open roles"],
-    [jobs.length.toLocaleString("en-US"), "Anywhere"],
-    [regionalCount.toLocaleString("en-US"), "Regional"],
+    [totalRoles.toLocaleString("en-US"), "Open roles", "Total remote roles listed right now."],
+    [jobs.length.toLocaleString("en-US"), "Anywhere", "Fully location-independent — work from any country, no region or timezone limits."],
+    [regionalCount.toLocaleString("en-US"), "Regional", "Remote, but limited to a specific country or region."],
   ] as const;
 
   const jsonLd = [...siteJsonLd(), jobListJsonLd(jobs, "Remote Jobs You Can Do From Anywhere")];
@@ -96,13 +96,17 @@ export default async function HomePage() {
             )}
 
             <dl className="mx-auto mt-8 grid max-w-md grid-cols-3 divide-x divide-ink-100 overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card">
-              {stats.map(([value, label]) => (
-                <div key={label} className="min-w-0 px-1.5 py-3.5 sm:px-2">
+              {stats.map(([value, label, hint]) => (
+                <div key={label} title={hint} className="min-w-0 cursor-help px-1.5 py-3.5 sm:px-2">
                   <dt className="font-display text-lg font-extrabold tabular-nums text-ink-900 sm:text-xl md:text-2xl">{value}</dt>
                   <dd className="mt-0.5 flex min-h-[2em] items-center justify-center text-[10px] font-medium uppercase tracking-wide text-ink-400 sm:text-[11px] sm:tracking-wider">{label}</dd>
                 </div>
               ))}
             </dl>
+            <p className="mx-auto mt-2.5 max-w-md text-[11px] leading-relaxed text-ink-400">
+              <span className="font-semibold text-ink-500">Anywhere</span> = work from any country, no region or timezone limits ·{" "}
+              <span className="font-semibold text-ink-500">Regional</span> = remote but region-locked.
+            </p>
 
             {/* Primary hero action: search (goes to the indexable /jobs page). */}
             <form action="/jobs" method="get" className="mx-auto mt-8 max-w-xl">

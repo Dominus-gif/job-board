@@ -79,9 +79,23 @@ export function Footer() {
                 Inactive / Archived listings
               </Link>
             </div>
+
+            {/* Company links live in the brand column so it fills the row height
+                instead of leaving dead space below the tall link columns. */}
+            <div className="mt-8">
+              <h4 className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">Company</h4>
+              <ul className="mt-4 space-y-2.5 text-sm">
+                <FooterLink href="/about">About</FooterLink>
+                <FooterLink href="/hiring">Post a job</FooterLink>
+                {FEATURES.advertise && <FooterLink href="/advertise">Advertise</FooterLink>}
+                {FEATURES.newsletter && <FooterLink href="/newsletter">Newsletter</FooterLink>}
+                <FooterLink href="/rss-feeds">RSS feeds</FooterLink>
+                <FooterLink href="/contact">Contact</FooterLink>
+              </ul>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
             <FooterCol title="By location" span2>
               {LOCATION_LINKS.map((l) => (
                 <FooterLink key={l.href} href={l.href}>{l.label}</FooterLink>
@@ -107,15 +121,6 @@ export function Footer() {
                 <FooterLink key={p.slug} href={`/posts/${p.slug}`}>{p.title}</FooterLink>
               ))}
               <FooterLink href="/posts">All posts</FooterLink>
-            </FooterCol>
-
-            <FooterCol title="Company">
-              <FooterLink href="/about">About</FooterLink>
-              <FooterLink href="/hiring">Post a job</FooterLink>
-              {FEATURES.advertise && <FooterLink href="/advertise">Advertise</FooterLink>}
-              {FEATURES.newsletter && <FooterLink href="/newsletter">Newsletter</FooterLink>}
-              <FooterLink href="/rss-feeds">RSS feeds</FooterLink>
-              <FooterLink href="/contact">Contact</FooterLink>
             </FooterCol>
           </div>
         </div>
