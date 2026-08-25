@@ -241,8 +241,8 @@ export const CATEGORY_KEYWORDS: Record<Category, string[]> = {
   Design: ["designer", "design", "ux", "ui/ux", "product design", "graphic", "brand designer", "figma"],
   Product: ["product manager", "product management", "product owner", "pm ", "head of product"],
   "Customer Support": ["customer support", "customer success", "support engineer", "support specialist", "technical support", "help desk"],
-  "Sales & Marketing": ["sales", "marketing", "growth", "seo", "content", "demand generation", "account executive", "sdr", "bdr"],
-  "Management & Finance": ["manager", "director", "vp", "head of", "finance", "accountant", "controller", "operations", "chief"],
+  "Sales & Marketing": ["sales", "marketing", "growth", "seo", "content marketing", "content strategist", "content writer", "demand generation", "account executive", "sdr", "bdr"],
+  "Management & Finance": ["manager", "director", "vp", "head of", "finance", "financial", "fp&a", "fpa", "accountant", "accounting", "controller", "bookkeeper", "payroll", "treasury", "financial analyst", "financial planning", "operations", "chief"],
 };
 
 /* -------------------------------------------------------------------------- */

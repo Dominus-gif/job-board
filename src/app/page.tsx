@@ -115,7 +115,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4">
+      <div className="mx-auto max-w-5xl px-4">
         {/* All Jobs feed — category / salary / type filters live in the rail.
             Search is omitted here: the hero already owns the search action. */}
         <section className="pt-10">

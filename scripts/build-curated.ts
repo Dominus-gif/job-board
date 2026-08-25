@@ -40,10 +40,16 @@ function excerpt(html: string): string {
 interface DirRec { source: string; company: string; url: string; title: string; desc: string; salary: string; location: string; scope: "worldwide" | "regional"; }
 interface RoleRec { company: string; domain: string | null; title: string; desc: string; apply: string; location: string; scope: "worldwide" | "regional"; salary: string; }
 
+// Evergreen "no open role" catch-all postings that ATS boards carry (e.g.
+// "Don't see the job you're looking for? Fill out a general application"). They
+// are real board entries but read as leaked copy in a job feed — drop them.
+const JUNK_TITLE = /don.?t see|didn.?t see|can.?t find|general application|spontaneous application|talent (pool|community|network)|future (opportunities|openings|roles)|join our talent|open (remote )?roles|other (open )?roles|none of (these|the above)|fill out (a|an|the) (general|application)|looking for people with|introduce yourself|general interest/i;
+
 // Some ATS boards post the same role once per location (e.g. 4x "Enterprise
 // Account Manager" from one company) — collapse those to a single listing.
 const seenRole = new Set<string>();
 const dedupedRoles = (roles as RoleRec[]).filter((r) => {
+  if (JUNK_TITLE.test(r.title)) return false;
   const key = `${r.company.trim().toLowerCase()}::${r.title.trim().toLowerCase()}`;
   if (seenRole.has(key)) return false;
   seenRole.add(key);
@@ -72,7 +78,7 @@ const roleJobs: Job[] = dedupedRoles.map((rec, i) => {
 // Directory entries for companies with no scrapable API (minus real-role ones
 // and the generic "Open Remote Roles" placeholders).
 const dirJobs: Job[] = (curated as DirRec[])
-  .filter((rec) => rec.title !== "Open Remote Roles" && !HAS_REAL.has(slugify(rec.company)))
+  .filter((rec) => rec.title !== "Open Remote Roles" && !JUNK_TITLE.test(rec.title) && !HAS_REAL.has(slugify(rec.company)))
   .map((rec, i) => {
     const raw: RawJob = {
       external_id: `curated:${rec.source}:${i}`,

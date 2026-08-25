@@ -73,6 +73,15 @@
   .chip {
     @apply inline-flex items-center gap-1.5 rounded-md bg-ink-50 px-2.5 py-1 text-[13px] font-medium text-ink-600 ring-1 ring-inset ring-ink-100;
   }
+  /* A chip / mark that matched the search query — blue accent in BOTH themes.
+     The dark rule is explicit (not a `dark:` utility) so it beats the global
+     `.dark .bg-brand-100 !important` surface remap that otherwise greys it out. */
+  .chip-match {
+    @apply bg-brand-100 text-brand-800 ring-1 ring-inset ring-brand-200;
+  }
+  .hl {
+    @apply rounded bg-brand-100 px-0.5 text-brand-800;
+  }
   .card {
     @apply rounded-xl border border-ink-100 bg-white shadow-card;
   }
@@ -225,6 +234,15 @@
 /* Primary button flips to a light solid with dark text in dark mode. */
 .dark .btn-primary { background-color: #ffffff !important; color: #191919 !important; }
 .dark .btn-primary:hover { background-color: #e7e7e5 !important; }
+
+/* Search-match highlight keeps a real blue accent in dark (the global
+   bg-brand-100 remap would otherwise turn it into a plain grey chip). */
+.dark .chip-match,
+.dark mark.hl {
+  background-color: rgba(35, 131, 226, 0.32) !important;
+  color: #cfe4fb !important;
+}
+.dark .chip-match { --tw-ring-color: rgba(35, 131, 226, 0.55) !important; }
 
 /* Selected pill + featured badge flip to a light solid with dark text in dark. */
 .dark .pill-on { background-color: #f6f6f4 !important; color: #191919 !important; }

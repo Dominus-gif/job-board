@@ -263,7 +263,7 @@ export default async function JobsSearchPage({ searchParams }: { searchParams: S
               <span className="text-xs font-semibold text-ink-500">Search:</span>
               <Link
                 href={href(f, { q: "" })}
-                className="pill-on inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-sm font-medium transition hover:opacity-90"
+                className="pill-on inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-sm font-medium ring-2 ring-brand-400 transition hover:opacity-90"
                 aria-label={`Remove search “${f.q}”`}
               >
                 {f.q} <CloseIcon className="h-3.5 w-3.5" />

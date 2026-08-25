@@ -9,8 +9,6 @@ import { StatusBadge } from "./StatusBadge";
 
 const NEW_MS = 5 * 24 * 60 * 60 * 1000;
 
-const MARK = "rounded bg-brand-100 px-0.5 text-brand-800 dark:bg-brand-500/30 dark:text-inherit";
-
 /** Wrap every case-insensitive occurrence of `q` in <mark> (search highlight). */
 function highlight(text: string, q?: string): React.ReactNode {
   const needle = q?.trim().toLowerCase();
@@ -26,7 +24,7 @@ function highlight(text: string, q?: string): React.ReactNode {
       break;
     }
     if (idx > i) parts.push(text.slice(i, idx));
-    parts.push(<mark key={k++} className={MARK}>{text.slice(idx, idx + needle.length)}</mark>);
+    parts.push(<mark key={k++} className="hl">{text.slice(idx, idx + needle.length)}</mark>);
     i = idx + needle.length;
   }
   return <>{parts}</>;
@@ -144,14 +142,7 @@ export function JobCard({
                 {s}
               </button>
             ) : (
-              <span
-                key={s}
-                className={`chip lowercase ${
-                  skillMatches(s)
-                    ? "bg-brand-100 text-brand-800 ring-1 ring-inset ring-brand-200 dark:bg-brand-500/30"
-                    : "text-ink-500"
-                }`}
-              >
+              <span key={s} className={`chip lowercase ${skillMatches(s) ? "chip-match" : "text-ink-500"}`}>
                 {s}
               </span>
             )
