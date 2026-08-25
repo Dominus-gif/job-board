@@ -81,8 +81,8 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
-            <FooterCol title="By location">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6">
+            <FooterCol title="By location" span2>
               {LOCATION_LINKS.map((l) => (
                 <FooterLink key={l.href} href={l.href}>{l.label}</FooterLink>
               ))}
@@ -154,11 +154,17 @@ export function Footer() {
   );
 }
 
-function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
+function FooterCol({ title, children, span2 = false }: { title: string; children: React.ReactNode; span2?: boolean }) {
   return (
-    <div>
+    <div className={span2 ? "lg:col-span-2" : ""}>
       <h4 className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">{title}</h4>
-      <ul className="mt-4 space-y-2.5 text-sm">{children}</ul>
+      <ul
+        className={`mt-4 space-y-2.5 text-sm ${
+          span2 ? "sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-2.5 sm:space-y-0" : ""
+        }`}
+      >
+        {children}
+      </ul>
     </div>
   );
 }

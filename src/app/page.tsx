@@ -35,6 +35,10 @@ const PREVIEW_ORDER = ["Backend", "Frontend", "Design", "Customer Support", "Sal
 // Refresh live data periodically (ISR), matching the store's cache TTL.
 export const revalidate = 1800;
 
+// Cap on how many worldwide jobs hydrate the home browse feed. Comfortably above
+// the max "per page" (200) so filters have headroom; full search is on /jobs.
+const FEED_LIMIT = 300;
+
 export default async function HomePage() {
   const jobs = await getAllJobs();
   const subscribers = getSubscriberCount();
@@ -52,6 +56,12 @@ export default async function HomePage() {
   ] as const;
 
   const jsonLd = [...siteJsonLd(), jobListJsonLd(jobs, "Remote Jobs You Can Do From Anywhere")];
+
+  // The home feed is a browse widget (renders ≤200 cards, deep search lives on
+  // /jobs). Passing every worldwide job to the client <JobBoard> serialized the
+  // full set — with unused description_html — into the RSC payload. Cap it and
+  // drop description_html (JobCard never reads it) to keep the payload small.
+  const feedJobs = jobs.slice(0, FEED_LIMIT).map((j) => ({ ...j, description_html: "" }));
 
   return (
     <div>
@@ -120,7 +130,7 @@ export default async function HomePage() {
             Search is omitted here: the hero already owns the search action. */}
         <section className="pt-10">
           <SectionHeader eyebrow="Latest roles" title="All remote jobs" href="/jobs" linkLabel="Browse all remote jobs" />
-          <JobBoard jobs={jobs} showSearch={false} />
+          <JobBoard jobs={feedJobs} showSearch={false} />
         </section>
 
         {regionalCount > 0 && (
