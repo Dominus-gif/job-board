@@ -75,7 +75,7 @@ export default async function HomePage() {
           className="pointer-events-none absolute inset-0 bg-meridian opacity-60 [background-size:44px_44px] [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]"
           aria-hidden
         />
-        <div className="relative mx-auto max-w-5xl px-4 pt-11 pb-12 md:pt-14 md:pb-14">
+        <div className="relative mx-auto max-w-6xl px-4 pt-11 pb-12 md:pt-14 md:pb-14">
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow justify-center">Work from anywhere · any timezone</span>
             <h1 className="mt-4 font-display font-bold leading-[1.08] tracking-[-0.02em] text-ink-900 text-[clamp(1.7rem,6.2vw,3rem)] text-balance">
@@ -129,7 +129,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-5xl px-4">
+      <div className="mx-auto max-w-6xl px-4">
         {/* All Jobs feed — category / salary / type filters live in the rail.
             Search is omitted here: the hero already owns the search action. */}
         <section className="pt-10">

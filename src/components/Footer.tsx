@@ -7,6 +7,11 @@ import { LogoMark } from "./icons";
 
 /** Remote jobs by location — high-intent geo searches (countries + key cities). */
 const LOCATION_LINKS: { href: string; label: string }[] = [
+  { href: "/remote-jobs-in-usa", label: "USA" },
+  { href: "/remote-jobs-in-europe", label: "Europe" },
+  { href: "/remote-jobs-in-uk", label: "UK" },
+  { href: "/remote-jobs-in-canada", label: "Canada" },
+  { href: "/remote-jobs-in-india", label: "India" },
   { href: "/remote-jobs-in-the-bay-area", label: "Bay Area / San Francisco" },
   { href: "/remote-jobs-in-new-york", label: "New York" },
   { href: "/remote-jobs-in-seattle", label: "Seattle" },
@@ -14,16 +19,6 @@ const LOCATION_LINKS: { href: string; label: string }[] = [
   { href: "/remote-jobs-in-toronto", label: "Toronto" },
   { href: "/remote-jobs-in-london", label: "London" },
   { href: "/remote-jobs-in-berlin", label: "Berlin" },
-  { href: "/remote-jobs-in-amsterdam", label: "Amsterdam" },
-  { href: "/remote-jobs-in-paris", label: "Paris" },
-  { href: "/remote-jobs-in-japan", label: "Japan" },
-  { href: "/remote-jobs-in-india", label: "India" },
-  { href: "/remote-jobs-in-bengaluru", label: "Bengaluru" },
-  { href: "/remote-jobs-in-usa", label: "USA" },
-  { href: "/remote-jobs-in-europe", label: "Europe" },
-  { href: "/remote-jobs-in-uk", label: "UK" },
-  { href: "/remote-jobs-in-germany", label: "Germany" },
-  { href: "/remote-jobs-in-canada", label: "Canada" },
 ];
 
 /**
@@ -49,6 +44,13 @@ const POPULAR_SEARCHES: { href: string; label: string }[] = [
   { href: "/remote-part-time-jobs", label: "Part-Time Remote Jobs" },
   { href: "/fully-remote-no-experience-jobs", label: "Entry-Level Remote Jobs" },
   { href: "/remote-jobs-with-health-insurance", label: "Remote Jobs With Health Insurance" },
+];
+
+/** Browse-by-type links appended to the Categories column so it fills its height. */
+const BY_TYPE_LINKS: { href: string; label: string }[] = [
+  { href: "/work-from-home-jobs", label: "Work from home" },
+  { href: "/remote-part-time-jobs", label: "Part-time" },
+  { href: "/fully-remote-no-experience-jobs", label: "Entry-level" },
 ];
 
 export function Footer() {
@@ -95,33 +97,42 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
-            <FooterCol title="By location" span2>
+          {/* Three roughly equal-height columns so no column ends in a big band
+              of empty dark space: a full location list, Categories+By type, and
+              Tools+Posts. */}
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+            <FooterCol title="By location">
               {LOCATION_LINKS.map((l) => (
                 <FooterLink key={l.href} href={l.href}>{l.label}</FooterLink>
               ))}
             </FooterCol>
 
-            <FooterCol title="Categories">
-              {CATEGORIES.slice(0, 5).map((c) => (
+            <FooterCol title="Browse">
+              {CATEGORIES.map((c) => (
                 <FooterLink key={c} href={`/remote-${categoryToSlug(c)}-jobs`}>{c}</FooterLink>
               ))}
               <FooterLink href="/remote-regional-jobs">Remote — regional</FooterLink>
+              {BY_TYPE_LINKS.map((l) => (
+                <FooterLink key={l.href} href={l.href}>{l.label}</FooterLink>
+              ))}
             </FooterCol>
 
-            <FooterCol title="Tools">
-              {TOOLS.map((t) => (
-                <FooterLink key={t.slug} href={`/tools/${t.slug}`}>{t.short}</FooterLink>
-              ))}
-              <FooterLink href="/tools">All tools</FooterLink>
-            </FooterCol>
+            {/* Tools + Posts stack so this column matches the taller single lists. */}
+            <div className="space-y-8">
+              <FooterCol title="Tools">
+                {TOOLS.map((t) => (
+                  <FooterLink key={t.slug} href={`/tools/${t.slug}`}>{t.short}</FooterLink>
+                ))}
+                <FooterLink href="/tools">All tools</FooterLink>
+              </FooterCol>
 
-            <FooterCol title="Posts">
-              {posts.map((p) => (
-                <FooterLink key={p.slug} href={`/posts/${p.slug}`}>{p.title}</FooterLink>
-              ))}
-              <FooterLink href="/posts">All posts</FooterLink>
-            </FooterCol>
+              <FooterCol title="Posts">
+                {posts.map((p) => (
+                  <FooterLink key={p.slug} href={`/posts/${p.slug}`}>{p.title}</FooterLink>
+                ))}
+                <FooterLink href="/posts">All posts</FooterLink>
+              </FooterCol>
+            </div>
           </div>
         </div>
       </div>

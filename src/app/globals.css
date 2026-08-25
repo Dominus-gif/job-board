@@ -239,10 +239,12 @@
    bg-brand-100 remap would otherwise turn it into a plain grey chip). */
 .dark .chip-match,
 .dark mark.hl {
-  background-color: rgba(35, 131, 226, 0.32) !important;
-  color: #cfe4fb !important;
+  /* Deep opaque blue + light-blue text → AAA (~9:1) while still unmistakably
+     blue against the grey chips. */
+  background-color: #1c3a5e !important;
+  color: #d7e8fb !important;
 }
-.dark .chip-match { --tw-ring-color: rgba(35, 131, 226, 0.55) !important; }
+.dark .chip-match { --tw-ring-color: rgba(56, 148, 232, 0.7) !important; }
 
 /* Selected pill + featured badge flip to a light solid with dark text in dark. */
 .dark .pill-on { background-color: #f6f6f4 !important; color: #191919 !important; }
