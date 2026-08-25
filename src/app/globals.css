@@ -178,9 +178,11 @@
 .dark .text-ink-900 { color: rgba(255, 255, 255, 0.9) !important; }
 .dark .text-ink-800 { color: rgba(255, 255, 255, 0.81) !important; }
 .dark .text-ink-700 { color: rgba(255, 255, 255, 0.68) !important; }
-.dark .text-ink-600 { color: rgba(255, 255, 255, 0.56) !important; }
-.dark .text-ink-500 { color: rgba(255, 255, 255, 0.46) !important; }
-.dark .text-ink-400 { color: rgba(255, 255, 255, 0.38) !important; }
+.dark .text-ink-600 { color: rgba(255, 255, 255, 0.62) !important; }
+/* Secondary tiers nudged up one step so skill tags (ink-500) and tiny uppercase
+   labels (ink-400) clear AA on the dark card surfaces (#202020 / #252525). */
+.dark .text-ink-500 { color: rgba(255, 255, 255, 0.56) !important; }
+.dark .text-ink-400 { color: rgba(255, 255, 255, 0.50) !important; }
 .dark .text-brand-500, .dark .text-brand-600, .dark .text-brand-700, .dark .text-brand-800, .dark .text-brand-900 { color: rgba(255, 255, 255, 0.88) !important; }
 .dark .text-amber-800, .dark .text-amber-900 { color: #f0c56a !important; }
 .dark .text-amber-700 { color: #e9b44c !important; }

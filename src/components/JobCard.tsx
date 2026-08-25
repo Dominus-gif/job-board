@@ -9,22 +9,27 @@ import { StatusBadge } from "./StatusBadge";
 
 const NEW_MS = 5 * 24 * 60 * 60 * 1000;
 
-/** Wrap the first case-insensitive occurrence of `q` in <mark> (search highlight). */
+const MARK = "rounded bg-brand-100 px-0.5 text-brand-800 dark:bg-brand-500/30 dark:text-inherit";
+
+/** Wrap every case-insensitive occurrence of `q` in <mark> (search highlight). */
 function highlight(text: string, q?: string): React.ReactNode {
-  if (!q) return text;
-  const needle = q.trim().toLowerCase();
+  const needle = q?.trim().toLowerCase();
   if (!needle) return text;
-  const i = text.toLowerCase().indexOf(needle);
-  if (i < 0) return text;
-  return (
-    <>
-      {text.slice(0, i)}
-      <mark className="rounded bg-brand-100 px-0.5 text-brand-800 dark:bg-brand-500/25 dark:text-inherit">
-        {text.slice(i, i + needle.length)}
-      </mark>
-      {text.slice(i + needle.length)}
-    </>
-  );
+  const lower = text.toLowerCase();
+  const parts: React.ReactNode[] = [];
+  let i = 0;
+  let k = 0;
+  while (i < text.length) {
+    const idx = lower.indexOf(needle, i);
+    if (idx < 0) {
+      parts.push(text.slice(i));
+      break;
+    }
+    if (idx > i) parts.push(text.slice(i, idx));
+    parts.push(<mark key={k++} className={MARK}>{text.slice(idx, idx + needle.length)}</mark>);
+    i = idx + needle.length;
+  }
+  return <>{parts}</>;
 }
 
 /** Small 3-segment pay meter (shape, not colour, carries the signal). */
@@ -55,6 +60,9 @@ export function JobCard({
   const tier = salaryTier(job.salary);
   const active = new Set(activeSkills.map((s) => s.toLowerCase()));
   const isNew = !job.is_featured && Date.now() - new Date(job.posted_at).getTime() < NEW_MS;
+  // A skill tag matching the search query is why many cards surface — surface it.
+  const needle = highlightQuery?.trim().toLowerCase();
+  const skillMatches = (s: string) => !!needle && s.toLowerCase().includes(needle);
 
   return (
     <Link
@@ -136,7 +144,16 @@ export function JobCard({
                 {s}
               </button>
             ) : (
-              <span key={s} className="chip lowercase text-ink-500">{s}</span>
+              <span
+                key={s}
+                className={`chip lowercase ${
+                  skillMatches(s)
+                    ? "bg-brand-100 text-brand-800 ring-1 ring-inset ring-brand-200 dark:bg-brand-500/30"
+                    : "text-ink-500"
+                }`}
+              >
+                {s}
+              </span>
             )
           )}
         </div>

@@ -16,6 +16,23 @@ export const revalidate = 1800;
 type SP = Record<string, string | string[] | undefined>;
 interface Filters { q: string; type: string; salary: string; region: string; category: string; scope: string; sort: string; page: number; }
 
+const PG = "inline-flex h-9 min-w-[2.25rem] items-center justify-center rounded-md border border-ink-200 bg-white px-3 text-sm font-medium text-ink-700 transition hover:bg-ink-50 hover:text-ink-900";
+const PG_ACTIVE = "pill-on inline-flex h-9 min-w-[2.25rem] items-center justify-center rounded-md px-3 text-sm font-semibold";
+
+/** Windowed page list: first, last, current ±1, with "…" gaps. */
+function pageWindow(current: number, total: number): (number | "…")[] {
+  const keep = new Set<number>([1, total, current, current - 1, current + 1]);
+  const sorted = [...keep].filter((p) => p >= 1 && p <= total).sort((a, b) => a - b);
+  const out: (number | "…")[] = [];
+  let prev = 0;
+  for (const p of sorted) {
+    if (p - prev > 1) out.push("…");
+    out.push(p);
+    prev = p;
+  }
+  return out;
+}
+
 const TYPES = ["Full-Time", "Part-Time", "Contract"];
 const REGIONS = ["United States", "Europe", "UK", "Asia-Pacific", "Canada", "India", "Latin America", "Middle East", "Worldwide"];
 const SORTS = ["newest", "salary"];
@@ -262,18 +279,30 @@ export default async function JobsSearchPage({ searchParams }: { searchParams: S
             <JobList jobs={items} highlightQuery={f.q} />
           )}
 
-          {/* Pagination (real URLs). */}
+          {/* Pagination (real URLs): windowed numbered pages + prev/next. */}
           {totalPages > 1 && (
-            <nav className="mt-8 flex items-center justify-between gap-3" aria-label="Pagination">
-              {page > 1 ? (
-                <Link href={href(f, { page: page - 1 }, true)} rel="prev" className="btn-ghost">← Previous</Link>
-              ) : <span />}
-              <span className="text-sm text-ink-500">
-                Page {page} of {totalPages.toLocaleString("en-US")}
-              </span>
-              {page < totalPages ? (
-                <Link href={href(f, { page: page + 1 }, true)} rel="next" className="btn-ghost">Next →</Link>
-              ) : <span />}
+            <nav className="mt-8 flex flex-wrap items-center justify-center gap-1.5" aria-label="Pagination">
+              {page > 1 && (
+                <Link href={href(f, { page: page - 1 }, true)} rel="prev" aria-label="Previous page" className={PG}>←</Link>
+              )}
+              {pageWindow(page, totalPages).map((p, i) =>
+                p === "…" ? (
+                  <span key={`gap-${i}`} className="px-1.5 text-ink-400" aria-hidden>…</span>
+                ) : (
+                  <Link
+                    key={p}
+                    href={href(f, { page: p }, true)}
+                    aria-label={`Page ${p}`}
+                    aria-current={p === page ? "page" : undefined}
+                    className={p === page ? PG_ACTIVE : PG}
+                  >
+                    {p}
+                  </Link>
+                )
+              )}
+              {page < totalPages && (
+                <Link href={href(f, { page: page + 1 }, true)} rel="next" aria-label="Next page" className={PG}>→</Link>
+              )}
             </nav>
           )}
         </div>
