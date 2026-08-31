@@ -106,7 +106,7 @@ export function JobBoard({
     (category !== "all" ? 1 : 0) + (band !== "any" ? 1 : 0) + (emp !== "all" ? 1 : 0) + (region !== "any" ? 1 : 0) + (salaryOnly ? 1 : 0) + skills.length;
 
   const filterControls = (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-4">
       {showCategories && (
         <FilterGroup label="Category">
           <FilterChip active={category === "all"} onClick={() => { setCategory("all"); reset(); }}>All roles</FilterChip>
@@ -128,11 +128,7 @@ export function JobBoard({
           <FilterChip key={b.id} active={band === b.id} onClick={() => { setBand(b.id); reset(); }}>{b.label}</FilterChip>
         ))}
       </FilterGroup>
-      <FilterGroup label="Type">
-        {EMP_OPTIONS.map((o) => (
-          <FilterChip key={o.id} active={emp === o.id} onClick={() => { setEmp(o.id); reset(); }}>{o.label}</FilterChip>
-        ))}
-      </FilterGroup>
+      {/* Kept next to Salary so it stays visible without scrolling the rail. */}
       <label className="flex cursor-pointer items-center gap-2 text-sm text-ink-600">
         <input
           type="checkbox"
@@ -142,6 +138,11 @@ export function JobBoard({
         />
         Salary listed only
       </label>
+      <FilterGroup label="Type">
+        {EMP_OPTIONS.map((o) => (
+          <FilterChip key={o.id} active={emp === o.id} onClick={() => { setEmp(o.id); reset(); }}>{o.label}</FilterChip>
+        ))}
+      </FilterGroup>
       <p className="border-t border-ink-100 pt-3 text-[11px] leading-relaxed text-ink-400">
         Pay rating: <span className="font-semibold">$</span> entry · <span className="font-semibold">$$</span> mid ·{" "}
         <span className="font-semibold">$$$</span> high — by salary range.
