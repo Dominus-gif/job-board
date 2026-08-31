@@ -26,11 +26,11 @@ export const TOOLS: ToolMeta[] = [
   },
   {
     slug: "world-time-buddy",
-    title: "World Time Buddy",
-    short: "World time buddy",
+    title: "World Clock & Meeting Planner",
+    short: "World clock",
     description:
-      "Compare times across cities and timezones at a glance. Add any city, drag the timeline, and instantly see everyone's local time — perfect for remote teams.",
-    keywords: ["world time buddy", "world clock", "time zone converter", "compare time zones", "meeting planner"],
+      "Compare times across cities and timezones at a glance. Add any city, drag the timeline, and instantly see everyone's local time — perfect for planning remote meetings.",
+    keywords: ["world clock", "meeting planner", "time zone converter", "compare time zones", "world time buddy"],
   },
   {
     slug: "password-generator",

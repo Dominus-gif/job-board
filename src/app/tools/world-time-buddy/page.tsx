@@ -7,7 +7,7 @@ import { WorldTimeBuddy } from "@/components/tools/WorldTimeBuddy";
 const tool = getTool("world-time-buddy")!;
 
 export const metadata: Metadata = {
-  title: "World Time Buddy — Compare Time Zones",
+  title: "World Clock & Meeting Planner — Compare Time Zones",
   description: tool.description,
   keywords: tool.keywords,
   alternates: { canonical: "/tools/world-time-buddy" },
@@ -30,10 +30,10 @@ export default function Page() {
       <nav className="mb-6 flex items-center gap-2 text-sm font-medium text-ink-400">
         <Link href="/tools" className="hover:text-ink-900">Tools</Link>
         <span aria-hidden>/</span>
-        <span className="text-ink-500">World time buddy</span>
+        <span className="text-ink-500">World clock</span>
       </nav>
       <span className="eyebrow">Tool</span>
-      <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink-900">World Time Buddy</h1>
+      <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink-900">World Clock &amp; Meeting Planner</h1>
       <p className="mt-2 max-w-2xl text-ink-500">
         Compare times across cities and timezones at a glance. Add any city, click an hour to line up a meeting, and see
         everyone&apos;s local time instantly — ideal for planning remote work across the US, Europe and beyond.

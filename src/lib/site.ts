@@ -39,6 +39,8 @@ export const ADSENSE = {
   client: (process.env.NEXT_PUBLIC_ADSENSE_CLIENT || "").trim(),
   /** Default responsive ad-unit id, used by <AdSlot> when none is passed. */
   defaultSlot: (process.env.NEXT_PUBLIC_ADSENSE_SLOT || "").trim(),
+  /** In-feed (native) ad-unit id, used by <InFeedAd> between listings. */
+  inFeedSlot: (process.env.NEXT_PUBLIC_ADSENSE_INFEED_SLOT || "").trim(),
   get enabled(): boolean {
     return /^ca-pub-\d+$/.test(this.client);
   },

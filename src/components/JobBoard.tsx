@@ -1,11 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import type { Job } from "@/lib/types";
 import { SALARY_BANDS, salaryMidpointUsd } from "@/lib/salary";
 import { availableRegions, jobRegions } from "@/lib/region";
 import { JobCard } from "./JobCard";
+import { InFeedAd } from "./InFeedAd";
 import { SearchIcon, CloseIcon } from "./icons";
+
+// Drop a native in-feed ad after every N listings (self-hides when ads are off).
+const AD_EVERY = 8;
 
 type EmpFilter = "all" | Job["employment_type"];
 const EMP_OPTIONS: { id: EmpFilter; label: string }[] = [
@@ -22,7 +26,18 @@ const EMP_OPTIONS: { id: EmpFilter; label: string }[] = [
  */
 const PER_PAGE_OPTIONS = [50, 100, 200];
 
-export function JobBoard({ jobs, pageSize = 50, showSearch = true }: { jobs: Job[]; pageSize?: number; showSearch?: boolean }) {
+export function JobBoard({
+  jobs,
+  regionalJobs,
+  pageSize = 50,
+  showSearch = true,
+}: {
+  jobs: Job[];
+  regionalJobs?: Job[];
+  pageSize?: number;
+  showSearch?: boolean;
+}) {
+  const [scope, setScope] = useState<"worldwide" | "regional">("worldwide");
   const [query, setQuery] = useState("");
   const [skills, setSkills] = useState<string[]>([]);
   const [category, setCategory] = useState("all");
@@ -34,12 +49,24 @@ export function JobBoard({ jobs, pageSize = 50, showSearch = true }: { jobs: Job
   const [visible, setVisible] = useState(pageSize);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
+  // Optional worldwide ↔ region-locked toggle (only when regional jobs are given).
+  const hasRegional = !!regionalJobs && regionalJobs.length > 0;
+  const activeJobs = scope === "regional" && regionalJobs ? regionalJobs : jobs;
+
+  function switchScope(next: "worldwide" | "regional") {
+    setScope(next);
+    setRegion("any");
+    setCategory("all");
+    setSkills([]);
+    setVisible(perPage);
+  }
+
   // Region filter only appears when the feed actually spans regions (i.e. the
-  // regional board); the worldwide board is all "Anywhere" → one region → hidden.
-  const regions = useMemo(() => availableRegions(jobs), [jobs]);
+  // region-locked set); the worldwide set is all "Anywhere" → one region → hidden.
+  const regions = useMemo(() => availableRegions(activeJobs), [activeJobs]);
   const showRegions = regions.length > 1;
   // Category rail: only when the feed spans more than one category.
-  const categories = useMemo(() => Array.from(new Set(jobs.map((j) => j.category))).sort(), [jobs]);
+  const categories = useMemo(() => Array.from(new Set(activeJobs.map((j) => j.category))).sort(), [activeJobs]);
   const showCategories = categories.length > 1;
 
   const selected = new Set(skills.map((s) => s.toLowerCase()));
@@ -53,7 +80,7 @@ export function JobBoard({ jobs, pageSize = 50, showSearch = true }: { jobs: Job
   const filtered = useMemo(() => {
     const floor = SALARY_BANDS.find((b) => b.id === band)?.min ?? 0;
     const q = query.trim().toLowerCase();
-    return jobs.filter((j) => {
+    return activeJobs.filter((j) => {
       if (q) {
         const hay = `${j.title} ${j.company_name} ${j.category} ${j.skills.join(" ")}`.toLowerCase();
         if (!hay.includes(q)) return false;
@@ -71,7 +98,7 @@ export function JobBoard({ jobs, pageSize = 50, showSearch = true }: { jobs: Job
       return true;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [jobs, query, skills, category, band, emp, region, salaryOnly]);
+  }, [activeJobs, query, skills, category, band, emp, region, salaryOnly]);
 
   const shown = filtered.slice(0, visible);
   const reset = () => setVisible(perPage);
@@ -124,6 +151,28 @@ export function JobBoard({ jobs, pageSize = 50, showSearch = true }: { jobs: Job
 
   return (
     <div>
+      {/* Worldwide ↔ region-locked toggle. */}
+      {hasRegional && (
+        <div className="mb-4 inline-flex rounded-xl border border-ink-200 bg-white p-1 text-sm font-medium shadow-card">
+          <button
+            type="button"
+            onClick={() => switchScope("worldwide")}
+            aria-pressed={scope === "worldwide"}
+            className={`rounded-lg px-3.5 py-1.5 transition ${scope === "worldwide" ? "pill-on" : "text-ink-600 hover:text-ink-900"}`}
+          >
+            Work from anywhere
+          </button>
+          <button
+            type="button"
+            onClick={() => switchScope("regional")}
+            aria-pressed={scope === "regional"}
+            className={`rounded-lg px-3.5 py-1.5 transition ${scope === "regional" ? "pill-on" : "text-ink-600 hover:text-ink-900"}`}
+          >
+            Remote in your region
+          </button>
+        </div>
+      )}
+
       {/* Search (hidden when a page-level search already exists, e.g. the home hero). */}
       {showSearch && (
         <div className="relative">
@@ -174,7 +223,9 @@ export function JobBoard({ jobs, pageSize = 50, showSearch = true }: { jobs: Job
 
       {/* Desktop: filter sidebar + results so the first card is above the fold. */}
       <div className="mt-5 lg:grid lg:grid-cols-[248px_minmax(0,1fr)] lg:items-start lg:gap-8">
-        <aside className="hidden lg:sticky lg:top-20 lg:block">
+        {/* Sticky rail; scrolls internally when the filters are taller than the
+            viewport so the lower filters stay reachable. */}
+        <aside className="hidden lg:sticky lg:top-20 lg:block lg:max-h-[calc(100vh_-_6rem)] lg:overflow-y-auto lg:overscroll-contain">
           <div className="rounded-2xl border border-ink-100 bg-white p-4 shadow-card">{filterControls}</div>
         </aside>
 
@@ -206,8 +257,12 @@ export function JobBoard({ jobs, pageSize = 50, showSearch = true }: { jobs: Job
             </div>
           ) : (
             <div className="space-y-3">
-              {shown.map((job) => (
-                <JobCard key={job.slug} job={job} onSkillClick={toggleSkill} activeSkills={skills} />
+              {shown.map((job, i) => (
+                <Fragment key={job.slug}>
+                  <JobCard job={job} onSkillClick={toggleSkill} activeSkills={skills} />
+                  {/* Native ad between listings (self-hides when ads are off). */}
+                  {(i + 1) % AD_EVERY === 0 && i < shown.length - 1 && <InFeedAd />}
+                </Fragment>
               ))}
             </div>
           )}

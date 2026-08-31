@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAllJobs, getCompanies, getJobsByCategory, getRegionalCount, getSubscriberCount } from "@/lib/db";
+import { getAllJobs, getCompanies, getJobsByCategory, getRegionalCount, getRegionalJobs, getSubscriberCount } from "@/lib/db";
 import { FEATURES } from "@/lib/site";
 import { categoryToSlug } from "@/lib/taxonomy";
 import { JobList } from "@/components/JobList";
@@ -62,6 +62,8 @@ export default async function HomePage() {
   // full set — with unused description_html — into the RSC payload. Cap it and
   // drop description_html (JobCard never reads it) to keep the payload small.
   const feedJobs = jobs.slice(0, FEED_LIMIT).map((j) => ({ ...j, description_html: "" }));
+  // Region-locked feed for the "Remote in your region" toggle (same cap + strip).
+  const regionalFeed = (await getRegionalJobs()).slice(0, FEED_LIMIT).map((j) => ({ ...j, description_html: "" }));
 
   return (
     <div>
@@ -82,8 +84,9 @@ export default async function HomePage() {
               Remote jobs you can do from anywhere in the world.
             </h1>
             <p className="mx-auto mt-4 max-w-xl leading-relaxed text-ink-500 text-[clamp(0.95rem,3.4vw,1.125rem)]">
-              Verified remote roles with no country, region, or timezone strings attached — pulled straight from
-              company hiring systems and enriched with salary, skills, and benefits.
+              Verified remote jobs in one place — truly work-from-anywhere roles with no country, region, or time
+              zone strings attached, plus remote jobs based in your region. Pulled straight from company hiring
+              systems and enriched with salary, skills, and benefits.
             </p>
 
             {FEATURES.newsletter && (
@@ -134,7 +137,7 @@ export default async function HomePage() {
             Search is omitted here: the hero already owns the search action. */}
         <section className="pt-10">
           <SectionHeader eyebrow="Latest roles" title="All remote jobs" href="/jobs" linkLabel="Browse all remote jobs" />
-          <JobBoard jobs={feedJobs} showSearch={false} />
+          <JobBoard jobs={feedJobs} regionalJobs={regionalFeed} showSearch={false} />
         </section>
 
         {regionalCount > 0 && (

@@ -46,7 +46,7 @@ const check =
   "h-4 w-4 rounded border-ink-300 text-ink-900 focus:ring-ink-300";
 
 export function PasswordGenerator() {
-  const [opts, setOpts] = useState<Opts>({ length: 20, upper: true, lower: true, number: true, symbol: true, ambiguous: false });
+  const [opts, setOpts] = useState<Opts>({ length: 8, upper: true, lower: true, number: true, symbol: true, ambiguous: false });
   const [pw, setPw] = useState("");
   const [copied, setCopied] = useState(false);
 
@@ -80,7 +80,7 @@ export function PasswordGenerator() {
     <div className="rounded-xl border border-ink-100 bg-white p-6 shadow-card">
       {/* Password display */}
       <div className="flex items-stretch gap-2">
-        <output className="flex min-h-[3rem] flex-1 items-center overflow-x-auto rounded-lg border border-ink-200 bg-ink-50 px-4 font-mono text-lg tracking-wide text-ink-900">
+        <output className="flex min-h-[3rem] min-w-0 flex-1 items-center overflow-x-auto whitespace-nowrap rounded-lg border border-ink-200 bg-ink-50 px-4 font-mono text-base tracking-wide text-ink-900 sm:text-lg">
           {pw || "—"}
         </output>
         <button type="button" onClick={regen} aria-label="Regenerate" title="Regenerate"
