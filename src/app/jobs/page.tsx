@@ -8,13 +8,13 @@ import { CATEGORIES } from "@/lib/taxonomy";
 import { abs } from "@/lib/site";
 import { JobList } from "@/components/JobList";
 import { SortSelect } from "@/components/SortSelect";
-import { SearchIcon, CloseIcon } from "@/components/icons";
+import { SearchIcon, CloseIcon, CheckIcon } from "@/components/icons";
 import { jobListJsonLd } from "@/lib/jsonld";
 
 export const revalidate = 1800;
 
 type SP = Record<string, string | string[] | undefined>;
-interface Filters { q: string; type: string; salary: string; region: string; category: string; scope: string; sort: string; page: number; }
+interface Filters { q: string; type: string; salary: string; region: string; category: string; scope: string; disc: boolean; sort: string; page: number; }
 
 const PG = "inline-flex h-9 min-w-[2.25rem] items-center justify-center rounded-md border border-ink-200 bg-white px-3 text-sm font-medium text-ink-700 transition hover:bg-ink-50 hover:text-ink-900";
 const PG_ACTIVE = "pill-on inline-flex h-9 min-w-[2.25rem] items-center justify-center rounded-md px-3 text-sm font-semibold";
@@ -46,6 +46,7 @@ function parse(sp: SP): Filters {
     region: REGIONS.includes(g("region")) ? g("region") : "",
     category: (CATEGORIES as readonly string[]).includes(g("category")) ? g("category") : "",
     scope: g("scope") === "worldwide" || g("scope") === "regional" ? g("scope") : "",
+    disc: g("disc") === "1",
     sort: SORTS.includes(g("sort")) ? g("sort") : "",
     page: Math.max(1, Number(g("page")) || 1),
   };
@@ -61,6 +62,7 @@ function href(f: Filters, changes: Partial<Filters>, keepPage = false): string {
   if (m.region) sp.set("region", m.region);
   if (m.category) sp.set("category", m.category);
   if (m.scope) sp.set("scope", m.scope);
+  if (m.disc) sp.set("disc", "1");
   if (m.sort) sp.set("sort", m.sort);
   if (keepPage && m.page > 1) sp.set("page", String(m.page));
   const s = sp.toString();
@@ -76,6 +78,7 @@ function baseParams(f: Filters): Record<string, string> {
   if (f.region) m.region = f.region;
   if (f.category) m.category = f.category;
   if (f.scope) m.scope = f.scope;
+  if (f.disc) m.disc = "1";
   return m;
 }
 
@@ -89,6 +92,7 @@ function filterJobs(jobs: Job[], f: Filters): Job[] {
     if (f.category && j.category !== f.category) return false;
     if (f.region && !jobRegions(j.location).includes(f.region)) return false;
     const mid = salaryMidpointUsd(j.salary);
+    if (f.disc && mid == null) return false;
     if (floor > 0 && (mid == null || mid < floor)) return false;
     return true;
   });
@@ -147,8 +151,11 @@ export default async function JobsSearchPage({ searchParams }: { searchParams: S
       active ? "pill-on" : "bg-ink-50 text-ink-600 ring-1 ring-inset ring-ink-100 hover:text-ink-900 hover:ring-ink-200"
     }`;
 
+  const seg = (active: boolean) =>
+    `rounded-lg px-3.5 py-1.5 transition ${active ? "pill-on" : "text-ink-600 hover:text-ink-900"}`;
+
   const activeCount =
-    (f.type ? 1 : 0) + (f.salary ? 1 : 0) + (f.region ? 1 : 0) + (f.category ? 1 : 0) + (f.scope ? 1 : 0);
+    (f.type ? 1 : 0) + (f.salary ? 1 : 0) + (f.region ? 1 : 0) + (f.category ? 1 : 0) + (f.scope ? 1 : 0) + (f.disc ? 1 : 0);
   const hasFilters = f.q || activeCount > 0;
 
   const start = total === 0 ? 0 : (page - 1) * PAGE_SIZE + 1;
@@ -169,6 +176,13 @@ export default async function JobsSearchPage({ searchParams }: { searchParams: S
           </Link>
         ))}
       </FilterGroup>
+      {/* Salary disclosed toggle (link-styled checkbox — the page is server-rendered). */}
+      <Link href={href(f, { disc: !f.disc })} className="flex w-fit items-center gap-2 text-sm text-ink-600 hover:text-ink-900">
+        <span className={`flex h-4 w-4 flex-shrink-0 items-center justify-center rounded border ${f.disc ? "border-ink-900 bg-ink-900 text-white" : "border-ink-300 bg-white"}`}>
+          {f.disc && <CheckIcon className="h-3 w-3" />}
+        </span>
+        Salary disclosed only
+      </Link>
       <FilterGroup label="Type">
         <Link href={href(f, { type: "" })} className={chip(!f.type)}>All types</Link>
         {TYPES.map((t) => (
@@ -176,10 +190,9 @@ export default async function JobsSearchPage({ searchParams }: { searchParams: S
         ))}
       </FilterGroup>
       <FilterGroup label="Region">
-        <Link href={href(f, { region: "", scope: "" })} className={chip(!f.region && !f.scope)}>Anywhere</Link>
-        <Link href={href(f, { scope: "worldwide", region: "" })} className={chip(f.scope === "worldwide")}>Worldwide only</Link>
+        <Link href={href(f, { region: "" })} className={chip(!f.region)}>All regions</Link>
         {REGIONS.filter((r) => r !== "Worldwide").map((r) => (
-          <Link key={r} href={href(f, { region: r, scope: "" })} className={chip(f.region === r)}>{r}</Link>
+          <Link key={r} href={href(f, { region: r })} className={chip(f.region === r)}>{r}</Link>
         ))}
       </FilterGroup>
       {hasFilters && (
@@ -211,6 +224,7 @@ export default async function JobsSearchPage({ searchParams }: { searchParams: S
         {f.region && <input type="hidden" name="region" value={f.region} />}
         {f.category && <input type="hidden" name="category" value={f.category} />}
         {f.scope && <input type="hidden" name="scope" value={f.scope} />}
+        {f.disc && <input type="hidden" name="disc" value="1" />}
         {f.sort && <input type="hidden" name="sort" value={f.sort} />}
         <div className="relative">
           <SearchIcon className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-ink-400" />
@@ -229,8 +243,17 @@ export default async function JobsSearchPage({ searchParams }: { searchParams: S
         </div>
       </form>
 
+      {/* Availability toggle: work-from-anywhere ↔ region-locked (scrolls on mobile). */}
+      <div className="mt-5 -mx-1 overflow-x-auto px-1 pb-1">
+        <div className="inline-flex whitespace-nowrap rounded-xl border border-ink-200 bg-white p-1 text-sm font-medium shadow-card">
+          <Link href={href(f, { scope: "" })} className={seg(!f.scope)}>All roles</Link>
+          <Link href={href(f, { scope: "worldwide" })} className={seg(f.scope === "worldwide")}>Work from anywhere</Link>
+          <Link href={href(f, { scope: "regional" })} className={seg(f.scope === "regional")}>Remote in your region</Link>
+        </div>
+      </div>
+
       {/* Two-column layout: filter rail (≥lg) + results. */}
-      <div className="mt-6 lg:grid lg:grid-cols-[248px_minmax(0,1fr)] lg:items-start lg:gap-8">
+      <div className="mt-5 lg:grid lg:grid-cols-[248px_minmax(0,1fr)] lg:items-start lg:gap-8">
         {/* Mobile/tablet: collapsible filter panel (native <details>, no JS). */}
         <details className="mb-4 rounded-xl border border-ink-100 bg-white lg:hidden">
           <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-sm font-medium text-ink-800">

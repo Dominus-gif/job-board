@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAllJobs, getCompanies, getJobsByCategory, getRegionalCount, getRegionalJobs, getSubscriberCount } from "@/lib/db";
+import { getAllJobs, getCompanies, getJobsByCategory, getRegionalCount, getSubscriberCount } from "@/lib/db";
 import { FEATURES } from "@/lib/site";
 import { categoryToSlug } from "@/lib/taxonomy";
 import { JobList } from "@/components/JobList";
@@ -62,8 +62,6 @@ export default async function HomePage() {
   // full set — with unused description_html — into the RSC payload. Cap it and
   // drop description_html (JobCard never reads it) to keep the payload small.
   const feedJobs = jobs.slice(0, FEED_LIMIT).map((j) => ({ ...j, description_html: "" }));
-  // Region-locked feed for the "Remote in your region" toggle (same cap + strip).
-  const regionalFeed = (await getRegionalJobs()).slice(0, FEED_LIMIT).map((j) => ({ ...j, description_html: "" }));
 
   return (
     <div>
@@ -137,7 +135,7 @@ export default async function HomePage() {
             Search is omitted here: the hero already owns the search action. */}
         <section className="pt-10">
           <SectionHeader eyebrow="Latest roles" title="All remote jobs" href="/jobs" linkLabel="Browse all remote jobs" />
-          <JobBoard jobs={feedJobs} regionalJobs={regionalFeed} showSearch={false} />
+          <JobBoard jobs={feedJobs} showSearch={false} />
         </section>
 
         {regionalCount > 0 && (
