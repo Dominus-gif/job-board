@@ -24,11 +24,21 @@ import {
 export const dynamicParams = true;
 export const revalidate = 1800;
 
+// Cap how many job pages are prebuilt so the production build stays well within
+// Vercel's time/memory limits as the catalog grows past 10K+ (an unbounded
+// prebuild can fail the deploy). The rest render on demand (dynamicParams) on
+// first request and are cached, and every listing is still in the sitemap.
+const PREBUILD_LIMIT = 800;
+
 export async function generateStaticParams() {
-  // Pre-render worldwide listings; the large regional set renders on demand
-  // (dynamicParams) and is still fully indexable via the sitemap. This keeps the
-  // build fast now that the curated directory adds thousands of regional roles.
-  return (await getAllJobs()).map((job) => ({ slug: job.slug }));
+  const jobs = await getAllJobs();
+  // Prebuild the highest-value pages first: featured, then most recent.
+  const ranked = [...jobs].sort(
+    (a, b) =>
+      Number(b.is_featured) - Number(a.is_featured) ||
+      new Date(b.posted_at).getTime() - new Date(a.posted_at).getTime(),
+  );
+  return ranked.slice(0, PREBUILD_LIMIT).map((job) => ({ slug: job.slug }));
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {

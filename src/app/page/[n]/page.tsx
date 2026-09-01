@@ -11,7 +11,9 @@ export const revalidate = 1800;
 
 export async function generateStaticParams() {
   const total = Math.max(1, Math.ceil((await getAllJobs()).length / PAGE_SIZE));
-  return Array.from({ length: total }, (_, i) => ({ n: String(i + 1) }));
+  // Prebuild only the first pages; deeper pages render on demand (dynamicParams)
+  // and stay indexable. Keeps the build bounded as the catalog grows.
+  return Array.from({ length: Math.min(total, 40) }, (_, i) => ({ n: String(i + 1) }));
 }
 
 export function generateMetadata({ params }: { params: { n: string } }): Metadata {
