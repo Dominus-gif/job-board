@@ -53,6 +53,10 @@ interface RoleRec { company: string; domain: string | null; title: string; desc:
 // are real board entries but read as leaked copy in a job feed — drop them.
 const JUNK_TITLE = /don.?t see|didn.?t see|can.?t find|general application|spontaneous application|talent (pool|community|network)|future (opportunities|openings|roles)|join our talent|open (remote )?roles|other (open )?roles|none of (these|the above)|fill out (a|an|the) (general|application)|looking for people with|introduce yourself|general interest/i;
 
+// Wrapped so a build never fails here: the output is committed, so on any error
+// the existing curated-jobs.json is kept and the deploy still succeeds.
+try {
+
 // Some ATS boards post the same role once per location (e.g. 4x "Enterprise
 // Account Manager" from one company) — collapse those to a single listing.
 const seenRole = new Set<string>();
@@ -109,3 +113,8 @@ const all = [...roleJobs, ...dirJobs];
 const OUT = join(process.cwd(), "src", "lib", "generated", "curated-jobs.json");
 writeFileSync(OUT, JSON.stringify(all));
 console.log(`[curated] wrote ${all.length} prebuilt curated jobs (${roleJobs.length} real roles + ${dirJobs.length} directory) to generated/curated-jobs.json`);
+
+} catch (err) {
+  console.warn("[curated] failed — keeping the committed curated-jobs.json:", (err as Error)?.message);
+}
+process.exit(0); // never fail the build
