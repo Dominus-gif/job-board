@@ -9,7 +9,7 @@ import { CheckIcon } from "./icons";
  * form posts JSON to their API and shows an inline success/error state. No data
  * is sent anywhere until a visitor submits.
  */
-const ACCESS_KEY = (process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "YOUR_WEB3FORMS_ACCESS_KEY").trim();
+const ACCESS_KEY = (process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "1fc4f7b9-f01e-4cea-ba0e-560f07467f89").trim();
 const ENDPOINT = "https://api.web3forms.com/submit";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -39,11 +39,11 @@ export function ContactForm() {
         form.reset();
       } else {
         setStatus("error");
-        setError(json.message || "Something went wrong. Please email us directly.");
+        setError(json.message || "Something went wrong — please try again in a moment.");
       }
     } catch {
       setStatus("error");
-      setError("Couldn't reach the server. Please email us directly.");
+      setError("Couldn't reach the server — please check your connection and try again.");
     }
   }
 
