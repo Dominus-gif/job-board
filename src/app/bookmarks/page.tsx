@@ -3,7 +3,7 @@ import { BookmarksList } from "@/components/BookmarksList";
 
 export const metadata: Metadata = {
   title: "Your Saved Remote Jobs (Bookmarks)",
-  description: "Jobs you've bookmarked on AnywhereJobs — saved in your browser, no account needed.",
+  description: "Jobs you've bookmarked on getremotejobsnow.com — saved in your browser, no account needed.",
   // Personal, per-browser page — keep it out of the index.
   robots: { index: false, follow: true },
 };

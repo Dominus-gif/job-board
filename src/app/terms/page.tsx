@@ -60,7 +60,7 @@ export default function TermsPage() {
 
       <h2>Contact</h2>
       <p>
-        Questions? Email <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.
+        Questions? <a href="/contact">Contact us</a>.
       </p>
     </LegalShell>
   );

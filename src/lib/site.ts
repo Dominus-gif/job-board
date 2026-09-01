@@ -1,6 +1,6 @@
 /** Global site configuration used across metadata, RSS, sitemap and JSON-LD. */
 export const SITE = {
-  name: "AnywhereJobs",
+  name: "getremotejobsnow.com",
   tagline: "The only job board where every job is truly location-independent.",
   description:
     "Browse remote jobs you can do from anywhere — location-independent roles with no country, region, or timezone limits. Fresh listings, updated daily.",
@@ -12,7 +12,6 @@ export const SITE = {
     const url = explicit || (vercel ? `https://${vercel}` : "http://localhost:3000");
     return url.replace(/\/$/, "");
   },
-  contactEmail: "hello@anywherejobs.example",
 };
 
 export function abs(path: string): string {

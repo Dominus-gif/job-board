@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const where = job.scope === "worldwide" ? "Work from anywhere in the world" : `Remote within ${job.location}`;
   const description = `${job.title} — remote ${job.category} job at ${job.company_name}. ${where} — ${job.employment_type}${
     formatSalary(job.salary) ? `, ${formatSalary(job.salary)}` : ""
-  }. Apply free on AnywhereJobs.`;
+  }. Apply free on getremotejobsnow.com.`;
   const url = abs(`/jobs/${job.slug}`);
   return {
     title,
@@ -302,7 +302,7 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
                 <ShareButtons
                   url={abs(`/jobs/${job.slug}`)}
                   title={`${job.title} at ${job.company_name} — Remote Worldwide`}
-                  message={`${job.title} at ${job.company_name}${salary ? ` (${salary})` : ""} — work from anywhere in the world 🌍 via AnywhereJobs, the only job board where every job is truly location-independent.`}
+                  message={`${job.title} at ${job.company_name}${salary ? ` (${salary})` : ""} — work from anywhere in the world 🌍 via getremotejobsnow.com, the only job board where every job is truly location-independent.`}
                 />
               </div>
             </div>

@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: { landing: string }
   if (!view) return {};
   const url = abs(`/${view.slug}`);
   return {
-    // metaTitle already carries "| AnywhereJobs"; use absolute to skip the template.
+    // metaTitle already carries "| getremotejobsnow.com"; use absolute to skip the template.
     title: { absolute: view.metaTitle },
     description: view.metaDescription,
     alternates: {

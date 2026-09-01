@@ -8,7 +8,7 @@ import { GlobeIcon, WalletIcon, BuildingIcon, SparkIcon, CheckIcon, ArrowUpRight
 export const metadata: Metadata = {
   title: "Advertise & Sponsor — Reach Remote Workers Worldwide",
   description:
-    "Advertise to an engaged, global audience of remote-first professionals, or sponsor AnywhereJobs. Featured job listings, weekly-newsletter placements, and monthly website sponsorships.",
+    "Advertise to an engaged, global audience of remote-first professionals, or sponsor getremotejobsnow.com. Featured job listings, weekly-newsletter placements, and monthly website sponsorships.",
   alternates: { canonical: "/advertise" },
   robots: FEATURES.advertise ? undefined : { index: false, follow: false },
 };
@@ -91,11 +91,11 @@ export default async function AdvertisePage() {
             Reach remote workers, <span className="text-brand-600">everywhere</span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-ink-500">
-            AnywhereJobs is where location-independent professionals come to make their next move. Advertise a
+            getremotejobsnow.com is where location-independent professionals come to make their next move. Advertise a
             product, take a slot in our weekly newsletter, or sponsor the site — all in one place.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <a href="mailto:ads@anywherejobs.example" className="btn-primary">Get the media kit</a>
+            <a href="/contact" className="btn-primary">Get the media kit</a>
             <a href="#sponsorship" className="btn-ghost">See sponsorship tiers</a>
           </div>
         </div>
@@ -157,7 +157,7 @@ export default async function AdvertisePage() {
                     </li>
                   ))}
                 </ul>
-                <a href="mailto:ads@anywherejobs.example" className={`mt-6 ${p.highlight ? "btn-primary" : "btn-ghost"} w-full`}>
+                <a href="/contact" className={`mt-6 ${p.highlight ? "btn-primary" : "btn-ghost"} w-full`}>
                   {p.name === "Site sponsorship" ? "Talk to us" : "Book this"}
                 </a>
               </div>
@@ -194,7 +194,7 @@ export default async function AdvertisePage() {
                     </li>
                   ))}
                 </ul>
-                <a href="mailto:sponsor@anywherejobs.example" className={`mt-6 ${t.highlight ? "btn-primary" : "btn-ghost"} w-full`}>
+                <a href="/contact" className={`mt-6 ${t.highlight ? "btn-primary" : "btn-ghost"} w-full`}>
                   Become a sponsor
                 </a>
               </div>
@@ -234,7 +234,7 @@ export default async function AdvertisePage() {
               <h2 className="font-display text-2xl font-extrabold md:text-3xl">Ready to reach remote workers worldwide?</h2>
               <p className="mt-2 text-ink-300">Tell us what you&apos;re building — we&apos;ll send pricing and availability within a day.</p>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
-                <a href="mailto:ads@anywherejobs.example" className="btn-primary">
+                <a href="/contact" className="btn-primary">
                   Get the media kit <ArrowUpRightIcon className="h-4 w-4" />
                 </a>
                 <Link href="/hiring" className="rounded-xl border border-white/20 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10">

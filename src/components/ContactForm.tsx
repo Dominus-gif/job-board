@@ -65,7 +65,7 @@ export function ContactForm() {
     <form onSubmit={onSubmit} className="not-prose space-y-4 rounded-2xl border border-ink-100 bg-white p-6 shadow-card">
       {/* Web3Forms config + light spam honeypot */}
       <input type="hidden" name="access_key" value={ACCESS_KEY} />
-      <input type="hidden" name="subject" value="New AnywhereJobs contact message" />
+      <input type="hidden" name="subject" value="New getremotejobsnow.com contact message" />
       <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden />
 
       <div className="grid gap-4 sm:grid-cols-2">

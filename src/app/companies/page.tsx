@@ -11,7 +11,7 @@ const AD_EVERY = 9;
 
 export const metadata: Metadata = {
   title: "Companies Hiring Remotely",
-  description: "Every company with active remote roles on AnywhereJobs — work-from-anywhere and region-based — with ratings and reviews.",
+  description: "Every company with active remote roles on getremotejobsnow.com — work-from-anywhere and region-based — with ratings and reviews.",
   alternates: { canonical: "/companies" },
 };
 

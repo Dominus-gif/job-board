@@ -17,7 +17,7 @@ export interface AtsAdapter {
   fetchBoard: (company: Company) => Promise<RawJob[]>;
 }
 
-const UA = { "User-Agent": "AnywhereJobs/0.1 (+https://anywherejobs.example)" };
+const UA = { "User-Agent": "getremotejobsnow.com/0.1 (+https://getremotejobsnow.com)" };
 
 async function getJson(url: string): Promise<any | null> {
   try {

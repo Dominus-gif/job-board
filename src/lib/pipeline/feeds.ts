@@ -8,7 +8,7 @@ import type { EmploymentType, RawJob } from "../types";
  *
  * To add a feed: write a fetcher returning RawJob[] and add it to FEEDS.
  */
-const UA = { "User-Agent": "AnywhereJobs/0.1 (+https://anywherejobs.example)" };
+const UA = { "User-Agent": "getremotejobsnow.com/0.1 (+https://getremotejobsnow.com)" };
 
 async function getJson(url: string): Promise<any | null> {
   try {

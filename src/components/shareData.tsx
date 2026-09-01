@@ -42,7 +42,7 @@ function clamp(s: string, max: number): string {
  * link only.
  */
 export function buildShareNetworks(url: string, title: string, message?: string): ShareNetwork[] {
-  const base = message ?? `${title} — a remote job you can do from anywhere. Via AnywhereJobs.`;
+  const base = message ?? `${title} — a remote job you can do from anywhere. Via getremotejobsnow.com.`;
   const enc = encodeURIComponent;
   const u = enc(url);
   const t = enc(title);

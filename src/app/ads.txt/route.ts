@@ -1,7 +1,7 @@
 import { ADSENSE } from "@/lib/site";
 
 /**
- * ads.txt — declares AnywhereJobs as an authorized seller of its ad inventory
+ * ads.txt — declares getremotejobsnow.com as an authorized seller of its ad inventory
  * (required by Google AdSense). Populated automatically from the configured
  * publisher id; returns an explanatory placeholder until one is set.
  */

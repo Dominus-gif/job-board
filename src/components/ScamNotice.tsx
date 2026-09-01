@@ -21,7 +21,7 @@ export function ReferralNudge() {
     <div className="flex gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-4 text-sm text-brand-900">
       <SparkIcon className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-500" />
       <p className="leading-relaxed">
-        Found this role here? Please <strong>mention AnywhereJobs</strong> in your application — it helps us keep
+        Found this role here? Please <strong>mention getremotejobsnow.com</strong> in your application — it helps us keep
         surfacing truly location-independent jobs.
       </p>
     </div>

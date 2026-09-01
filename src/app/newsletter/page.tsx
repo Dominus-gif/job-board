@@ -87,7 +87,7 @@ export default function NewsletterPage() {
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-2 font-display text-sm font-bold">
                   <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white/15 p-1"><LogoMark /></span>
-                  AnywhereJobs Weekly
+                  getremotejobsnow.com Weekly
                 </span>
                 <span className="text-xs font-medium text-white/75">Tuesday · Issue #48</span>
               </div>
@@ -112,7 +112,7 @@ export default function NewsletterPage() {
               <p className="pt-1 text-center text-xs text-ink-400">…and nine more, every Tuesday.</p>
             </div>
             <div className="border-t border-ink-100 bg-ink-50/60 px-5 py-3 text-center text-xs text-ink-400">
-              You’re reading a sample of the AnywhereJobs weekly digest.
+              You’re reading a sample of the getremotejobsnow.com weekly digest.
             </div>
           </div>
 

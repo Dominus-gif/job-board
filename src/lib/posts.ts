@@ -23,7 +23,7 @@ export const POSTS: Post[] = [
     description:
       "A practical 2026 guide to finding remote jobs in the USA — where to look, how to filter out fake 'remote' roles, and how to apply and stand out.",
     date: "2026-07-28T09:00:00.000Z",
-    author: "AnywhereJobs Editorial",
+    author: "getremotejobsnow.com Editorial",
     tags: ["Remote Jobs USA", "Job Search", "Work From Home"],
     readMinutes: 6,
     html: `
@@ -32,7 +32,7 @@ export const POSTS: Post[] = [
       <h2>Where to look for remote jobs in the USA</h2>
       <p>Start with sources that let you filter for truly remote roles rather than hybrid ones:</p>
       <ul>
-        <li><strong>Curated remote boards</strong> — sites like <a href="/remote-jobs-in-usa">AnywhereJobs' USA board</a> pre-filter for location-independent roles, so you skip the "remote (US-only, EST hours)" noise.</li>
+        <li><strong>Curated remote boards</strong> — sites like <a href="/remote-jobs-in-usa">getremotejobsnow.com' USA board</a> pre-filter for location-independent roles, so you skip the "remote (US-only, EST hours)" noise.</li>
         <li><strong>Company career pages</strong> — all-remote companies (GitLab, Zapier, Automattic and many more) publish roles you can do from any US state.</li>
         <li><strong>Category pages</strong> — narrow by function: <a href="/remote-backend-jobs">backend</a>, <a href="/remote-design-jobs">design</a>, <a href="/remote-customer-support-jobs">customer support</a>, and more.</li>
       </ul>
@@ -65,7 +65,7 @@ export const POSTS: Post[] = [
     description:
       "Where to find remote jobs in Europe in 2026 — English-speaking roles, the most remote-friendly countries, and how to apply from anywhere in the EU.",
     date: "2026-07-20T09:00:00.000Z",
-    author: "AnywhereJobs Editorial",
+    author: "getremotejobsnow.com Editorial",
     tags: ["Remote Jobs Europe", "EU", "Work From Home"],
     readMinutes: 5,
     html: `
@@ -76,7 +76,7 @@ export const POSTS: Post[] = [
 
       <h2>Where to find remote jobs in Europe</h2>
       <ul>
-        <li><a href="/remote-jobs-in-europe">AnywhereJobs' Europe board</a> — worldwide roles you can do from any EU country, plus roles hiring specifically across Europe.</li>
+        <li><a href="/remote-jobs-in-europe">getremotejobsnow.com' Europe board</a> — worldwide roles you can do from any EU country, plus roles hiring specifically across Europe.</li>
         <li><a href="/remote-jobs-in-germany">Remote jobs in Germany</a> — including English-speaking, 100% home-office roles.</li>
         <li><a href="/remote-jobs-in-uk">Remote jobs in the UK</a> — for candidates across Britain.</li>
       </ul>
@@ -100,7 +100,7 @@ export const POSTS: Post[] = [
     description:
       "Work from home and work from anywhere sound the same but aren't. Here's the difference, why it matters for your job search, and how to filter for each.",
     date: "2026-07-12T09:00:00.000Z",
-    author: "AnywhereJobs Editorial",
+    author: "getremotejobsnow.com Editorial",
     tags: ["Work From Home", "Remote Work", "Guide"],
     readMinutes: 4,
     html: `
@@ -112,7 +112,7 @@ export const POSTS: Post[] = [
       <h2>Work from anywhere</h2>
       <p><strong>Work from anywhere</strong> (location-independent) means exactly that: no required country, region, city, timezone, or local work authorization. You can do the job from your home, a cabin, or another continent.</p>
 
-      <blockquote>Every job on AnywhereJobs' main board is work-from-anywhere. Region-locked remote roles live on a separate, clearly-labelled board so the promise stays honest.</blockquote>
+      <blockquote>Every job on getremotejobsnow.com' main board is work-from-anywhere. Region-locked remote roles live on a separate, clearly-labelled board so the promise stays honest.</blockquote>
 
       <h2>Why the difference matters</h2>
       <ul>

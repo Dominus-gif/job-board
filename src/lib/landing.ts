@@ -56,7 +56,7 @@ const SEO_PAGES: Record<string, Omit<LandingView, "jobs" | "rss">> = {
   "work-from-home-jobs": {
     slug: "work-from-home-jobs",
     title: "Work From Home Jobs — From Anywhere on Earth",
-    metaTitle: "Work From Home Jobs (Truly Anywhere) | AnywhereJobs",
+    metaTitle: "Work From Home Jobs (Truly Anywhere) | getremotejobsnow.com",
     metaDescription:
       "Browse work-from-home jobs with zero location restriction. Every role is genuinely remote worldwide — no country or timezone gate.",
     intro:
@@ -72,7 +72,7 @@ const SEO_PAGES: Record<string, Omit<LandingView, "jobs" | "rss">> = {
   "remote-part-time-jobs": {
     slug: "remote-part-time-jobs",
     title: "Remote Part-Time Jobs — Work From Anywhere",
-    metaTitle: "Remote Part-Time Jobs, Worldwide | AnywhereJobs",
+    metaTitle: "Remote Part-Time Jobs, Worldwide | getremotejobsnow.com",
     metaDescription:
       "Part-time remote jobs open to candidates anywhere in the world. Flexible hours, no location restriction.",
     intro:
@@ -88,7 +88,7 @@ const SEO_PAGES: Record<string, Omit<LandingView, "jobs" | "rss">> = {
   "fully-remote-no-experience-jobs": {
     slug: "fully-remote-no-experience-jobs",
     title: "Fully Remote Jobs With No Experience Required",
-    metaTitle: "Remote Jobs, No Experience, Worldwide | AnywhereJobs",
+    metaTitle: "Remote Jobs, No Experience, Worldwide | getremotejobsnow.com",
     metaDescription:
       "Entry-level, no-experience remote jobs open worldwide. Start a location-independent career from anywhere.",
     intro:
@@ -104,7 +104,7 @@ const SEO_PAGES: Record<string, Omit<LandingView, "jobs" | "rss">> = {
   "remote-jobs-no-talking": {
     slug: "remote-jobs-no-talking",
     title: "Remote Jobs With No Talking (Written / Async)",
-    metaTitle: "Remote Jobs With No Talking (Async) | AnywhereJobs",
+    metaTitle: "Remote Jobs With No Talking (Async) | getremotejobsnow.com",
     metaDescription:
       "Quiet, written-first remote jobs with little or no phone/video — open to candidates anywhere in the world.",
     intro:
@@ -120,7 +120,7 @@ const SEO_PAGES: Record<string, Omit<LandingView, "jobs" | "rss">> = {
   "remote-jobs-with-health-insurance": {
     slug: "remote-jobs-with-health-insurance",
     title: "Remote Jobs With Health Insurance",
-    metaTitle: "Remote Jobs With Health Insurance, Worldwide | AnywhereJobs",
+    metaTitle: "Remote Jobs With Health Insurance, Worldwide | getremotejobsnow.com",
     metaDescription:
       "Work-from-anywhere jobs that include health insurance. Location-independent roles with real benefits.",
     intro:
@@ -130,7 +130,7 @@ const SEO_PAGES: Record<string, Omit<LandingView, "jobs" | "rss">> = {
   "remote-jobs-with-retirement-plan": {
     slug: "remote-jobs-with-retirement-plan",
     title: "Remote Jobs With a Retirement Plan",
-    metaTitle: "Remote Jobs With Retirement Plans (401k) | AnywhereJobs",
+    metaTitle: "Remote Jobs With Retirement Plans (401k) | getremotejobsnow.com",
     metaDescription:
       "Work-from-anywhere jobs offering a retirement plan, pension, or 401(k). Global-remote roles with long-term benefits.",
     intro:
@@ -140,7 +140,7 @@ const SEO_PAGES: Record<string, Omit<LandingView, "jobs" | "rss">> = {
   "remote-jobs-with-equipment-budget": {
     slug: "remote-jobs-with-equipment-budget",
     title: "Remote Jobs With an Equipment Budget",
-    metaTitle: "Remote Jobs With Equipment/Home-Office Budget | AnywhereJobs",
+    metaTitle: "Remote Jobs With Equipment/Home-Office Budget | getremotejobsnow.com",
     metaDescription:
       "Work-from-anywhere jobs that give you a home-office or equipment budget. Get set up wherever you work.",
     intro:
@@ -150,7 +150,7 @@ const SEO_PAGES: Record<string, Omit<LandingView, "jobs" | "rss">> = {
   "remote-jobs-with-learning-budget": {
     slug: "remote-jobs-with-learning-budget",
     title: "Remote Jobs With a Learning Budget",
-    metaTitle: "Remote Jobs With a Learning Budget | AnywhereJobs",
+    metaTitle: "Remote Jobs With a Learning Budget | getremotejobsnow.com",
     metaDescription:
       "Work-from-anywhere jobs offering a learning or professional-development budget. Keep growing from anywhere.",
     intro:
@@ -194,7 +194,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "the United States",
     short: "the US",
     title: "Remote Jobs in the USA — Work From Home Anywhere in the US",
-    metaTitle: "Remote Jobs in the USA — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in the USA — Work From Home (Hiring Now) | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Find remote jobs in the USA you can do from home — thousands of work-from-anywhere roles open to US candidates, plus jobs hiring specifically in the United States. Software, marketing, design, support, finance & more. Apply free.",
     intro:
@@ -206,7 +206,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Europe",
     short: "Europe",
     title: "Remote Jobs in Europe — Work From Home Across the EU",
-    metaTitle: "Remote Jobs in Europe — Work From Home Across the EU (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Europe — Work From Home Across the EU (Hiring Now) | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Browse remote jobs in Europe you can do from home — work-from-anywhere roles open to European candidates, plus jobs hiring across the EU. Tech, marketing, customer support, design & finance. English-speaking, no relocation. Apply free.",
     intro:
@@ -218,7 +218,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "the United Kingdom",
     short: "the UK",
     title: "Remote Jobs in the UK — Work From Home Anywhere in Britain",
-    metaTitle: "Remote Jobs in the UK — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in the UK — Work From Home (Hiring Now) | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Find remote jobs in the UK you can do from home — work-from-anywhere roles open to UK candidates, plus jobs hiring specifically across Britain. Software, marketing, support, design & finance. No commute, no relocation. Apply free.",
     intro:
@@ -230,7 +230,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Germany",
     short: "Germany",
     title: "Remote Jobs in Germany — Work From Home (English-Speaking)",
-    metaTitle: "Remote Jobs in Germany — English-Speaking, Work From Home | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Germany — English-Speaking, Work From Home | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Browse remote jobs in Germany you can do from home — English-speaking, work-from-anywhere roles open to candidates in Germany, plus roles hiring across Europe. Tech, marketing, design, finance & support. 100% home office. Apply free.",
     intro:
@@ -242,7 +242,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Canada",
     short: "Canada",
     title: "Remote Jobs in Canada — Work From Home Anywhere in Canada",
-    metaTitle: "Remote Jobs in Canada — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Canada — Work From Home (Hiring Now) | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Find remote jobs in Canada you can do from home — work-from-anywhere roles open to Canadian candidates, plus jobs hiring specifically across Canada. Software, marketing, design, support & finance. No relocation. Apply free.",
     intro:
@@ -254,7 +254,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "the Bay Area",
     short: "the Bay Area",
     title: "Remote Jobs in the Bay Area — San Francisco & Silicon Valley",
-    metaTitle: "Remote Jobs in the Bay Area (San Francisco) — Hiring Now | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in the Bay Area (San Francisco) — Hiring Now | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote and hybrid jobs in the San Francisco Bay Area — work-from-anywhere roles open to Bay Area candidates, plus roles hiring across SF, Silicon Valley, Oakland and San Jose. AI, software, fintech, design & more. Apply free.",
     intro:
@@ -266,7 +266,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "New York",
     short: "New York",
     title: "Remote Jobs in New York — Work From Home in NYC",
-    metaTitle: "Remote Jobs in New York (NYC) — Work From Home | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in New York (NYC) — Work From Home | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in New York you can do from home — work-from-anywhere roles open to NYC candidates, plus jobs hiring specifically across New York City. Software, fintech, marketing, design & more. Apply free.",
     intro:
@@ -278,7 +278,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "London",
     short: "London",
     title: "Remote Jobs in London — Work From Home in the UK",
-    metaTitle: "Remote Jobs in London — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in London — Work From Home (Hiring Now) | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in London you can do from home — work-from-anywhere roles open to London candidates, plus roles hiring specifically across London and the UK. Tech, finance, marketing, design & support. Apply free.",
     intro:
@@ -290,7 +290,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Berlin",
     short: "Berlin",
     title: "Remote Jobs in Berlin — English-Speaking, Work From Home",
-    metaTitle: "Remote Jobs in Berlin — English-Speaking, Work From Home | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Berlin — English-Speaking, Work From Home | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Berlin you can do from home — English-speaking, work-from-anywhere roles open to Berlin candidates, plus roles hiring across Germany. Tech, product, design & more. 100% home office, visa options. Apply free.",
     intro:
@@ -302,7 +302,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Amsterdam",
     short: "the Netherlands",
     title: "Remote Jobs in Amsterdam — Work From Home in the Netherlands",
-    metaTitle: "Remote Jobs in Amsterdam (Netherlands) — Work From Home | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Amsterdam (Netherlands) — Work From Home | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Amsterdam and the Netherlands you can do from home — English-speaking, work-from-anywhere roles plus roles hiring across the Netherlands. Tech, product, design & finance. Visa options. Apply free.",
     intro:
@@ -314,7 +314,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Japan",
     short: "Japan",
     title: "Remote Jobs in Japan — English-Speaking & Visa-Sponsored",
-    metaTitle: "Remote Jobs in Japan — English-Speaking, Visa-Sponsored | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Japan — English-Speaking, Visa-Sponsored | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote and on-site tech jobs in Japan — English-speaking engineering roles at companies that sponsor work visas and relocate to Tokyo, plus work-from-anywhere roles open to candidates in Japan. Apply free.",
     intro:
@@ -326,7 +326,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "India",
     short: "India",
     title: "Remote Jobs in India — Work From Home Anywhere in India",
-    metaTitle: "Remote Jobs in India — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in India — Work From Home (Hiring Now) | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in India you can do from home — work-from-anywhere roles open to Indian candidates, plus roles hiring specifically across Bengaluru, Hyderabad, Mumbai and Pune. Software, support, design & more. Apply free.",
     intro:
@@ -338,7 +338,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Singapore",
     short: "Singapore",
     title: "Remote Jobs in Singapore — Work From Home in Singapore",
-    metaTitle: "Remote Jobs in Singapore — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Singapore — Work From Home (Hiring Now) | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Singapore you can do from home — work-from-anywhere roles open to candidates in Singapore, plus roles hiring specifically in Singapore. Tech, fintech, product & design. Apply free.",
     intro:
@@ -350,7 +350,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Australia",
     short: "Australia",
     title: "Remote Jobs in Australia — Work From Home Anywhere in Australia",
-    metaTitle: "Remote Jobs in Australia — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Australia — Work From Home (Hiring Now) | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Australia you can do from home — work-from-anywhere roles open to Australian candidates, plus roles hiring specifically across Sydney, Melbourne and Brisbane. Software, product, design & more. Apply free.",
     intro:
@@ -362,7 +362,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Seattle",
     short: "Seattle",
     title: "Remote Jobs in Seattle — Work From Home in Seattle",
-    metaTitle: "Remote Jobs in Seattle — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Seattle — Work From Home (Hiring Now) | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Seattle you can do from home — work-from-anywhere roles open to Seattle candidates, plus roles hiring across Seattle, Bellevue and Redmond. Cloud, AI, software & more. Apply free.",
     intro:
@@ -374,7 +374,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Toronto",
     short: "Toronto",
     title: "Remote Jobs in Toronto — Work From Home in Canada",
-    metaTitle: "Remote Jobs in Toronto — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Toronto — Work From Home (Hiring Now) | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Toronto you can do from home — work-from-anywhere roles open to Toronto candidates, plus roles hiring across Toronto, Waterloo and Ottawa. Software, fintech, design & more. Apply free.",
     intro:
@@ -386,7 +386,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Austin",
     short: "Austin",
     title: "Remote Jobs in Austin — Work From Home in Austin, Texas",
-    metaTitle: "Remote Jobs in Austin, TX — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Austin, TX — Work From Home (Hiring Now) | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Austin you can do from home — work-from-anywhere roles open to Austin candidates, plus roles hiring specifically in Austin, Texas. Software, crypto, fintech & more. Apply free.",
     intro:
@@ -398,7 +398,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Los Angeles",
     short: "LA",
     title: "Remote Jobs in Los Angeles — Work From Home in LA",
-    metaTitle: "Remote Jobs in Los Angeles (LA) — Work From Home | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Los Angeles (LA) — Work From Home | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Los Angeles you can do from home — work-from-anywhere roles open to LA candidates, plus roles hiring across Los Angeles, Santa Monica and Culver City. Media, software, AI & more. Apply free.",
     intro:
@@ -410,7 +410,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Chicago",
     short: "Chicago",
     title: "Remote Jobs in Chicago — Work From Home in Chicago",
-    metaTitle: "Remote Jobs in Chicago — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Chicago — Work From Home (Hiring Now) | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Chicago you can do from home — work-from-anywhere roles open to Chicago candidates, plus roles hiring specifically in Chicago. Software, fintech, logistics & more. Apply free.",
     intro:
@@ -422,7 +422,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Boston",
     short: "Boston",
     title: "Remote Jobs in Boston — Work From Home in Boston",
-    metaTitle: "Remote Jobs in Boston — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Boston — Work From Home (Hiring Now) | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Boston you can do from home — work-from-anywhere roles open to Boston candidates, plus roles hiring across Boston and Cambridge. Biotech, software, AI & more. Apply free.",
     intro:
@@ -434,7 +434,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Vancouver",
     short: "Vancouver",
     title: "Remote Jobs in Vancouver — Work From Home in Canada",
-    metaTitle: "Remote Jobs in Vancouver — Work From Home (Hiring Now) | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Vancouver — Work From Home (Hiring Now) | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Vancouver you can do from home — work-from-anywhere roles open to Vancouver candidates, plus roles hiring specifically in Vancouver, BC. Software, gaming, design & more. Apply free.",
     intro:
@@ -446,7 +446,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Paris",
     short: "France",
     title: "Remote Jobs in Paris — Work From Home in France",
-    metaTitle: "Remote Jobs in Paris (France) — Work From Home | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Paris (France) — Work From Home | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Paris and France you can do from home — work-from-anywhere roles plus roles hiring across Paris. Tech, product, design & finance. English-speaking, visa options. Apply free.",
     intro:
@@ -458,7 +458,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Madrid",
     short: "Spain",
     title: "Remote Jobs in Madrid & Barcelona — Work From Home in Spain",
-    metaTitle: "Remote Jobs in Madrid & Barcelona (Spain) — Work From Home | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Madrid & Barcelona (Spain) — Work From Home | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Madrid, Barcelona and Spain you can do from home — English-speaking, work-from-anywhere roles plus roles hiring across Spain. Tech, product & design. Visa options. Apply free.",
     intro:
@@ -470,7 +470,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Dublin",
     short: "Ireland",
     title: "Remote Jobs in Dublin — Work From Home in Ireland",
-    metaTitle: "Remote Jobs in Dublin (Ireland) — Work From Home | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Dublin (Ireland) — Work From Home | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Dublin and Ireland you can do from home — English-speaking, work-from-anywhere roles plus roles hiring across Dublin. Tech, SaaS, finance & more. Visa options. Apply free.",
     intro:
@@ -482,7 +482,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "Bengaluru",
     short: "Bengaluru",
     title: "Remote Jobs in Bengaluru — Work From Home in Bangalore",
-    metaTitle: "Remote Jobs in Bengaluru (Bangalore) — Work From Home | AnywhereJobs — Remote Jobs",
+    metaTitle: "Remote Jobs in Bengaluru (Bangalore) — Work From Home | getremotejobsnow.com — Remote Jobs",
     metaDescription:
       "Remote jobs in Bengaluru you can do from home — work-from-anywhere roles open to candidates in Bangalore, plus roles hiring specifically in Bengaluru. Software, data, AI & more. Apply free.",
     intro:
@@ -533,7 +533,7 @@ export async function resolveLanding(slug: string): Promise<LandingView | null> 
       return {
         slug,
         title: `Remote ${category} Jobs — Work From Anywhere`,
-        metaTitle: `Remote ${category} Jobs, Worldwide | AnywhereJobs`,
+        metaTitle: `Remote ${category} Jobs, Worldwide | getremotejobsnow.com`,
         metaDescription: CATEGORY_INTRO[category],
         intro: CATEGORY_INTRO[category],
         jobs: await getJobsByCategory(category),
@@ -583,7 +583,7 @@ export async function resolveLanding(slug: string): Promise<LandingView | null> 
       return {
         slug,
         title: `Remote ${label} Jobs — Work From Anywhere`,
-        metaTitle: `Remote ${label} Jobs, Worldwide | AnywhereJobs`,
+        metaTitle: `Remote ${label} Jobs, Worldwide | getremotejobsnow.com`,
         metaDescription: `Work-from-anywhere ${label} jobs with no location restriction. Every role is genuinely remote worldwide.`,
         intro: `Location-independent roles that use ${label}. No country, region, or timezone requirement — apply from anywhere.`,
         jobs,

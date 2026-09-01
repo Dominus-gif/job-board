@@ -16,7 +16,7 @@ export default function PostsPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: "AnywhereJobs — Remote Work Blog",
+    name: "getremotejobsnow.com — Remote Work Blog",
     url: abs("/posts"),
     blogPost: posts.map((p) => ({
       "@type": "BlogPosting",

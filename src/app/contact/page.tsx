@@ -23,8 +23,8 @@ export default function ContactPage() {
 
       <h2>Report a job or a scam</h2>
       <p>
-        Applying should always be free. If a listing asks you to pay or looks fraudulent, email{" "}
-        <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a> with the link and we’ll remove it promptly.
+        Applying should always be free. If a listing asks you to pay or looks fraudulent, send us the link using the
+        form above and we’ll remove it promptly.
       </p>
     </LegalShell>
   );
