@@ -22,10 +22,10 @@ export function JobCardActions({ job }: { job: Job }) {
   }
 
   const base =
-    "flex h-10 w-10 items-center justify-center rounded-md border border-ink-100 bg-white text-ink-400 transition hover:border-ink-200 hover:text-ink-700";
+    "flex h-11 w-11 items-center justify-center rounded-md border border-ink-100 bg-white text-ink-400 transition hover:border-ink-200 hover:text-ink-700";
 
   return (
-    <div className="flex items-center gap-1.5">
+    <div className="flex items-center gap-2">
       <button
         type="button"
         onClick={onBookmark}
