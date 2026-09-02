@@ -74,10 +74,11 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
   const salary = formatSalary(job.salary);
   const tier = salaryTier(job.salary);
   const daysLeft = daysUntil(job.expires_at);
+  // Secondary sections are best-effort: never let them 500 a valid job page.
   const [similar, companyJobs, company] = await Promise.all([
-    getSimilarJobs(job),
-    getJobsByCompany(job.company_slug),
-    getCompanyBySlug(job.company_slug),
+    getSimilarJobs(job).catch(() => []),
+    getJobsByCompany(job.company_slug).catch(() => []),
+    getCompanyBySlug(job.company_slug).catch(() => undefined),
   ]);
   const otherRoles = companyJobs.length;
   const jsonLd = jobPostingJsonLd(job);

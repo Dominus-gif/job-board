@@ -163,9 +163,20 @@ async function loadRealJobs(): Promise<Job[]> {
   return cache.jobs;
 }
 
-/** Public read: the real jobs plus the always-on manual (featured) jobs. */
+/** Public read: the real jobs plus the always-on manual (featured) jobs.
+ * Never throws — a data hiccup on a cold serverless instance must degrade to the
+ * committed baseline (styled empty state / full board), never a raw 500. */
 export async function loadJobs(): Promise<Job[]> {
-  return serve(await loadRealJobs());
+  try {
+    return serve(await loadRealJobs());
+  } catch (err) {
+    console.warn("[store] loadJobs failed — serving baseline:", (err as Error)?.message);
+    try {
+      return serve(baseline);
+    } catch {
+      return baseline;
+    }
+  }
 }
 
 /**

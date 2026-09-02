@@ -233,7 +233,7 @@
 /* Inputs */
 .dark input:not([type="checkbox"]):not([type="radio"]),
 .dark textarea { background-color: #202020 !important; color: rgba(255,255,255,0.81); border-color: rgba(255,255,255,0.14); }
-.dark input::placeholder, .dark textarea::placeholder { color: rgba(255,255,255,0.34) !important; }
+.dark input::placeholder, .dark textarea::placeholder { color: rgba(255,255,255,0.5) !important; }
 .dark input[type="checkbox"], .dark input[type="radio"] { accent-color: #2383e2; }
 
 /* Misc */

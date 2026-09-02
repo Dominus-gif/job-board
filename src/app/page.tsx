@@ -114,8 +114,9 @@ export default async function HomePage() {
               <span className="font-semibold text-ink-500">Regional</span> = remote but region-locked.
             </p>
 
-            {/* Primary hero action: search (goes to the indexable /jobs page). */}
-            <form action="/jobs" method="get" className="mx-auto mt-8 max-w-xl">
+            {/* Primary hero action: search (goes to the indexable /jobs page).
+                Width matches the stats card above for a clean centered stack. */}
+            <form action="/jobs" method="get" className="mx-auto mt-6 max-w-md">
               <div className="relative">
                 <SearchIcon className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-ink-400" />
                 <input

@@ -29,7 +29,37 @@ export default function HiringPage() {
         ))}
       </div>
 
-      <div className="mt-10">
+      {/* Clear pricing so the CTA isn't a dead end. */}
+      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="card p-5">
+          <div className="flex items-baseline justify-between">
+            <span className="font-display font-bold text-ink-900">Standard</span>
+            <span className="font-display text-lg font-extrabold text-ink-900">Free</span>
+          </div>
+          <ul className="mt-3 space-y-1.5 text-sm text-ink-600">
+            <li>Listed on the main board &amp; category pages</li>
+            <li>Reviewed &amp; published, usually within 24h</li>
+            <li>Direct “Apply” link to your own site</li>
+          </ul>
+        </div>
+        <div className="card border-brand-200 p-5 ring-1 ring-inset ring-brand-100">
+          <div className="flex items-baseline justify-between">
+            <span className="font-display font-bold text-ink-900">Featured</span>
+            <span className="font-display text-lg font-extrabold text-brand-700">Paid upgrade</span>
+          </div>
+          <ul className="mt-3 space-y-1.5 text-sm text-ink-600">
+            <li>Everything in Standard</li>
+            <li>Pinned to the top of the feed &amp; every category page</li>
+            <li>Highlighted card with a “Featured” badge for 30 days</li>
+          </ul>
+          <p className="mt-3 text-xs text-ink-500">
+            Tick “Feature this listing” below — we’ll confirm pricing and arrange payment when we review your
+            submission.
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-8">
         <HiringForm />
       </div>
     </div>
