@@ -3,7 +3,7 @@ import { SITE, FEATURES } from "@/lib/site";
 import { CATEGORIES, categoryToSlug } from "@/lib/taxonomy";
 import { TOOLS } from "@/lib/tools";
 import { getAllPosts } from "@/lib/posts";
-import { LogoMark } from "./icons";
+import { Logo } from "./Logo";
 
 /** Remote jobs by location — high-intent geo searches (countries + key cities). */
 const LOCATION_LINKS: { href: string; label: string }[] = [
@@ -60,12 +60,7 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-4 py-14">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,3.2fr)]">
           <div>
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 p-1.5 text-white">
-                <LogoMark />
-              </span>
-              <span className="font-display text-lg font-extrabold text-white">{SITE.name}</span>
-            </div>
+            <Logo onDark />
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-300">{SITE.tagline}</p>
             <Link
               href="/page/1"
