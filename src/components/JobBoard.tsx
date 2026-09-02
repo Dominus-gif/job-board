@@ -295,7 +295,7 @@ function FilterIcon() {
 function FilterGroup({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="text-[11px] font-semibold uppercase tracking-wide text-ink-400">{label}</span>
+      <span className="text-xs font-semibold uppercase tracking-wide text-ink-400">{label}</span>
       {children}
     </div>
   );

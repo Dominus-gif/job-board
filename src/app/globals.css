@@ -194,16 +194,16 @@
    skip. Values are the composited equivalents over the dark canvas, tuned so
    even the faintest tier clears WCAG AA (≥4.5:1) on every dark surface
    (#191919 canvas ≈ 7:1, #252525 chips ≈ 6:1). Monotonic. */
-.dark .text-ink-900 { color: #f2f2f1 !important; }
-.dark .text-ink-800 { color: #e2e2e0 !important; }
-.dark .text-ink-700 { color: #d4d4d2 !important; }
-.dark .text-ink-600 { color: #c8c8c6 !important; }
-.dark .text-ink-500 { color: #bdbdba !important; } /* ≈7.9:1 on canvas, 6.9:1 on chips */
-.dark .text-ink-400 { color: #b2b2af !important; } /* ≈7.1:1 on canvas, 6.2:1 on chips */
+.dark .text-ink-900 { color: #f5f5f4 !important; }
+.dark .text-ink-800 { color: #ececeb !important; }
+.dark .text-ink-700 { color: #e2e2e0 !important; }
+.dark .text-ink-600 { color: #dadad8 !important; }
+.dark .text-ink-500 { color: #d2d2d0 !important; } /* ≈11:1 on canvas, 9.6:1 on chips */
+.dark .text-ink-400 { color: #cacac8 !important; } /* ≈10:1 on canvas, 8.8:1 on chips */
 /* Component labels (@apply-based, so the utility overrides above don't reach
    them). */
 .dark .eyebrow,
-.dark .field-label { color: #dcdcda !important; }
+.dark .field-label { color: #e6e6e4 !important; }
 .dark .text-brand-500, .dark .text-brand-600, .dark .text-brand-700, .dark .text-brand-800, .dark .text-brand-900 { color: rgba(255, 255, 255, 0.88) !important; }
 .dark .text-amber-800, .dark .text-amber-900 { color: #f0c56a !important; }
 .dark .text-amber-700 { color: #e9b44c !important; }

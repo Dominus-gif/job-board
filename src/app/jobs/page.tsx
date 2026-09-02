@@ -337,7 +337,7 @@ export default async function JobsSearchPage({ searchParams }: { searchParams: S
 function FilterGroup({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-ink-400">{label}</div>
+      <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink-400">{label}</div>
       <div className="flex flex-wrap gap-2">{children}</div>
     </div>
   );
