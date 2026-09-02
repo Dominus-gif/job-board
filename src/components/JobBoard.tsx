@@ -31,11 +31,14 @@ export function JobBoard({
   regionalJobs,
   pageSize = 50,
   showSearch = true,
+  totalAvailable,
 }: {
   jobs: Job[];
   regionalJobs?: Job[];
   pageSize?: number;
   showSearch?: boolean;
+  /** Full catalog size when `jobs` is only a preview slice — clarifies the count. */
+  totalAvailable?: number;
 }) {
   const [scope, setScope] = useState<"worldwide" | "regional">("worldwide");
   const [query, setQuery] = useState("");
@@ -233,7 +236,9 @@ export function JobBoard({
         <div className="min-w-0">
           <div className="mb-3 flex items-center justify-between gap-3">
             <span className="text-xs font-semibold uppercase tracking-wide text-ink-500">
-              {filtered.length.toLocaleString("en-US")} {filtered.length === 1 ? "role" : "roles"}
+              {totalAvailable != null && totalAvailable > filtered.length && activeCount === 0 && !query.trim()
+                ? `Latest ${filtered.length.toLocaleString("en-US")} of ${totalAvailable.toLocaleString("en-US")} roles`
+                : `${filtered.length.toLocaleString("en-US")} ${filtered.length === 1 ? "role" : "roles"}`}
             </span>
             <label className="flex items-center gap-2 text-xs font-medium text-ink-500">
               Show

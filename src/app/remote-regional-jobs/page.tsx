@@ -13,8 +13,15 @@ export const metadata: Metadata = {
 
 export const revalidate = 1800;
 
+// The regional set is huge (thousands). Passing all of it to the client
+// <JobBoard> shipped ~11MB of HTML. Preview a bounded, description-stripped
+// slice here and send deep browsing to the SSR-paginated /jobs?scope=regional.
+const PREVIEW = 120;
+
 export default async function RegionalJobsPage() {
-  const jobs = await getRegionalJobs();
+  const all = await getRegionalJobs();
+  const total = all.length;
+  const jobs = all.slice(0, PREVIEW).map((j) => ({ ...j, description_html: "" }));
 
   return (
     <div>
@@ -46,8 +53,20 @@ export default async function RegionalJobsPage() {
             <PinIcon className="h-4 w-4 flex-shrink-0 text-amber-500" />
             Heads up: each role below lists the region you must be eligible to work in. Check the listing before applying.
           </div>
-          {jobs.length > 0 ? (
-            <JobBoard jobs={jobs} />
+          {total > 0 ? (
+            <>
+              <JobBoard jobs={jobs} />
+              {total > PREVIEW && (
+                <div className="mt-8 flex flex-col items-center gap-2 text-center">
+                  <p className="text-sm text-ink-500">
+                    Showing the latest {PREVIEW} of {total.toLocaleString("en-US")} region-locked roles.
+                  </p>
+                  <Link href="/jobs?scope=regional" className="btn-primary">
+                    Browse all {total.toLocaleString("en-US")} regional jobs
+                  </Link>
+                </div>
+              )}
+            </>
           ) : (
             <div className="rounded-2xl border border-dashed border-ink-200 bg-white p-10 text-center text-ink-500">
               No regional roles right now — check back soon.

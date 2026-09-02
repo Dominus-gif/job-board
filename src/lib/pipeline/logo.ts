@@ -16,12 +16,18 @@ export function guessDomain(name: string): string | undefined {
   return base ? `${base}.com` : undefined;
 }
 
+// ATS / applicant-tracking hosts are never the employer's own domain, so their
+// favicon is the ATS logo (e.g. Airbase showing Greenhouse's grnh.se icon).
+// Ignore them and fall back to the name-guessed domain or the initial badge.
+const ATS_HOST = /greenhouse|grnh\.se|lever\.co|ashbyhq|workable|smartrecruiters|myworkday|workday|bamboohr|recruitee|breezy|jobvite|icims|teamtailor|personio|join\.com|gem\.com|paylocity|rippling|dover\.com|wellfound|angel\.co|notion\.so|airtable|docs\.google|forms\.gle|linkedin\.com|indeed\.com/i;
+
 /** Ordered list of logo URLs to try for a company. Last resort is the placeholder. */
 export function logoCandidates(opts: { domain?: string; name: string; provided?: string }): string[] {
   const { name, provided } = opts;
-  const domain = opts.domain || guessDomain(name);
+  const ownDomain = opts.domain && !ATS_HOST.test(opts.domain) ? opts.domain : undefined;
+  const domain = ownDomain || guessDomain(name);
   const list: string[] = [];
-  if (provided && /^https?:\/\//.test(provided)) list.push(provided);
+  if (provided && /^https?:\/\//.test(provided) && !ATS_HOST.test(provided)) list.push(provided);
   if (domain) {
     const d = encodeURIComponent(domain);
     // True HQ vector/raster brand logos when a Logo.dev token is configured

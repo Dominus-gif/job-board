@@ -38,12 +38,17 @@
 
 @layer components {
   /* Section eyebrow — a quiet Notion-style label: small, uppercase, muted. */
+  /* NB: use an explicit colour, not `@apply text-ink-*` — @apply bakes the base
+     scale value, which the .dark / :root:not(.dark) utility overrides can't reach,
+     leaving these uppercase labels far below AA (e.g. #9B9A97 = 2.8:1 on white). */
   .eyebrow {
-    @apply inline-flex items-center text-xs font-semibold uppercase tracking-[0.08em] text-ink-500;
+    @apply inline-flex items-center text-xs font-semibold uppercase tracking-[0.08em];
+    color: #4a4842;
   }
   /* Small section label (Salary, Skills, Benefits…). */
   .field-label {
-    @apply text-xs font-semibold uppercase tracking-wide text-ink-400;
+    @apply text-xs font-semibold uppercase tracking-wide;
+    color: #4a4842;
   }
 
   .btn {
@@ -184,14 +189,18 @@
 .dark .bg-red-300 { background-color: #f87171 !important; }
 
 /* Text — Notion's translucent whites */
-.dark .text-ink-900 { color: rgba(255, 255, 255, 0.9) !important; }
-.dark .text-ink-800 { color: rgba(255, 255, 255, 0.81) !important; }
-.dark .text-ink-700 { color: rgba(255, 255, 255, 0.68) !important; }
-.dark .text-ink-600 { color: rgba(255, 255, 255, 0.66) !important; }
-/* Secondary tiers nudged up one step so skill tags (ink-500) and tiny uppercase
-   labels (ink-400) clear AA on the dark card surfaces (#202020 / #252525). */
-.dark .text-ink-500 { color: rgba(255, 255, 255, 0.64) !important; }
-.dark .text-ink-400 { color: rgba(255, 255, 255, 0.58) !important; }
+/* Monotonic ramp; the muted tiers (400/500) are lifted so small secondary text
+   clears AA on the dark card surfaces (#202020 / #252525). */
+.dark .text-ink-900 { color: rgba(255, 255, 255, 0.92) !important; }
+.dark .text-ink-800 { color: rgba(255, 255, 255, 0.83) !important; }
+.dark .text-ink-700 { color: rgba(255, 255, 255, 0.78) !important; }
+.dark .text-ink-600 { color: rgba(255, 255, 255, 0.73) !important; }
+.dark .text-ink-500 { color: rgba(255, 255, 255, 0.68) !important; }
+.dark .text-ink-400 { color: rgba(255, 255, 255, 0.62) !important; }
+/* Component labels (@apply-based, so the utility overrides above don't reach
+   them): give them an explicit high-contrast value in dark. */
+.dark .eyebrow,
+.dark .field-label { color: rgba(255, 255, 255, 0.82) !important; }
 .dark .text-brand-500, .dark .text-brand-600, .dark .text-brand-700, .dark .text-brand-800, .dark .text-brand-900 { color: rgba(255, 255, 255, 0.88) !important; }
 .dark .text-amber-800, .dark .text-amber-900 { color: #f0c56a !important; }
 .dark .text-amber-700 { color: #e9b44c !important; }

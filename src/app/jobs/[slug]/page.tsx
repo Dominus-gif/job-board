@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { getAllJobs, getCompanyBySlug, getJobBySlug, getJobsByCompany, getSimilarJobs } from "@/lib/db";
 import { formatSalary, salaryTier } from "@/lib/salary";
 import { formatDate, daysUntil } from "@/lib/format";
@@ -8,7 +9,6 @@ import { jobPostingJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
 import { categoryToSlug } from "@/lib/taxonomy";
 import { JobList } from "@/components/JobList";
 import { ScamNotice, ReferralNudge } from "@/components/ScamNotice";
-import { InactiveNotice } from "@/components/InactiveNotice";
 import { LivenessProvider, ApplyButton, InactiveBanner } from "@/components/JobLiveness";
 import { StarRating } from "@/components/StarRating";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -67,14 +67,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function JobPage({ params }: { params: { slug: string } }) {
   const job = await getJobBySlug(params.slug);
 
-  // Removed from the live feed entirely → inactive (no network needed).
-  if (!job) {
-    return (
-      <div className="mx-auto max-w-3xl px-4 py-16">
-        <InactiveNotice />
-      </div>
-    );
-  }
+  // Removed from the feed / never existed → real 404 (renders not-found.tsx with
+  // a 404 status, so dead share links and stale crawls don't return soft-200s).
+  if (!job) notFound();
 
   const salary = formatSalary(job.salary);
   const tier = salaryTier(job.salary);
@@ -148,7 +143,8 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
             </div>
 
             <div className="flex flex-shrink-0 flex-col items-stretch gap-2 md:w-56">
-              <ApplyButton applyUrl={job.apply_url} label="Apply now" className="btn-primary w-full py-3 text-base" />
+              {/* Hidden on mobile — the sticky bottom bar is the mobile CTA. */}
+              <ApplyButton applyUrl={job.apply_url} label="Apply now" className="btn-primary hidden w-full py-3 text-base lg:inline-flex" />
               <p className="text-center font-mono text-xs tracking-wide text-ink-400">Free · applies on {job.company_name}</p>
             </div>
           </div>
@@ -156,7 +152,8 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
       </section>
 
       {/* ── Body ────────────────────────────────────────────────── */}
-      <div className="mx-auto max-w-6xl px-4 py-10">
+      {/* Extra bottom padding on mobile so the last lines clear the sticky Apply bar. */}
+      <div className="mx-auto max-w-6xl px-4 pt-10 pb-28 lg:pb-10">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <article className="lg:col-span-2">
             <InactiveBanner />
@@ -251,7 +248,7 @@ export default async function JobPage({ params }: { params: { slug: string } }) 
                 </div>
               )}
 
-              <ApplyButton applyUrl={job.apply_url} label="Apply now" className="btn-primary mt-6 w-full" />
+              <ApplyButton applyUrl={job.apply_url} label="Apply now" className="btn-primary mt-6 hidden w-full lg:inline-flex" />
               {/* "I'm interested" is paused until a database is connected so the
                   count can persist across refreshes. See README "Interest". */}
             </div>

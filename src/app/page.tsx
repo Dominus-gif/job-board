@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllJobs, getCompanies, getJobsByCategory, getRegionalCount, getSubscriberCount } from "@/lib/db";
 import { FEATURES } from "@/lib/site";
@@ -9,6 +10,10 @@ import { FaqSection } from "@/components/FaqSection";
 import { AdSlot } from "@/components/AdSlot";
 import { PinIcon, ArrowUpRightIcon, SearchIcon } from "@/components/icons";
 import { siteJsonLd, jobListJsonLd } from "@/lib/jsonld";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 const HOME_FAQ = [
   {
@@ -35,9 +40,9 @@ const PREVIEW_ORDER = ["Backend", "Frontend", "Design", "Customer Support", "Sal
 // Refresh live data periodically (ISR), matching the store's cache TTL.
 export const revalidate = 1800;
 
-// Cap on how many worldwide jobs hydrate the home browse feed. Comfortably above
-// the max "per page" (200) so filters have headroom; full search is on /jobs.
-const FEED_LIMIT = 300;
+// Cap on how many worldwide jobs hydrate the home browse feed — the home is a
+// preview (full search + pagination live on /jobs), so keep the payload light.
+const FEED_LIMIT = 120;
 
 export default async function HomePage() {
   const jobs = await getAllJobs();
@@ -135,7 +140,7 @@ export default async function HomePage() {
             Search is omitted here: the hero already owns the search action. */}
         <section className="pt-10">
           <SectionHeader eyebrow="Latest roles" title="All remote jobs" href="/jobs" linkLabel="Browse all remote jobs" />
-          <JobBoard jobs={feedJobs} showSearch={false} />
+          <JobBoard jobs={feedJobs} showSearch={false} totalAvailable={jobs.length} />
         </section>
 
         {regionalCount > 0 && (
