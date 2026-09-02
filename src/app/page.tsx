@@ -140,7 +140,7 @@ export default async function HomePage() {
             Search is omitted here: the hero already owns the search action. */}
         <section className="pt-10">
           <SectionHeader eyebrow="Latest roles" title="All remote jobs" href="/jobs" linkLabel="Browse all remote jobs" />
-          <JobBoard jobs={feedJobs} showSearch={false} totalAvailable={jobs.length} />
+          <JobBoard jobs={feedJobs} showSearch={false} totalAvailable={jobs.length} pageSize={24} />
         </section>
 
         {regionalCount > 0 && (
