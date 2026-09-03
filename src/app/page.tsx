@@ -218,7 +218,10 @@ function SectionHeader({
   linkLabel: string;
 }) {
   return (
-    <div className="mb-5 flex flex-col items-start gap-1.5 border-b border-ink-100 pb-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+    // Sticky so each section keeps its heading in view while scrolling its cards,
+    // giving the long feed structure at depth. Offset by the site header height;
+    // full-bleed background (-mx-4 px-4) so cards scroll cleanly underneath.
+    <div className="sticky top-14 z-10 -mx-4 mb-5 flex flex-col items-start gap-1.5 border-b border-ink-100 bg-white/85 px-4 pb-3 pt-3 backdrop-blur sm:flex-row sm:items-end sm:justify-between sm:gap-4">
       <div className="min-w-0">
         <span className="eyebrow">{eyebrow}</span>
         <h2 className="mt-2 font-display text-xl font-semibold tracking-tight text-ink-900 md:text-2xl">{title}</h2>

@@ -45,16 +45,18 @@ export default function HiringPage() {
         <div className="card border-brand-200 p-5 ring-1 ring-inset ring-brand-100">
           <div className="flex items-baseline justify-between">
             <span className="font-display font-bold text-ink-900">Featured</span>
-            <span className="font-display text-lg font-extrabold text-brand-700">Paid upgrade</span>
+            <span className="font-display text-lg font-extrabold text-brand-700">
+              from $149<span className="text-sm font-semibold text-ink-400"> / 30 days</span>
+            </span>
           </div>
           <ul className="mt-3 space-y-1.5 text-sm text-ink-600">
             <li>Everything in Standard</li>
             <li>Pinned to the top of the feed &amp; every category page</li>
             <li>Highlighted card with a “Featured” badge for 30 days</li>
+            <li>Included in the weekly digest</li>
           </ul>
           <p className="mt-3 text-xs text-ink-500">
-            Tick “Feature this listing” below — we’ll confirm pricing and arrange payment when we review your
-            submission.
+            Tick “Feature this listing” below — we’ll arrange payment when we review your submission.
           </p>
         </div>
       </div>
