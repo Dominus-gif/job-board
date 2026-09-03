@@ -17,6 +17,7 @@ const ZONES: { label: string; offset: number }[] = [
 
 const field =
   "rounded-md border border-ink-200 bg-white px-3 py-2 text-ink-900 focus:border-ink-300 focus:outline-none focus:ring-2 focus:ring-ink-200";
+const selectField = `${field} select-field`;
 
 // Working hours 9:00–17:00 local.
 const WORK_START = 9;
@@ -48,13 +49,13 @@ export function TimezoneOverlap() {
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-700">
           You are in
-          <select value={a} onChange={(e) => setA(Number(e.target.value))} className={field}>
+          <select value={a} onChange={(e) => setA(Number(e.target.value))} className={selectField}>
             {ZONES.map((z, i) => <option key={z.label} value={i}>{z.label}</option>)}
           </select>
         </label>
         <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-700">
           Team / employer in
-          <select value={b} onChange={(e) => setB(Number(e.target.value))} className={field}>
+          <select value={b} onChange={(e) => setB(Number(e.target.value))} className={selectField}>
             {ZONES.map((z, i) => <option key={z.label} value={i}>{z.label}</option>)}
           </select>
         </label>

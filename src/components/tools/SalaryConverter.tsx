@@ -7,6 +7,7 @@ const RATES: Record<string, number> = { USD: 1, EUR: 0.92, GBP: 0.79, CAD: 1.37,
 const CURRENCIES = Object.keys(RATES);
 const field =
   "rounded-md border border-ink-200 bg-white px-3 py-2 text-ink-900 focus:border-ink-300 focus:outline-none focus:ring-2 focus:ring-ink-200";
+const selectField = `${field} select-field`;
 
 export function SalaryConverter() {
   const [amount, setAmount] = useState(120000);
@@ -33,13 +34,13 @@ export function SalaryConverter() {
         </label>
         <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-700">
           From
-          <select value={from} onChange={(e) => setFrom(e.target.value)} className={field}>
+          <select value={from} onChange={(e) => setFrom(e.target.value)} className={selectField}>
             {CURRENCIES.map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
         </label>
         <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-700">
           To
-          <select value={to} onChange={(e) => setTo(e.target.value)} className={field}>
+          <select value={to} onChange={(e) => setTo(e.target.value)} className={selectField}>
             {CURRENCIES.map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
         </label>

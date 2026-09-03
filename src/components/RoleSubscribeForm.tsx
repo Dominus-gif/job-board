@@ -28,7 +28,7 @@ export function RoleSubscribeForm({ buttonLabel = "Notify me", className = "" }:
     <form action={formAction} className={className}>
       <div className="flex flex-col gap-2 sm:flex-row">
         {/* Category — required. Empty placeholder is disabled so it can't be submitted. */}
-        <select name="category" required defaultValue="" aria-label="Job category" className={`${field} sm:max-w-[13rem]`}>
+        <select name="category" required defaultValue="" aria-label="Job category" className={`${field} select-field sm:max-w-[13rem]`}>
           <option value="" disabled>
             Select job category
           </option>
