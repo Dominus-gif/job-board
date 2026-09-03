@@ -20,9 +20,9 @@ const nextConfig = {
     return [
       // Sponsor is merged into the Advertise page.
       { source: "/sponsor", destination: "/advertise", permanent: true },
-      // Browsers requesting the literal /favicon.ico get the SVG icon instead of
-      // a 404 (modern browsers already use the <link rel="icon"> to /icon.svg).
-      { source: "/favicon.ico", destination: "/icon.svg", permanent: true },
+      // Browsers requesting the literal /favicon.ico get the PNG icon instead of
+      // a 404 (modern browsers already use the <link rel="icon"> to /icon.png).
+      { source: "/favicon.ico", destination: "/icon.png", permanent: true },
     ];
   },
 };

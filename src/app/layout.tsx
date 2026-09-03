@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SITE, ADSENSE, FEATURES } from "@/lib/site";
+import { SITE, ADSENSE, FEATURES, SUPABASE } from "@/lib/site";
 import { getSubscriberCount } from "@/lib/db";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { NewsletterCta } from "@/components/NewsletterCta";
 import { NewsletterCtaGate } from "@/components/NewsletterCtaGate";
+import { RoleSubscribeCta } from "@/components/RoleSubscribeCta";
 import { themeInitScript, ThemeGuard } from "@/components/ThemeToggle";
 
 // Notion-style: one clean sans (Inter) for everything; headings are just bold.
@@ -88,6 +89,13 @@ gtag('config', '${GA_ID}');`}
         {FEATURES.newsletter && (
           <NewsletterCtaGate>
             <NewsletterCta count={getSubscriberCount()} />
+          </NewsletterCtaGate>
+        )}
+        {/* Role-targeted subscribe band (Supabase-backed). Independent of the
+            legacy newsletter flag; shown once a Supabase URL is configured. */}
+        {SUPABASE.enabled && (
+          <NewsletterCtaGate>
+            <RoleSubscribeCta />
           </NewsletterCtaGate>
         )}
         <Footer />

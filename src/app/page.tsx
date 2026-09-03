@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllJobs, getCompanies, getJobsByCategory, getRegionalCount, getSubscriberCount } from "@/lib/db";
-import { FEATURES } from "@/lib/site";
+import { FEATURES, SUPABASE } from "@/lib/site";
 import { categoryToSlug } from "@/lib/taxonomy";
 import { JobList } from "@/components/JobList";
 import { JobBoard } from "@/components/JobBoard";
 import { NewsletterForm } from "@/components/NewsletterForm";
+import { RoleSubscribeForm } from "@/components/RoleSubscribeForm";
 import { FaqSection } from "@/components/FaqSection";
 import { AdSlot } from "@/components/AdSlot";
 import { PinIcon, ArrowUpRightIcon, SearchIcon } from "@/components/icons";
@@ -97,6 +98,17 @@ export default async function HomePage() {
                 <NewsletterForm buttonLabel="Get weekly jobs" />
                 <p className="mt-2 text-xs text-ink-400">
                   Join {subscribers.toLocaleString("en-US")} subscribers · one email a week · no spam
+                </p>
+              </div>
+            )}
+
+            {/* Role-targeted subscribe: choose a category + email, stored in
+                Supabase. Shown once a Supabase URL is configured. */}
+            {SUPABASE.enabled && (
+              <div className="mx-auto mt-6 max-w-xl text-left">
+                <RoleSubscribeForm buttonLabel="Notify me" />
+                <p className="mt-2 text-center text-xs text-ink-400">
+                  Pick a category — we&apos;ll email you when matching remote jobs go live.
                 </p>
               </div>
             )}

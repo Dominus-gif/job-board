@@ -1,68 +1,39 @@
 /**
- * GetRemoteJobsNow.com brand logo, rebuilt as theme-aware SVG + text so the
- * navy wordmark ("Get"/"Now") flips to white in dark mode while the blue/green
- * brand colours stay constant. `LogoIcon` is the standalone globe-on-laptop mark
- * (also used for the favicon); `Logo` is the full horizontal lockup for the nav.
+ * GetRemoteJobsNow.com brand lockup (globe-on-laptop mark + wordmark +
+ * "Work From Anywhere" tagline), rendered from the supplied raster artwork.
  *
- * `onDark` forces the light-on-dark treatment (used in the always-dark footer,
- * where the page theme class can't be relied on).
+ * The artwork is a dark, mostly-monochrome lockup, so it needs a light-on-dark
+ * variant wherever it sits on a dark surface. Two cases:
+ *  - Header: white in light mode, but the header itself turns dark in dark mode
+ *    (`.dark .bg-white/85`), so the colour mark is swapped for the white mark
+ *    via `dark:` visibility.
+ *  - Footer (`onDark`): always dark, regardless of theme → always the white mark.
  */
+import Image from "next/image";
 
-export function LogoIcon({ className = "", onDark = false }: { className?: string; onDark?: boolean }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className} role="img" aria-label="GetRemoteJobsNow.com" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="grjn-globe" x1="18" y1="12" x2="52" y2="46" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#2f80ed" />
-          <stop offset="0.55" stopColor="#22a3c9" />
-          <stop offset="1" stopColor="#25c08a" />
-        </linearGradient>
-        <linearGradient id="grjn-swoosh" x1="24" y1="10" x2="52" y2="30" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#25c08a" />
-          <stop offset="1" stopColor="#2f80ed" />
-        </linearGradient>
-      </defs>
-
-      {/* Laptop (navy in light, light-blue in dark so it stays visible). */}
-      <path
-        className={onDark ? "fill-[#6aa8e6]" : "fill-[#123a63] dark:fill-[#6aa8e6]"}
-        d="M12.5 44.5h24.7l7.2 9.4a1.6 1.6 0 0 1-1.3 2.6H6.2a1.6 1.6 0 0 1-1.3-2.6l7.6-9.4Z"
-      />
-
-      {/* Globe */}
-      <circle cx="34" cy="28" r="16.5" fill="url(#grjn-globe)" />
-      {/* Grid lines */}
-      <g fill="none" stroke="#ffffff" strokeOpacity="0.6" strokeWidth="1.4" strokeLinecap="round">
-        <path d="M18.4 24.5h31.2" />
-        <path d="M19.5 33.5h29" />
-        <ellipse cx="34" cy="28" rx="7.2" ry="16.3" />
-        <path d="M34 11.5v33" />
-      </g>
-      {/* Highlight */}
-      <path d="M24 18.5a16.5 16.5 0 0 1 12-4.7" fill="none" stroke="#ffffff" strokeOpacity="0.5" strokeWidth="2.2" strokeLinecap="round" />
-
-      {/* Swoosh + person leaping over the globe */}
-      <path d="M22.5 41c14 3 22-3 24.5-17" fill="none" stroke="url(#grjn-swoosh)" strokeWidth="4.2" strokeLinecap="round" />
-      <circle cx="47.8" cy="16.5" r="4" fill="#2f80ed" />
-    </svg>
-  );
-}
+// Intrinsic size of the trimmed lockup (public/brand-logo*.png).
+const W = 1322;
+const H = 244;
+const ALT = "GetRemoteJobsNow.com — Work From Anywhere";
 
 export function Logo({ className = "", onDark = false }: { className?: string; onDark?: boolean }) {
-  const flip = onDark ? "text-white" : "text-ink-900 dark:text-white";
-  const dotcom = onDark ? "text-white/55" : "text-ink-400";
+  if (onDark) {
+    return (
+      <Image
+        src="/brand-logo-white.png"
+        alt={ALT}
+        width={W}
+        height={H}
+        priority
+        className={`h-8 w-auto ${className}`}
+      />
+    );
+  }
   return (
-    <span className={`inline-flex items-center gap-2 ${className}`}>
-      <LogoIcon onDark={onDark} className="h-8 w-8 flex-shrink-0" />
-      <span className="font-display text-[19px] font-extrabold leading-none tracking-tight">
-        {/* Explicit hex (not text-brand-*) so the dark-mode "brand text → white"
-            override doesn't strip the logo's blue/green. */}
-        <span className={flip}>Get</span>
-        <span className="text-[#2f80ed]">Remote</span>
-        <span className="text-[#1fb083]">Jobs</span>
-        <span className={flip}>Now</span>
-        <span className={dotcom}>.com</span>
-      </span>
+    <span className={`inline-flex items-center ${className}`}>
+      {/* Colour mark for the light header; white mark once the header goes dark. */}
+      <Image src="/brand-logo.png" alt={ALT} width={W} height={H} priority className="h-8 w-auto dark:hidden" />
+      <Image src="/brand-logo-white.png" alt="" aria-hidden width={W} height={H} className="hidden h-8 w-auto dark:block" />
     </span>
   );
 }

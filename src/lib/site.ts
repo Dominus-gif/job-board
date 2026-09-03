@@ -29,6 +29,30 @@ export const FEATURES = {
 };
 
 /**
+ * Supabase-backed role subscriptions (email + chosen job categories).
+ *
+ *   NEXT_PUBLIC_SUPABASE_URL      — project URL, e.g. https://xxxx.supabase.co
+ *   SUPABASE_SERVICE_ROLE_KEY     — service-role key (server-only, never exposed)
+ *
+ * The subscribe widget renders whenever a project URL is present; writes go
+ * through the `subscribe_category` Postgres RPC (see supabase/schema.sql), which
+ * upserts one row per email and merges newly-chosen roles while keeping the full
+ * subscription history.
+ */
+export const SUPABASE = {
+  url: (process.env.NEXT_PUBLIC_SUPABASE_URL || "").trim().replace(/\/$/, ""),
+  serviceKey: (process.env.SUPABASE_SERVICE_ROLE_KEY || "").trim(),
+  /** Public: show the widget once a project URL is configured. */
+  get enabled(): boolean {
+    return /^https?:\/\//.test(this.url);
+  },
+  /** Server-only: are we actually able to write? */
+  get ready(): boolean {
+    return this.enabled && this.serviceKey.length > 0;
+  },
+};
+
+/**
  * Google AdSense configuration. Set NEXT_PUBLIC_ADSENSE_CLIENT to your
  * publisher id (e.g. "ca-pub-1234567890123456") to switch ads on everywhere:
  * the loader script, the account meta tag, ads.txt, and every <AdSlot>.
