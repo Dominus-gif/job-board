@@ -43,7 +43,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const job = await getJobBySlug(params.slug);
-  if (!job) {
+  if (!job || job.status === "expired" || job.is_active === false) {
     return { title: "Job no longer active", robots: { index: false, follow: true } };
   }
   // Keyword-rich, scope-accurate title: worldwide roles say "Remote Worldwide",
@@ -67,9 +67,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function JobPage({ params }: { params: { slug: string } }) {
   const job = await getJobBySlug(params.slug);
 
-  // Removed from the feed / never existed → real 404 (renders not-found.tsx with
-  // a 404 status, so dead share links and stale crawls don't return soft-200s).
-  if (!job) notFound();
+  // Removed from the feed, never existed, or explicitly expired/inactive → real
+  // 404 (renders not-found.tsx with a 404 status + the polished "no longer
+  // active" body). Keeps crawlers from indexing dead listings as live 200s.
+  if (!job || job.status === "expired" || job.is_active === false) notFound();
 
   const salary = formatSalary(job.salary);
   const tier = salaryTier(job.salary);
