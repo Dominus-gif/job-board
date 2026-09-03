@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { Select } from "@/components/ui/Select";
 
 // Common remote hubs as UTC offsets (standard time; indicative).
 const ZONES: { label: string; offset: number }[] = [
@@ -15,9 +16,8 @@ const ZONES: { label: string; offset: number }[] = [
   { label: "Sydney (UTC+10)", offset: 10 },
 ];
 
-const field =
-  "rounded-md border border-ink-200 bg-white px-3 py-2 text-ink-900 focus:border-ink-300 focus:outline-none focus:ring-2 focus:ring-ink-200";
-const selectField = `${field} select-field`;
+const ZONE_OPTIONS = ZONES.map((z, i) => ({ value: String(i), label: z.label }));
+const selectBtn = "!rounded-md !px-3 !py-2 text-sm font-normal !text-ink-900";
 
 // Working hours 9:00–17:00 local.
 const WORK_START = 9;
@@ -49,15 +49,11 @@ export function TimezoneOverlap() {
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-700">
           You are in
-          <select value={a} onChange={(e) => setA(Number(e.target.value))} className={selectField}>
-            {ZONES.map((z, i) => <option key={z.label} value={i}>{z.label}</option>)}
-          </select>
+          <Select value={String(a)} onValueChange={(v) => setA(Number(v))} options={ZONE_OPTIONS} ariaLabel="Your timezone" buttonClassName={selectBtn} />
         </label>
         <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-700">
           Team / employer in
-          <select value={b} onChange={(e) => setB(Number(e.target.value))} className={selectField}>
-            {ZONES.map((z, i) => <option key={z.label} value={i}>{z.label}</option>)}
-          </select>
+          <Select value={String(b)} onValueChange={(v) => setB(Number(v))} options={ZONE_OPTIONS} ariaLabel="Team / employer timezone" buttonClassName={selectBtn} />
         </label>
       </div>
 

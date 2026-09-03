@@ -7,6 +7,7 @@ import { availableRegions, jobRegions } from "@/lib/region";
 import { JobCard } from "./JobCard";
 import { InFeedAd } from "./InFeedAd";
 import { SearchIcon, CloseIcon } from "./icons";
+import { Select } from "./ui/Select";
 
 // Drop a native in-feed ad after every N listings (self-hides when ads are off).
 const AD_EVERY = 8;
@@ -240,18 +241,19 @@ export function JobBoard({
                 ? `Latest ${filtered.length.toLocaleString("en-US")} of ${totalAvailable.toLocaleString("en-US")} roles`
                 : `${filtered.length.toLocaleString("en-US")} ${filtered.length === 1 ? "role" : "roles"}`}
             </span>
-            <label className="flex items-center gap-2 text-xs font-medium text-ink-500">
+            <span className="flex items-center gap-2 text-xs font-medium text-ink-500">
               Show
-              <select
-                value={perPage}
-                onChange={(e) => { const n = Number(e.target.value); setPerPage(n); setVisible(n); }}
-                aria-label="Listings per page"
-                className="select-field rounded-md border border-ink-200 bg-white py-1.5 pl-3 text-sm font-medium text-ink-800 transition hover:border-ink-300 focus:border-ink-300 focus:outline-none focus:ring-2 focus:ring-ink-200"
-              >
-                {PER_PAGE_OPTIONS.map((n) => <option key={n} value={n}>{n}</option>)}
-              </select>
+              <Select
+                value={String(perPage)}
+                onValueChange={(v) => { const n = Number(v); setPerPage(n); setVisible(n); }}
+                options={PER_PAGE_OPTIONS.map((n) => ({ value: String(n), label: String(n) }))}
+                ariaLabel="Listings per page"
+                align="end"
+                className="inline-block"
+                buttonClassName="!w-auto !rounded-md !px-3 !py-1.5 text-sm font-medium"
+              />
               per page
-            </label>
+            </span>
           </div>
 
           {shown.length === 0 ? (

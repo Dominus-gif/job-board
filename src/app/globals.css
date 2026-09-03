@@ -142,38 +142,11 @@
 .dark .wtb-range::-webkit-slider-thumb { background: #f6f6f4; border-color: #202020; }
 .dark .wtb-range::-moz-range-thumb { background: #f6f6f4; border-color: #202020; }
 
-/* ─── Select controls ───────────────────────────────────────────────────────
-   Native <select> menus themed to the site instead of the browser default.
-   `.select-field` draws one consistent chevron and reserves room for it (add it
-   to any <select> alongside the shared field/input classes). `color-scheme`
-   (set on :root / :root.dark) already makes the popup honour the theme; the
-   option colours + accent below finish the job in Chromium & Firefox so the
-   open list matches the site rather than looking generic. */
-.select-field {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23787774' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.7rem center;
-  background-size: 0.9rem 0.9rem;
-  padding-right: 2.25rem;
-}
-.dark .select-field {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23cacac8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-}
-
-/* Themed option list + highlight for every <select> (not just .select-field). */
+/* Dropdowns are the custom themed <Select> component (src/components/ui/Select),
+   not native <select> menus, so their popup matches the site in every browser.
+   The accent-color fallback below only covers any stray native select. */
 select { accent-color: #2383e2; }
-select option {
-  background-color: #ffffff;
-  color: #2b2a26;
-}
 .dark select { accent-color: #6fa8dc; }
-.dark select option {
-  background-color: #202020;
-  color: #ececeb;
-}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
