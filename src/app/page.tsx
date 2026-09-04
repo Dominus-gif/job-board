@@ -83,14 +83,12 @@ export default async function HomePage() {
         />
         <div className="relative mx-auto max-w-6xl px-4 pt-11 pb-12 md:pt-14 md:pb-14">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow justify-center">Work from anywhere · any timezone</span>
-            <h1 className="mt-4 font-display font-bold leading-[1.08] tracking-[-0.02em] text-ink-900 text-[clamp(1.7rem,6.2vw,3rem)] text-balance">
-              Remote jobs you can do from anywhere in the world.
+            <h1 className="font-display font-bold leading-[1.08] tracking-[-0.02em] text-ink-900 text-[clamp(1.7rem,6.2vw,3rem)] text-balance">
+              Remote Jobs You Can Do From Anywhere in the World
             </h1>
             <p className="mx-auto mt-4 max-w-xl leading-relaxed text-ink-500 text-[clamp(0.95rem,3.4vw,1.125rem)]">
-              Verified remote jobs in one place — truly work-from-anywhere roles with no country, region, or time
-              zone strings attached, plus remote jobs based in your region. Pulled straight from company hiring
-              systems and enriched with skills, benefits, and salary where it&apos;s disclosed.
+              Truly remote jobs with no country, region, or timezone limits — plus remote roles based in your
+              region. Pulled straight from company career pages.
             </p>
 
             {FEATURES.newsletter && (
@@ -98,17 +96,6 @@ export default async function HomePage() {
                 <NewsletterForm buttonLabel="Get weekly jobs" />
                 <p className="mt-2 text-xs text-ink-400">
                   Join {subscribers.toLocaleString("en-US")} subscribers · one email a week · no spam
-                </p>
-              </div>
-            )}
-
-            {/* Role-targeted subscribe: choose a category + email, stored in
-                Supabase. Shown once a Supabase URL is configured. */}
-            {SUPABASE.enabled && (
-              <div className="mx-auto mt-6 max-w-xl text-left">
-                <RoleSubscribeForm buttonLabel="Notify me" />
-                <p className="mt-2 text-center text-xs text-ink-400">
-                  Pick a category — we&apos;ll email you when matching remote jobs go live.
                 </p>
               </div>
             )}
@@ -125,6 +112,20 @@ export default async function HomePage() {
               <span className="font-semibold text-ink-500">Anywhere</span> = work from any country, no region or timezone limits ·{" "}
               <span className="font-semibold text-ink-500">Regional</span> = remote but region-locked.
             </p>
+
+            {/* Role-targeted subscribe: choose a category + email, stored in
+                Supabase. Sits below the stats panel; shown once a Supabase URL is set. */}
+            {SUPABASE.enabled && (
+              <div className="mx-auto mt-8 max-w-xl">
+                <p className="mb-2.5 text-center text-sm font-semibold text-ink-700">Subscribe to our weekly newsletter</p>
+                <div className="text-left">
+                  <RoleSubscribeForm buttonLabel="Notify me" />
+                </div>
+                <p className="mt-2 text-center text-xs text-ink-400">
+                  Pick a category — we&apos;ll email you when matching remote jobs go live.
+                </p>
+              </div>
+            )}
 
             {/* Primary hero action: search (goes to the indexable /jobs page).
                 Width matches the stats card above for a clean centered stack. */}
@@ -221,7 +222,7 @@ function SectionHeader({
     // Sticky so each section keeps its heading in view while scrolling its cards,
     // giving the long feed structure at depth. Offset by the site header height;
     // full-bleed background (-mx-4 px-4) so cards scroll cleanly underneath.
-    <div className="sticky top-14 z-10 -mx-4 mb-5 flex flex-col items-start gap-1.5 border-b border-ink-100 bg-white/85 px-4 pb-3 pt-3 backdrop-blur sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+    <div className="sticky top-[72px] z-10 -mx-4 mb-5 flex flex-col items-start gap-1.5 border-b border-ink-100 bg-white/85 px-4 pb-3 pt-3 backdrop-blur sm:flex-row sm:items-end sm:justify-between sm:gap-4">
       <div className="min-w-0">
         <span className="eyebrow">{eyebrow}</span>
         <h2 className="mt-2 font-display text-xl font-semibold tracking-tight text-ink-900 md:text-2xl">{title}</h2>

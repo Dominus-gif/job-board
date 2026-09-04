@@ -25,15 +25,15 @@ export function Logo({ className = "", onDark = false }: { className?: string; o
         width={W}
         height={H}
         priority
-        className={`h-8 w-auto ${className}`}
+        className={`h-[42px] w-auto ${className}`}
       />
     );
   }
   return (
     <span className={`inline-flex items-center ${className}`}>
       {/* Colour mark for the light header; white mark once the header goes dark. */}
-      <Image src="/brand-logo.png" alt={ALT} width={W} height={H} priority className="h-8 w-auto dark:hidden" />
-      <Image src="/brand-logo-white.png" alt="" aria-hidden width={W} height={H} className="hidden h-8 w-auto dark:block" />
+      <Image src="/brand-logo.png" alt={ALT} width={W} height={H} priority className="h-[42px] w-auto dark:hidden" />
+      <Image src="/brand-logo-white.png" alt="" aria-hidden width={W} height={H} className="hidden h-[42px] w-auto dark:block" />
     </span>
   );
 }
