@@ -6,6 +6,7 @@ import { FEATURES } from "@/lib/site";
 
 const LINKS: [string, string][] = [
   ["Browse jobs", "/jobs"],
+  ["Find jobs", "/find-remote-jobs"],
   ["Companies", "/companies"],
   ["Bookmarks", "/bookmarks"],
   ...(FEATURES.newsletter ? ([["Newsletter", "/newsletter"]] as [string, string][]) : []),

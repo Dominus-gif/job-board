@@ -8,6 +8,7 @@ import { NavLinks } from "./NavLinks";
 
 const NAV: [string, string][] = [
   ["Browse jobs", "/jobs"],
+  ["Find jobs", "/find-remote-jobs"],
   ["Companies", "/companies"],
   ...(FEATURES.newsletter ? ([["Newsletter", "/newsletter"]] as [string, string][]) : []),
   ...(FEATURES.advertise ? ([["Advertise", "/advertise"]] as [string, string][]) : []),

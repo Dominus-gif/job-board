@@ -27,6 +27,10 @@ const LOCATION_LINKS: { href: string; label: string }[] = [
  * linking that spreads ranking signal, not keyword stuffing.
  */
 const POPULAR_SEARCHES: { href: string; label: string }[] = [
+  { href: "/find-remote-jobs", label: "Find Remote Jobs" },
+  { href: "/remote-jobs-categories", label: "Remote Jobs by Category" },
+  { href: "/trending-remote-jobs", label: "Trending Remote Jobs" },
+  { href: "/remote-jobs-programming-support-design", label: "Programming, Support & Design Jobs" },
   { href: "/work-from-home-jobs", label: "Work From Home Jobs" },
   { href: "/remote-jobs-in-usa", label: "Remote Jobs USA" },
   { href: "/remote-jobs-in-europe", label: "Remote Jobs Europe" },

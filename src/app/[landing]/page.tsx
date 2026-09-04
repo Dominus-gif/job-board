@@ -5,6 +5,7 @@ import { allLandingSlugs, resolveLanding } from "@/lib/landing";
 import { abs } from "@/lib/site";
 import { CategoryBar } from "@/components/CategoryBar";
 import { JobBoard } from "@/components/JobBoard";
+import { AnywhereVsRegional } from "@/components/AnywhereVsRegional";
 import { FaqSection } from "@/components/FaqSection";
 import { RssIcon } from "@/components/icons";
 import { jobListJsonLd } from "@/lib/jsonld";
@@ -36,6 +37,9 @@ export async function generateMetadata({ params }: { params: { landing: string }
 export default async function LandingPage({ params }: { params: { landing: string } }) {
   const view = await resolveLanding(params.landing);
   if (!view) notFound();
+  // Don't ship thin counted-location pages: a location with too few real jobs
+  // returns 404 instead of a near-empty page (Google programmatic-pages policy).
+  if (view.showScopeExplainer && view.jobs.length < 5) notFound();
 
   const jsonLd = [
     {
@@ -82,6 +86,13 @@ export default async function LandingPage({ params }: { params: { landing: strin
         <section className="pt-8">
           <CategoryBar active={view.slug} />
         </section>
+
+        {/* Anywhere-vs-Regional differentiator on counted location pages. */}
+        {view.showScopeExplainer && (
+          <section className="pt-8">
+            <AnywhereVsRegional />
+          </section>
+        )}
 
         <section className="pt-8">
           {view.jobs.length > 0 ? (

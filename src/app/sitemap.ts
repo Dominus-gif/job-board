@@ -11,19 +11,28 @@ export const revalidate = 1800;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
+  // SEO discovery hubs — fresh, high-value internal-linking pages.
+  const HUBS = ["/find-remote-jobs", "/remote-jobs-categories", "/remote-jobs-programming-support-design", "/trending-remote-jobs"];
+
   // Honest changefreq per page type so Google trusts the signal: content hubs
   // update often; static/legal pages rarely do.
-  const DAILY = new Set(["/", "/jobs", "/companies", "/remote-regional-jobs"]);
+  const DAILY = new Set(["/", "/jobs", "/companies", "/remote-regional-jobs", ...HUBS]);
   const WEEKLY = new Set(["/tools", "/posts", "/hiring", "/rss-feeds"]);
   const staticFreq = (path: string): "daily" | "weekly" | "monthly" =>
     DAILY.has(path) ? "daily" : WEEKLY.has(path) ? "weekly" : "monthly";
 
   const staticPages = [
     "/", "/jobs", "/companies", "/hiring", "/rss-feeds", "/remote-regional-jobs", "/tools", "/posts",
+    ...HUBS,
     "/about", "/contact", "/privacy", "/terms",
     ...(FEATURES.advertise ? ["/advertise"] : []),
     ...(FEATURES.newsletter ? ["/newsletter"] : []),
-  ].map((path) => ({ url: abs(path), lastModified: now, changeFrequency: staticFreq(path), priority: path === "/" ? 1 : 0.6 }));
+  ].map((path) => ({
+    url: abs(path),
+    lastModified: now,
+    changeFrequency: staticFreq(path),
+    priority: path === "/" ? 1 : HUBS.includes(path) ? 0.8 : 0.6,
+  }));
 
   // Indexable /jobs filter facets (category + region) — long-tail SEO surfaces.
   const REGION_FACETS = ["United States", "Europe", "UK", "Asia-Pacific", "Canada", "India"];

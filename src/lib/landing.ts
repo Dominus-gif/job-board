@@ -22,6 +22,7 @@ import {
   getRegionalJobs,
 } from "./db";
 import { jobRegions } from "./region";
+import { topCategoryLabels } from "./seo-hubs";
 import { toText } from "./pipeline/text";
 
 export interface FaqItem {
@@ -38,6 +39,7 @@ export interface LandingView {
   jobs: Job[];
   faq: FaqItem[];
   rss: string; // path to this view's RSS feed
+  showScopeExplainer?: boolean; // render the Anywhere-vs-Regional card (geo pages)
 }
 
 const BASE_FAQ: FaqItem[] = [
@@ -501,13 +503,22 @@ async function geoJobs(cfg: GeoConfig): Promise<Job[]> {
 }
 
 function geoView(cfg: GeoConfig, jobs: Job[]): LandingView {
+  // Counted title mirroring the captured Google pattern ("N Remote Jobs in X").
+  // Count = jobs actually rendered (worldwide + region-matched), so it stays
+  // live and unique per location. H1 mirrors the title without the suffix.
+  const count = jobs.length;
+  const countStr = count.toLocaleString("en-US");
+  const topCats = topCategoryLabels(jobs, 3);
+  const catStr = topCats.length ? ` — ${topCats.join(", ")} roles` : "";
+  const countedTitle = `${countStr} Remote Jobs in ${cfg.place}`;
   return {
     slug: cfg.slug,
-    title: cfg.title,
-    metaTitle: cfg.metaTitle,
-    metaDescription: cfg.metaDescription,
+    title: countedTitle,
+    metaTitle: `${countedTitle} | Work From Home`,
+    metaDescription: `${countStr} remote jobs open to candidates in ${cfg.place}${catStr}. Work from anywhere, plus roles hiring in ${cfg.short}. Updated daily.`,
     intro: cfg.intro,
     jobs,
+    showScopeExplainer: true,
     faq: [
       {
         q: `Can I really do these remote jobs from ${cfg.place}?`,
