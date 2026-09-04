@@ -230,12 +230,15 @@ export function JobBoard({
       <div className="mt-5 lg:grid lg:grid-cols-[248px_minmax(0,1fr)] lg:items-start lg:gap-8">
         {/* Sticky rail; scrolls internally when the filters are taller than the
             viewport so the lower filters stay reachable. */}
-        <aside className="hidden lg:sticky lg:top-20 lg:block lg:max-h-[calc(100vh_-_6rem)] lg:overflow-y-auto lg:overscroll-contain">
+        <aside className="hidden lg:sticky lg:top-[76px] lg:block lg:max-h-[calc(100vh_-_6rem)] lg:overflow-y-auto lg:overscroll-contain">
           <div className="rounded-2xl border border-ink-100 bg-white p-4 shadow-card">{filterControls}</div>
         </aside>
 
         <div className="min-w-0">
-          <div className="mb-3 flex items-center justify-between gap-3">
+          {/* Results header pins at the same top line as the sidebar, so the two
+              scroll together (no detached rail) and the long list keeps a
+              persistent count/context bar at depth. */}
+          <div className="mb-3 flex items-center justify-between gap-3 lg:sticky lg:top-[76px] lg:z-[5] lg:border-b lg:border-ink-100 lg:bg-white/85 lg:py-2.5 lg:backdrop-blur">
             <span className="text-xs font-semibold uppercase tracking-wide text-ink-500">
               {totalAvailable != null && totalAvailable > filtered.length && activeCount === 0 && !query.trim()
                 ? `Latest ${filtered.length.toLocaleString("en-US")} of ${totalAvailable.toLocaleString("en-US")} roles`

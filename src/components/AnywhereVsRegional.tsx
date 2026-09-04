@@ -14,8 +14,8 @@ export function AnywhereVsRegional() {
           <GlobeIcon className="h-5 w-5" />
         </span>
         <div>
-          <p className="font-display font-bold text-emerald-800">Anywhere</p>
-          <p className="mt-0.5 text-sm leading-relaxed text-emerald-800/90">
+          <p className="txt-anywhere font-display font-bold">Anywhere</p>
+          <p className="txt-anywhere mt-0.5 text-sm leading-relaxed">
             Work from any country — no region, timezone, or work-authorization requirement. This is what makes
             us different from generic remote boards.
           </p>
@@ -26,8 +26,8 @@ export function AnywhereVsRegional() {
           <PinIcon className="h-5 w-5" />
         </span>
         <div>
-          <p className="font-display font-bold text-amber-900">Regional</p>
-          <p className="mt-0.5 text-sm leading-relaxed text-amber-900/90">
+          <p className="txt-regional font-display font-bold">Regional</p>
+          <p className="txt-regional mt-0.5 text-sm leading-relaxed">
             Fully remote, but the employer can only hire in a specific country or region. Clearly labelled on
             every card so you never waste an application.
           </p>

@@ -194,6 +194,13 @@ select { accent-color: #2383e2; }
 .dark .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.14) !important; }
 .dark .bg-red-300 { background-color: #f87171 !important; }
 
+/* Anywhere/Regional explainer text — theme-scoped so body copy clears WCAG AA
+   on the tinted cards in BOTH themes (dark must NOT reuse the light hex). */
+.txt-anywhere { color: #065f46; }            /* emerald-800 on emerald-50 (~7:1) */
+.txt-regional { color: #7c2d12; }            /* amber-900 on amber-50 (~10:1) */
+:root.dark .txt-anywhere { color: #6ee7a8; } /* light emerald on dark tint (~10:1) */
+:root.dark .txt-regional { color: #fbbf5a; } /* light amber on dark tint (~8:1) */
+
 /* Text — Notion's translucent whites */
 /* OPAQUE greys (not rgba) so a contrast checker measures them correctly — a
    translucent white can't be evaluated without compositing, which some tools
