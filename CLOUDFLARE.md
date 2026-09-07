@@ -87,11 +87,77 @@ If you want to stay on Free, the app would need a real datastore (D1) queried
 per request instead of an in-bundle snapshot — a much larger change, and
 `src/lib/db.ts` is the seam designed for it.
 
-## 4. Custom domain
+## 4. Custom domain (Namecheap → Cloudflare)
 
-Workers → your worker → **Settings → Domains & Routes → Add custom domain** →
-`getremotejobsnow.com` (and `www`). Cloudflare issues the certificate. Only then
-repoint the nameservers/DNS away from the old host.
+**Current state (verified 2026-09-07):** registrar/DNS = **Namecheap**
+(`dns1.registrar-servers.com`, `dns2.registrar-servers.com`), apex →
+`216.198.79.1` (Vercel), `www` → `…vercel-dns-017.com`.
+
+Workers custom domains require the zone to be **on Cloudflare DNS**, so the
+nameservers must move. Do it in this order for **zero downtime**.
+
+### ⚠️ Before you touch nameservers: email will break
+
+The domain has active MX records on Namecheap's free email forwarding
+(`eforward1–5.registrar-servers.com`). That service only works while the domain
+uses Namecheap's DNS — moving nameservers to Cloudflare **silently stops mail
+forwarding**.
+
+Replace it with **Cloudflare Email Routing** (free, in the dashboard under
+Email → Email Routing). Set it up right after the zone goes active; it creates
+its own MX records. Write down every address you currently forward *before* you
+migrate.
+
+### Step 1 — Add the zone (site keeps running on Vercel)
+
+1. Cloudflare dashboard → **Add a site** → `getremotejobsnow.com` → **Free** plan.
+   (The zone plan is separate from the Workers Paid subscription in §3b.)
+2. Cloudflare scans and imports the existing records. **Verify** the apex A
+   record, the `www` CNAME, all 5 MX records and both TXT records came across.
+   Add anything missing by hand — an incomplete import is what causes outages.
+3. Leave the Vercel records exactly as they are for now.
+
+### Step 2 — Point Namecheap at Cloudflare
+
+Namecheap → **Domain List** → *Manage* → **Nameservers** → **Custom DNS** →
+paste the two `*.ns.cloudflare.com` servers Cloudflare gave you → save (✓).
+
+Propagation is usually minutes, up to 24h. Cloudflare emails you when the zone
+is **Active**. Throughout this step the site still serves from Vercel, because
+Cloudflare is answering with the Vercel records you imported.
+
+### Step 3 — Deploy the Worker and test it in isolation
+
+```bash
+npm run cf:deploy
+```
+
+Test the generated `*.workers.dev` URL thoroughly *before* touching the domain.
+
+### Step 4 — Cut over
+
+Workers → your worker → **Settings → Domains & Routes → Add → Custom Domain**:
+add `getremotejobsnow.com`, then `www.getremotejobsnow.com`.
+
+Cloudflare replaces the Vercel DNS records and issues the certificate
+automatically (~1 min). This is the actual cutover.
+
+### Step 5 — Verify, then decommission
+
+```bash
+curl -I https://getremotejobsnow.com
+curl -s https://getremotejobsnow.com/sitemap.xml | head
+```
+
+Check the homepage, a job page, a category page, `/api/health` and that email
+forwarding still works. Only then disable the Vercel project.
+
+### Rollback
+
+Fastest: Cloudflare DNS → delete the Worker custom-domain records and re-add
+apex `A → 216.198.79.1` and `www CNAME → 52208c103971be3e.vercel-dns-017.com`
+(proxy OFF / grey cloud). Traffic returns to Vercel within a minute or two —
+no nameserver change needed, which is exactly why Step 1 is done first.
 
 ## 5. Refreshing listings (important)
 
