@@ -9,7 +9,8 @@ export async function generateStaticParams() {
   return (await allLandingSlugs()).map((landing) => ({ landing }));
 }
 
-export async function GET(_req: Request, { params }: { params: { landing: string } }) {
+export async function GET(_req: Request, props: { params: Promise<{ landing: string }> }) {
+  const params = await props.params;
   const view = await resolveLanding(params.landing);
   if (!view) return new Response("Not found", { status: 404 });
 

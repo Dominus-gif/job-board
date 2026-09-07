@@ -62,6 +62,31 @@ In the Cloudflare dashboard (Workers → Build), use:
 The `NODE_OPTIONS` bump is **required**: the build prerenders ~675 pages and each
 worker parses ~10k job records, which overflows Node's default heap.
 
+## 3b. Plan requirement (measured)
+
+`npx wrangler deploy --dry-run` reports:
+
+```
+Total Upload: 41959.93 KiB / gzip: 5550.32 KiB   (~5.42 MB gzipped)
+```
+
+| Workers plan | Bundle limit | CPU / request | Fits? |
+|---|---|---|---|
+| Free | 3 MiB gzip | 10 ms | ❌ over by ~2.4 MB |
+| Paid ($5/mo) | 10 MiB gzip | 30 s | ✅ comfortable headroom |
+
+**This app needs Workers Paid.** Two independent reasons:
+
+1. **Bundle** — the job dataset gets inlined **3×** by the bundler (~3.3 MB of
+   the 5.4 MB). Externalising it to KV/R2 could get under 3 MiB, but…
+2. **CPU** — the free plan allows 10 ms CPU per request. Parsing ~10k job
+   records and server-rendering a filtered board exceeds that regardless of
+   where the data is stored. This is the harder limit.
+
+If you want to stay on Free, the app would need a real datastore (D1) queried
+per request instead of an in-bundle snapshot — a much larger change, and
+`src/lib/db.ts` is the seam designed for it.
+
 ## 4. Custom domain
 
 Workers → your worker → **Settings → Domains & Routes → Add custom domain** →
@@ -116,6 +141,7 @@ Add the returned id to `wrangler.jsonc` under `kv_namespaces`, then uncomment th
 | Scheduler | disabled on workerd; refresh via rebuild (§5) |
 | Prerender counts | jobs 800→300, companies capped at 150 — the rest render on demand and stay in the sitemap |
 | `vercel.json` | now unused; the cron becomes a Deploy Hook (§5) |
+| Next.js | upgraded 14.2.5 → 15.x (+ React 19). Required: the adapter supports Next >= 15.5.24, and 14.x is past Next’s 2-year support window (unpatched CVEs). `params`/`searchParams` are now awaited; `useFormState` → `useActionState`. |
 
 ## 8. Rollback
 

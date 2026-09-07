@@ -21,7 +21,8 @@ export async function generateStaticParams() {
     .map((c) => ({ company: c.slug }));
 }
 
-export async function generateMetadata({ params }: { params: { company: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ company: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const company = await getCompanyBySlug(params.company);
   if (!company) return {};
   return {
@@ -31,7 +32,8 @@ export async function generateMetadata({ params }: { params: { company: string }
   };
 }
 
-export default async function CompanyPage({ params }: { params: { company: string } }) {
+export default async function CompanyPage(props: { params: Promise<{ company: string }> }) {
+  const params = await props.params;
   const company = await getCompanyBySlug(params.company);
   if (!company) notFound();
   const jobs = await getJobsByCompany(company.slug);

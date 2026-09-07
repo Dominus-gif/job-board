@@ -16,7 +16,8 @@ export async function generateStaticParams() {
   return Array.from({ length: Math.min(total, 40) }, (_, i) => ({ n: String(i + 1) }));
 }
 
-export function generateMetadata({ params }: { params: { n: string } }): Metadata {
+export async function generateMetadata(props: { params: Promise<{ n: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const page = Number(params.n) || 1;
   return {
     title: `All Remote Jobs — Page ${page}`,
@@ -26,7 +27,8 @@ export function generateMetadata({ params }: { params: { n: string } }): Metadat
   };
 }
 
-export default async function PaginatedFeed({ params }: { params: { n: string } }) {
+export default async function PaginatedFeed(props: { params: Promise<{ n: string }> }) {
+  const params = await props.params;
   const requested = Number(params.n);
   if (!Number.isInteger(requested) || requested < 1) notFound();
 

@@ -119,7 +119,8 @@ function label(f: Filters): string {
   return bits.filter(Boolean).join(" · ");
 }
 
-export async function generateMetadata({ searchParams }: { searchParams: SP }): Promise<Metadata> {
+export async function generateMetadata(props: { searchParams: Promise<SP> }): Promise<Metadata> {
+  const searchParams = await props.searchParams;
   const f = parse(searchParams);
   const active = label(f);
   const title = active ? `Remote Jobs — ${active}` : "Search Remote Jobs — Filter by Role, Salary & Region";
@@ -138,7 +139,8 @@ export async function generateMetadata({ searchParams }: { searchParams: SP }): 
   };
 }
 
-export default async function JobsSearchPage({ searchParams }: { searchParams: SP }) {
+export default async function JobsSearchPage(props: { searchParams: Promise<SP> }) {
+  const searchParams = await props.searchParams;
   const f = parse(searchParams);
   const all = await getSearchableJobs();
   const filtered = sortJobs(filterJobs(all, f), f.sort);

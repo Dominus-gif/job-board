@@ -17,7 +17,8 @@ export async function generateStaticParams() {
   return (await allLandingSlugs()).map((landing) => ({ landing }));
 }
 
-export async function generateMetadata({ params }: { params: { landing: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ landing: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const view = await resolveLanding(params.landing);
   if (!view) return {};
   const url = abs(`/${view.slug}`);
@@ -34,7 +35,8 @@ export async function generateMetadata({ params }: { params: { landing: string }
   };
 }
 
-export default async function LandingPage({ params }: { params: { landing: string } }) {
+export default async function LandingPage(props: { params: Promise<{ landing: string }> }) {
+  const params = await props.params;
   const view = await resolveLanding(params.landing);
   if (!view) notFound();
   // Don't ship thin counted-location pages: a location with too few real jobs

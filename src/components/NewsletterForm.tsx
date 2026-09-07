@@ -1,6 +1,7 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { subscribeAction, type ActionResult } from "@/app/actions";
 
 function SubmitButton({ label }: { label: string }) {
@@ -17,7 +18,7 @@ function SubmitButton({ label }: { label: string }) {
 }
 
 export function NewsletterForm({ compact = false, buttonLabel = "Subscribe" }: { compact?: boolean; buttonLabel?: string }) {
-  const [state, formAction] = useFormState<ActionResult | null, FormData>(subscribeAction, null);
+  const [state, formAction] = useActionState<ActionResult | null, FormData>(subscribeAction, null);
   return (
     <form action={formAction} className={compact ? "flex flex-col gap-2 sm:flex-row" : "flex flex-col gap-3 sm:flex-row"}>
       <input

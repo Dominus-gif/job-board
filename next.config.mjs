@@ -1,13 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    // NOTE: `serverComponentsExternalPackages: ["sanitize-html"]` was removed for
-    // Cloudflare. Workers have no node_modules at runtime, so anything marked
-    // "external" would fail to resolve — sanitize-html must be bundled instead.
-    // Enables src/instrumentation.ts (no-ops on Workers, see that file).
-    instrumentationHook: true,
-  },
   images: {
     // Cloudflare Workers don't run Next's image optimizer. Serving the original
     // assets avoids a broken /_next/image route (and any per-image cost).

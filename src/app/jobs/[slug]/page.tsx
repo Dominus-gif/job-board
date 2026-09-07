@@ -41,7 +41,8 @@ export async function generateStaticParams() {
   return ranked.slice(0, PREBUILD_LIMIT).map((job) => ({ slug: job.slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const job = await getJobBySlug(params.slug);
   if (!job || job.status === "expired" || job.is_active === false) {
     return { title: "Job no longer active", robots: { index: false, follow: true } };
@@ -64,7 +65,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function JobPage({ params }: { params: { slug: string } }) {
+export default async function JobPage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const job = await getJobBySlug(params.slug);
 
   // Removed from the feed, never existed, or explicitly expired/inactive → real

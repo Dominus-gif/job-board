@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useState } from "react";
+import { useFormStatus } from "react-dom";
 import { subscribeRoleAction, type ActionResult } from "@/app/actions";
 import { CATEGORIES } from "@/lib/taxonomy";
 import { Select, type SelectOption } from "@/components/ui/Select";
@@ -28,7 +28,7 @@ function SubmitButton({ label }: { label: string }) {
  * the custom themed <Select> (matches the site in light/dark).
  */
 export function RoleSubscribeForm({ buttonLabel = "Notify me", className = "" }: { buttonLabel?: string; className?: string }) {
-  const [state, formAction] = useFormState<ActionResult | null, FormData>(subscribeRoleAction, null);
+  const [state, formAction] = useActionState<ActionResult | null, FormData>(subscribeRoleAction, null);
   const [category, setCategory] = useState("");
   const field =
     "w-full rounded-xl border border-ink-200 bg-white px-4 py-2.5 text-ink-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200";
