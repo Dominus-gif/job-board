@@ -133,6 +133,18 @@
 .prose-post em { @apply italic; }
 .prose-post blockquote { @apply my-5 border-l-2 border-ink-200 pl-4 text-ink-600 italic; }
 
+/* Post tables (salary + visa comparisons). The table scrolls inside its OWN
+   container so the page never scrolls horizontally on mobile — guarded by
+   tests/mobile-overflow.spec.ts. */
+.prose-post table { @apply my-6 block w-full max-w-full overflow-x-auto border-collapse text-sm; }
+.prose-post thead { @apply bg-ink-50; }
+.prose-post th { @apply whitespace-nowrap border-b border-ink-200 px-3 py-2 text-left font-semibold text-ink-900; }
+.prose-post td { @apply border-b border-ink-100 px-3 py-2 align-top text-ink-700; }
+
+/* Advisory callout — used for the immigration/tax disclaimer. */
+.callout-warning { @apply my-6 rounded-2xl bg-amber-50 p-4 ring-1 ring-inset ring-amber-200; }
+.prose-post .callout-warning p { @apply my-0 text-sm leading-relaxed text-amber-900; }
+
 /* World Time Buddy — premium range slider. */
 .wtb-range { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 9999px; background: #e9e9e7; cursor: pointer; }
 .wtb-range::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; border-radius: 9999px; background: #2b2a26; border: 3px solid #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.28); transition: transform 0.1s; }

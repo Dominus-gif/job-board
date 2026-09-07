@@ -16,6 +16,8 @@ export interface Post {
   html: string; // authored body (rendered with .prose-post)
 }
 
+import { POSTS_2026 } from "./posts-2026";
+
 export const POSTS: Post[] = [
   {
     slug: "how-to-find-remote-jobs-in-the-usa",
@@ -130,9 +132,9 @@ export const POSTS: Post[] = [
 ];
 
 export function getAllPosts(): Post[] {
-  return [...POSTS].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return [...POSTS, ...POSTS_2026].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export function getPost(slug: string): Post | undefined {
-  return POSTS.find((p) => p.slug === slug);
+  return getAllPosts().find((p) => p.slug === slug);
 }
