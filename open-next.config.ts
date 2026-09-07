@@ -1,21 +1,15 @@
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";
+import kvIncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/kv-incremental-cache";
 
 /**
  * OpenNext → Cloudflare Workers adapter config.
  *
- * Incremental (ISR) cache is intentionally left at the default so the site
- * deploys with ZERO extra Cloudflare resources (nothing to provision, no card
- * on file). Prerendered pages are served from static assets; on-demand pages
- * render per request — which is cheap here because `ANYWHERE_LIVE=false` makes
- * the data come from the bundled snapshot instead of a live ATS scrape.
- *
- * To enable a persistent ISR cache later (recommended once traffic grows):
- *   1. npx wrangler kv namespace create NEXT_INC_CACHE_KV
- *   2. add the returned id to wrangler.jsonc under `kv_namespaces`
- *   3. uncomment the two lines below
- *
- * import kvIncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/kv-incremental-cache";
+ * ISR cache lives in Workers KV (binding NEXT_INC_CACHE_KV in wrangler.jsonc).
+ * Without it every `revalidate` page re-rendered on each request — with ~10k job
+ * records in memory that measured ~2.9s TTFB. KV serves the prerendered HTML
+ * (populated at deploy) and also caches the on-demand long tail after its first
+ * render.
  */
 export default defineCloudflareConfig({
-  // incrementalCache: kvIncrementalCache,
+  incrementalCache: kvIncrementalCache,
 });

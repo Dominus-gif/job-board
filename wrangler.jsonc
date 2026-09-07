@@ -10,6 +10,15 @@
     "binding": "ASSETS"
   },
   "observability": { "enabled": true },
+  // Custom domains — Cloudflare creates//manages the DNS records for these.
+  "routes": [
+    { "pattern": "getremotejobsnow.com", "custom_domain": true },
+    { "pattern": "www.getremotejobsnow.com", "custom_domain": true }
+  ],
+  // ISR cache — see open-next.config.ts
+  "kv_namespaces": [
+    { "binding": "NEXT_INC_CACHE_KV", "id": "c233edb1c9e14033ab7fc0d7a0f086b5" }
+  ],
   "vars": {
     // Serve from the build-time snapshot bundled with the deploy. Workers have
     // no long-running process, so per-isolate ATS scraping would add latency,
