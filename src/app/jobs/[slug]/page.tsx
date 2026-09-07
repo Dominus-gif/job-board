@@ -28,7 +28,7 @@ export const revalidate = 1800;
 // Vercel's time/memory limits as the catalog grows past 10K+ (an unbounded
 // prebuild can fail the deploy). The rest render on demand (dynamicParams) on
 // first request and are cached, and every listing is still in the sitemap.
-const PREBUILD_LIMIT = 800;
+const PREBUILD_LIMIT = 300;
 
 export async function generateStaticParams() {
   const jobs = await getAllJobs();

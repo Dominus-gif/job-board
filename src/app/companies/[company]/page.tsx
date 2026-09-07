@@ -14,6 +14,10 @@ export async function generateStaticParams() {
   // Pre-build companies with a few roles; the long tail renders on demand.
   return (await getCompanies())
     .filter((c) => c.jobCount >= 2)
+    // Cap the prebuild so the build stays in Cloudflare's memory/time budget;
+    // getCompanies() is sorted by jobCount, so this keeps the biggest boards.
+    // The long tail renders on demand (dynamicParams) and is cached by ISR.
+    .slice(0, 150)
     .map((c) => ({ company: c.slug }));
 }
 

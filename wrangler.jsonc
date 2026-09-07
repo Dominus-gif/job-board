@@ -1,0 +1,25 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "getremotejobsnow",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-08-01",
+  // nodejs_compat: required by OpenNext + our Node-API deps (sanitize-html).
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": { "enabled": true },
+  "vars": {
+    // Serve from the build-time snapshot bundled with the deploy. Workers have
+    // no long-running process, so per-isolate ATS scraping would add latency,
+    // hammer the ATS APIs and leave dangling I/O. Data freshness comes from
+    // rebuilding instead (see "Refreshing listings" in CLOUDFLARE.md).
+    "ANYWHERE_LIVE": "false",
+    "NEXT_PUBLIC_SITE_URL": "https://getremotejobsnow.com"
+  }
+
+  // ── Optional upgrades ────────────────────────────────────────────────────
+  // Persistent ISR cache (see open-next.config.ts):
+  // "kv_namespaces": [{ "binding": "NEXT_INC_CACHE_KV", "id": "<id>" }]
+}

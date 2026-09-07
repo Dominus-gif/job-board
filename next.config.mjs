@@ -1,14 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // sanitize-html (and its `entities` dep) must be required from node_modules at
-  // runtime rather than bundled into server vendor-chunks.
   experimental: {
-    serverComponentsExternalPackages: ["sanitize-html"],
-    // Enables src/instrumentation.ts, which starts the background job refresher.
+    // NOTE: `serverComponentsExternalPackages: ["sanitize-html"]` was removed for
+    // Cloudflare. Workers have no node_modules at runtime, so anything marked
+    // "external" would fail to resolve — sanitize-html must be bundled instead.
+    // Enables src/instrumentation.ts (no-ops on Workers, see that file).
     instrumentationHook: true,
   },
   images: {
+    // Cloudflare Workers don't run Next's image optimizer. Serving the original
+    // assets avoids a broken /_next/image route (and any per-image cost).
+    unoptimized: true,
     remotePatterns: [
       { protocol: "https", hostname: "unavatar.io" },
       { protocol: "https", hostname: "www.google.com" },
