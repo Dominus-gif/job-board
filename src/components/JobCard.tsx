@@ -36,13 +36,18 @@ export function JobCard({
   activeSkills = [],
   inactive = false,
   highlightQuery,
+  headingLevel = 3,
 }: {
   job: Job;
   onSkillClick?: (skill: string) => void;
   activeSkills?: string[];
   inactive?: boolean;
   highlightQuery?: string;
+  /** Drops the title to an h4 when the card sits under a group subheading, so
+   *  the grouped board keeps a valid h2 -> h3 -> h4 outline. */
+  headingLevel?: 3 | 4;
 }) {
+  const Title = headingLevel === 4 ? "h4" : "h3";
   const salary = formatSalary(job.salary);
   const tier = salaryTier(job.salary);
   const active = new Set(activeSkills.map((s) => s.toLowerCase()));
@@ -78,9 +83,9 @@ export function JobCard({
           )}
           {!inactive && job.is_featured && <StatusBadge kind="featured" />}
           {!inactive && isNew && <StatusBadge kind="new" />}
-          <h3 className="line-clamp-2 min-w-0 font-display text-[15px] font-semibold leading-snug text-ink-900 group-hover:text-brand-600">
+          <Title className="line-clamp-2 min-w-0 font-display text-[15px] font-semibold leading-snug text-ink-900 group-hover:text-brand-600">
             {highlight(job.title, highlightQuery)}
-          </h3>
+          </Title>
         </div>
 
         <p className="mt-1.5 flex items-center gap-1.5 text-sm text-ink-500">

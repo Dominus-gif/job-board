@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllJobs, getCompanyBySlug, getJobBySlug, getJobsByCompany, getSimilarJobs } from "@/lib/db";
+import { reportError } from "@/lib/report";
 import { formatSalary, salaryTier } from "@/lib/salary";
 import { formatDate, daysUntil } from "@/lib/format";
 import { abs } from "@/lib/site";
@@ -41,9 +42,25 @@ export async function generateStaticParams() {
   return ranked.slice(0, PREBUILD_LIMIT).map((job) => ({ slug: job.slug }));
 }
 
+/**
+ * Resolve a slug without ever letting a transient store failure surface as a
+ * raw 500. An unknown slug and a failed lookup both resolve to null, which the
+ * callers turn into the styled 404 — the right answer for a share link to a
+ * job that is gone either way. Genuine render errors are still caught by
+ * error.tsx.
+ */
+async function findJob(slug: string) {
+  try {
+    return await getJobBySlug(slug);
+  } catch (err) {
+    reportError("jobs/[slug] lookup failed", err, { slug });
+    return null;
+  }
+}
+
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const params = await props.params;
-  const job = await getJobBySlug(params.slug);
+  const job = await findJob(params.slug);
   if (!job || job.status === "expired" || job.is_active === false) {
     return { title: "Job no longer active", robots: { index: false, follow: true } };
   }
@@ -67,7 +84,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
 
 export default async function JobPage(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
-  const job = await getJobBySlug(params.slug);
+  const job = await findJob(params.slug);
 
   // Removed from the feed, never existed, or explicitly expired/inactive → real
   // 404 (renders not-found.tsx with a 404 status + the polished "no longer

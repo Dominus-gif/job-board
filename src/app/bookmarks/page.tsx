@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BookmarksList } from "@/components/BookmarksList";
+import { SyncPanel } from "@/components/SyncPanel";
 
 export const metadata: Metadata = {
   title: "Your Saved Remote Jobs (Bookmarks)",
@@ -14,11 +15,12 @@ export default function BookmarksPage() {
       <span className="eyebrow">Saved</span>
       <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink-900">Your bookmarks</h1>
       <p className="mt-2 max-w-2xl text-ink-500">
-        Remote jobs you've saved. They live in this browser only — clearing your site data will remove them.
+        Remote jobs you've saved. They live in this browser by default — back them up below to use them on another device.
       </p>
       <div className="mt-8">
         <BookmarksList />
       </div>
+      <SyncPanel />
     </div>
   );
 }

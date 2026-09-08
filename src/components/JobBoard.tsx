@@ -105,6 +105,31 @@ export function JobBoard({
   }, [activeJobs, query, skills, category, band, emp, region, salaryOnly]);
 
   const shown = filtered.slice(0, visible);
+
+  // Group the visible cards under category subheadings so a long list has a
+  // real hierarchy (h2 section -> h3 category -> h4 role) instead of one flat
+  // run of cards. Group order follows the feed's own order — a category appears
+  // where its most recent role does — so "latest first" still reads correctly.
+  const groups = useMemo(() => {
+    const out: { category: string; jobs: Job[]; startIndex: number }[] = [];
+    const byCat = new Map<string, Job[]>();
+    for (const j of shown) {
+      const existing = byCat.get(j.category);
+      if (existing) {
+        existing.push(j);
+      } else {
+        const fresh = [j];
+        byCat.set(j.category, fresh);
+        out.push({ category: j.category, jobs: fresh, startIndex: 0 });
+      }
+    }
+    // Keep the ad cadence counting across groups, not restarting inside each.
+    let n = 0;
+    for (const g of out) { g.startIndex = n; n += g.jobs.length; }
+    return out;
+  }, [shown]);
+  // Only worth grouping when the feed actually spans categories.
+  const grouped = category === "all" && groups.length > 1;
   const reset = () => setVisible(perPage);
   const activeCount =
     (category !== "all" ? 1 : 0) + (band !== "any" ? 1 : 0) + (emp !== "all" ? 1 : 0) + (region !== "any" ? 1 : 0) + (salaryOnly ? 1 : 0) + skills.length;
@@ -262,6 +287,36 @@ export function JobBoard({
           {shown.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-ink-200 bg-white p-10 text-center text-ink-500">
               No roles match your search. Try removing a filter or a skill.
+            </div>
+          ) : grouped ? (
+            <div className="space-y-8">
+              {groups.map((g) => (
+                <section key={g.category} aria-labelledby={`grp-${g.category.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase()}`}>
+                  {/* Pins just under the results bar so you always know which
+                      category you're reading at scroll depth. */}
+                  <h3
+                    id={`grp-${g.category.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase()}`}
+                    className="mb-3 flex items-baseline gap-2 border-b border-ink-100 pb-1.5 font-display text-sm font-bold uppercase tracking-wide text-ink-900 lg:sticky lg:top-[116px] lg:z-[4] lg:bg-white/90 lg:backdrop-blur"
+                  >
+                    {g.category}
+                    <span className="text-xs font-medium normal-case tracking-normal text-ink-500">
+                      {g.jobs.length.toLocaleString("en-US")} {g.jobs.length === 1 ? "role" : "roles"}
+                    </span>
+                  </h3>
+                  <div className="space-y-3">
+                    {g.jobs.map((job, j) => {
+                      const i = g.startIndex + j;
+                      return (
+                        <Fragment key={job.slug}>
+                          <JobCard job={job} onSkillClick={toggleSkill} activeSkills={skills} headingLevel={4} />
+                          {/* Native ad between listings (self-hides when ads are off). */}
+                          {(i + 1) % AD_EVERY === 0 && i < shown.length - 1 && <InFeedAd />}
+                        </Fragment>
+                      );
+                    })}
+                  </div>
+                </section>
+              ))}
             </div>
           ) : (
             <div className="space-y-3">

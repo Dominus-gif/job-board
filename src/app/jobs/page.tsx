@@ -10,6 +10,7 @@ import { JobList } from "@/components/JobList";
 import { SortSelect } from "@/components/SortSelect";
 import { SearchIcon, CloseIcon, CheckIcon } from "@/components/icons";
 import { jobListJsonLd } from "@/lib/jsonld";
+import { SearchAlertForm } from "@/components/SearchAlertForm";
 
 export const revalidate = 1800;
 
@@ -330,6 +331,10 @@ export default async function JobsSearchPage(props: { searchParams: Promise<SP> 
               )}
             </nav>
           )}
+
+          {/* Saved-search alert: only offered once there's an actual search to
+              save, so it doesn't nag on the bare /jobs page. */}
+          {hasFilters && <SearchAlertForm params={baseParams(f)} summary={label(f)} />}
         </div>
       </div>
     </div>
