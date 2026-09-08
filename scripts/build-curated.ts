@@ -57,11 +57,75 @@ const JUNK_TITLE = /don.?t see|didn.?t see|can.?t find|general application|spont
 // the existing curated-jobs.json is kept and the deploy still succeeds.
 try {
 
+// ---------------------------------------------------------------------------
+// Employer-attribution guard.
+//
+// The curated spreadsheets paired a list of company names with roles scraped
+// from ATS boards, and the pairing is not reliable: an audit found ~20% of rows
+// naming a company that doesn't own the board the job actually lives on. The
+// worst cases had one board claimed by many labels — the "greenhouse" board
+// (Greenhouse's own careers page) was attributed to 40 different companies,
+// including SpaceX; a single Notion role appeared under 12 invented employers.
+//
+// Publishing a real job under the wrong real company misleads applicants and
+// misrepresents the employer, so an unverifiable attribution is dropped rather
+// than guessed. Ground truth is the ATS board slug in the apply URL.
+// ---------------------------------------------------------------------------
+const ATS_HOSTS = ["greenhouse.io", "lever.co", "ashbyhq.com", "workable.com", "smartrecruiters.com"];
+const SEGMENT_END = new RegExp("[/?#&]");
+
+/** The board identifier an apply URL points at — the employer, per the ATS. */
+function boardSlugOf(url: string | undefined): string | null {
+  if (!url) return null;
+  const lower = url.toLowerCase();
+  for (const host of ATS_HOSTS) {
+    const at = lower.indexOf(host);
+    if (at < 0) continue;
+    let rest = lower.slice(at + host.length);
+    // Greenhouse's embed form carries the board as ?for=<slug> instead of a path.
+    const forAt = rest.indexOf("for=");
+    rest = forAt >= 0 ? rest.slice(forAt + 4) : rest.replace(/^[/]+/, "");
+    const seg = rest.split(SEGMENT_END).filter(Boolean)[0];
+    if (seg) return seg;
+  }
+  return null;
+}
+const normName = (n: string) => (n || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+
+// Boards that are never a single employer's own board, plus labels confirmed by
+// inspection to be mis-attributed (the board belongs to a different company of
+// a similar name — e.g. lever.co/safe is Safe Security, not Safe Superintelligence).
+const GENERIC_BOARDS = new Set(["linkedin", "indeed", "ycombinator", "greenhouse", "workable", "lever", "ashby"]);
+const MISATTRIBUTED = new Set(["safe superintelligence (ssi)"]);
+
+// A board claimed by more than one company label means the pairing was guessed.
+const boardLabels = new Map<string, Set<string>>();
+for (const r of roles as RoleRec[]) {
+  const b = boardSlugOf(r.apply);
+  if (!b) continue;
+  if (!boardLabels.has(b)) boardLabels.set(b, new Set());
+  boardLabels.get(b)!.add(r.company);
+}
+let droppedAttribution = 0;
+function attributionTrusted(r: RoleRec): boolean {
+  if (MISATTRIBUTED.has(r.company.trim().toLowerCase())) return false;
+  const b = boardSlugOf(r.apply);
+  if (!b) return true; // no board to check against — left as-is
+  const labels = boardLabels.get(b);
+  const contested = (labels?.size ?? 0) > 1 || GENERIC_BOARDS.has(b);
+  if (!contested) return true;
+  const bn = b.replace(/[^a-z0-9]/g, "");
+  const cn = normName(r.company);
+  // On a contested board only an actual name/slug match is trustworthy.
+  return Boolean(bn && cn && (bn.includes(cn) || cn.includes(bn)));
+}
+
 // Some ATS boards post the same role once per location (e.g. 4x "Enterprise
 // Account Manager" from one company) — collapse those to a single listing.
 const seenRole = new Set<string>();
 const dedupedRoles = (roles as RoleRec[]).filter((r) => {
   if (JUNK_TITLE.test(r.title)) return false;
+  if (!attributionTrusted(r)) { droppedAttribution++; return false; }
   const key = `${r.company.trim().toLowerCase()}::${r.title.trim().toLowerCase()}`;
   if (seenRole.has(key)) return false;
   seenRole.add(key);
@@ -91,6 +155,11 @@ const roleJobs: Job[] = dedupedRoles.map((rec, i) => {
 // and the generic "Open Remote Roles" placeholders).
 const dirJobs: Job[] = (curated as DirRec[])
   .filter((rec) => rec.title !== "Open Remote Roles" && !JUNK_TITLE.test(rec.title) && !HAS_REAL.has(slugify(rec.company)))
+  .filter((rec) => {
+    // Same attribution guard as the role feed above.
+    if (!attributionTrusted(rec as unknown as RoleRec)) { droppedAttribution++; return false; }
+    return true;
+  })
   .map((rec, i) => {
     const raw: RawJob = {
       external_id: `curated:${rec.source}:${i}`,
@@ -113,6 +182,7 @@ const all = [...roleJobs, ...dirJobs];
 const OUT = join(process.cwd(), "src", "lib", "generated", "curated-jobs.json");
 writeFileSync(OUT, JSON.stringify(all));
 console.log(`[curated] wrote ${all.length} prebuilt curated jobs (${roleJobs.length} real roles + ${dirJobs.length} directory) to generated/curated-jobs.json`);
+console.log(`[curated] dropped ${droppedAttribution} listing(s) whose employer could not be verified against the ATS board in their apply URL`);
 
 } catch (err) {
   console.warn("[curated] failed — keeping the committed curated-jobs.json:", (err as Error)?.message);
