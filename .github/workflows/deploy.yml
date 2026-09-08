@@ -1,0 +1,76 @@
+name: Deploy to Cloudflare
+
+# The site runs on Cloudflare Workers and does NOT auto-deploy from GitHub, so
+# a merged commit changes nothing visitors see until something runs
+# `opennextjs-cloudflare build && deploy`. This workflow is that something.
+#
+# It also doubles as the listings refresher. Because `ANYWHERE_LIVE=false` on
+# Workers, job data is baked in at build time — so rebuilding IS how listings
+# refresh. The nightly schedule re-runs the ATS scrape and ships a fresh
+# snapshot.
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # 04:00 UTC daily — matches the cadence of the old vercel.json cron.
+    - cron: "0 4 * * *"
+  workflow_dispatch: # manual "Run workflow" button
+
+# Never let two deploys race; a later one supersedes an in-flight earlier one.
+concurrency:
+  group: cloudflare-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # Linux avoids the Windows OpenNext file-lock issues
+    env:
+      # Serve from the build-time snapshot; no per-isolate ATS scraping.
+      ANYWHERE_LIVE: "false"
+      # NEXT_PUBLIC_* are inlined AT BUILD TIME, so they must be present here —
+      # setting them in wrangler.jsonc alone is not enough. Configure these as
+      # repository variables (Settings → Secrets and variables → Actions).
+      NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://getremotejobsnow.com' }}
+      NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_GA_ID: ${{ vars.NEXT_PUBLIC_GA_ID }}
+      NEXT_PUBLIC_WEB3FORMS_KEY: ${{ vars.NEXT_PUBLIC_WEB3FORMS_KEY }}
+      NEXT_PUBLIC_ADSENSE_CLIENT: ${{ vars.NEXT_PUBLIC_ADSENSE_CLIENT }}
+      NEXT_PUBLIC_ADSENSE_SLOT: ${{ vars.NEXT_PUBLIC_ADSENSE_SLOT }}
+      NEXT_PUBLIC_ADSENSE_INFEED_SLOT: ${{ vars.NEXT_PUBLIC_ADSENSE_INFEED_SLOT }}
+      # The build prerenders hundreds of pages and each worker parses ~9k job
+      # records; the default heap is not enough.
+      NODE_OPTIONS: --max-old-space-size=4096
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # Build first — `cf:deploy` only uploads the existing output, it does not
+      # rebuild. Skipping this ships the previous build.
+      - name: Build (prebuild re-scrapes listings)
+        run: npm run cf:build
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy
+
+      # Fail loudly if the deploy "succeeded" but the site is not actually
+      # serving — a green tick on a broken site is worse than a red one.
+      - name: Verify live
+        run: |
+          for i in 1 2 3 4 5; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' https://getremotejobsnow.com/ || echo 000)
+            echo "attempt $i: HTTP $code"
+            [ "$code" = "200" ] && exit 0
+            sleep 10
+          done
+          echo "::error::Site did not return 200 after deploy"
+          exit 1
