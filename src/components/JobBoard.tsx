@@ -296,7 +296,7 @@ export function JobBoard({
                       category you're reading at scroll depth. */}
                   <h3
                     id={`grp-${g.category.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase()}`}
-                    className="mb-3 flex items-baseline gap-2 border-b border-ink-100 pb-1.5 font-display text-sm font-bold uppercase tracking-wide text-ink-900 lg:sticky lg:top-[116px] lg:z-[4] lg:bg-white/90 lg:backdrop-blur"
+                    className="mb-3 flex items-baseline gap-2 border-b border-ink-100 pb-1.5 font-display text-sm font-bold uppercase tracking-wide text-ink-900 lg:sticky lg:top-[116px] lg:z-[4] lg:bg-white/85 lg:backdrop-blur"
                   >
                     {g.category}
                     <span className="text-xs font-medium normal-case tracking-normal text-ink-500">

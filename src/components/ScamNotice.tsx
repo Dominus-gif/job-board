@@ -2,7 +2,7 @@ import { ShieldIcon, SparkIcon } from "./icons";
 
 export function ScamNotice() {
   return (
-    <div className="flex gap-3 rounded-2xl border border-amber-200 bg-amber-50/70 p-4 text-sm text-amber-900">
+    <div className="flex gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
       <ShieldIcon className="mt-0.5 h-5 w-5 flex-shrink-0 text-amber-500" />
       <div>
         <p className="font-semibold">Scam safety</p>

@@ -36,6 +36,15 @@
 :root:not(.dark) .text-ink-400 { color: #4d4b46; }
 :root:not(.dark) .text-ink-500 { color: #3d3a35; }
 
+/* The footer sits on bg-ink-900 (#2b2a26) in BOTH themes, so the light-mode
+   contrast overrides directly above - which darken muted text so it reads on
+   white - render it at ~1.7:1 on every page. Pin the footer to fixed light
+   values. !important mirrors the dark-surface remaps and is required to beat
+   the (0,3,0) specificity of :root:not(.dark). */
+.site-footer .text-ink-200 { color: #e6e5e3 !important; }
+.site-footer .text-ink-300 { color: #d0cfcc !important; }
+.site-footer .text-ink-400 { color: #b4b2ae !important; }
+
 @layer components {
   /* Section eyebrow — a quiet Notion-style label: small, uppercase, muted. */
   /* NB: use an explicit colour, not `@apply text-ink-*` — @apply bakes the base
@@ -185,6 +194,11 @@ select { accent-color: #2383e2; }
 .dark .bg-white\/70 { background-color: rgba(32, 32, 32, 0.7) !important; }
 .dark .bg-white\/85 { background-color: rgba(25, 25, 25, 0.85) !important; }
 .dark .bg-white\/95 { background-color: rgba(25, 25, 25, 0.95) !important; }
+/* Sticky toolbars and category subheadings sit on these. /85 and /95 were
+   remapped for dark but /90 was not, so the sticky bar rendered as a white
+   band over dark listings - the exact surface display ads run on. */
+.dark .bg-white\/80 { background-color: rgba(25, 25, 25, 0.8) !important; }
+.dark .bg-white\/90 { background-color: rgba(25, 25, 25, 0.9) !important; }
 .dark .bg-ink-50 { background-color: #252525 !important; }
 .dark .bg-ink-50\/60 { background-color: rgba(37, 37, 37, 0.6) !important; }
 .dark .bg-ink-50\/50 { background-color: rgba(37, 37, 37, 0.5) !important; }

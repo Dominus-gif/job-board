@@ -14,6 +14,24 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // Both the apex and www are attached as Cloudflare custom domains, so
+      // both served 200 with identical content while canonical/OG/sitemap all
+      // point at the apex. Collapse to one host so indexers see a single
+      // signal instead of a duplicate.
+      // Root first: with a zero-segment match, ":path*" is emitted literally in
+      // the destination, so "/" alone needs its own rule.
+      {
+        source: "/",
+        has: [{ type: "host", value: "www.getremotejobsnow.com" }],
+        destination: "https://getremotejobsnow.com/",
+        permanent: true,
+      },
+      {
+        source: "/:path+",
+        has: [{ type: "host", value: "www.getremotejobsnow.com" }],
+        destination: "https://getremotejobsnow.com/:path+",
+        permanent: true,
+      },
       // Sponsor is merged into the Advertise page.
       { source: "/sponsor", destination: "/advertise", permanent: true },
       // Browsers requesting the literal /favicon.ico get the PNG icon instead of

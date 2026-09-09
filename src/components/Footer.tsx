@@ -60,7 +60,7 @@ const BY_TYPE_LINKS: { href: string; label: string }[] = [
 export function Footer() {
   const posts = getAllPosts().slice(0, 3);
   return (
-    <footer className="mt-20 bg-ink-900 text-ink-200">
+    <footer className="site-footer mt-20 bg-ink-900 text-ink-200">
       <div className="mx-auto max-w-6xl px-4 py-14">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,3.2fr)]">
           <div>
@@ -87,6 +87,8 @@ export function Footer() {
               <h4 className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">Company</h4>
               <ul className="mt-4 space-y-2.5 text-sm">
                 <FooterLink href="/about">About</FooterLink>
+                <FooterLink href="/how-it-works">How it works</FooterLink>
+                <FooterLink href="/faq">FAQ</FooterLink>
                 <FooterLink href="/hiring">Post a job</FooterLink>
                 {FEATURES.advertise && <FooterLink href="/advertise">Advertise</FooterLink>}
                 {FEATURES.newsletter && <FooterLink href="/newsletter">Newsletter</FooterLink>}
@@ -159,6 +161,8 @@ export function Footer() {
           <span>© {new Date().getFullYear()} {SITE.name} · Filtered for true global-remote.</span>
           <nav className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <Link href="/about" className="transition hover:text-white">About</Link>
+            <Link href="/how-it-works" className="transition hover:text-white">How it works</Link>
+            <Link href="/faq" className="transition hover:text-white">FAQ</Link>
             <Link href="/contact" className="transition hover:text-white">Contact</Link>
             <Link href="/privacy" className="transition hover:text-white">Privacy Policy</Link>
             <Link href="/terms" className="transition hover:text-white">Terms of Service</Link>

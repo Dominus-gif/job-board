@@ -230,7 +230,7 @@ export default async function JobPage(props: { params: Promise<{ slug: string }>
                 <span className="text-right">
                   <span className="block text-sm font-semibold text-amber-900">{formatDate(job.expires_at)}</span>
                   {daysLeft > 0 && (
-                    <span className="font-mono text-[11px] text-amber-700">{daysLeft} days left</span>
+                    <span className="font-mono text-[11px] text-amber-800">{daysLeft} days left</span>
                   )}
                 </span>
               </div>
