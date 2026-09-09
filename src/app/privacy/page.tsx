@@ -67,8 +67,9 @@ export default function PrivacyPage() {
       <h2>Your rights</h2>
       <p>
         Depending on your location (including under the GDPR and CCPA), you may have the right to access, correct, or
-        delete your personal data, or to object to certain processing. To exercise these rights, contact us using the
-        details below. You can unsubscribe from our newsletter at any time via the link in every email.
+        delete your personal data, or to object to certain processing. To exercise these rights, contact us via our{" "}
+        <a href="/contact">contact form at getremotejobsnow.com/contact</a>. You can unsubscribe from our newsletter at
+        any time via the link in every email.
       </p>
 
       <h2>Data retention &amp; security</h2>
