@@ -189,6 +189,12 @@ select { accent-color: #2383e2; }
 }
 
 /* Surfaces — Notion dark greys */
+/* IMPORTANT: these remaps match the UNPREFIXED utility only. A responsive
+   variant compiles to a different selector - "lg:bg-white/85" becomes
+   .lg\:bg-white\/85 - which none of these rules can reach, so it stays light
+   in dark mode. This shipped as a 1.11:1 sticky toolbar. If you add a
+   responsive colour utility, give it an explicit dark: partner on the element
+   (e.g. "dark:lg:bg-[rgba(25,25,25,0.85)]") rather than relying on these. */
 .dark .bg-paper { background-color: #191919 !important; }
 .dark .bg-white { background-color: #202020 !important; }
 .dark .bg-white\/70 { background-color: rgba(32, 32, 32, 0.7) !important; }

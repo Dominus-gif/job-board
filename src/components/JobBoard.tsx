@@ -263,7 +263,7 @@ export function JobBoard({
           {/* Results header pins at the same top line as the sidebar, so the two
               scroll together (no detached rail) and the long list keeps a
               persistent count/context bar at depth. */}
-          <div className="mb-3 flex items-center justify-between gap-3 lg:sticky lg:top-[76px] lg:z-[5] lg:border-b lg:border-ink-100 lg:bg-white/85 lg:py-2.5 lg:backdrop-blur">
+          <div className="mb-3 flex items-center justify-between gap-3 lg:sticky lg:top-[76px] lg:z-[5] lg:border-b lg:border-ink-100 lg:bg-white/85 lg:py-2.5 lg:backdrop-blur dark:lg:border-[rgba(255,255,255,0.094)] dark:lg:bg-[rgba(25,25,25,0.85)]">
             <span className="text-xs font-semibold uppercase tracking-wide text-ink-500">
               {totalAvailable != null && totalAvailable > filtered.length && activeCount === 0 && !query.trim()
                 ? `Latest ${filtered.length.toLocaleString("en-US")} of ${totalAvailable.toLocaleString("en-US")} roles`
@@ -296,7 +296,7 @@ export function JobBoard({
                       category you're reading at scroll depth. */}
                   <h3
                     id={`grp-${g.category.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase()}`}
-                    className="mb-3 flex items-baseline gap-2 border-b border-ink-100 pb-1.5 font-display text-sm font-bold uppercase tracking-wide text-ink-900 lg:sticky lg:top-[116px] lg:z-[4] lg:bg-white/85 lg:backdrop-blur"
+                    className="mb-3 flex items-baseline gap-2 border-b border-ink-100 pb-1.5 font-display text-sm font-bold uppercase tracking-wide text-ink-900 lg:sticky lg:top-[116px] lg:z-[4] lg:bg-white/85 lg:backdrop-blur dark:lg:bg-[rgba(25,25,25,0.85)]"
                   >
                     {g.category}
                     <span className="text-xs font-medium normal-case tracking-normal text-ink-500">
