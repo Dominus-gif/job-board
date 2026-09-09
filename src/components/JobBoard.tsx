@@ -265,14 +265,14 @@ export function JobBoard({
           </div>
           {/* Sidebar unit — below the sticky rail, so it never crowds or overlaps
               the sticky results toolbar. Renders nothing until a slot is set. */}
-          <AdSlot slot={ADSENSE.sidebarSlot} className="mt-6" minHeight={600} />
+          <AdSlot slot={ADSENSE.sidebarSlot} className="mt-6" minHeight={600} slotType="sidebar" />
         </aside>
 
         <div className="min-w-0">
           {/* Results header pins at the same top line as the sidebar, so the two
               scroll together (no detached rail) and the long list keeps a
               persistent count/context bar at depth. */}
-          <div className="mb-3 flex items-center justify-between gap-3 lg:sticky lg:top-[76px] lg:z-[5] lg:border-b lg:border-ink-100 lg:bg-white/85 lg:py-2.5 lg:backdrop-blur dark:lg:border-[rgba(255,255,255,0.094)] dark:lg:bg-[rgba(25,25,25,0.85)]">
+          <div className="mb-3 flex items-center justify-between gap-3 lg:sticky lg:top-[76px] lg:z-[5] lg:border-b lg:border-ink-100 lg:bg-white/95 lg:py-2.5 lg:backdrop-blur-md dark:lg:border-[rgba(255,255,255,0.094)] dark:lg:bg-[rgba(25,25,25,0.95)]">
             <span className="text-xs font-semibold uppercase tracking-wide text-ink-500">
               {totalAvailable != null && totalAvailable > filtered.length && activeCount === 0 && !query.trim()
                 ? `Latest ${filtered.length.toLocaleString("en-US")} of ${totalAvailable.toLocaleString("en-US")} roles`
@@ -305,7 +305,7 @@ export function JobBoard({
                       category you're reading at scroll depth. */}
                   <h3
                     id={`grp-${g.category.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase()}`}
-                    className="mb-3 flex items-baseline gap-2 border-b border-ink-100 pb-1.5 font-display text-sm font-bold uppercase tracking-wide text-ink-900 lg:sticky lg:top-[116px] lg:z-[4] lg:bg-white/85 lg:backdrop-blur dark:lg:bg-[rgba(25,25,25,0.85)]"
+                    className="mb-3 flex items-baseline gap-2 border-b border-ink-100 pb-1.5 font-display text-sm font-bold uppercase tracking-wide text-ink-900 lg:sticky lg:top-[116px] lg:z-[4] lg:bg-white/95 lg:backdrop-blur-md dark:lg:bg-[rgba(25,25,25,0.95)]"
                   >
                     {g.category}
                     <span className="text-xs font-medium normal-case tracking-normal text-ink-500">

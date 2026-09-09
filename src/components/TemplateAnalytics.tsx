@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { templateOf } from "@/lib/analytics";
 
 declare global {
   interface Window {
@@ -26,23 +27,6 @@ declare global {
  * Sent as its own `template_view` event, not a second `page_view`: GA4 already
  * fires page_view automatically, and duplicating it would inflate sessions.
  */
-function templateOf(path: string): string {
-  if (path === "/") return "home";
-  if (path.startsWith("/jobs/")) return "job_detail";
-  if (path === "/jobs") return "job_search";
-  if (path.startsWith("/posts/")) return "post_detail";
-  if (path === "/posts") return "post_index";
-  if (path.startsWith("/companies/")) return "company_detail";
-  if (path === "/companies") return "company_index";
-  if (path.startsWith("/page/")) return "listing_paged";
-  if (path.startsWith("/tools/")) return "tool";
-  if (["/about", "/faq", "/how-it-works", "/privacy", "/terms", "/contact"].includes(path)) return "static";
-  // Category and location hubs are the large generated surface (/remote-*-jobs,
-  // /remote-jobs-in-*), so they get their own bucket rather than "other".
-  if (/^\/(remote|work-from|find-remote|fully-remote|trending-remote)/.test(path)) return "listing_hub";
-  return "other";
-}
-
 export function TemplateAnalytics() {
   const pathname = usePathname();
 

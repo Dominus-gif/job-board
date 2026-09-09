@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { ADSENSE } from "@/lib/site";
 import { useNearViewport } from "./useNearViewport";
+import { trackAdSlotView, type AdSlotType } from "@/lib/analytics";
 
 declare global {
   interface Window {
@@ -27,12 +28,15 @@ export function AdSlot({
   format = "auto",
   className = "",
   minHeight = 280,
+  slotType = "in_article",
 }: {
   slot?: string;
   format?: string;
   className?: string;
   /** Reserved height so filling the unit doesn't shift the page (CLS). */
   minHeight?: number;
+  /** Placement label, so revenue can be compared per slot type. */
+  slotType?: AdSlotType;
 }) {
   const unit = slot || ADSENSE.defaultSlot;
   const { ref, near } = useNearViewport<HTMLElement>();
@@ -44,7 +48,9 @@ export function AdSlot({
     } catch {
       /* AdSense not ready yet */
     }
-  }, [unit, near]);
+    // Counted at request time, so it matches what AdSense actually served.
+    trackAdSlotView(slotType);
+  }, [unit, near, slotType]);
 
   if (!ADSENSE.enabled || !unit) return null;
 

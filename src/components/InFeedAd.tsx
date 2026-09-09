@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { ADSENSE } from "@/lib/site";
 import { useNearViewport } from "./useNearViewport";
+import { trackAdSlotView } from "@/lib/analytics";
 
 /**
  * A native-style, in-feed AdSense unit sized to sit inline with job/company
@@ -25,6 +26,7 @@ export function InFeedAd({ slot, className = "" }: { slot?: string; className?: 
     } catch {
       /* AdSense not ready yet */
     }
+    trackAdSlotView("in_feed");
   }, [unit, near]);
 
   if (!ADSENSE.enabled || !unit) return null;
