@@ -56,11 +56,14 @@ jobs:
       - name: Build (prebuild re-scrapes listings)
         run: npm run cf:build
 
+      # Deliberately NOT cloudflare/wrangler-action: it installs its own wrangler
+      # and did not pick up wrangler.jsonc, failing with "Missing entry-point"
+      # before it ever reached authentication. Running the project's own script
+      # keeps CI identical to what is run locally.
       - name: Deploy
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: deploy
+        run: npm run cf:deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       # Fail loudly if the deploy "succeeded" but the site is not actually
       # serving — a green tick on a broken site is worse than a red one.
