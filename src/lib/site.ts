@@ -59,7 +59,10 @@ export const SUPABASE = {
  * When unset, the site behaves exactly as before (no ad code emitted).
  */
 export const ADSENSE = {
-  client: (process.env.NEXT_PUBLIC_ADSENSE_CLIENT || "").trim(),
+  // Publisher id is public by design — it is published verbatim in ads.txt.
+  // Defaulted in code (same pattern as GA_ID) so ads.txt cannot go missing if a
+  // build environment forgets the variable; still overridable per environment.
+  client: (process.env.NEXT_PUBLIC_ADSENSE_CLIENT || "ca-pub-8661245052881433").trim(),
   /** Default responsive ad-unit id, used by <AdSlot> when none is passed. */
   defaultSlot: (process.env.NEXT_PUBLIC_ADSENSE_SLOT || "").trim(),
   /** In-feed (native) ad-unit id, used by <InFeedAd> between listings. */
