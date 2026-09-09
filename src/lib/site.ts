@@ -64,6 +64,8 @@ export const ADSENSE = {
   defaultSlot: (process.env.NEXT_PUBLIC_ADSENSE_SLOT || "").trim(),
   /** In-feed (native) ad-unit id, used by <InFeedAd> between listings. */
   inFeedSlot: (process.env.NEXT_PUBLIC_ADSENSE_INFEED_SLOT || "").trim(),
+  /** Sidebar ad-unit id, used beneath the filter rail on listing pages. */
+  sidebarSlot: (process.env.NEXT_PUBLIC_ADSENSE_SIDEBAR_SLOT || "").trim(),
   get enabled(): boolean {
     return /^ca-pub-\d+$/.test(this.client);
   },

@@ -1,0 +1,58 @@
+"use client";
+
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+/**
+ * Tags every pageview with the template that rendered it, so RPM can be
+ * compared per template type rather than only in aggregate.
+ *
+ * The expectation worth testing: job detail pages should out-earn listing
+ * pages, because they carry an in-article unit against long-form content while
+ * listings mostly serve scanning traffic. Without this split, a single blended
+ * RPM hides which template is actually paying and placement budget gets spent
+ * in the wrong place.
+ *
+ * Derived from the pathname so no page needs to opt in — a new route is
+ * classified automatically, and misclassification shows up as "other" rather
+ * than silently landing in the wrong bucket.
+ *
+ * Sent as its own `template_view` event, not a second `page_view`: GA4 already
+ * fires page_view automatically, and duplicating it would inflate sessions.
+ */
+function templateOf(path: string): string {
+  if (path === "/") return "home";
+  if (path.startsWith("/jobs/")) return "job_detail";
+  if (path === "/jobs") return "job_search";
+  if (path.startsWith("/posts/")) return "post_detail";
+  if (path === "/posts") return "post_index";
+  if (path.startsWith("/companies/")) return "company_detail";
+  if (path === "/companies") return "company_index";
+  if (path.startsWith("/page/")) return "listing_paged";
+  if (path.startsWith("/tools/")) return "tool";
+  if (["/about", "/faq", "/how-it-works", "/privacy", "/terms", "/contact"].includes(path)) return "static";
+  // Category and location hubs are the large generated surface (/remote-*-jobs,
+  // /remote-jobs-in-*), so they get their own bucket rather than "other".
+  if (/^\/(remote|work-from|find-remote|fully-remote|trending-remote)/.test(path)) return "listing_hub";
+  return "other";
+}
+
+export function TemplateAnalytics() {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (!pathname || typeof window.gtag !== "function") return;
+    window.gtag("event", "template_view", {
+      page_template: templateOf(pathname),
+      page_path: pathname,
+    });
+  }, [pathname]);
+
+  return null;
+}

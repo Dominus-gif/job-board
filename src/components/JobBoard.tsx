@@ -6,6 +6,8 @@ import { SALARY_BANDS, salaryMidpointUsd } from "@/lib/salary";
 import { availableRegions, jobRegions } from "@/lib/region";
 import { JobCard } from "./JobCard";
 import { InFeedAd } from "./InFeedAd";
+import { AdSlot } from "./AdSlot";
+import { ADSENSE } from "@/lib/site";
 import { SearchIcon, CloseIcon } from "./icons";
 import { Select } from "./ui/Select";
 
@@ -255,8 +257,15 @@ export function JobBoard({
       <div className="mt-5 lg:grid lg:grid-cols-[248px_minmax(0,1fr)] lg:items-start lg:gap-8">
         {/* Sticky rail; scrolls internally when the filters are taller than the
             viewport so the lower filters stay reachable. */}
-        <aside className="hidden lg:sticky lg:top-[76px] lg:block lg:max-h-[calc(100vh_-_6rem)] lg:overflow-y-auto lg:overscroll-contain">
-          <div className="rounded-2xl border border-ink-100 bg-white p-4 shadow-card">{filterControls}</div>
+        <aside className="hidden lg:block">
+          {/* Only the filter card sticks; the rail itself is normal flow so a
+              sidebar unit can sit beneath it without becoming a sticky ad. */}
+          <div className="lg:sticky lg:top-[76px] lg:max-h-[calc(100vh_-_6rem)] lg:overflow-y-auto lg:overscroll-contain">
+            <div className="rounded-2xl border border-ink-100 bg-white p-4 shadow-card">{filterControls}</div>
+          </div>
+          {/* Sidebar unit — below the sticky rail, so it never crowds or overlaps
+              the sticky results toolbar. Renders nothing until a slot is set. */}
+          <AdSlot slot={ADSENSE.sidebarSlot} className="mt-6" minHeight={600} />
         </aside>
 
         <div className="min-w-0">

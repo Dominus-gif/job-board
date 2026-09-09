@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { ADSENSE } from "@/lib/site";
+import { useNearViewport } from "./useNearViewport";
 
 /**
  * A native-style, in-feed AdSense unit sized to sit inline with job/company
@@ -13,34 +14,39 @@ import { ADSENSE } from "@/lib/site";
  */
 export function InFeedAd({ slot, className = "" }: { slot?: string; className?: string }) {
   const unit = slot || ADSENSE.inFeedSlot || ADSENSE.defaultSlot;
+  // In-feed units sit far down a long list; only fetch when the reader nears one.
+  const { ref, near } = useNearViewport<HTMLDivElement>();
 
   useEffect(() => {
-    if (!ADSENSE.enabled || !unit) return;
+    if (!ADSENSE.enabled || !unit || !near) return;
     try {
       window.adsbygoogle = window.adsbygoogle || [];
       window.adsbygoogle.push({});
     } catch {
       /* AdSense not ready yet */
     }
-  }, [unit]);
+  }, [unit, near]);
 
   if (!ADSENSE.enabled || !unit) return null;
 
   return (
     <div
+      ref={ref}
       className={`h-full overflow-hidden rounded-xl border border-dashed border-ink-200 bg-ink-50/50 p-5 ${className}`}
       aria-label="Sponsored"
     >
       <span className="mb-2 block text-[10px] font-semibold uppercase tracking-wider text-ink-400">Sponsored</span>
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block" }}
-        data-ad-client={ADSENSE.client}
-        data-ad-slot={unit}
-        data-ad-format="fluid"
-        data-ad-layout="in-article"
-        data-full-width-responsive="true"
-      />
+      {near && (
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block" }}
+          data-ad-client={ADSENSE.client}
+          data-ad-slot={unit}
+          data-ad-format="fluid"
+          data-ad-layout="in-article"
+          data-full-width-responsive="true"
+        />
+      )}
     </div>
   );
 }

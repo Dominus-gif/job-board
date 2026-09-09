@@ -10,6 +10,7 @@ import { NewsletterCta } from "@/components/NewsletterCta";
 import { NewsletterCtaGate } from "@/components/NewsletterCtaGate";
 import { RoleSubscribeCta } from "@/components/RoleSubscribeCta";
 import { themeInitScript, ThemeGuard } from "@/components/ThemeToggle";
+import { TemplateAnalytics } from "@/components/TemplateAnalytics";
 
 // Notion-style: one clean sans (Inter) for everything; headings are just bold.
 const body = Inter({
@@ -63,6 +64,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen flex flex-col">
         <ThemeGuard />
+        {/* Tags each pageview with its template so RPM can be split per template. */}
+        {GA_ID && <TemplateAnalytics />}
         {/* Google tag (gtag.js) — GA4, loaded on every page. */}
         {GA_ID && (
           <>
