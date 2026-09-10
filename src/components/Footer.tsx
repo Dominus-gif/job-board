@@ -156,17 +156,53 @@ export function Footer() {
         </div>
       </div>
 
+      {/* Editorial close.
+          Serif statement against monospace body, split by a dashed rule, with an
+          oversized closing line — the contrast between the two faces is what
+          carries it, so both are real families rather than the UI sans (see
+          src/app/layout.tsx). Kept on the dark surface the rest of the footer
+          already uses, so the block reads as one footer rather than two. */}
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 text-xs text-ink-400 sm:flex-row">
-          <span>© {new Date().getFullYear()} {SITE.name} · Filtered for true global-remote.</span>
-          <nav className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <Link href="/about" className="transition hover:text-white">About</Link>
-            <Link href="/how-it-works" className="transition hover:text-white">How it works</Link>
-            <Link href="/faq" className="transition hover:text-white">FAQ</Link>
-            <Link href="/contact" className="transition hover:text-white">Contact</Link>
-            <Link href="/privacy" className="transition hover:text-white">Privacy Policy</Link>
-            <Link href="/terms" className="transition hover:text-white">Terms of Service</Link>
-          </nav>
+        <div className="mx-auto max-w-6xl px-4 py-16 lg:py-20">
+          {/* — Section one: why this exists — */}
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] lg:gap-16">
+            <h2 className="font-editorial text-[1.9rem] leading-[1.12] tracking-tight text-white sm:text-[2.15rem]">
+              Built for one,
+              <br />
+              opened to everyone
+            </h2>
+
+            <div className="grid gap-6 sm:grid-cols-2 sm:gap-10">
+              <p className="font-editorial-mono text-[13px] leading-[1.9] text-ink-300">
+                This project began as a personal tool — one place to keep all my job listings organized. But I noticed
+                many people struggling to find a single platform where everything is listed and remote work comes first.
+              </p>
+              <p className="font-editorial-mono text-[13px] leading-[1.9] text-ink-300">
+                So I took the project further: redesigned it, rebuilt it, and opened it up for everyone. My hope is
+                simple — that you&apos;ll find the right opportunity here and get the flexibility to work from anywhere.
+              </p>
+            </div>
+          </div>
+
+          {/* Dashed rule, as in the reference — a seam, not a hard divider. */}
+          <hr className="my-14 border-0 border-t border-dashed border-white/25 lg:my-16" />
+
+          {/* — Section two: the closing line, then the legal row — */}
+          <p className="font-editorial text-[clamp(2.6rem,10vw,7.5rem)] leading-[0.92] tracking-[-0.02em] text-white">
+            Work from <em className="italic">anywhere</em>
+          </p>
+
+          <div className="mt-14 flex flex-col gap-4 text-xs text-ink-400 sm:flex-row sm:items-center sm:justify-between">
+            <span>© {new Date().getFullYear()} {SITE.name} · Filtered for true global-remote.</span>
+            <nav className="flex flex-wrap items-center gap-x-6 gap-y-2">
+              <Link href="/about" className="transition hover:text-white">About</Link>
+              <Link href="/how-it-works" className="transition hover:text-white">How it works</Link>
+              <Link href="/faq" className="transition hover:text-white">FAQ</Link>
+              <Link href="/contact" className="transition hover:text-white">Contact</Link>
+              <Link href="/privacy" className="transition hover:text-white">Privacy Policy</Link>
+              <Link href="/terms" className="transition hover:text-white">Terms of Service</Link>
+            </nav>
+          </div>
         </div>
       </div>
     </footer>

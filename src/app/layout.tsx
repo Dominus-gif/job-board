@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Inter } from "next/font/google";
+import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE, ADSENSE, FEATURES, SUPABASE } from "@/lib/site";
 import { getSubscriberCount } from "@/lib/db";
@@ -12,10 +12,27 @@ import { RoleSubscribeCta } from "@/components/RoleSubscribeCta";
 import { themeInitScript, ThemeGuard } from "@/components/ThemeToggle";
 import { TemplateAnalytics } from "@/components/TemplateAnalytics";
 
-// Notion-style: one clean sans (Inter) for everything; headings are just bold.
+// Notion-style: one clean sans (Inter) carries the whole UI; headings are just bold.
 const body = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+// Editorial pair used only by the footer's closing statement. Both live below
+// the fold, so `swap` keeps them off the LCP path — the page paints in Inter and
+// they arrive without blocking. Only the weights actually used are requested.
+const editorialSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-editorial",
+  display: "swap",
+});
+const editorialMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-editorial-mono",
   display: "swap",
 });
 
@@ -58,7 +75,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={body.variable} suppressHydrationWarning>
+    <html lang="en" className={`${body.variable} ${editorialSerif.variable} ${editorialMono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>

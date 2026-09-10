@@ -51,6 +51,9 @@ const config: Config = {
         // Headings use the same clean sans (Notion style) — just heavier weight.
         display: ["var(--font-sans)", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
         mono: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        // Footer-only editorial pair (see src/app/layout.tsx).
+        editorial: ["var(--font-editorial)", "Iowan Old Style", "Georgia", "Times New Roman", "serif"],
+        "editorial-mono": ["var(--font-editorial-mono)", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       boxShadow: {
         // Notion barely uses shadows — soft, low elevation.
