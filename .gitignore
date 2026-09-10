@@ -15,3 +15,7 @@ next-env.d.ts
 .open-next
 .wrangler
 .env.production
+
+# Design sources: large, frequently re-saved binaries bloat git history
+# permanently and cannot be diffed. Exported PNGs are tracked instead.
+*.psd
