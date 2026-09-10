@@ -37,7 +37,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Do I need an account?",
-    a: "No. Browsing, filtering and applying all work without signing up. Bookmarks are saved in your browser, and you can move them to another device with a sync code if you want to, without creating an account.",
+    a: "No. Browsing, filtering and applying all work without signing up. Saved jobs are kept in your browser, so they stay on the device you saved them on and clearing your site data removes them.",
   },
   {
     q: "Can I get emailed when new jobs match my search?",

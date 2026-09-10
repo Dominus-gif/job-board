@@ -26,6 +26,15 @@ export function abs(path: string): string {
 export const FEATURES = {
   newsletter: false,
   advertise: false,
+  /**
+   * Cross-device sync for saved jobs (src/components/SyncPanel).
+   *
+   * Working and deployed — the Supabase tables exist and codes round-trip — but
+   * held back pending review. Flip to true to re-enable; nothing else needs to
+   * change, and existing sync buckets stay valid because the codes live in
+   * Supabase rather than in the build.
+   */
+  bookmarkSync: false,
 };
 
 /**
