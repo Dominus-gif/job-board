@@ -267,7 +267,7 @@ export default async function JobsSearchPage(props: { searchParams: Promise<SP> 
         </details>
 
         {/* Desktop: sticky sidebar. */}
-        <aside className="hidden lg:sticky lg:top-20 lg:block">
+        <aside className="hidden lg:sticky lg:top-[84px] lg:block">
           <div className="rounded-xl border border-ink-100 bg-white p-4">{filterPanel}</div>
         </aside>
 

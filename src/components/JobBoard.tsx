@@ -260,7 +260,7 @@ export function JobBoard({
         <aside className="hidden lg:block">
           {/* Only the filter card sticks; the rail itself is normal flow so a
               sidebar unit can sit beneath it without becoming a sticky ad. */}
-          <div className="lg:sticky lg:top-[76px] lg:max-h-[calc(100vh_-_6rem)] lg:overflow-y-auto lg:overscroll-contain">
+          <div className="lg:sticky lg:top-[84px] lg:max-h-[calc(100vh_-_6rem)] lg:overflow-y-auto lg:overscroll-contain">
             <div className="rounded-2xl border border-ink-100 bg-white p-4 shadow-card">{filterControls}</div>
           </div>
           {/* Sidebar unit — below the sticky rail, so it never crowds or overlaps
@@ -272,7 +272,7 @@ export function JobBoard({
           {/* Results header pins at the same top line as the sidebar, so the two
               scroll together (no detached rail) and the long list keeps a
               persistent count/context bar at depth. */}
-          <div className="mb-3 flex items-center justify-between gap-3 lg:sticky lg:top-[76px] lg:z-[5] lg:border-b lg:border-ink-100 lg:bg-white/95 lg:py-2.5 lg:backdrop-blur-md dark:lg:border-[rgba(255,255,255,0.094)] dark:lg:bg-[rgba(25,25,25,0.95)]">
+          <div className="mb-3 flex items-center justify-between gap-3 lg:sticky lg:top-[84px] lg:z-[5] lg:border-b lg:border-ink-100 lg:bg-white/95 lg:py-2.5 lg:backdrop-blur-md dark:lg:border-[rgba(255,255,255,0.094)] dark:lg:bg-[rgba(25,25,25,0.95)]">
             <span className="text-xs font-semibold uppercase tracking-wide text-ink-500">
               {totalAvailable != null && totalAvailable > filtered.length && activeCount === 0 && !query.trim()
                 ? `Latest ${filtered.length.toLocaleString("en-US")} of ${totalAvailable.toLocaleString("en-US")} roles`
@@ -305,7 +305,7 @@ export function JobBoard({
                       category you're reading at scroll depth. */}
                   <h3
                     id={`grp-${g.category.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase()}`}
-                    className="mb-3 flex items-baseline gap-2 border-b border-ink-100 pb-1.5 font-display text-sm font-bold uppercase tracking-wide text-ink-900 lg:sticky lg:top-[116px] lg:z-[4] lg:bg-white/95 lg:backdrop-blur-md dark:lg:bg-[rgba(25,25,25,0.95)]"
+                    className="mb-3 flex items-baseline gap-2 border-b border-ink-100 pb-1.5 font-display text-sm font-bold uppercase tracking-wide text-ink-900 lg:sticky lg:top-[124px] lg:z-[4] lg:bg-white/95 lg:backdrop-blur-md dark:lg:bg-[rgba(25,25,25,0.95)]"
                   >
                     {g.category}
                     <span className="text-xs font-medium normal-case tracking-normal text-ink-500">
