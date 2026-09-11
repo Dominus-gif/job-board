@@ -60,8 +60,12 @@ const BY_TYPE_LINKS: { href: string; label: string }[] = [
 export function Footer() {
   const posts = getAllPosts().slice(0, 3);
   return (
-    <footer className="site-footer mt-20 bg-ink-900 text-ink-200">
-      <div className="mx-auto max-w-6xl px-4 py-14">
+    <footer className="site-footer relative isolate mt-20 overflow-hidden bg-ink-900 text-ink-200">
+      {/* Decorative landscape behind the footer (see globals.css). `isolate` on
+          the footer keeps its blend mode from reaching the page above it. */}
+      <span aria-hidden className="footer-landscape" />
+
+      <div className="relative z-[1] mx-auto max-w-6xl px-4 py-14">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,3.2fr)]">
           <div>
             <Logo onDark />
@@ -139,7 +143,7 @@ export function Footer() {
       </div>
 
       {/* Popular searches — keyword-rich internal links on every page. */}
-      <div className="border-t border-white/10">
+      <div className="relative z-[1] border-t border-white/10">
         <div className="mx-auto max-w-6xl px-4 py-8">
           <h4 className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">Popular remote job searches</h4>
           <div className="mt-4 flex flex-wrap gap-2">
@@ -162,7 +166,7 @@ export function Footer() {
           carries it, so both are real families rather than the UI sans (see
           src/app/layout.tsx). Kept on the dark surface the rest of the footer
           already uses, so the block reads as one footer rather than two. */}
-      <div className="border-t border-white/10">
+      <div className="relative z-[1] border-t border-white/10">
         <div className="mx-auto max-w-6xl px-4 py-16 lg:py-20">
           {/* — Section one: why this exists — */}
           <div className="grid gap-8 lg:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] lg:gap-16">

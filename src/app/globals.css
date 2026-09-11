@@ -386,3 +386,40 @@ select { accent-color: #2383e2; }
   mix-blend-mode: screen;
   opacity: 0.5;
 }
+
+/* ---------------------------------------------------------------------------
+   Footer landscape.
+
+   The artwork is black line art on a warm white ground, and the footer is dark
+   in BOTH themes (bg-ink-900 has no dark remap), so the source is shipped
+   inverted: the ground becomes near-black and the drawing becomes light. With
+   `screen` the near-black ground contributes nothing and only the linework
+   shows, which is why one asset serves both themes without a second variant.
+
+   Anchored to the bottom and faded out toward the top, so the horizon sits
+   behind the closing line rather than running through it. Decorative only —
+   hidden from assistive tech and non-interactive.
+--------------------------------------------------------------------------- */
+.footer-landscape {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* 4.2:1 artwork; height is capped so it stays a band on tall viewports. */
+  aspect-ratio: 2541 / 605;
+  max-height: 42vh;
+  background-image: url("/footer-landscape.png");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: cover;
+  mix-blend-mode: screen;
+  opacity: 0.18;
+  /* Fades in from nothing at the top so there is no hard upper edge. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.55) 45%, rgb(0, 0, 0) 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.55) 45%, rgb(0, 0, 0) 100%);
+}
+
+/* Slightly stronger on the light theme: the surrounding page is bright, so the
+   footer reads as a deeper block and the linework can carry a little more. */
+:root:not(.dark) .footer-landscape { opacity: 0.22; }
