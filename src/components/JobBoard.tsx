@@ -120,6 +120,10 @@ export function JobBoard({
   // untouched: the feed keeps its existing shape and grouping, but which role
   // fills each slot changes per visit. Applied before the page slice, so a
   // different set of jobs surfaces rather than the same ones reordered.
+  //
+  // Featured listings are PAID placement, so they are pinned to the front of
+  // their category in their existing ranked order and never shuffled — only the
+  // organic listings behind them are reordered.
   const ordered = useMemo(() => {
     if (!shuffleSeed || filtered.length < 2) return filtered;
     let s = shuffleSeed;
@@ -134,11 +138,14 @@ export function JobBoard({
       if (!buckets.has(j.category)) buckets.set(j.category, []);
       buckets.get(j.category)!.push(j);
     }
-    for (const list of buckets.values()) {
-      for (let i = list.length - 1; i > 0; i--) {
+    for (const [cat, list] of buckets) {
+      const paid = list.filter((j) => j.is_featured);        // keeps ranked order
+      const organic = list.filter((j) => !j.is_featured);
+      for (let i = organic.length - 1; i > 0; i--) {
         const k = Math.floor(rand() * (i + 1));
-        [list[i], list[k]] = [list[k], list[i]];
+        [organic[i], organic[k]] = [organic[k], organic[i]];
       }
+      buckets.set(cat, [...paid, ...organic]);
     }
     const cursor = new Map<string, number>();
     return filtered.map((j) => {
