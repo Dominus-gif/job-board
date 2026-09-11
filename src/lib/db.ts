@@ -145,10 +145,53 @@ export async function getAllSkills(): Promise<{ skill: string; count: number }[]
  */
 export type CompanyListing = Company & { jobCount: number; worldwideCount: number };
 
+/** Most frequent values first, ties broken alphabetically so output is stable. */
+function topOf(counts: Map<string, number>, n: number): string[] {
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, n)
+    .map(([k]) => k);
+}
+
+function joinWords(items: string[]): string {
+  if (items.length <= 1) return items[0] ?? "";
+  return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
+}
+
+/**
+ * A one-line blurb for companies that have no hand-written one.
+ *
+ * Only a handful of companies are in the seed allow-list, so on the directory
+ * most cards rendered with a blank space where the description sits. Rather
+ * than invent marketing copy about real employers, this states what their own
+ * listings show: how many roles, in which functions, and open to whom.
+ */
+function describeFromJobs(name: string, count: number, worldwide: number, cats: Map<string, number>, places: Map<string, number>): string {
+  const roles = `${count} open remote ${count === 1 ? "role" : "roles"}`;
+  const fields = joinWords(topOf(cats, 2));
+  const where =
+    worldwide === count ? "open to candidates anywhere in the world"
+    : worldwide > 0 ? `${worldwide} open worldwide`
+    : (() => { const p = topOf(places, 2); return p.length ? `hiring in ${joinWords(p)}` : ""; })();
+
+  const parts = [`${roles}${fields ? ` in ${fields}` : ""}`, where].filter(Boolean);
+  return `${name} — ${parts.join(", ")}.`;
+}
+
 export async function getCompanies(): Promise<CompanyListing[]> {
   const jobs = await allPublished();
   const allow = new Map(allowList.map((c) => [c.slug, c]));
   const map = new Map<string, CompanyListing>();
+  // Gathered alongside the counts so the blurb can be built without a second pass.
+  const cats = new Map<string, Map<string, number>>();
+  const places = new Map<string, Map<string, number>>();
+  const bump = (outer: Map<string, Map<string, number>>, slug: string, key: string) => {
+    if (!key) return;
+    if (!outer.has(slug)) outer.set(slug, new Map());
+    const inner = outer.get(slug)!;
+    inner.set(key, (inner.get(key) ?? 0) + 1);
+  };
+
   for (const j of jobs) {
     if (!j.company_slug) continue;
     let entry = map.get(j.company_slug);
@@ -161,7 +204,21 @@ export async function getCompanies(): Promise<CompanyListing[]> {
     }
     entry.jobCount++;
     if (j.scope === "worldwide") entry.worldwideCount++;
+    bump(cats, j.company_slug, j.category);
+    if (j.scope !== "worldwide") bump(places, j.company_slug, j.location);
   }
+
+  for (const entry of map.values()) {
+    if (entry.description?.trim()) continue; // a hand-written blurb always wins
+    entry.description = describeFromJobs(
+      entry.name,
+      entry.jobCount,
+      entry.worldwideCount,
+      cats.get(entry.slug) ?? new Map(),
+      places.get(entry.slug) ?? new Map(),
+    );
+  }
+
   return [...map.values()].sort((a, b) => b.jobCount - a.jobCount || a.name.localeCompare(b.name));
 }
 

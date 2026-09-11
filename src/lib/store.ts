@@ -67,8 +67,39 @@ function processSeed(): Job[] {
 const manualJobs: Job[] = withOverrides([...NORDHARTON_JOBS, ...(curatedJobs as Job[])]);
 
 /** Union the always-on manual jobs onto a set of real (scraped/snapshot) jobs. */
+const TRAILING_SLASH = new RegExp("/+$");
+
+/** Same posting from two sources? Match on the apply link first (the employer's
+ *  own URL is the strongest identity), then company+title for feeds that rewrite
+ *  their links. */
+function identityKeys(j: Job): string[] {
+  const keys: string[] = [];
+  if (j.apply_url) keys.push("u:" + j.apply_url.trim().toLowerCase().replace(TRAILING_SLASH, ""));
+  if (j.company_name && j.title) keys.push("t:" + j.company_name.trim().toLowerCase() + "::" + j.title.trim().toLowerCase());
+  return keys;
+}
+
+/**
+ * Merge the curated set with the scraped feed.
+ *
+ * These overlap: a role can be both hand-curated and picked up live from the
+ * same ATS board, which listed it twice on the board (296 such pairs at the time
+ * this was added — every Supabase role appeared twice, for instance).
+ *
+ * The scraped copy wins, because it reflects the board's current state; the
+ * curated copy is only a snapshot. Curated entries with no scraped counterpart
+ * are appended unchanged, so hand-added listings are never lost.
+ */
 function serve(realJobs: Job[]): Job[] {
-  return [...manualJobs, ...realJobs];
+  const seen = new Set<string>();
+  for (const j of realJobs) for (const k of identityKeys(j)) seen.add(k);
+  const extras = manualJobs.filter((j) => {
+    const keys = identityKeys(j);
+    if (keys.some((k) => seen.has(k))) return false;
+    for (const k of keys) seen.add(k); // also collapses duplicates inside the curated set
+    return true;
+  });
+  return [...extras, ...realJobs];
 }
 
 /**

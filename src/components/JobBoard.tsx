@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import type { Job } from "@/lib/types";
 import { SALARY_BANDS, salaryMidpointUsd } from "@/lib/salary";
 import { availableRegions, jobRegions } from "@/lib/region";
@@ -106,7 +106,49 @@ export function JobBoard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeJobs, query, skills, category, band, emp, region, salaryOnly]);
 
-  const shown = filtered.slice(0, visible);
+  // Per-visit ordering.
+  //
+  // Listing pages are prerendered and cached, so shuffling on the server would
+  // hand every visitor the same order until the next revalidation. Seeding on
+  // mount instead gives each visit its own order, and doing it in an effect (not
+  // during render) keeps the server and first client paint identical, so there
+  // is no hydration mismatch.
+  const [shuffleSeed, setShuffleSeed] = useState(0);
+  useEffect(() => { setShuffleSeed(Math.floor(Math.random() * 2 ** 31) + 1); }, []);
+
+  // Shuffles WITHIN each category while leaving the category at every position
+  // untouched: the feed keeps its existing shape and grouping, but which role
+  // fills each slot changes per visit. Applied before the page slice, so a
+  // different set of jobs surfaces rather than the same ones reordered.
+  const ordered = useMemo(() => {
+    if (!shuffleSeed || filtered.length < 2) return filtered;
+    let s = shuffleSeed;
+    const rand = () => { // mulberry32 — deterministic for a given seed
+      s |= 0; s = (s + 0x6d2b79f5) | 0;
+      let t = Math.imul(s ^ (s >>> 15), 1 | s);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+    const buckets = new Map<string, Job[]>();
+    for (const j of filtered) {
+      if (!buckets.has(j.category)) buckets.set(j.category, []);
+      buckets.get(j.category)!.push(j);
+    }
+    for (const list of buckets.values()) {
+      for (let i = list.length - 1; i > 0; i--) {
+        const k = Math.floor(rand() * (i + 1));
+        [list[i], list[k]] = [list[k], list[i]];
+      }
+    }
+    const cursor = new Map<string, number>();
+    return filtered.map((j) => {
+      const i = cursor.get(j.category) ?? 0;
+      cursor.set(j.category, i + 1);
+      return buckets.get(j.category)![i];
+    });
+  }, [filtered, shuffleSeed]);
+
+  const shown = ordered.slice(0, visible);
 
   // Group the visible cards under category subheadings so a long list has a
   // real hierarchy (h2 section -> h3 category -> h4 role) instead of one flat
@@ -339,7 +381,7 @@ export function JobBoard({
             </div>
           )}
 
-          {visible < filtered.length && (
+          {visible < ordered.length && (
             <div className="mt-6 text-center">
               <button type="button" onClick={() => setVisible((v) => v + perPage)} className="btn-ghost">Show more roles</button>
             </div>

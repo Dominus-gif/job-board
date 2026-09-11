@@ -42,7 +42,7 @@ const GA_ID = (process.env.NEXT_PUBLIC_GA_ID || "G-XXPSMTS8ZX").trim();
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Remote Jobs From Anywhere in the World | getremotejobsnow.com",
+    default: "Remote Jobs From Around the World | getremotejobsnow.com",
     // Puts the "remote jobs" keyword in every page's <title>.
     template: "%s | getremotejobsnow.com — Remote Jobs",
   },
@@ -55,14 +55,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: SITE.name,
-    title: "Remote Jobs From Anywhere in the World | getremotejobsnow.com",
+    title: "Remote Jobs From Around the World | getremotejobsnow.com",
     description: SITE.description,
     url: SITE.url,
     images: [{ url: "/api/og", width: 1200, height: 630, alt: "getremotejobsnow.com — remote jobs you can do from anywhere" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Remote Jobs From Anywhere | getremotejobsnow.com",
+    title: "Remote Jobs From Around the World | getremotejobsnow.com",
     description: SITE.description,
     images: ["/api/og"],
   },

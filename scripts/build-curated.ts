@@ -15,6 +15,7 @@ import type { Job, RawJob } from "../src/lib/types";
 import { toPublishedJob } from "../src/lib/pipeline";
 import curated from "../src/lib/seed/curated.json";
 import roles from "../src/lib/seed/curated-roles.json";
+import flexRoles from "../src/lib/seed/flexjobs-roles.json";
 import realSlugs from "../src/lib/seed/real-company-slugs.json";
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -86,6 +87,10 @@ function boardSlugOf(url: string | undefined): string | null {
     const forAt = rest.indexOf("for=");
     rest = forAt >= 0 ? rest.slice(forAt + 4) : rest.replace(/^[/]+/, "");
     const seg = rest.split(SEGMENT_END).filter(Boolean)[0];
+    // Workable's short form is apply.workable.com/j/<id> — no company segment at
+    // all, so "j" is a path marker, not a board. Treating it as one would fail
+    // every such listing against its own employer name.
+    if (seg === "j") return null;
     if (seg) return seg;
   }
   return null;
@@ -178,10 +183,47 @@ const dirJobs: Job[] = (curated as DirRec[])
     return { ...job, source: "manual", provider: undefined, board_token: undefined, ats_job_id: undefined };
   });
 
-const all = [...roleJobs, ...dirJobs];
+// ---------------------------------------------------------------------------
+// FlexJobs import. Unlike the curated spreadsheets these carry a real posted
+// date and employment type, so they are mapped separately rather than being
+// forced through the synthetic values the curated path uses.
+//
+// Every one of these is country-scoped (804 of 930 were US-only), so they are
+// all regional by construction — the worldwide board stays untouched.
+// ---------------------------------------------------------------------------
+interface FlexRec {
+  company: string; domain: string | null; title: string; desc: string;
+  apply: string; location: string; scope: "regional" | "worldwide";
+  salary: string; posted: string; employment: string;
+}
+const flexJobs: Job[] = (flexRoles as FlexRec[])
+  .filter((rec) => {
+    if (JUNK_TITLE.test(rec.title)) return false;
+    if (!attributionTrusted({ company: rec.company, apply: rec.apply } as RoleRec)) { droppedAttribution++; return false; }
+    return true;
+  })
+  .map((rec, i) => {
+    const raw: RawJob = {
+      external_id: `flexjobs:${i}`,
+      provider: "greenhouse",
+      company_name: rec.company.trim(),
+      company_domain: cleanDomain(rec.domain),
+      title: rec.title.trim(),
+      description_html: cleanDesc(rec.desc) || `<p>${rec.title.trim()} at ${rec.company.trim()}. See the full description and apply directly on the company's job page.</p>`,
+      apply_url: rec.apply,
+      location_raw: rec.location,
+      employment_type: (rec.employment === "Part-Time" || rec.employment === "Contract" ? rec.employment : "Full-Time") as Job["employment_type"],
+      posted_at: rec.posted ? new Date(rec.posted).toISOString() : undefined,
+      salary_raw: rec.salary || undefined,
+    };
+    const job = toPublishedJob(raw, { scope: "regional", region: rec.location, slugSeed: 60000 + i });
+    return { ...job, source: "manual", provider: undefined, board_token: undefined, ats_job_id: undefined };
+  });
+
+const all = [...roleJobs, ...dirJobs, ...flexJobs];
 const OUT = join(process.cwd(), "src", "lib", "generated", "curated-jobs.json");
 writeFileSync(OUT, JSON.stringify(all));
-console.log(`[curated] wrote ${all.length} prebuilt curated jobs (${roleJobs.length} real roles + ${dirJobs.length} directory) to generated/curated-jobs.json`);
+console.log(`[curated] wrote ${all.length} prebuilt curated jobs (${roleJobs.length} real roles + ${dirJobs.length} directory + ${flexJobs.length} flexjobs) to generated/curated-jobs.json`);
 console.log(`[curated] dropped ${droppedAttribution} listing(s) whose employer could not be verified against the ATS board in their apply URL`);
 
 } catch (err) {
