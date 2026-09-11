@@ -81,14 +81,30 @@ export async function submitJobAction(_prev: ActionResult | null, formData: Form
     return { ok: false, message: "The apply URL must start with http:// or https://." };
   }
 
-  addSubmission({
-    title,
-    company_name,
-    apply_url,
-    contact_email,
-    description_html: sanitizeDescription(description.replace(/\n/g, "<br/>")),
-    is_featured,
+  const description_html = sanitizeDescription(description.replace(/\n/g, "<br/>"));
+
+  // Keeps the in-process copy for anything reading submissions during this
+  // request; it is not storage — the isolate is gone moments later.
+  addSubmission({ title, company_name, apply_url, contact_email, description_html, is_featured });
+
+  const saved = await rpc("submit_job", {
+    p_title: title,
+    p_company_name: company_name,
+    p_apply_url: apply_url,
+    p_contact_email: contact_email,
+    p_description_html: description_html,
+    p_is_featured: is_featured,
   });
+
+  // Never claim a submission is queued when nothing was written. The previous
+  // version always returned success while the only copy sat in an array that
+  // vanished with the isolate, so paid postings were lost in silence.
+  if (!saved) {
+    return {
+      ok: false,
+      message: "We couldn't save your submission just now. Please try again, or email us and we'll add it manually.",
+    };
+  }
 
   return {
     ok: true,

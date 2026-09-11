@@ -2,6 +2,14 @@ import Link from "next/link";
 import { CATEGORIES, categoryToSlug } from "@/lib/taxonomy";
 import { SearchIcon } from "@/components/icons";
 
+import type { Metadata } from "next";
+
+/** Same reason as the job 404: otherwise it reuses the homepage title. */
+export const metadata: Metadata = {
+  title: "Page not found",
+  robots: { index: false, follow: true },
+};
+
 export default function NotFound() {
   return (
     <div className="mx-auto max-w-xl px-4 py-20 text-center">

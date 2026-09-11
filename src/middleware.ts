@@ -56,6 +56,23 @@ function isDecodable(path: string): boolean {
 export function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
 
+  // http:// was being served as 200 rather than upgraded, so the plaintext URL
+  // was a live, indexable duplicate of every page. Cloudflare's "Always Use
+  // HTTPS" would also do this, but keeping it in code means the guarantee
+  // travels with the app instead of depending on a dashboard toggle.
+  //
+  // TLS is terminated upstream, so the original scheme only survives in the
+  // forwarded headers — req.nextUrl.protocol is always https by the time this
+  // runs. 301 because the upgrade is permanent.
+  const forwardedProto = req.headers.get("x-forwarded-proto");
+  const cfScheme = req.headers.get("cf-visitor");
+  const wasPlainHttp = forwardedProto === "http" || (cfScheme ? cfScheme.includes("\"scheme\":\"http\"") : false);
+  if (wasPlainHttp) {
+    const url = req.nextUrl.clone();
+    url.protocol = "https:";
+    return NextResponse.redirect(url, 301);
+  }
+
   // A path whose percent-encoding does not decode to valid UTF-8 — /jobs/%E9,
   // /jobs/%FF, a truncated /jobs/%C3 — makes decodeURIComponent throw inside
   // Next's dynamic-segment decoding. That happens below the App Router, so

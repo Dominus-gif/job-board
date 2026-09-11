@@ -195,3 +195,74 @@ begin
   return coalesce(v_out, 'null'::jsonb);
 end;
 $$;
+
+
+-- ============================================================================
+-- Paid / manual job submissions (the "Post a job" form)
+-- Run this block in the Supabase SQL editor.
+-- ============================================================================
+--
+-- These were previously appended to an in-process array. On Cloudflare Workers
+-- that array lives only for the isolate handling the request, so every
+-- submission was discarded moments after the form told the submitter it was
+-- "in the review queue". This table is where they actually land.
+
+create table if not exists public.job_submissions (
+  id             uuid primary key default gen_random_uuid(),
+  title          text not null,
+  company_name   text not null,
+  apply_url      text not null,
+  contact_email  text not null,
+  description_html text not null default '',
+  is_featured    boolean not null default false,
+  status         text not null default 'pending',
+  created_at     timestamptz not null default now()
+);
+
+create index if not exists job_submissions_status_idx on public.job_submissions (status, created_at desc);
+
+create or replace function public.submit_job(
+  p_title text,
+  p_company_name text,
+  p_apply_url text,
+  p_contact_email text,
+  p_description_html text,
+  p_is_featured boolean
+)
+returns public.job_submissions
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_row public.job_submissions;
+begin
+  if coalesce(trim(p_title), '') = '' or coalesce(trim(p_company_name), '') = '' then
+    raise exception 'title and company are required';
+  end if;
+  if p_apply_url !~* '^https?://' then
+    raise exception 'apply_url must be http(s)';
+  end if;
+  if coalesce(trim(p_contact_email), '') !~ '^[^@\s]+@[^@\s]+\.[^@\s]+$' then
+    raise exception 'invalid contact email';
+  end if;
+
+  -- Same posting twice in quick succession (double-clicked submit) collapses
+  -- into the first row rather than creating duplicate review work.
+  select * into v_row from public.job_submissions
+   where lower(company_name) = lower(trim(p_company_name))
+     and lower(title) = lower(trim(p_title))
+     and created_at > now() - interval '10 minutes'
+   limit 1;
+  if found then
+    return v_row;
+  end if;
+
+  insert into public.job_submissions (title, company_name, apply_url, contact_email, description_html, is_featured)
+  values (left(trim(p_title), 300), left(trim(p_company_name), 200), p_apply_url,
+          lower(trim(p_contact_email)), coalesce(p_description_html, ''), coalesce(p_is_featured, false))
+  returning * into v_row;
+
+  return v_row;
+end;
+$$;
