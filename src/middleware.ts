@@ -15,6 +15,22 @@ function hasRawNonAscii(path: string): boolean {
 }
 
 /**
+ * Does this path survive percent-decoding?
+ *
+ * Returns false for sequences that are not valid UTF-8 — a lone %E9, a
+ * truncated %C3, a stray %FF — which are exactly the inputs that make
+ * decodeURIComponent throw further down the request.
+ */
+function isDecodable(path: string): boolean {
+  try {
+    decodeURIComponent(path);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Edge fixes applied before routing.
  *
  * 1. Path normalisation. A URL carrying raw, un-percent-encoded non-ASCII —
@@ -39,6 +55,20 @@ function hasRawNonAscii(path: string): boolean {
  */
 export function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
+
+  // A path whose percent-encoding does not decode to valid UTF-8 — /jobs/%E9,
+  // /jobs/%FF, a truncated /jobs/%C3 — makes decodeURIComponent throw inside
+  // Next's dynamic-segment decoding. That happens below the App Router, so
+  // neither notFound() nor error.tsx can catch it and the visitor gets a bare
+  // "500: Internal Server Error". Answer it here, before routing.
+  if (!isDecodable(pathname)) {
+    const url = req.nextUrl.clone();
+    // An unmatched path renders the app's own not-found with a 404 status, and
+    // rewrite (not redirect) keeps the bad URL visible rather than laundering it.
+    url.pathname = "/__malformed-url";
+    url.search = "";
+    return NextResponse.rewrite(url);
+  }
 
   if (hasRawNonAscii(pathname)) {
     const url = req.nextUrl.clone();
