@@ -42,6 +42,29 @@ function cleanDesc(html: string | undefined | null): string {
   return VENDOR_BOILERPLATE.test(html || "") ? "" : html || "";
 }
 
+/**
+ * Aggregator excerpt length.
+ *
+ * These 2,500-odd listings sat at the full 1,400-character cap and accounted for
+ * 3.5 MB of the 5 MB of description text in the bundle — with the dataset inlined
+ * several times by the bundler, that was most of the gap between a 9.6 MB worker
+ * and the 10 MB ceiling. A shorter excerpt buys back the headroom; the apply link
+ * still goes to the employer's full posting, which the page already points to.
+ */
+const AGG_EXCERPT = 520;
+
+const TAGS = new RegExp("<[^>]+>", "g");
+const WHITESPACE = new RegExp("[ \\t\\r\\n]+", "g");
+const TRAILING_WORD = new RegExp("[ \\t\\r\\n]+[^ \\t\\r\\n]*$");
+
+function excerptAt(html: string, limit: number): string {
+  const t = (html || "").replace(TAGS, " ").replace(WHITESPACE, " ").trim();
+  if (!t) return "";
+  if (t.length <= limit) return `<p>${t}</p>`;
+  // Cut back to a word boundary so the excerpt never ends mid-word.
+  return `<p>${t.slice(0, limit).replace(TRAILING_WORD, "")}…</p>`;
+}
+
 function excerpt(html: string): string {
   const t = (html || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
   return t ? `<p>${t.slice(0, 1400)}${t.length > 1400 ? "…" : ""}</p>` : "";
@@ -212,7 +235,7 @@ const flexJobs: Job[] = ([...(flexRoles as FlexRec[]), ...(remoteJobsRoles as Fl
       company_name: rec.company.trim(),
       company_domain: cleanDomain(rec.domain),
       title: rec.title.trim(),
-      description_html: cleanDesc(rec.desc) || `<p>${rec.title.trim()} at ${rec.company.trim()}. See the full description and apply directly on the company's job page.</p>`,
+      description_html: excerptAt(cleanDesc(rec.desc), AGG_EXCERPT) || `<p>${rec.title.trim()} at ${rec.company.trim()}. See the full description and apply directly on the company's job page.</p>`,
       apply_url: rec.apply,
       location_raw: rec.location,
       employment_type: (rec.employment === "Part-Time" || rec.employment === "Contract" ? rec.employment : "Full-Time") as Job["employment_type"],
