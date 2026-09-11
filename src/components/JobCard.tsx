@@ -59,7 +59,7 @@ export function JobCard({
   return (
     <Link
       href={`/jobs/${job.slug}`}
-      className={`group relative flex scroll-mt-24 items-start gap-4 rounded-xl border p-5 transition-colors duration-150 ${
+      className={`group relative flex scroll-mt-24 items-start gap-4 overflow-hidden rounded-xl border p-5 transition-colors duration-150 ${
         inactive
           ? "border-ink-100 bg-ink-50/60 opacity-75"
           : job.is_featured
@@ -67,14 +67,19 @@ export function JobCard({
             : "border-ink-100 bg-white hover:border-ink-200 hover:bg-ink-50"
       }`}
     >
+      {/* Paid placement marker. Decorative, behind the content (see globals.css),
+          and dropped entirely on inactive cards so a closed listing never looks
+          promoted. */}
+      {!inactive && job.is_featured && <span aria-hidden className="featured-sweep" />}
+
       <CompanyLogo
         src={job.company_logo}
         name={job.company_name}
         domain={job.company_domain}
-        className="h-11 w-11 flex-shrink-0 rounded-lg border border-ink-100 bg-white object-contain p-1"
+        className="relative z-[1] h-11 w-11 flex-shrink-0 rounded-lg border border-ink-100 bg-white object-contain p-1"
       />
 
-      <div className="min-w-0 flex-1">
+      <div className="relative z-[1] min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           {inactive && (
             <span className="inline-flex items-center gap-1 rounded-md bg-ink-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-ink-500 ring-1 ring-inset ring-ink-200">
@@ -149,7 +154,7 @@ export function JobCard({
         </div>
       </div>
 
-      <div className="hidden flex-shrink-0 flex-col items-end gap-1.5 sm:flex">
+      <div className="relative z-[1] hidden flex-shrink-0 flex-col items-end gap-1.5 sm:flex">
         {salary && tier ? (
           <span title={tier.hint} className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold ring-1 ring-inset ring-ink-100 ${tier.chip}`}>
             {salary}

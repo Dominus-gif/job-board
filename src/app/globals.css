@@ -327,3 +327,62 @@ select { accent-color: #2383e2; }
 .dark .border-slate-300 { border-color: rgba(255, 255, 255, 0.14) !important; }
 .dark .text-slate-400 { color: rgba(255, 255, 255, 0.46) !important; }
 .dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]) { border-color: rgba(255, 255, 255, 0.094) !important; }
+
+/* ---------------------------------------------------------------------------
+   Featured listings — animated highlight sweep.
+
+   Marks paid placement with a slow gradient travelling across the card. The
+   reference artwork was designed on a dark surface using `screen` blending;
+   that washes out on a light card, so each theme gets its own treatment rather
+   than one gradient forced to serve both.
+
+   The sweep sits at z-0 behind the card's content (each direct child is lifted
+   to z-[1]) so it can never reduce text contrast. It is decorative only and is
+   hidden from assistive tech.
+
+   The global prefers-reduced-motion rule already clamps the animation to
+   0.01ms, which leaves a static tint rather than a stopped-mid-sweep artefact.
+--------------------------------------------------------------------------- */
+@keyframes featured-sweep {
+  0%   { background-position: 150% 0; }
+  100% { background-position: -150% 0; }
+}
+
+.featured-sweep {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background-size: 300% 100%;
+  animation: featured-sweep 16.8s linear infinite;
+  /* Light surface: a translucent wash. Blending modes would either vanish or
+     muddy the card here, so this is a plain low-alpha overlay. */
+  background-image: linear-gradient(
+    90deg,
+    rgba(37, 99, 235, 0) 0%,
+    rgba(37, 99, 235, 0.07) 22%,
+    rgba(37, 99, 235, 0.16) 40%,
+    rgba(59, 130, 246, 0.22) 50%,
+    rgba(37, 99, 235, 0.16) 60%,
+    rgba(37, 99, 235, 0.07) 78%,
+    rgba(37, 99, 235, 0) 100%
+  );
+}
+
+/* Dark surface: the reference treatment — saturated blues lifted with `screen`
+   so the card glows rather than being painted over. */
+.dark .featured-sweep {
+  background-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    #001a60 20%,
+    #0044d6 40%,
+    #0077ff 50%,
+    #0044d6 60%,
+    #001a60 80%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}

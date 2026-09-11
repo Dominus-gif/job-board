@@ -189,7 +189,7 @@ export function Footer() {
 
           {/* — Section two: the closing line, then the legal row — */}
           <p className="font-editorial text-[clamp(2.6rem,10vw,7.5rem)] leading-[0.92] tracking-[-0.02em] text-white">
-            Work from <em className="italic">anywhere</em>
+            Remote jobs for <em className="italic">Everyone!</em>
           </p>
 
           <div className="mt-14 flex flex-col gap-4 text-xs text-ink-400 sm:flex-row sm:items-center sm:justify-between">
