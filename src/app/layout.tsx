@@ -101,6 +101,12 @@ gtag('config', '${GA_ID}');`}
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE.client}`}
             crossOrigin="anonymous"
+            /* Deliberately left at afterInteractive while AdSense review is
+               pending: this script IS the verification mechanism, and deferring
+               it to idle risks a reviewer's fetch not finding it. The advisor's
+               own measurement puts TBT at 50ms, so the win is small and the
+               downside is an approval delay. Worth switching to lazyOnload once
+               the account is approved and ad slots are live. */
             strategy="afterInteractive"
           />
         )}
