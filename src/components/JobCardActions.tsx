@@ -22,7 +22,7 @@ export function JobCardActions({ job }: { job: Job }) {
   }
 
   const base =
-    "flex h-11 w-11 items-center justify-center rounded-md border border-ink-100 bg-white text-ink-400 transition hover:border-ink-200 hover:text-ink-700";
+    "flex h-11 w-11 items-center justify-center rounded-md border border-ink-300 bg-white text-ink-500 transition hover:border-ink-400 hover:bg-ink-50 hover:text-ink-900";
 
   return (
     <div className="flex items-center gap-2">

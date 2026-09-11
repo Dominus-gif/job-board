@@ -155,7 +155,7 @@ export function JobCard({
             {salary}
           </span>
         ) : (
-          <span className="rounded-md bg-ink-50 px-2.5 py-1 text-xs text-ink-500 ring-1 ring-inset ring-ink-100">
+          <span className="rounded-md bg-ink-50 px-2.5 py-1 text-xs text-ink-600 ring-1 ring-inset ring-ink-300">
             Salary undisclosed
           </span>
         )}
