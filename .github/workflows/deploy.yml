@@ -40,7 +40,7 @@ jobs:
       NEXT_PUBLIC_ADSENSE_INFEED_SLOT: ${{ vars.NEXT_PUBLIC_ADSENSE_INFEED_SLOT }}
       # The build prerenders hundreds of pages and each worker parses ~9k job
       # records; the default heap is not enough.
-      NODE_OPTIONS: --max-old-space-size=4096
+      NODE_OPTIONS: --max-old-space-size=6144
 
     steps:
       - uses: actions/checkout@v5

@@ -16,6 +16,7 @@ import { toPublishedJob } from "../src/lib/pipeline";
 import curated from "../src/lib/seed/curated.json";
 import roles from "../src/lib/seed/curated-roles.json";
 import flexRoles from "../src/lib/seed/flexjobs-roles.json";
+import remoteJobsRoles from "../src/lib/seed/remotejobs-roles.json";
 import realSlugs from "../src/lib/seed/real-company-slugs.json";
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -196,7 +197,9 @@ interface FlexRec {
   apply: string; location: string; scope: "regional" | "worldwide";
   salary: string; posted: string; employment: string;
 }
-const flexJobs: Job[] = (flexRoles as FlexRec[])
+// Both aggregator imports share a record shape and the same handling: real
+// posted dates, real employment types, and regional scope by construction.
+const flexJobs: Job[] = ([...(flexRoles as FlexRec[]), ...(remoteJobsRoles as FlexRec[])])
   .filter((rec) => {
     if (JUNK_TITLE.test(rec.title)) return false;
     if (!attributionTrusted({ company: rec.company, apply: rec.apply } as RoleRec)) { droppedAttribution++; return false; }
@@ -223,7 +226,7 @@ const flexJobs: Job[] = (flexRoles as FlexRec[])
 const all = [...roleJobs, ...dirJobs, ...flexJobs];
 const OUT = join(process.cwd(), "src", "lib", "generated", "curated-jobs.json");
 writeFileSync(OUT, JSON.stringify(all));
-console.log(`[curated] wrote ${all.length} prebuilt curated jobs (${roleJobs.length} real roles + ${dirJobs.length} directory + ${flexJobs.length} flexjobs) to generated/curated-jobs.json`);
+console.log(`[curated] wrote ${all.length} prebuilt curated jobs (${roleJobs.length} real roles + ${dirJobs.length} directory + ${flexJobs.length} aggregator) to generated/curated-jobs.json`);
 console.log(`[curated] dropped ${droppedAttribution} listing(s) whose employer could not be verified against the ATS board in their apply URL`);
 
 } catch (err) {
