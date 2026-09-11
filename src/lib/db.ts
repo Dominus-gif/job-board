@@ -166,16 +166,32 @@ function joinWords(items: string[]): string {
  * than invent marketing copy about real employers, this states what their own
  * listings show: how many roles, in which functions, and open to whom.
  */
-function describeFromJobs(name: string, count: number, worldwide: number, cats: Map<string, number>, places: Map<string, number>): string {
+/** Countries that read wrong without a definite article. */
+const NEEDS_THE = new Set(["United States", "United Kingdom", "Netherlands", "Philippines", "United Arab Emirates", "Czech Republic"]);
+
+/** Listing locations carry noise like "United States (Remote)" — the board is
+ *  entirely remote, so the qualifier is redundant in a blurb. */
+function tidyPlace(raw: string): string {
+  const s = raw
+    .replace(/\s*\([^)]*\)\s*/g, " ")          // "United States (Remote)"
+    .replace(/^\s*remote\s*[-–—:,/]\s*/i, "")  // "Remote - United States"
+    .replace(/\s*[-–—,/]\s*remote\s*$/i, "")   // "United States - Remote"
+    .replace(/\s+/g, " ")
+    .trim();
+  return NEEDS_THE.has(s) ? `the ${s}` : s;
+}
+
+function describeFromJobs(count: number, worldwide: number, cats: Map<string, number>, places: Map<string, number>): string {
   const roles = `${count} open remote ${count === 1 ? "role" : "roles"}`;
   const fields = joinWords(topOf(cats, 2));
-  const where =
-    worldwide === count ? "open to candidates anywhere in the world"
-    : worldwide > 0 ? `${worldwide} open worldwide`
-    : (() => { const p = topOf(places, 2); return p.length ? `hiring in ${joinWords(p)}` : ""; })();
+  const lead = `${roles}${fields ? ` in ${fields}` : ""}`;
 
-  const parts = [`${roles}${fields ? ` in ${fields}` : ""}`, where].filter(Boolean);
-  return `${name} — ${parts.join(", ")}.`;
+  if (worldwide === count) return `${lead}, open to candidates anywhere in the world.`;
+  if (worldwide > 0) return `${lead} — ${worldwide} of them open worldwide.`;
+
+  const seen = new Set<string>();
+  const where = topOf(places, 4).map(tidyPlace).filter((p) => p && !seen.has(p) && seen.add(p)).slice(0, 2);
+  return where.length ? `${lead}, hiring in ${joinWords(where)}.` : `${lead}.`;
 }
 
 export async function getCompanies(): Promise<CompanyListing[]> {
@@ -211,7 +227,6 @@ export async function getCompanies(): Promise<CompanyListing[]> {
   for (const entry of map.values()) {
     if (entry.description?.trim()) continue; // a hand-written blurb always wins
     entry.description = describeFromJobs(
-      entry.name,
       entry.jobCount,
       entry.worldwideCount,
       cats.get(entry.slug) ?? new Map(),
