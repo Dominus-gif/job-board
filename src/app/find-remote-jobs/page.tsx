@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PopularLocations } from "@/components/PopularLocations";
 import { getSearchableJobs } from "@/lib/db";
 import { abs } from "@/lib/site";
-import { categoriesByCount, categoryHref, POPULAR_LOCATIONS, HUB_LINKS } from "@/lib/seo-hubs";
+import { categoriesByCount, categoryHref, HUB_LINKS } from "@/lib/seo-hubs";
 import { AnywhereVsRegional } from "@/components/AnywhereVsRegional";
 import { SeoHubLinks } from "@/components/SeoHubLinks";
 import { SearchIcon, ArrowUpRightIcon } from "@/components/icons";
@@ -94,20 +95,10 @@ export default async function FindRemoteJobsPage() {
           </div>
         </section>
 
-        {/* Top locations */}
+        {/* Top locations. Anchor text is the search phrase, not the bare
+            place name — see PopularLocations. */}
         <section>
-          <h2 className="mb-4 font-display text-xl font-bold text-ink-900">Browse by location</h2>
-          <div className="flex flex-wrap gap-2">
-            {POPULAR_LOCATIONS.map((l) => (
-              <Link
-                key={l.slug}
-                href={`/${l.slug}`}
-                className="rounded-full border border-ink-100 bg-white px-4 py-2 text-sm font-medium text-ink-700 transition hover:border-brand-300 hover:text-brand-700"
-              >
-                Remote jobs in {l.label}
-              </Link>
-            ))}
-          </div>
+          <PopularLocations heading="Browse by location" />
         </section>
 
         {/* Other hubs */}

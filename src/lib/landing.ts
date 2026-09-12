@@ -23,6 +23,7 @@ import {
 } from "./db";
 import { jobRegions } from "./region";
 import { topCategoryLabels } from "./seo-hubs";
+import { locationSeoFor, type LocationSeo } from "./seo/locations";
 import { toText } from "./pipeline/text";
 
 export interface FaqItem {
@@ -48,6 +49,10 @@ export interface LandingView {
   showScopeExplainer?: boolean; // render the Anywhere-vs-Regional card (geo pages)
   /** Emit FAQPage + BreadcrumbList JSON-LD (work-from-anywhere cluster hubs). */
   emitRichSchema?: boolean;
+  /** Line under the h1 — carries the live count once the h1 drops it. */
+  subtitle?: string;
+  /** Render FAQ questions as h2 rather than h3 (location + cluster hubs). */
+  faqHeadingLevel?: 2 | 3;
 }
 
 const BASE_FAQ: FaqItem[] = [
@@ -510,34 +515,113 @@ async function geoJobs(cfg: GeoConfig): Promise<Job[]> {
   return [...worldwide, ...matched];
 }
 
+/**
+ * FAQ block for a location hub.
+ *
+ * Every phrase in the hub's `variants` list has to appear somewhere a reader
+ * can see it, because that is the whole mechanism: one canonical page covering
+ * a family of queries instead of one thin page per phrase. They are woven into
+ * answers rather than listed, and each question is a real one someone types.
+ *
+ * Answers are plain text and are reused verbatim in the FAQPage JSON-LD, so
+ * what Google is shown and what a visitor reads are the same string.
+ */
+function locationFaq(loc: LocationSeo, cfg: GeoConfig, jobs: Job[]): FaqItem[] {
+  const total = jobs.length.toLocaleString("en-US");
+  const anywhere = jobs.filter((j) => j.scope === "worldwide").length;
+  const anywhereStr = anywhere.toLocaleString("en-US");
+  const alias = loc.aliases[0];
+  const wfhVariant = loc.variants.find((v) => v.startsWith("work from home")) ?? `work from home jobs ${loc.cityName}`;
+  const aliasVariants = alias
+    ? loc.variants.filter((v) => v.toLowerCase().includes(alias.toLowerCase()))
+    : [];
+
+  const faq: FaqItem[] = [
+    {
+      q: `What are work from home jobs in ${cfg.place}?`,
+      a: `They are the same ${total} listings you see on this page. A "${wfhVariant}" search and a "${loc.variants[0]}" search return the same thing here, because every role on this board is done from home — there is no office to go into. ${anywhereStr} of them carry no location requirement at all, so you can take one from anywhere in ${cfg.place}.`,
+    },
+    {
+      q: `Are there remote jobs in ${cfg.place} with no location requirement?`,
+      a: `Yes — ${anywhereStr} of the ${total} roles here name no country, region or timezone at all. The rest hire specifically across ${cfg.short} and are labelled on each card, so you can tell the two apart before you apply.`,
+      links: [{ href: "/work-from-anywhere-jobs", label: "Browse no-location-required jobs" }],
+    },
+    {
+      q: `Do you list hybrid or office-based jobs in ${cfg.place}?`,
+      a: `No. Every listing is fully remote and is pulled from the employer's own careers page or hiring system. A role that asks for days in an office, or describes itself as hybrid, is rejected before it reaches this page — which is why this board is smaller than a general job site's.`,
+    },
+    {
+      q: `How many remote jobs in ${cfg.place} are open right now?`,
+      a: `${total} as of today. Listings are refreshed from company hiring systems every night and roles that have closed drop off, so the number on this page is what is actually open rather than an archive.`,
+    },
+  ];
+
+  // Every phrase in the matrix has to end up somewhere a reader can see it —
+  // that is the entire trade for not giving each one its own URL. Whatever the
+  // questions above did not already say gets answered here, in the one place
+  // where listing the phrasings is the honest answer to the question asked.
+  const said = faq.map((f) => `${f.q} ${f.a}`).join(" ").toLowerCase();
+  const uncovered = loc.variants.filter((v) => !said.includes(v.toLowerCase()));
+  if (uncovered.length > 0) {
+    const quoted = uncovered.map((v) => `"${v}"`).join(", ");
+    faq.push(
+      alias && aliasVariants.length > 0
+        ? {
+            q: `Is "${aliasVariants[0]}" the same as "${loc.variants[0]}"?`,
+            a: `Yes. ${alias} and ${loc.cityName} are the same place to us, so ${quoted} all land on this page. We match on the location an employer wrote in the listing, not on the words you typed into a search box.`,
+          }
+        : {
+            q: `Do other ${loc.cityName} searches find the same jobs?`,
+            a: `Yes — ${quoted} all land on this page, because they describe the same thing: the ${total} fully remote roles open to someone in ${loc.cityName}. We match on the location an employer wrote in the listing, not on the words you typed into a search box.`,
+          }
+    );
+  }
+
+  return [...faq, ...BASE_FAQ];
+}
+
 function geoView(cfg: GeoConfig, jobs: Job[]): LandingView {
-  // Counted title mirroring the captured Google pattern ("N Remote Jobs in X").
   // Count = jobs actually rendered (worldwide + region-matched), so it stays
-  // live and unique per location. H1 mirrors the title without the suffix.
+  // live and unique per location.
   const count = jobs.length;
   const countStr = count.toLocaleString("en-US");
+  const anywhere = jobs.filter((j) => j.scope === "worldwide").length.toLocaleString("en-US");
   const topCats = topCategoryLabels(jobs, 3);
-  const catStr = topCats.length ? ` — ${topCats.join(", ")} roles` : "";
-  const countedTitle = `${countStr} Remote Jobs in ${cfg.place}`;
+  const catStr = topCats.length ? ` ${topCats.join(", ")} and more.` : "";
+  const loc = locationSeoFor(cfg.slug);
+
+  // The h1 is the bare query phrase — "Remote Jobs in Seattle" — and the count
+  // moves to the line under it. The title keeps the count, which is what makes
+  // each hub's title unique in the SERP as well as descriptive.
+  const heading = `Remote Jobs in ${cfg.place}`;
+  const metaTitle = `${countStr} Remote Jobs in ${cfg.place} | Work From Home`;
+
+  // Description carries the primary variant and a second one naturally, and is
+  // honest about the split: not every role here is location-free.
+  const metaDescription = loc
+    ? `${countStr} remote and work-from-home jobs open to candidates in ${cfg.place} — ${anywhere} with no location requirement.${catStr} Updated daily.`
+    : `${countStr} remote jobs open to candidates in ${cfg.place}.${catStr} Updated daily.`;
+
   return {
     slug: cfg.slug,
-    title: countedTitle,
-    metaTitle: `${countedTitle} | Work From Home`,
-    metaDescription: `${countStr} remote jobs open to candidates in ${cfg.place}${catStr}. Work from anywhere, plus roles hiring in ${cfg.short}. Updated daily.`,
+    title: heading,
+    subtitle: `${countStr} open roles · ${anywhere} with no location requirement`,
+    metaTitle,
+    metaDescription,
     intro: cfg.intro,
     jobs,
     showScopeExplainer: true,
-    faq: [
-      {
-        q: `Can I really do these remote jobs from ${cfg.place}?`,
-        a: `Yes. Every worldwide role on this page has no country, work-authorization, or timezone requirement, so you can do it from anywhere in ${cfg.place}. We also include roles that hire specifically in ${cfg.short}, clearly labelled on each card.`,
-      },
-      {
-        q: `Are these remote jobs in ${cfg.short} open to applicants right now?`,
-        a: `Yes — listings are pulled continuously from company hiring systems and refreshed automatically, so what you see is currently open. You apply free, directly on the employer's site.`,
-      },
-      ...BASE_FAQ,
-    ],
+    emitRichSchema: true,
+    faqHeadingLevel: 2,
+    faq: loc
+      ? locationFaq(loc, cfg, jobs)
+      : [
+          {
+            q: `Can I really do these remote jobs from ${cfg.place}?`,
+            a: `Yes. Every worldwide role on this page has no country, work-authorization, or timezone requirement, so you can do it from anywhere in ${cfg.place}. We also include roles that hire specifically in ${cfg.short}, clearly labelled on each card.`,
+          },
+          ...BASE_FAQ,
+        ],
     rss: `/${cfg.slug}/rss.xml`,
   };
 }

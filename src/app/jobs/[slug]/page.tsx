@@ -7,6 +7,7 @@ import { formatSalary, salaryTier } from "@/lib/salary";
 import { formatDate, daysUntil } from "@/lib/format";
 import { abs } from "@/lib/site";
 import { jobPostingJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
+import { cityHubForLocation, hubPath } from "@/lib/seo/locations";
 import { categoryToSlug } from "@/lib/taxonomy";
 import { JobList } from "@/components/JobList";
 import { ScamNotice, ReferralNudge } from "@/components/ScamNotice";
@@ -326,6 +327,45 @@ export default async function JobPage(props: { params: Promise<{ slug: string }>
             </div>
           </aside>
         </div>
+
+        {/* Back to the location hub this role belongs to. Thousands of
+            listing pages each sending one exact-match link is what gives a
+            city hub its internal authority; a worldwide role has no city, so
+            it gets the no-location-required hub instead. */}
+        {(() => {
+          const city = cityHubForLocation(job.scope === "regional" ? job.location : undefined);
+          return (
+            <section className="mt-16 rounded-2xl border border-ink-100 bg-ink-50 p-5 sm:p-6">
+              <p className="text-[15px] leading-relaxed text-ink-600">
+                {city ? (
+                  <>
+                    More {city.cityName} roles:{" "}
+                    <Link href={hubPath(city)} className="font-semibold text-brand-700 underline-offset-2 hover:underline">
+                      {city.cityName} remote jobs
+                    </Link>{" "}
+                    — or skip the location entirely and browse{" "}
+                    <Link href="/work-from-anywhere-jobs" className="font-semibold text-brand-700 underline-offset-2 hover:underline">
+                      no-location-required jobs
+                    </Link>
+                    .
+                  </>
+                ) : (
+                  <>
+                    This role has no location requirement. Browse every{" "}
+                    <Link href="/work-from-anywhere-jobs" className="font-semibold text-brand-700 underline-offset-2 hover:underline">
+                      no-location-required job
+                    </Link>{" "}
+                    on the board, or see all{" "}
+                    <Link href="/fully-remote-jobs" className="font-semibold text-brand-700 underline-offset-2 hover:underline">
+                      fully remote jobs
+                    </Link>
+                    .
+                  </>
+                )}
+              </p>
+            </section>
+          );
+        })()}
 
         {/* Similar jobs */}
         {similar.length > 0 && (

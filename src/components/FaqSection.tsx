@@ -7,16 +7,25 @@ export function FaqSection({
   items,
   title = "Frequently asked questions",
   subtitle = "Everything you need to know about how truly location-independent jobs work here.",
+  headingLevel = 3,
 }: {
   items: FaqItem[];
   title?: string;
   subtitle?: string;
+  /** 2 puts each question at h2 — used where the questions ARE the content. */
+  headingLevel?: 2 | 3;
 }) {
   return (
     <div className="grid gap-8 lg:grid-cols-5 lg:gap-14">
       <div className="lg:col-span-2">
         <span className="eyebrow">FAQ</span>
-        <h2 className="mt-2 font-display text-2xl font-extrabold text-ink-900 md:text-3xl">{title}</h2>
+        {/* When the questions are h2, this label steps aside so the outline
+            stays h1 -> h2 rather than nesting a heading inside a heading. */}
+        {headingLevel === 2 ? (
+          <p className="mt-2 font-display text-2xl font-extrabold text-ink-900 md:text-3xl">{title}</p>
+        ) : (
+          <h2 className="mt-2 font-display text-2xl font-extrabold text-ink-900 md:text-3xl">{title}</h2>
+        )}
         <p className="mt-3 leading-relaxed text-ink-500">{subtitle}</p>
         <div className="mt-6 rounded-2xl border border-ink-100 bg-white p-5 shadow-card">
           <p className="font-display font-bold text-ink-900">Still have questions?</p>
@@ -25,7 +34,7 @@ export function FaqSection({
         </div>
       </div>
       <div className="lg:col-span-3">
-        <Faq items={items} />
+        <Faq items={items} headingLevel={headingLevel} />
       </div>
     </div>
   );

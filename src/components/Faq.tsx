@@ -8,12 +8,13 @@ import type { FaqItem } from "@/lib/landing";
  * An answer is plain text so it can be reused verbatim in FAQPage JSON-LD;
  * anything an answer wants to link to is listed under it instead.
  */
-export function Faq({ items }: { items: FaqItem[] }) {
+export function Faq({ items, headingLevel = 3 }: { items: FaqItem[]; headingLevel?: 2 | 3 }) {
+  const Q = headingLevel === 2 ? "h2" : "h3";
   return (
     <div className="divide-y divide-ink-100 border-t border-ink-100">
       {items.map((item, i) => (
         <div key={i} className="py-5 first:pt-0">
-          <h3 className="font-display text-[15px] font-semibold text-ink-900">{item.q}</h3>
+          <Q className="font-display text-[15px] font-semibold text-ink-900">{item.q}</Q>
           <p className="mt-1.5 text-[15px] leading-relaxed text-ink-600">{item.a}</p>
           {item.links && item.links.length > 0 && (
             <p className="mt-2 flex flex-wrap gap-x-5 gap-y-1">

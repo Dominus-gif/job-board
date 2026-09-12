@@ -83,6 +83,11 @@ export default async function LandingPage(props: { params: Promise<{ landing: st
         <header className="mx-auto max-w-6xl px-4 py-12">
           <span className="eyebrow">Curated collection</span>
           <h1 className="mt-3 max-w-3xl font-display text-3xl font-extrabold text-ink-900 md:text-4xl">{view.title}</h1>
+          {/* The location hubs keep the live count in the title tag but not in
+              the h1, which is the bare query phrase — so it lands here. */}
+          {view.subtitle && (
+            <p className="mt-2 font-mono text-sm font-medium text-ink-500">{view.subtitle}</p>
+          )}
           <p className="mt-3 max-w-2xl text-lg leading-relaxed text-ink-500">{view.intro}</p>
         </header>
       </section>
@@ -124,7 +129,7 @@ export default async function LandingPage(props: { params: Promise<{ landing: st
         )}
 
         <section className="py-16">
-          <FaqSection items={view.faq} />
+          <FaqSection items={view.faq} headingLevel={view.faqHeadingLevel ?? 3} />
         </section>
       </div>
     </div>

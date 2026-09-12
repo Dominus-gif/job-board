@@ -17,14 +17,14 @@ export function WfaCrossLinks() {
         <div className="flex items-start gap-3">
           <GlobeIcon className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-600" />
           <p className="text-[15px] leading-relaxed text-ink-600">
-            Prefer no location requirement at all?{" "}
+            Prefer no location requirement at all? Browse{" "}
             <Link
               href="/work-from-anywhere-jobs"
               className="font-semibold text-brand-700 underline-offset-2 hover:underline"
             >
-              Browse work from anywhere jobs
+              no-location-required jobs
             </Link>{" "}
-            — roles with no country, region or timezone gate, or see every{" "}
+            — roles with no country, region or timezone gate — or see every{" "}
             <Link
               href="/fully-remote-jobs"
               className="font-semibold text-brand-700 underline-offset-2 hover:underline"

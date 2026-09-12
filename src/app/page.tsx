@@ -5,6 +5,7 @@ import { FEATURES, SUPABASE } from "@/lib/site";
 import { categoryToSlug } from "@/lib/taxonomy";
 import { JobList } from "@/components/JobList";
 import { JobBoard } from "@/components/JobBoard";
+import { PopularLocations } from "@/components/PopularLocations";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { RoleSubscribeForm } from "@/components/RoleSubscribeForm";
 import { FaqSection } from "@/components/FaqSection";
@@ -197,6 +198,11 @@ export default async function HomePage() {
             </section>
           );
         })}
+
+        {/* Location hubs, linked by the phrase people actually search. */}
+        <section className="pt-16">
+          <PopularLocations />
+        </section>
 
         {/* FAQ */}
         <section className="py-16">
