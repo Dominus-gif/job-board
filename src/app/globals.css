@@ -359,12 +359,12 @@ select { accent-color: #2383e2; }
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  border-radius: inherit;
-  overflow: hidden;
-  /* No translateZ/contain here. Those were added speculatively to chase phone
-     flicker and never measured; forcing an extra composited layer with a
-     rounded clip on every featured card in a list is as likely to cause layer
-     churn as to cure it. The motion is gated below instead. */
+  /* No clip of its own. The card this sits in is already
+     `overflow-hidden rounded-xl`, so this element was wrapping the animated
+     strip in a SECOND rounded clip — nested rounded overflow around a
+     composited, moving child is the combination phone GPUs render wrong, and
+     it is where the flicker and torn corners came from. One clip is enough,
+     and the card owns it. */
 }
 
 .featured-sweep::before {
@@ -375,9 +375,7 @@ select { accent-color: #2383e2; }
   width: 200%;
   background-repeat: repeat-x;
   background-size: 50% 100%;
-  /* At rest the strip sits at its origin, which puts one whole cycle across the
-     card: floor at both edges, peak in the middle. That is a deliberate static
-     composition, not a stopped animation — see the media query below. */
+  animation: featured-sweep 10.5s linear infinite;
   /* The ramp runs from a FLOOR up to a peak and back, never to transparent.
      That matters most on a phone: the tile is one card wide, and a card there
      is 358px against 838px on a desktop, so a ramp with transparent shoulders
@@ -512,10 +510,7 @@ select { accent-color: #2383e2; }
 }
 
 .gradient-bold-card__blob {
-  /* Static by default: centred and widened so the colour reaches both ends of
-     the card instead of sitting in one quadrant the way the moving blob does. */
-  width: 125%;
-  transform: translate3d(-50%, -50%, 0);
+  animation: gradient-bold-blob 9s linear infinite;
 }
 
 /* The card's neumorphic shadow is built for a light page; on the dark surface
@@ -525,31 +520,26 @@ select { accent-color: #2383e2; }
 }
 
 /* ---------------------------------------------------------------------------
-   Motion is opt-in, not opt-out.
+   Rounded clipping around a moving child.
 
-   Both of these effects animate a transform on a large, filtered, clipped
-   layer. That is the combination phone GPUs handle worst: the compositor has
-   to keep the layer resident, and under memory pressure it drops and
-   re-creates it, which reads as flicker and stutter rather than as a dropped
-   frame. It cannot be reproduced on a desktop GPU, so it cannot be chased by
-   measurement here — the honest fix is not to ask a phone to do it.
+   Both of these effects animate a transform inside a parent that rounds its
+   corners with `overflow: hidden`. WebKit clips that case on a fast path
+   rather than with a real mask, and against a composited, moving child it gets
+   it wrong — corners tear and the layer flickers. It is phone-GPU behaviour,
+   so it does not reproduce on a desktop and cannot be chased by measurement
+   here.
 
-   Pointer-fine devices with room on screen keep the motion. Everything else
-   gets the same gradient, held still, which cannot flicker and costs no
-   battery. `will-change` lives in here too: held permanently it pins GPU
-   memory for every featured card in a list, which is itself a cause.
+   This forces the mask-based path instead. Both stops are fully opaque, so as
+   a mask it changes no pixel; its only job is to make WebKit clip properly.
+   Ignored where it is not supported.
+
+   `will-change` is deliberately absent. A running transform animation already
+   gets its own layer; declaring it permanently pins GPU memory for every card
+   carrying one, and eviction under pressure is its own source of flicker.
 --------------------------------------------------------------------------- */
-@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
-  .featured-sweep::before {
-    animation: featured-sweep 10.5s linear infinite;
-    will-change: transform;
-  }
-
-  .gradient-bold-card__blob {
-    width: 55%;
-    animation: gradient-bold-blob 9s linear infinite;
-    will-change: transform;
-  }
+.featured-card,
+.gradient-bold-card {
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
 /* ---------------------------------------------------------------------------
