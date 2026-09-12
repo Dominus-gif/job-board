@@ -375,45 +375,49 @@ select { accent-color: #2383e2; }
   background-repeat: repeat-x;
   background-size: 50% 100%;
   animation: featured-sweep 10.5s linear infinite;
-  /* Light surface: a translucent wash. Blending modes would either vanish or
-     muddy the card here, so this is a plain overlay — but a saturated one, and
-     ramped over eleven stops so the edges of the band are not visible as
-     steps. Peak alpha is 0.36; see .featured-card below for why the card's
-     muted text is darkened to sit under it. */
+  /* The ramp runs from a FLOOR up to a peak and back, never to transparent.
+     That matters most on a phone: the tile is one card wide, and a card there
+     is 358px against 838px on a desktop, so a ramp with transparent shoulders
+     put most of the card IN its shoulder — the card visibly lurched between
+     half-dark and all-blue instead of a highlight crossing it. Holding a floor
+     means the card is always tinted and the sweep is a lift above it. Both ends
+     are the same value, so the tile still repeats seamlessly.
+
+     Peak alpha is 0.36 and remains the worst case for text contrast (the floor
+     is lighter, so it measures better); see .featured-card below for why the
+     card's muted text is darkened to sit under it. */
   background-image: linear-gradient(
     90deg,
-    rgba(59, 130, 246, 0) 0%,
-    rgba(59, 130, 246, 0.04) 10%,
-    rgba(59, 130, 246, 0.1) 20%,
-    rgba(59, 130, 246, 0.19) 30%,
-    rgba(59, 130, 246, 0.28) 40%,
+    rgba(59, 130, 246, 0.14) 0%,
+    rgba(59, 130, 246, 0.18) 15%,
+    rgba(59, 130, 246, 0.23) 30%,
+    rgba(59, 130, 246, 0.3) 42%,
     rgba(59, 130, 246, 0.36) 50%,
-    rgba(59, 130, 246, 0.28) 60%,
-    rgba(59, 130, 246, 0.19) 70%,
-    rgba(59, 130, 246, 0.1) 80%,
-    rgba(59, 130, 246, 0.04) 90%,
-    rgba(59, 130, 246, 0) 100%
+    rgba(59, 130, 246, 0.3) 58%,
+    rgba(59, 130, 246, 0.23) 70%,
+    rgba(59, 130, 246, 0.18) 85%,
+    rgba(59, 130, 246, 0.14) 100%
   );
 }
 
 /* Dark surface: the reference treatment — saturated blues lifted with `screen`
-   so the card glows rather than being painted over. The shoulders used to be a
-   near-black navy (#001a60), which under `screen` adds almost nothing and left
-   the whole band reading grey; the ramp is now chromatic from end to end. */
+   so the card glows rather than being painted over. Same floor-to-peak shape as
+   the light ramp and for the same reason; the floor is a real blue rather than
+   the near-black navy this used to start from, which under `screen` added
+   almost nothing and left the band reading grey. Floor measures 9.1:1 on the
+   title and 8.7:1 on the muted text, so the peak stays the worst case. */
 .dark .featured-sweep::before {
   background-image: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0) 0%,
-    #021035 10%,
-    #06216b 20%,
-    #0b36ad 30%,
-    #0f52dd 40%,
+    #0d3183 0%,
+    #0f3c9b 15%,
+    #1249b8 30%,
+    #1560d9 42%,
     #0077ff 50%,
-    #0f52dd 60%,
-    #0b36ad 70%,
-    #06216b 80%,
-    #021035 90%,
-    rgba(0, 0, 0, 0) 100%
+    #1560d9 58%,
+    #1249b8 70%,
+    #0f3c9b 85%,
+    #0d3183 100%
   );
   mix-blend-mode: screen;
   opacity: 0.68;
