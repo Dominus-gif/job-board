@@ -462,9 +462,16 @@ select { accent-color: #2383e2; }
   bottom: 0;
   z-index: 0;
   pointer-events: none;
-  /* 2.88:1 artwork; height is capped so it stays a band on tall viewports. */
-  aspect-ratio: 2000 / 694;
-  max-height: 52vh;
+  /* Width is set explicitly and the height is sized directly, with NO
+     aspect-ratio on the box. An earlier version used `aspect-ratio` plus
+     `max-height`, which looks equivalent and is not: once max-height clamps
+     the height, the ratio feeds back and shrinks the WIDTH to match, so on a
+     wide or short viewport the band stopped short of the right edge and left
+     a bare strip (1618px of band inside a 1920px footer). `cover` already
+     crops the photograph to whatever box it is given, so the box does not
+     need the artwork's proportions — it only needs to be a band. */
+  width: 100%;
+  height: min(52vh, clamp(16rem, 36vw, 36rem));
   /* The last three stops are in pixels, not percentages, because what they
      protect is at a fixed distance from the footer's bottom edge: the legal
      row sits ~88px up, and its 12px ink-400 type needs 4.5:1. Measured against
@@ -479,9 +486,9 @@ select { accent-color: #2383e2; }
       rgb(43, 42, 38) 0%,
       rgba(43, 42, 38, 0.9) 22%,
       rgba(43, 42, 38, 0.72) 52%,
-      rgba(43, 42, 38, 0.95) calc(100% - 140px),
-      rgba(43, 42, 38, 0.985) calc(100% - 70px),
-      rgba(43, 42, 38, 0.99) 100%
+      rgba(43, 42, 38, 0.955) calc(100% - 150px),
+      rgba(43, 42, 38, 0.99) calc(100% - 70px),
+      rgba(43, 42, 38, 0.995) 100%
     ),
     url("/footer-landscape.jpg");
   background-repeat: no-repeat, no-repeat;
