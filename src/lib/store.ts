@@ -72,10 +72,28 @@ const TRAILING_SLASH = new RegExp("/+$");
 /** Same posting from two sources? Match on the apply link first (the employer's
  *  own URL is the strongest identity), then company+title for feeds that rewrite
  *  their links. */
+const NON_ALNUM = new RegExp("[^a-z0-9]+", "g");
+
+/**
+ * Title reduced to its words. The same role reaching us from two sources is
+ * routinely punctuated differently — "Senior Sales Engineer (UK)" from one
+ * board, "Senior Sales Engineer - UK" from another — and comparing the raw
+ * strings let those through as two listings. Case and punctuation go; the
+ * words, including any region qualifier, stay, so "Engineer US" and
+ * "Engineer UK" still read as different jobs.
+ */
+function titleKey(title: string): string {
+  return title.trim().toLowerCase().replace(NON_ALNUM, " ").trim();
+}
+
 function identityKeys(j: Job): string[] {
   const keys: string[] = [];
   if (j.apply_url) keys.push("u:" + j.apply_url.trim().toLowerCase().replace(TRAILING_SLASH, ""));
-  if (j.company_name && j.title) keys.push("t:" + j.company_name.trim().toLowerCase() + "::" + j.title.trim().toLowerCase());
+  const t = j.company_name ? titleKey(j.title || "") : "";
+  // A title of entirely non-Latin script (Coupang posts in Korean) normalises
+  // to nothing. Keying on that would collapse every one of them into a single
+  // listing, so those fall back to the apply URL alone.
+  if (t) keys.push("t:" + j.company_name.trim().toLowerCase() + "::" + t);
   return keys;
 }
 

@@ -13,11 +13,13 @@ import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Job, RawJob } from "../src/lib/types";
 import { toPublishedJob } from "../src/lib/pipeline";
+import { classifyJob } from "../src/lib/pipeline/filter";
 import curated from "../src/lib/seed/curated.json";
 import roles from "../src/lib/seed/curated-roles.json";
 import flexRoles from "../src/lib/seed/flexjobs-roles.json";
 import remoteJobsRoles from "../src/lib/seed/remotejobs-roles.json";
 import capitalOneRoles from "../src/lib/seed/capitalone-roles.json";
+import ashbyRoles from "../src/lib/seed/ashby-roles.json";
 import realSlugs from "../src/lib/seed/real-company-slugs.json";
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -264,11 +266,77 @@ const flexJobs: Job[] = ([
     return { ...job, source: "manual", provider: undefined, board_token: undefined, ats_job_id: undefined };
   });
 
-const all = [...roleJobs, ...dirJobs, ...flexJobs];
+// ---------------------------------------------------------------------------
+// Ashby boards (55 employers, jobs.ashbyhq.com).
+//
+// These differ from the aggregator feeds above in one way that matters: every
+// apply URL is the employer's own Ashby board, so the listing is first-hand and
+// its stated location is the employer's own words. That makes it safe to let
+// the site's OWN classifier decide the scope — classifyJob() runs the same
+// strict work-from-anywhere filter the live scrape uses, so an Ashby role
+// reaches the worldwide board on exactly the terms every other role does, and
+// anything region-locked or not clearly remote is placed or dropped the same
+// way. Guessing the scope here instead would have been the one thing that
+// could quietly loosen the filter.
+//
+// Recurring postings (the same role listed once per territory) are already
+// collapsed in the seed, with the union of their locations kept.
+// ---------------------------------------------------------------------------
+interface AshbyRec {
+  company: string; domain: string | null; title: string; desc: string;
+  apply: string; location: string; employment: string; board: string;
+}
+let ashbyWorldwide = 0;
+let ashbyRegional = 0;
+let ashbyRejected = 0;
+const ashbyJobs: Job[] = [];
+(ashbyRoles as AshbyRec[]).forEach((rec, i) => {
+  if (JUNK_TITLE.test(rec.title)) return;
+  if (!attributionTrusted({ company: rec.company, apply: rec.apply } as RoleRec)) {
+    droppedAttribution++;
+    return;
+  }
+  const full = cleanDesc(rec.desc);
+  const raw: RawJob = {
+    external_id: `ashby:${i}`,
+    provider: "ashby",
+    company_name: rec.company.trim(),
+    company_domain: cleanDomain(rec.domain),
+    title: rec.title.trim(),
+    description_html:
+      excerptAt(full, AGG_EXCERPT) ||
+      `<p>${rec.title.trim()} at ${rec.company.trim()}. See the full description and apply directly on the company's job page.</p>`,
+    apply_url: rec.apply,
+    location_raw: rec.location,
+    employment_type: (rec.employment === "Part-Time" || rec.employment === "Contract"
+      ? rec.employment
+      : "Full-Time") as Job["employment_type"],
+    posted_at: new Date(Date.now() - ((i % 30) + 1) * DAY).toISOString(),
+  };
+  // Classify against the FULL description, not the stored excerpt. The excerpt
+  // is 520 characters; the sentence that says where a role can be done is
+  // routinely below that, and judging on the excerpt threw out a third of the
+  // feed as "not clearly remote" when the listings plainly said otherwise.
+  const verdict = classifyJob({ ...raw, description_html: full });
+  if (verdict.scope === "rejected") {
+    ashbyRejected++;
+    return;
+  }
+  const job =
+    verdict.scope === "worldwide"
+      ? toPublishedJob(raw, { scope: "worldwide", slugSeed: 80000 + i })
+      : toPublishedJob(raw, { scope: "regional", region: verdict.region, slugSeed: 80000 + i });
+  if (verdict.scope === "worldwide") ashbyWorldwide++;
+  else ashbyRegional++;
+  ashbyJobs.push({ ...job, source: "manual", provider: undefined, board_token: undefined, ats_job_id: undefined });
+});
+
+const all = [...roleJobs, ...dirJobs, ...flexJobs, ...ashbyJobs];
 const OUT = join(process.cwd(), "src", "lib", "generated", "curated-jobs.json");
 writeFileSync(OUT, JSON.stringify(all));
 console.log(`[curated] wrote ${all.length} prebuilt curated jobs (${roleJobs.length} real roles + ${dirJobs.length} directory + ${flexJobs.length} aggregator) to generated/curated-jobs.json`);
 console.log(`[curated] dropped ${droppedAttribution} listing(s) whose employer could not be verified against the ATS board in their apply URL`);
+console.log(`[curated] ashby: ${ashbyWorldwide} worldwide + ${ashbyRegional} regional, ${ashbyRejected} rejected by the work-from-anywhere classifier`);
 
 } catch (err) {
   console.warn("[curated] failed — keeping the committed curated-jobs.json:", (err as Error)?.message);

@@ -343,48 +343,98 @@ select { accent-color: #2383e2; }
    The global prefers-reduced-motion rule already clamps the animation to
    0.01ms, which leaves a static tint rather than a stopped-mid-sweep artefact.
 --------------------------------------------------------------------------- */
+/* The strip translates rather than scrolling its background-position: a
+   transform is handed to the compositor and animates without repainting the
+   card every frame, which is what makes the motion read as smooth. The strip
+   is twice the card's width and carries two copies of the ramp, so moving it
+   exactly one card-width returns it to an identical position — the loop has no
+   seam. */
 @keyframes featured-sweep {
-  0%   { background-position: 150% 0; }
-  100% { background-position: -150% 0; }
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
 }
 
 .featured-sweep {
   position: absolute;
   inset: 0;
-  z-index: 0;
   pointer-events: none;
   border-radius: inherit;
-  background-size: 300% 100%;
-  animation: featured-sweep 16.8s linear infinite;
+  overflow: hidden;
+  /* Deliberately NO z-index. A positioned element with z-index:0 opens its own
+     stacking context, and the dark theme's `screen` blend would then have only
+     this box as its backdrop instead of the card — the glow would vanish. With
+     z-index:auto it still paints under the content, which carries z-[1]. */
+}
+
+.featured-sweep::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 200%;
+  background-repeat: repeat-x;
+  background-size: 50% 100%;
+  animation: featured-sweep 10.5s linear infinite;
   /* Light surface: a translucent wash. Blending modes would either vanish or
-     muddy the card here, so this is a plain low-alpha overlay. */
+     muddy the card here, so this is a plain overlay — but a saturated one, and
+     ramped over eleven stops so the edges of the band are not visible as
+     steps. Peak alpha is 0.36; see .featured-card below for why the card's
+     muted text is darkened to sit under it. */
   background-image: linear-gradient(
     90deg,
-    rgba(37, 99, 235, 0) 0%,
-    rgba(37, 99, 235, 0.077) 22%,
-    rgba(37, 99, 235, 0.176) 40%,
-    rgba(59, 130, 246, 0.242) 50%,
-    rgba(37, 99, 235, 0.176) 60%,
-    rgba(37, 99, 235, 0.077) 78%,
-    rgba(37, 99, 235, 0) 100%
+    rgba(59, 130, 246, 0) 0%,
+    rgba(59, 130, 246, 0.04) 10%,
+    rgba(59, 130, 246, 0.1) 20%,
+    rgba(59, 130, 246, 0.19) 30%,
+    rgba(59, 130, 246, 0.28) 40%,
+    rgba(59, 130, 246, 0.36) 50%,
+    rgba(59, 130, 246, 0.28) 60%,
+    rgba(59, 130, 246, 0.19) 70%,
+    rgba(59, 130, 246, 0.1) 80%,
+    rgba(59, 130, 246, 0.04) 90%,
+    rgba(59, 130, 246, 0) 100%
   );
 }
 
 /* Dark surface: the reference treatment — saturated blues lifted with `screen`
-   so the card glows rather than being painted over. */
-.dark .featured-sweep {
+   so the card glows rather than being painted over. The shoulders used to be a
+   near-black navy (#001a60), which under `screen` adds almost nothing and left
+   the whole band reading grey; the ramp is now chromatic from end to end. */
+.dark .featured-sweep::before {
   background-image: linear-gradient(
     90deg,
     rgba(0, 0, 0, 0) 0%,
-    #001a60 20%,
-    #0044d6 40%,
+    #021035 10%,
+    #06216b 20%,
+    #0b36ad 30%,
+    #0f52dd 40%,
     #0077ff 50%,
-    #0044d6 60%,
-    #001a60 80%,
+    #0f52dd 60%,
+    #0b36ad 70%,
+    #06216b 80%,
+    #021035 90%,
     rgba(0, 0, 0, 0) 100%
   );
   mix-blend-mode: screen;
-  opacity: 0.55;
+  opacity: 0.68;
+}
+
+/* Muted text on a paid-placement card sits directly over the sweep — the chips
+   and salary pills have their own opaque plates, this text does not. At the
+   brightest point of the band the card's normal ink-500 measured 3.16:1 in
+   light and 4.43:1 in dark, both under AA, and making the band bluer as asked
+   would have pushed them further down. Darkening (light) and lightening (dark)
+   this text instead buys the colour AND clears AA: 5.6:1 and 4.8:1 measured at
+   the peak. */
+.featured-card .text-ink-400,
+.featured-card .text-ink-500,
+.featured-card .text-ink-600 {
+  color: #4a4842 !important;
+}
+.dark .featured-card .text-ink-400,
+.dark .featured-card .text-ink-500,
+.dark .featured-card .text-ink-600 {
+  color: #f0f0ee !important;
 }
 
 /* ---------------------------------------------------------------------------
@@ -471,7 +521,13 @@ select { accent-color: #2383e2; }
      crops the photograph to whatever box it is given, so the box does not
      need the artwork's proportions — it only needs to be a band. */
   width: 100%;
-  height: min(52vh, clamp(16rem, 36vw, 36rem));
+  /* Sized from BOTH axes, because neither alone works everywhere. A width-only
+     rule left the band 256px on a phone and 276px on a tablet — too short for
+     the photograph to read as anything but a smudge. A height-only rule shrank
+     it on a wide laptop. So: take the larger of a width- and a height-derived
+     size, floor it so it is always a real band, then cap it against both the
+     viewport height (a short landscape window) and an absolute maximum. */
+  height: min(36rem, 62vh, max(20rem, 34vw, 40vh));
   /* The last three stops are in pixels, not percentages, because what they
      protect is at a fixed distance from the footer's bottom edge: the legal
      row sits ~88px up, and its 12px ink-400 type needs 4.5:1. Measured against
@@ -484,8 +540,8 @@ select { accent-color: #2383e2; }
     linear-gradient(
       to bottom,
       rgb(43, 42, 38) 0%,
-      rgba(43, 42, 38, 0.9) 22%,
-      rgba(43, 42, 38, 0.72) 52%,
+      rgba(43, 42, 38, 0.86) 22%,
+      rgba(43, 42, 38, 0.66) 52%,
       rgba(43, 42, 38, 0.955) calc(100% - 150px),
       rgba(43, 42, 38, 0.99) calc(100% - 70px),
       rgba(43, 42, 38, 0.995) 100%

@@ -63,7 +63,7 @@ export function JobCard({
         inactive
           ? "border-ink-100 bg-ink-50/60 opacity-75"
           : job.is_featured
-            ? "border-ink-200 bg-ink-50 hover:bg-ink-100"
+            ? "featured-card border-ink-200 bg-ink-50 hover:bg-ink-100"
             : "border-ink-100 bg-white hover:border-ink-200 hover:bg-ink-50"
       }`}
     >
