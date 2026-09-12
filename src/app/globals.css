@@ -414,7 +414,7 @@ select { accent-color: #2383e2; }
   background-position: bottom center;
   background-size: cover;
   mix-blend-mode: screen;
-  opacity: 0.18;
+  opacity: 0.234;
   /* Fades in from nothing at the top so there is no hard upper edge. */
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.55) 45%, rgb(0, 0, 0) 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.55) 45%, rgb(0, 0, 0) 100%);
@@ -422,4 +422,4 @@ select { accent-color: #2383e2; }
 
 /* Slightly stronger on the light theme: the surrounding page is bright, so the
    footer reads as a deeper block and the linework can carry a little more. */
-:root:not(.dark) .footer-landscape { opacity: 0.22; }
+:root:not(.dark) .footer-landscape { opacity: 0.286; }
