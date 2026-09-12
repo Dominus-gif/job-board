@@ -439,15 +439,22 @@ select { accent-color: #2383e2; }
 /* ---------------------------------------------------------------------------
    Footer landscape.
 
-   The artwork is black line art on a warm white ground, and the footer is dark
-   in BOTH themes (bg-ink-900 has no dark remap), so the source is shipped
-   inverted: the ground becomes near-black and the drawing becomes light. With
-   `screen` the near-black ground contributes nothing and only the linework
-   shows, which is why one asset serves both themes without a second variant.
+   A photograph, not line art, so it cannot be blended in the way the previous
+   drawing was: `screen` would blow the snow and sky out to white and take the
+   footer's text with them. It is composited the honest way instead — the photo
+   underneath, a scrim of the footer's own colour painted over it as a second
+   background layer.
 
-   Anchored to the bottom and faded out toward the top, so the horizon sits
-   behind the closing line rather than running through it. Decorative only —
-   hidden from assistive tech and non-interactive.
+   The scrim is what makes the band work. It starts fully opaque at the top, so
+   the photo emerges out of the footer with no seam and no hard edge; it opens
+   up through the middle, where the mountain and treeline sit and there is room
+   to breathe; and it closes again at the bottom, which is where the smallest
+   text on the page (the copyright and legal row) lives. Text contrast is
+   measured against the result, not assumed.
+
+   One asset serves both themes because the footer is bg-ink-900 in both — that
+   utility has no dark remap. Decorative only: hidden from assistive tech and
+   non-interactive.
 --------------------------------------------------------------------------- */
 .footer-landscape {
   position: absolute;
@@ -455,20 +462,32 @@ select { accent-color: #2383e2; }
   bottom: 0;
   z-index: 0;
   pointer-events: none;
-  /* 4.2:1 artwork; height is capped so it stays a band on tall viewports. */
-  aspect-ratio: 2541 / 605;
-  max-height: 42vh;
-  background-image: url("/footer-landscape.png");
-  background-repeat: no-repeat;
-  background-position: bottom center;
-  background-size: cover;
-  mix-blend-mode: screen;
-  opacity: 0.234;
-  /* Fades in from nothing at the top so there is no hard upper edge. */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.55) 45%, rgb(0, 0, 0) 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.55) 45%, rgb(0, 0, 0) 100%);
+  /* 2.88:1 artwork; height is capped so it stays a band on tall viewports. */
+  aspect-ratio: 2000 / 694;
+  max-height: 52vh;
+  /* The last three stops are in pixels, not percentages, because what they
+     protect is at a fixed distance from the footer's bottom edge: the legal
+     row sits ~88px up, and its 12px ink-400 type needs 4.5:1. Measured against
+     the brightest pixels in the photograph, a percentage ramp left it at
+     3.3:1; anchoring the ramp in px holds it at 4.7:1 at any band height, and
+     buys the middle of the band MORE of the picture (0.72 rather than 0.76),
+     which is where the mountain and treeline are. The part being hidden is the
+     shoreline, the least interesting part of the frame. */
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgb(43, 42, 38) 0%,
+      rgba(43, 42, 38, 0.9) 22%,
+      rgba(43, 42, 38, 0.72) 52%,
+      rgba(43, 42, 38, 0.95) calc(100% - 140px),
+      rgba(43, 42, 38, 0.985) calc(100% - 70px),
+      rgba(43, 42, 38, 0.99) 100%
+    ),
+    url("/footer-landscape.jpg");
+  background-repeat: no-repeat, no-repeat;
+  background-position: bottom center, bottom center;
+  background-size: cover, cover;
+  /* Pulled back from full colour so it reads as depth behind the type rather
+     than as a photograph competing with it. */
+  filter: saturate(0.8);
 }
-
-/* Slightly stronger on the light theme: the surrounding page is bright, so the
-   footer reads as a deeper block and the linework can carry a little more. */
-:root:not(.dark) .footer-landscape { opacity: 0.286; }

@@ -17,6 +17,7 @@ import curated from "../src/lib/seed/curated.json";
 import roles from "../src/lib/seed/curated-roles.json";
 import flexRoles from "../src/lib/seed/flexjobs-roles.json";
 import remoteJobsRoles from "../src/lib/seed/remotejobs-roles.json";
+import capitalOneRoles from "../src/lib/seed/capitalone-roles.json";
 import realSlugs from "../src/lib/seed/real-company-slugs.json";
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -125,7 +126,15 @@ const normName = (n: string) => (n || "").toLowerCase().replace(/[^a-z0-9]/g, ""
 // inspection to be mis-attributed (the board belongs to a different company of
 // a similar name — e.g. lever.co/safe is Safe Security, not Safe Superintelligence).
 const GENERIC_BOARDS = new Set(["linkedin", "indeed", "ycombinator", "greenhouse", "workable", "lever", "ashby"]);
-const MISATTRIBUTED = new Set(["safe superintelligence (ssi)"]);
+const MISATTRIBUTED = new Set([
+  "safe superintelligence (ssi)",
+  // jobs.lever.co/capital is Capital.com, a CFD trading platform (Limassol,
+  // Gibraltar, Nassau, Bahrain), not Capital One Shopping. The slug-vs-name
+  // check passes it because "capitaloneshopping" contains "capital", so the
+  // pairing has to be rejected by name. Confirmed against the board's own
+  // Lever API: every posting describes a trading platform.
+  "capital one shopping",
+]);
 
 // A board claimed by more than one company label means the pairing was guessed.
 const boardLabels = new Map<string, Set<string>>();
@@ -222,7 +231,16 @@ interface FlexRec {
 }
 // Both aggregator imports share a record shape and the same handling: real
 // posted dates, real employment types, and regional scope by construction.
-const flexJobs: Job[] = ([...(flexRoles as FlexRec[]), ...(remoteJobsRoles as FlexRec[])])
+const flexJobs: Job[] = ([
+  ...(flexRoles as FlexRec[]),
+  ...(remoteJobsRoles as FlexRec[]),
+  // Capital One's own careers export. Of its 1,809 rows only 58 are marked
+  // remote, and every one of those names US offices and carries a visa
+  // sponsorship clause, so they are regional like the rest of this feed --
+  // the work-from-anywhere board is untouched. Recurring postings (the same
+  // role listed once per office) are collapsed before the file is written.
+  ...(capitalOneRoles as FlexRec[]),
+])
   .filter((rec) => {
     if (JUNK_TITLE.test(rec.title)) return false;
     if (!attributionTrusted({ company: rec.company, apply: rec.apply } as RoleRec)) { droppedAttribution++; return false; }

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { allLandingSlugs, resolveLanding } from "@/lib/landing";
 import { abs } from "@/lib/site";
@@ -8,7 +7,6 @@ import { JobBoard } from "@/components/JobBoard";
 import { AnywhereVsRegional } from "@/components/AnywhereVsRegional";
 import { FaqSection } from "@/components/FaqSection";
 import { WfaCrossLinks } from "@/components/WfaCrossLinks";
-import { RssIcon } from "@/components/icons";
 import { jobListJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
 
 export const dynamicParams = true;
@@ -86,24 +84,6 @@ export default async function LandingPage(props: { params: Promise<{ landing: st
           <span className="eyebrow">Curated collection</span>
           <h1 className="mt-3 max-w-3xl font-display text-3xl font-extrabold text-ink-900 md:text-4xl">{view.title}</h1>
           <p className="mt-3 max-w-2xl text-lg leading-relaxed text-ink-500">{view.intro}</p>
-          <div className="mt-5">
-            <Link
-              href="/rss-feeds"
-              className="group relative inline-flex items-center gap-1.5 pb-1.5 text-sm font-semibold text-emerald-600 transition hover:text-emerald-700"
-            >
-              <RssIcon className="h-4 w-4" />
-              Subscribe via RSS
-              {/* Hand-drawn green pencil stroke underlining the link. */}
-              <svg
-                aria-hidden
-                viewBox="0 0 200 8"
-                preserveAspectRatio="none"
-                className="pointer-events-none absolute -bottom-0 left-0 -right-1 h-2 text-emerald-500"
-              >
-                <path d="M1.5 4 Q 100 2.3 198.5 4 Q 100 5.7 1.5 4 Z" fill="currentColor" />
-              </svg>
-            </Link>
-          </div>
         </header>
       </section>
 
