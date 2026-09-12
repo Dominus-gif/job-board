@@ -7,8 +7,9 @@ import { CategoryBar } from "@/components/CategoryBar";
 import { JobBoard } from "@/components/JobBoard";
 import { AnywhereVsRegional } from "@/components/AnywhereVsRegional";
 import { FaqSection } from "@/components/FaqSection";
+import { WfaCrossLinks } from "@/components/WfaCrossLinks";
 import { RssIcon } from "@/components/icons";
-import { jobListJsonLd } from "@/lib/jsonld";
+import { jobListJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
 
 export const dynamicParams = true;
 export const revalidate = 1800;
@@ -52,6 +53,28 @@ export default async function LandingPage(props: { params: Promise<{ landing: st
       url: abs(`/${view.slug}`),
     },
     jobListJsonLd(view.jobs, view.title),
+    // The cluster hubs also carry FAQPage (the answers are visible on the page
+    // right below the listings) and a breadcrumb trail. Both are gated on the
+    // view rather than emitted for every landing page, so the existing geo and
+    // category pages keep the structured data they were indexed with.
+    ...(view.emitRichSchema
+      ? [
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: view.faq.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          },
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Remote jobs", path: "/jobs" },
+            { name: view.title, path: `/${view.slug}` },
+          ]),
+        ]
+      : []),
   ];
 
   return (
@@ -96,6 +119,14 @@ export default async function LandingPage(props: { params: Promise<{ landing: st
           </section>
         )}
 
+        {/* Route location-hub traffic that doesn't actually need a location
+            into the work-from-anywhere cluster. */}
+        {view.showScopeExplainer && (
+          <section className="pt-6">
+            <WfaCrossLinks />
+          </section>
+        )}
+
         <section className="pt-8">
           {view.jobs.length > 0 ? (
             <JobBoard jobs={view.jobs} />
@@ -105,6 +136,12 @@ export default async function LandingPage(props: { params: Promise<{ landing: st
             </div>
           )}
         </section>
+
+        {view.showScopeExplainer && (
+          <section className="pt-10">
+            <WfaCrossLinks />
+          </section>
+        )}
 
         <section className="py-16">
           <FaqSection items={view.faq} />

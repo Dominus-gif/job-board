@@ -617,13 +617,13 @@ export const POSTS_2026: Post[] = [
         <li><strong>Read the location field, not the title.</strong> "Remote" in a job title is marketing; the location line is the contract.</li>
         <li><strong>Treat timezone overlap as a location requirement.</strong> "Must overlap 4 hours with PST" rules out most of the planet just as effectively as "US only."</li>
         <li><strong>Watch for the authorization tell.</strong> "Must be eligible to work in X" is a hard geographic gate however remote the role is.</li>
-        <li><strong>Use a board that pre-filters.</strong> Every listing on our <a href="/page/1">main board</a> has already passed this test; region-locked roles live on a <a href="/remote-regional-jobs">separate, clearly-labelled board</a>.</li>
+        <li><strong>Use a board that pre-filters.</strong> Every listing on our <a href="/work-from-anywhere-jobs">work from anywhere jobs</a> board has already passed this test, and the <a href="/real-work-from-anywhere-jobs">verified subset</a> narrows it further to roles pulled straight from the employer's own careers page. Region-locked roles live on a <a href="/remote-regional-jobs">separate, clearly-labelled board</a>.</li>
       </ol>
 
       <h2>Is work from anywhere worth targeting?</h2>
       <p>If geographic freedom is genuinely your priority, yes — but go in informed. It's 5% of the market, it skews mid-to-senior (only 8 of our 443 location-free roles carry a junior title), and in that tier commercial and finance roles outnumber engineering ones by more than two to one.</p>
       <p>If you mainly want to stop commuting, the region-locked 95% is a far larger and less contested pool, and it's where most people should start.</p>
-      <p><a href="/page/1">Browse work-from-anywhere jobs →</a> or read <a href="/posts/how-to-find-work-from-anywhere-jobs">how to find them</a>.</p>
+      <p><a href="/work-from-anywhere-jobs">Browse work from anywhere jobs →</a>, narrow to <a href="/real-work-from-anywhere-jobs">verified location-independent roles</a>, or see every <a href="/fully-remote-jobs">fully remote job</a> on the board. You can also read <a href="/posts/how-to-find-work-from-anywhere-jobs">how to find them</a>.</p>
     `,
   },
   {

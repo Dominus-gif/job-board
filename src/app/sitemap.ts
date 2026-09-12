@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllJobs, getRegionalJobs, getCompanies } from "@/lib/db";
-import { allLandingSlugs } from "@/lib/landing";
+import { allLandingSlugs, WFA_HUB_SLUGS } from "@/lib/landing";
 import { getAllPosts } from "@/lib/posts";
 import { TOOLS } from "@/lib/tools";
 import { CATEGORIES } from "@/lib/taxonomy";
@@ -55,10 +55,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
+  // The work-from-anywhere cluster hubs are declared daily rather than hourly:
+  // their listings turn over on the nightly rebuild, and an honest interval is
+  // worth more than an optimistic one.
+  const wfaHubs = new Set(WFA_HUB_SLUGS);
   const landings = (await allLandingSlugs()).map((slug) => ({
     url: abs(`/${slug}`),
     lastModified: now,
-    changeFrequency: "hourly" as const,
+    changeFrequency: (wfaHubs.has(slug) ? "daily" : "hourly") as "daily" | "hourly",
     priority: 0.8,
   }));
 

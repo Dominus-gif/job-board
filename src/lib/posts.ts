@@ -124,9 +124,9 @@ export const POSTS: Post[] = [
       </ul>
 
       <h2>How to filter for each</h2>
-      <p>Use dedicated boards: <a href="/work-from-home-jobs">work-from-home jobs</a> for flexible roles, and the <a href="/page/1">main board</a> for truly location-independent ones. For region-specific searches, try <a href="/remote-jobs-in-usa">the USA</a> or <a href="/remote-jobs-in-europe">Europe</a>.</p>
+      <p>Use dedicated boards: <a href="/work-from-home-jobs">work-from-home jobs</a> for flexible roles, and <a href="/work-from-anywhere-jobs">work from anywhere jobs</a> for the truly location-independent ones. If what you want is simply "no office, ever", the <a href="/fully-remote-jobs">fully remote jobs</a> board is the same board framed that way. For region-specific searches, try <a href="/remote-jobs-in-usa">the USA</a> or <a href="/remote-jobs-in-europe">Europe</a>.</p>
 
-      <p>The bottom line: read the location line, not just the word "remote."</p>
+      <p>The bottom line: read the location line, not just the word "remote." When you want to skip that check entirely, start from <a href="/real-work-from-anywhere-jobs">verified work-from-anywhere roles</a> — every listing there came from the employer's own careers page and names no location at all.</p>
     `,
   },
 ];

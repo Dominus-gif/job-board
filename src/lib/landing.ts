@@ -28,6 +28,12 @@ import { toText } from "./pipeline/text";
 export interface FaqItem {
   q: string;
   a: string;
+  /**
+   * Optional "read more" links rendered under the answer. The answer itself
+   * stays plain text because <Faq> renders it as text and the FAQPage JSON-LD
+   * uses the same string — markup in there would leak into the rich result.
+   */
+  links?: { href: string; label: string }[];
 }
 
 export interface LandingView {
@@ -40,6 +46,8 @@ export interface LandingView {
   faq: FaqItem[];
   rss: string; // path to this view's RSS feed
   showScopeExplainer?: boolean; // render the Anywhere-vs-Regional card (geo pages)
+  /** Emit FAQPage + BreadcrumbList JSON-LD (work-from-anywhere cluster hubs). */
+  emitRichSchema?: boolean;
 }
 
 const BASE_FAQ: FaqItem[] = [
@@ -534,6 +542,154 @@ function geoView(cfg: GeoConfig, jobs: Job[]): LandingView {
   };
 }
 
+/* -------------------------------------------------------------------------- */
+/* Work-from-anywhere keyword-cluster hubs.                                   */
+/*                                                                            */
+/* Counted titles, like the geo pages: the number is what the page actually   */
+/* renders, so it stays true on every rebuild instead of drifting away from   */
+/* the listings underneath it.                                                */
+/*                                                                            */
+/* These sit alongside the existing /work-from-home-jobs hub and draw from    */
+/* the same worldwide board, so each carries its own h1, intro and FAQ and is */
+/* self-canonical (see generateMetadata in app/[landing]/page.tsx).           */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Hosts that republish someone else's ad rather than hosting the employer's
+ * own. Used to define the "real / verified" hub: a listing qualifies when the
+ * apply link lands on the company's own careers page or hiring system, which
+ * is the claim that page's copy makes.
+ */
+const AGGREGATOR_HOSTS = new Set([
+  "workingnomads.com",
+  "arbeitnow.com",
+  "arbeitnow.co.uk",
+  "jobicy.com",
+  "remotive.com",
+  "angel.co",
+  "wellfound.com",
+  "linkedin.com",
+  "indeed.com",
+]);
+
+function appliesOnCompanySite(job: Job): boolean {
+  try {
+    const host = new URL(job.apply_url).hostname.replace(/^www[.]/, "");
+    return !AGGREGATOR_HOSTS.has(host);
+  } catch {
+    return false;
+  }
+}
+
+interface WfaConfig {
+  slug: string;
+  title: string; // h1
+  metaTitle: (count: string) => string;
+  metaDescription: (count: string) => string;
+  intro: string;
+  /** Narrows the worldwide board; omitted means the whole board. */
+  select?: (job: Job) => boolean;
+  faq: FaqItem[];
+}
+
+const WFA_MEANING_LINK = { href: "/posts/work-from-anywhere-meaning", label: "What work from anywhere means" };
+const WFA_VS_WFH_LINK = { href: "/posts/work-from-home-vs-work-from-anywhere", label: "Work from home vs work from anywhere" };
+
+const UPDATE_FAQ: FaqItem = {
+  q: "How often are jobs updated?",
+  a: "Daily. Listings are pulled straight from company hiring systems on an automatic nightly refresh, and roles that have closed drop off the board — so what you see here is open now, not an archive.",
+};
+
+const WFA_HUBS: Record<string, WfaConfig> = {
+  "work-from-anywhere-jobs": {
+    slug: "work-from-anywhere-jobs",
+    title: "Work From Anywhere Jobs You Can Do From Any Country",
+    metaTitle: (n) => `Work From Anywhere Jobs (${n}) | No Location Required`,
+    metaDescription: (n) =>
+      `Work from anywhere means a job with no country, region or timezone requirement — ${n} such roles are open right now, updated daily.`,
+    intro:
+      "Every role on this page has no country you must live in, no region, no timezone you must overlap, and no local work-authorization gate. Move abroad tomorrow and nothing about the job changes.",
+    faq: [
+      {
+        q: "What does work from anywhere mean?",
+        a: "A work-from-anywhere job has no geographic requirement at all: no country you must live in, no region or city, no timezone you must overlap with, and no local work-authorization gate. It is a stricter bar than 'remote' — most remote roles still name a place.",
+        links: [WFA_MEANING_LINK],
+      },
+      {
+        q: "Is it different from remote or work from home?",
+        a: "Yes, and the gap is where most job searches stall. 'Remote' usually means no office but a named country or region. 'Work from home' means your home, in a specific area. Only work from anywhere removes the location requirement entirely.",
+        links: [WFA_VS_WFH_LINK, WFA_MEANING_LINK],
+      },
+      UPDATE_FAQ,
+      ...BASE_FAQ.slice(1),
+    ],
+  },
+  "fully-remote-jobs": {
+    slug: "fully-remote-jobs",
+    title: "Fully Remote Jobs — Work From Anywhere in the World",
+    metaTitle: (n) => `Fully Remote Jobs (${n}) | 100% Remote, No Office`,
+    metaDescription: (n) =>
+      `${n} fully remote jobs with no office, no hybrid days and no country or timezone requirement — 100% remote roles open worldwide, updated daily.`,
+    intro:
+      "100% remote — no office, no hybrid days, no relocation. These roles also clear the stricter work-from-anywhere bar, so there is no country or timezone you have to be in to take one.",
+    faq: [
+      {
+        q: "What does fully remote mean?",
+        a: "Fully remote means the role is done entirely outside an office: no required days on site, no hybrid split, and no relocation. Every listing on this page goes further and carries no country or timezone requirement either.",
+      },
+      {
+        q: "Do I need to be in a specific timezone?",
+        a: "No. Any role asking for overlap with a named timezone — 'must overlap EST', 'CET core hours' — is rejected by our filter before it reaches this page. These roles run asynchronously, or on hours you agree with the team.",
+        links: [WFA_MEANING_LINK],
+      },
+      UPDATE_FAQ,
+      ...BASE_FAQ.slice(1),
+    ],
+  },
+  "real-work-from-anywhere-jobs": {
+    slug: "real-work-from-anywhere-jobs",
+    title: "Real Work From Anywhere Jobs (Verified)",
+    metaTitle: () => "Real Work From Anywhere Jobs | Verified Location-Independent Roles",
+    metaDescription: (n) =>
+      `${n} verified work-from-anywhere jobs — each pulled from the employer's own careers page, with no office requirement and no country, region or timezone gate.`,
+    intro:
+      "Every listing here was pulled from the employer's own careers page or hiring system rather than republished from another board, and every one passed the work-from-anywhere filter. No office-based roles, and no hybrid roles wearing a remote label.",
+    select: appliesOnCompanySite,
+    faq: [
+      {
+        q: "What makes a job a real work-from-anywhere job?",
+        a: "Two things. The listing comes from the employer's own careers page or hiring system, so the terms are the company's own words rather than a re-post. And it names no country, region, city, timezone or work-authorization requirement anywhere in the ad.",
+        links: [WFA_MEANING_LINK],
+      },
+      {
+        q: "How do you spot a hybrid role dressed up as remote?",
+        a: "Look for the tells: 'remote-first' next to an office address, 'occasional travel to HQ', a named country for payroll, or a required timezone overlap. Any one of those makes the role location-bound, and our filter rejects it — which is why this board is small next to a general remote board.",
+        links: [WFA_VS_WFH_LINK],
+      },
+      UPDATE_FAQ,
+      ...BASE_FAQ.slice(1),
+    ],
+  },
+};
+
+/** The work-from-anywhere cluster hub slugs (sitemap + cross-links). */
+export const WFA_HUB_SLUGS = Object.keys(WFA_HUBS);
+
+function wfaView(cfg: WfaConfig, jobs: Job[]): LandingView {
+  const countStr = jobs.length.toLocaleString("en-US");
+  return {
+    slug: cfg.slug,
+    title: cfg.title,
+    metaTitle: cfg.metaTitle(countStr),
+    metaDescription: cfg.metaDescription(countStr),
+    intro: cfg.intro,
+    jobs,
+    faq: cfg.faq,
+    rss: `/${cfg.slug}/rss.xml`,
+    emitRichSchema: true,
+  };
+}
+
 /** Resolve a landing slug to a full view, or null if it isn't a known page. */
 export async function resolveLanding(slug: string): Promise<LandingView | null> {
   // 1. Category pages: /remote-<category>-jobs
@@ -564,6 +720,12 @@ export async function resolveLanding(slug: string): Promise<LandingView | null> 
   const geo = GEO_PAGES[slug];
   if (geo) {
     return geoView(geo, await geoJobs(geo));
+  }
+
+  // 1c. Work-from-anywhere cluster hubs: counted, self-canonical, rich schema.
+  const wfa = WFA_HUBS[slug];
+  if (wfa) {
+    return wfaView(wfa, await getJobsWhere(wfa.select ?? (() => true)));
   }
 
   // 2. Curated SEO pages (some are benefit-backed).
@@ -618,7 +780,8 @@ export async function allLandingSlugs(): Promise<string[]> {
   const categorySlugs = CATEGORIES.map((c) => `remote-${categoryToSlug(c)}-jobs`);
   const seoSlugs = Object.keys(SEO_PAGES);
   const geoSlugs = Object.keys(GEO_PAGES);
+  const wfaSlugs = Object.keys(WFA_HUBS);
   const skills = await getAllSkills();
   const skillSlugs = skills.map((s) => `remote-${s.skill.replace(/[.]/g, "-")}-jobs`);
-  return Array.from(new Set([...categorySlugs, ...seoSlugs, ...geoSlugs, ...skillSlugs]));
+  return Array.from(new Set([...categorySlugs, ...seoSlugs, ...geoSlugs, ...wfaSlugs, ...skillSlugs]));
 }
