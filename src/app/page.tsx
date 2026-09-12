@@ -6,6 +6,7 @@ import { categoryToSlug } from "@/lib/taxonomy";
 import { JobList } from "@/components/JobList";
 import { JobBoard } from "@/components/JobBoard";
 import { PopularLocations } from "@/components/PopularLocations";
+import { GradientBoldCard } from "@/components/ui/gradient-bold-card";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { RoleSubscribeForm } from "@/components/RoleSubscribeForm";
 import { FaqSection } from "@/components/FaqSection";
@@ -101,14 +102,16 @@ export default async function HomePage() {
               </div>
             )}
 
-            <dl className="mx-auto mt-8 grid max-w-md grid-cols-3 divide-x divide-ink-100 overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card max-[360px]:gap-y-2 max-[360px]:divide-x-0">
-              {stats.map(([value, label, hint]) => (
-                <div key={label} title={hint} className="min-w-0 cursor-help px-1.5 py-3.5 sm:px-2">
-                  <dt className="font-display text-lg font-extrabold tabular-nums text-ink-900 sm:text-xl md:text-2xl">{value}</dt>
-                  <dd className="mt-0.5 flex min-h-[2em] items-center justify-center text-[10px] font-medium uppercase tracking-wide text-ink-400 sm:text-[11px] sm:tracking-wider">{label}</dd>
-                </div>
-              ))}
-            </dl>
+            <GradientBoldCard className="mx-auto mt-8 max-w-md">
+              <dl className="grid grid-cols-3 divide-x divide-ink-100 max-[360px]:gap-y-2 max-[360px]:divide-x-0">
+                {stats.map(([value, label, hint]) => (
+                  <div key={label} title={hint} className="min-w-0 cursor-help px-1.5 py-3.5 sm:px-2">
+                    <dt className="font-display text-lg font-extrabold tabular-nums text-ink-900 sm:text-xl md:text-2xl">{value}</dt>
+                    <dd className="mt-0.5 flex min-h-[2em] items-center justify-center text-[10px] font-medium uppercase tracking-wide text-ink-400 sm:text-[11px] sm:tracking-wider">{label}</dd>
+                  </div>
+                ))}
+              </dl>
+            </GradientBoldCard>
             <p className="mx-auto mt-2.5 max-w-md text-[11px] leading-relaxed text-ink-400">
               <span className="font-semibold text-ink-500">Anywhere</span> = work from any country, no region or timezone limits ·{" "}
               <span className="font-semibold text-ink-500">Regional</span> = remote but region-locked.

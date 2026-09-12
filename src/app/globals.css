@@ -357,13 +357,15 @@ select { accent-color: #2383e2; }
 .featured-sweep {
   position: absolute;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
   border-radius: inherit;
   overflow: hidden;
-  /* Deliberately NO z-index. A positioned element with z-index:0 opens its own
-     stacking context, and the dark theme's `screen` blend would then have only
-     this box as its backdrop instead of the card — the glow would vanish. With
-     z-index:auto it still paints under the content, which carries z-[1]. */
+  /* Its own layer, with painting bounded to it. The strip inside is animated,
+     and without this the browser re-rasterises the rounded clip against the
+     card every frame — which on a phone showed up as flicker and torn edges. */
+  transform: translateZ(0);
+  contain: paint;
 }
 
 .featured-sweep::before {
@@ -375,6 +377,8 @@ select { accent-color: #2383e2; }
   background-repeat: repeat-x;
   background-size: 50% 100%;
   animation: featured-sweep 10.5s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
   /* The ramp runs from a FLOOR up to a peak and back, never to transparent.
      That matters most on a phone: the tile is one card wide, and a card there
      is 358px against 838px on a desktop, so a ramp with transparent shoulders
@@ -400,27 +404,27 @@ select { accent-color: #2383e2; }
   );
 }
 
-/* Dark surface: the reference treatment — saturated blues lifted with `screen`
-   so the card glows rather than being painted over. Same floor-to-peak shape as
-   the light ramp and for the same reason; the floor is a real blue rather than
-   the near-black navy this used to start from, which under `screen` added
-   almost nothing and left the band reading grey. Floor measures 9.1:1 on the
-   title and 8.7:1 on the muted text, so the peak stays the worst case. */
+/* Dark surface: the same glow, composited WITHOUT a blend mode.
+   `mix-blend-mode: screen` has to re-read the card underneath on every frame of
+   an animation, and on phone GPUs that combination — blend + animated transform
+   + a rounded overflow clip — produced flicker and torn edges. These colours at
+   opacity 0.75 composite to exactly what `screen` at 0.68 produced over
+   bg-ink-50's dark value (#252525), solved per stop, so the card looks
+   identical and the expensive part of the pipeline is gone. */
 .dark .featured-sweep::before {
   background-image: linear-gradient(
     90deg,
-    #0d3183 0%,
-    #0f3c9b 15%,
-    #1249b8 30%,
-    #1560d9 42%,
-    #0077ff 50%,
-    #1560d9 58%,
-    #1249b8 70%,
-    #0f3c9b 85%,
-    #0d3183 100%
+    #2f4b8b 0%,
+    #31549d 15%,
+    #335eb4 30%,
+    #356fcd 42%,
+    #2581eb 50%,
+    #356fcd 58%,
+    #335eb4 70%,
+    #31549d 85%,
+    #2f4b8b 100%
   );
-  mix-blend-mode: screen;
-  opacity: 0.68;
+  opacity: 0.75;
 }
 
 /* Muted text on a paid-placement card sits directly over the sweep — the chips
@@ -488,6 +492,36 @@ select { accent-color: #2383e2; }
 .dark .route-progress__bar {
   background-image: linear-gradient(90deg, #a3e635 0%, #bef264 50%, #ecfccb 100%);
   box-shadow: 0 0 14px rgba(163, 230, 53, 0.7), 0 0 4px rgba(190, 242, 100, 0.95);
+}
+
+/* ---------------------------------------------------------------------------
+   Gradient bold card (see src/components/ui/gradient-bold-card.tsx).
+
+   The blob travels the four corners of the card on a square path, which is the
+   original component's motion. The translate values are per-axis rather than
+   the original's symmetric -100%/0%: on a wide, short panel a symmetric path
+   would park the blob off the top and bottom edges for half the cycle, so the
+   vertical throw is cut to a quarter of the horizontal one and the colour stays
+   in frame the whole way round.
+--------------------------------------------------------------------------- */
+@keyframes gradient-bold-blob {
+  0%   { transform: translate3d(-100%, -60%, 0); }
+  25%  { transform: translate3d(0%, -60%, 0); }
+  50%  { transform: translate3d(0%, -40%, 0); }
+  75%  { transform: translate3d(-100%, -40%, 0); }
+  100% { transform: translate3d(-100%, -60%, 0); }
+}
+
+.gradient-bold-card__blob {
+  animation: gradient-bold-blob 9s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* The card's neumorphic shadow is built for a light page; on the dark surface
+   the dark variant carries it, and the panel keeps its own contrast. */
+.gradient-bold-card {
+  isolation: isolate;
 }
 
 /* ---------------------------------------------------------------------------
