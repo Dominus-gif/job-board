@@ -11,6 +11,7 @@ import { NewsletterCtaGate } from "@/components/NewsletterCtaGate";
 import { RoleSubscribeCta } from "@/components/RoleSubscribeCta";
 import { themeInitScript, ThemeGuard } from "@/components/ThemeToggle";
 import { TemplateAnalytics } from "@/components/TemplateAnalytics";
+import { RouteProgress } from "@/components/RouteProgress";
 
 // Notion-style: one clean sans (Inter) carries the whole UI; headings are just bold.
 const body = Inter({
@@ -81,6 +82,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen flex flex-col">
         <ThemeGuard />
+        {/* Click-to-paint feedback for server-rendered navigations. */}
+        <RouteProgress />
         {/* Tags each pageview with its template so RPM can be split per template. */}
         {GA_ID && <TemplateAnalytics />}
         {/* Google tag (gtag.js) — GA4, loaded on every page. */}

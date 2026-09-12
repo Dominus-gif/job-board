@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { Select, type SelectOption } from "@/components/ui/Select";
+import { startRouteProgress } from "@/components/RouteProgress";
 
 const OPTIONS: SelectOption[] = [
   { value: "relevance", label: "Relevance" },
@@ -18,6 +19,8 @@ export function SortSelect({ base, current }: { base: Record<string, string>; cu
     if (v && v !== "relevance") sp.set("sort", v);
     else sp.delete("sort");
     const s = sp.toString();
+    // Not a link click, so the progress bar has nothing to observe — tell it.
+    startRouteProgress();
     router.push(s ? `/jobs?${s}` : "/jobs");
   }
 

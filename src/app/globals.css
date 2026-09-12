@@ -361,11 +361,11 @@ select { accent-color: #2383e2; }
   background-image: linear-gradient(
     90deg,
     rgba(37, 99, 235, 0) 0%,
-    rgba(37, 99, 235, 0.07) 22%,
-    rgba(37, 99, 235, 0.16) 40%,
-    rgba(59, 130, 246, 0.22) 50%,
-    rgba(37, 99, 235, 0.16) 60%,
-    rgba(37, 99, 235, 0.07) 78%,
+    rgba(37, 99, 235, 0.077) 22%,
+    rgba(37, 99, 235, 0.176) 40%,
+    rgba(59, 130, 246, 0.242) 50%,
+    rgba(37, 99, 235, 0.176) 60%,
+    rgba(37, 99, 235, 0.077) 78%,
     rgba(37, 99, 235, 0) 100%
   );
 }
@@ -384,7 +384,54 @@ select { accent-color: #2383e2; }
     rgba(0, 0, 0, 0) 100%
   );
   mix-blend-mode: screen;
-  opacity: 0.5;
+  opacity: 0.55;
+}
+
+/* ---------------------------------------------------------------------------
+   Navigation progress bar (see src/components/RouteProgress.tsx).
+
+   Sits above the sticky header (z-30) and every popover/menu (z-50) because it
+   reports on the whole document, not on whatever is beneath it. Lime by
+   request, tuned per theme: the darker end of the ramp on the white page so a
+   3px line still registers, the brighter end on the dark surface where a lime
+   that reads on white would look muddy.
+
+   Width is driven from JS; the transition is what makes it glide rather than
+   jump. The global prefers-reduced-motion rule clamps that transition, which
+   leaves a bar that steps instead of sliding — still a perfectly good progress
+   indicator, just a still one.
+--------------------------------------------------------------------------- */
+.route-progress {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 60;
+  height: 3px;
+  pointer-events: none;
+  opacity: 0;
+  /* Delayed so the fade only starts once the bar has held at 100% a moment. */
+  transition: opacity 240ms ease 120ms;
+}
+
+.route-progress[data-visible="true"] {
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+.route-progress__bar {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-start-end-radius: 3px;
+  border-end-end-radius: 3px;
+  background-image: linear-gradient(90deg, #3f6212 0%, #65a30d 55%, #84cc16 100%);
+  box-shadow: 0 0 6px rgba(132, 204, 22, 0.5), 0 0 2px rgba(101, 163, 13, 0.9);
+  transition: width 200ms ease;
+}
+
+.dark .route-progress__bar {
+  background-image: linear-gradient(90deg, #65a30d 0%, #a3e635 55%, #d9f99d 100%);
+  box-shadow: 0 0 10px rgba(163, 230, 53, 0.55), 0 0 3px rgba(190, 242, 100, 0.85);
 }
 
 /* ---------------------------------------------------------------------------
