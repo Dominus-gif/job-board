@@ -391,10 +391,9 @@ select { accent-color: #2383e2; }
    Navigation progress bar (see src/components/RouteProgress.tsx).
 
    Sits above the sticky header (z-30) and every popover/menu (z-50) because it
-   reports on the whole document, not on whatever is beneath it. Lime by
-   request, tuned per theme: the darker end of the ramp on the white page so a
-   3px line still registers, the brighter end on the dark surface where a lime
-   that reads on white would look muddy.
+   reports on the whole document, not on whatever is beneath it. Bright lime in
+   both themes; the light one carries a darker lime hairline beneath it so the
+   high-luminance colour still separates from a white page.
 
    Width is driven from JS; the transition is what makes it glide rather than
    jump. The global prefers-reduced-motion rule clamps that transition, which
@@ -424,14 +423,17 @@ select { accent-color: #2383e2; }
   width: 0;
   border-start-end-radius: 3px;
   border-end-end-radius: 3px;
-  background-image: linear-gradient(90deg, #3f6212 0%, #65a30d 55%, #84cc16 100%);
-  box-shadow: 0 0 6px rgba(132, 204, 22, 0.5), 0 0 2px rgba(101, 163, 13, 0.9);
+  background-image: linear-gradient(90deg, #84cc16 0%, #a3e635 50%, #bef264 100%);
+  /* Bright lime is high-luminance, so on the white page the colour alone does
+     not separate the bar from its background. The glow plus a one-pixel darker
+     lime edge underneath give it that separation without dulling the lime. */
+  box-shadow: 0 0 9px rgba(132, 204, 22, 0.75), 0 1px 0 rgba(77, 124, 15, 0.55);
   transition: width 200ms ease;
 }
 
 .dark .route-progress__bar {
-  background-image: linear-gradient(90deg, #65a30d 0%, #a3e635 55%, #d9f99d 100%);
-  box-shadow: 0 0 10px rgba(163, 230, 53, 0.55), 0 0 3px rgba(190, 242, 100, 0.85);
+  background-image: linear-gradient(90deg, #a3e635 0%, #bef264 50%, #ecfccb 100%);
+  box-shadow: 0 0 14px rgba(163, 230, 53, 0.7), 0 0 4px rgba(190, 242, 100, 0.95);
 }
 
 /* ---------------------------------------------------------------------------
