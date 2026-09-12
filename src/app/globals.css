@@ -361,11 +361,10 @@ select { accent-color: #2383e2; }
   pointer-events: none;
   border-radius: inherit;
   overflow: hidden;
-  /* Its own layer, with painting bounded to it. The strip inside is animated,
-     and without this the browser re-rasterises the rounded clip against the
-     card every frame — which on a phone showed up as flicker and torn edges. */
-  transform: translateZ(0);
-  contain: paint;
+  /* No translateZ/contain here. Those were added speculatively to chase phone
+     flicker and never measured; forcing an extra composited layer with a
+     rounded clip on every featured card in a list is as likely to cause layer
+     churn as to cure it. The motion is gated below instead. */
 }
 
 .featured-sweep::before {
@@ -376,9 +375,9 @@ select { accent-color: #2383e2; }
   width: 200%;
   background-repeat: repeat-x;
   background-size: 50% 100%;
-  animation: featured-sweep 10.5s linear infinite;
-  will-change: transform;
-  backface-visibility: hidden;
+  /* At rest the strip sits at its origin, which puts one whole cycle across the
+     card: floor at both edges, peak in the middle. That is a deliberate static
+     composition, not a stopped animation — see the media query below. */
   /* The ramp runs from a FLOOR up to a peak and back, never to transparent.
      That matters most on a phone: the tile is one card wide, and a card there
      is 358px against 838px on a desktop, so a ramp with transparent shoulders
@@ -513,15 +512,44 @@ select { accent-color: #2383e2; }
 }
 
 .gradient-bold-card__blob {
-  animation: gradient-bold-blob 9s linear infinite;
-  will-change: transform;
-  backface-visibility: hidden;
+  /* Static by default: centred and widened so the colour reaches both ends of
+     the card instead of sitting in one quadrant the way the moving blob does. */
+  width: 125%;
+  transform: translate3d(-50%, -50%, 0);
 }
 
 /* The card's neumorphic shadow is built for a light page; on the dark surface
    the dark variant carries it, and the panel keeps its own contrast. */
 .gradient-bold-card {
   isolation: isolate;
+}
+
+/* ---------------------------------------------------------------------------
+   Motion is opt-in, not opt-out.
+
+   Both of these effects animate a transform on a large, filtered, clipped
+   layer. That is the combination phone GPUs handle worst: the compositor has
+   to keep the layer resident, and under memory pressure it drops and
+   re-creates it, which reads as flicker and stutter rather than as a dropped
+   frame. It cannot be reproduced on a desktop GPU, so it cannot be chased by
+   measurement here — the honest fix is not to ask a phone to do it.
+
+   Pointer-fine devices with room on screen keep the motion. Everything else
+   gets the same gradient, held still, which cannot flicker and costs no
+   battery. `will-change` lives in here too: held permanently it pins GPU
+   memory for every featured card in a list, which is itself a cause.
+--------------------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+  .featured-sweep::before {
+    animation: featured-sweep 10.5s linear infinite;
+    will-change: transform;
+  }
+
+  .gradient-bold-card__blob {
+    width: 55%;
+    animation: gradient-bold-blob 9s linear infinite;
+    will-change: transform;
+  }
 }
 
 /* ---------------------------------------------------------------------------
