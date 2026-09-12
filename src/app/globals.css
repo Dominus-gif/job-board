@@ -364,9 +364,12 @@ select { accent-color: #2383e2; }
    main-thread paint instead — which for a gradient over one card is cheap, and
    which degrades as dropped frames rather than as artefacts.
 
-   The tile is twice the card's width and the ramp starts and ends on the same
-   value, so shifting by one whole tile (200%) returns to an identical position
-   and the loop has no seam. */
+   The tile is twice the card's width and carries TWO complete ramps, so a
+   whole ramp fits in each card width. With one ramp stretched over the tile
+   the card only ever showed half of it — a shallow slope with so little
+   variation across it that the motion was measurable but not visible. Both
+   ends of the tile are the same value, so shifting by one whole tile (200%)
+   returns to an identical position and the loop has no seam. */
 @keyframes featured-sweep {
   from { background-position: 0% 0; }
   to   { background-position: 200% 0; }
@@ -379,7 +382,7 @@ select { accent-color: #2383e2; }
   pointer-events: none;
   background-repeat: repeat-x;
   background-size: 200% 100%;
-  animation: featured-sweep 22s linear infinite;
+  animation: featured-sweep 16s linear infinite;
   /* The ramp runs from a FLOOR up to a peak and back, never to transparent, so
      the card is always tinted and the sweep is a lift above it rather than a
      swing out of darkness. Peak alpha 0.36 is the worst case for text contrast
@@ -388,15 +391,24 @@ select { accent-color: #2383e2; }
   background-image: linear-gradient(
     90deg,
     rgba(59, 130, 246, 0.14) 0%,
-    rgba(59, 130, 246, 0.18) 15%,
-    rgba(59, 130, 246, 0.23) 30%,
-    rgba(59, 130, 246, 0.3) 42%,
-    rgba(59, 130, 246, 0.36) 50%,
-    rgba(59, 130, 246, 0.3) 58%,
-    rgba(59, 130, 246, 0.23) 70%,
-    rgba(59, 130, 246, 0.18) 85%,
+    rgba(59, 130, 246, 0.18) 7.5%,
+    rgba(59, 130, 246, 0.23) 15%,
+    rgba(59, 130, 246, 0.3) 21%,
+    rgba(59, 130, 246, 0.36) 25%,
+    rgba(59, 130, 246, 0.3) 29%,
+    rgba(59, 130, 246, 0.23) 35%,
+    rgba(59, 130, 246, 0.18) 42.5%,
+    rgba(59, 130, 246, 0.14) 50%,
+    rgba(59, 130, 246, 0.18) 57.5%,
+    rgba(59, 130, 246, 0.23) 65%,
+    rgba(59, 130, 246, 0.3) 71%,
+    rgba(59, 130, 246, 0.36) 75%,
+    rgba(59, 130, 246, 0.3) 79%,
+    rgba(59, 130, 246, 0.23) 85%,
+    rgba(59, 130, 246, 0.18) 92.5%,
     rgba(59, 130, 246, 0.14) 100%
   );
+
 }
 
 /* Dark surface: the same glow, composited without a blend mode. These colours
@@ -407,15 +419,24 @@ select { accent-color: #2383e2; }
   background-image: linear-gradient(
     90deg,
     #2f4b8b 0%,
-    #31549d 15%,
-    #335eb4 30%,
-    #356fcd 42%,
-    #2581eb 50%,
-    #356fcd 58%,
-    #335eb4 70%,
-    #31549d 85%,
+    #31549d 7.5%,
+    #335eb4 15%,
+    #356fcd 21%,
+    #2581eb 25%,
+    #356fcd 29%,
+    #335eb4 35%,
+    #31549d 42.5%,
+    #2f4b8b 50%,
+    #31549d 57.5%,
+    #335eb4 65%,
+    #356fcd 71%,
+    #2581eb 75%,
+    #356fcd 79%,
+    #335eb4 85%,
+    #31549d 92.5%,
     #2f4b8b 100%
   );
+
 }
 
 /* Muted text on a paid-placement card sits directly over the sweep — the chips
@@ -512,12 +533,17 @@ select { accent-color: #2383e2; }
   background-image: linear-gradient(
     90deg,
     #ec4899 0%,
-    #ef4444 25%,
-    #eab308 50%,
-    #ef4444 75%,
+    #ef4444 12.5%,
+    #eab308 25%,
+    #ef4444 37.5%,
+    #ec4899 50%,
+    #ef4444 62.5%,
+    #eab308 75%,
+    #ef4444 87.5%,
     #ec4899 100%
   );
-  animation: gradient-bold-blob 18s linear infinite;
+
+  animation: gradient-bold-blob 14s linear infinite;
 }
 
 
