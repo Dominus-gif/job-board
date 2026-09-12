@@ -1,23 +1,26 @@
 import type { ReactNode } from "react";
 
 /**
- * Gradient bold card — a glass panel over a drifting, blurred colour blob.
+ * Gradient bold card — a panel with a band of colour travelling around its rim.
  *
- * Adapted from the 21st.dev component in three ways, all for fit rather than
- * taste:
+ * Adapted from the 21st.dev component. The construction is the same — colour
+ * underneath, a panel inset by 5px on top, content above that — but three
+ * things differ, all for fit or for how it renders rather than for taste:
  *
  *  - It takes children instead of being a fixed 200x250 box centred in a
- *    full-screen flex container. The original is a demo; what we need is the
- *    treatment wrapped around content that already exists.
- *  - The blob is sized in percentages of the card, not a fixed 150px, so the
- *    effect survives a wide short box on desktop and a narrower one on a phone.
- *    A fixed blob would have sat in one corner of a 448x92 panel.
- *  - The keyframes live in globals.css rather than an inline <style> element.
- *    Inlining them ships a duplicate <style> per instance and re-inserts it on
- *    every render; the animation is static, so it belongs in the stylesheet.
+ *    full-screen flex container. That wrapper is demo scaffolding.
+ *  - The colour is a scrolling gradient, not a blurred circle being moved.
+ *    All that is ever visible of the original's blob is the 5px rim the panel
+ *    does not cover, so what a reader sees is a band of colour going round the
+ *    border — which a background-position animation reproduces without asking
+ *    the compositor to carry a filtered, moving layer. On phones that layer
+ *    flickered; see globals.css. Same three colours.
+ *  - No backdrop-blur on the panel. At 95% opacity a twentieth of the backdrop
+ *    shows through, so blurring it is invisible — but it is a backdrop-filter
+ *    over an animating element, which is expensive on every frame.
  *
- * No "use client": this is markup and CSS with no state or effects, so it
- * renders on the server and ships no JavaScript.
+ * No "use client": no state, no effects, so it renders on the server and ships
+ * no JavaScript.
  */
 export function GradientBoldCard({
   children,
@@ -27,28 +30,19 @@ export function GradientBoldCard({
   children: ReactNode;
   /** Applied to the outer card (sizing, margins). */
   className?: string;
-  /** Applied to the content layer above the glass. */
+  /** Applied to the content layer above the panel. */
   contentClassName?: string;
 }) {
   return (
     <div
       className={`gradient-bold-card relative overflow-hidden rounded-2xl shadow-[12px_12px_40px_#bebebe,-12px_-12px_40px_#ffffff] dark:shadow-[12px_12px_40px_#111,-12px_-12px_40px_#222] ${className}`}
     >
-      {/* The colour. Blurred and drifting behind everything else. */}
-      <span
-        aria-hidden
-        className="gradient-bold-card__blob absolute left-1/2 top-1/2 z-0 h-[180%] w-[55%] rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 blur-[28px]"
-      />
+      {/* The colour. Position, size and gradient all live in globals.css so the
+          animation and the paint it animates stay in one place. */}
+      <span aria-hidden className="gradient-bold-card__blob" />
 
-      {/* The panel. Inset by 5px so the blob reads as a live gradient edge
-          around it rather than a flat border.
-
-          The original's backdrop-blur is deliberately NOT here. At 95% opacity
-          only a twentieth of the backdrop shows through, so a 24px blur of it
-          is invisible — but it is a backdrop-filter sitting directly over an
-          animating element, which forces the browser to re-sample and re-blur
-          the moving blob on every frame. That is the most expensive thing this
-          component could have done, in exchange for nothing anyone can see. */}
+      {/* The panel, inset by 5px so the colour reads as a live gradient edge
+          around it rather than a flat border. */}
       <span
         aria-hidden
         className="absolute inset-[5px] z-10 rounded-xl bg-white/95 outline outline-2 outline-white dark:bg-black/70 dark:outline-gray-700"

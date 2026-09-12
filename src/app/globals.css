@@ -349,9 +349,27 @@ select { accent-color: #2383e2; }
    is twice the card's width and carries two copies of the ramp, so moving it
    exactly one card-width returns it to an identical position — the loop has no
    seam. */
+/* The gradient is PAINTED and scrolled, not carried on a moving layer.
+   Four passes were spent trying to make a composited, transformed child behave
+   inside this card on a phone — shrinking the swing, dropping the blend mode,
+   removing a nested rounded clip, forcing the WebKit mask path. Each fixed
+   something real and none of them stopped the flicker, because the flicker is
+   in the compositor and every one of those fixes still asked the compositor to
+   carry a moving layer.
+
+   This asks it to carry nothing. There is no child element, no transform, no
+   promoted layer and no clip of a moving thing: just a background on the card
+   whose position animates. A background-position animation repaints rather
+   than composites, so there is no layer to tear, evict or mis-clip. It costs
+   main-thread paint instead — which for a gradient over one card is cheap, and
+   which degrades as dropped frames rather than as artefacts.
+
+   The tile is twice the card's width and the ramp starts and ends on the same
+   value, so shifting by one whole tile (200%) returns to an identical position
+   and the loop has no seam. */
 @keyframes featured-sweep {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
+  from { background-position: 0% 0; }
+  to   { background-position: 200% 0; }
 }
 
 .featured-sweep {
@@ -359,34 +377,14 @@ select { accent-color: #2383e2; }
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* No clip of its own. The card this sits in is already
-     `overflow-hidden rounded-xl`, so this element was wrapping the animated
-     strip in a SECOND rounded clip — nested rounded overflow around a
-     composited, moving child is the combination phone GPUs render wrong, and
-     it is where the flicker and torn corners came from. One clip is enough,
-     and the card owns it. */
-}
-
-.featured-sweep::before {
-  content: "";
-  position: absolute;
-  inset-block: 0;
-  left: 0;
-  width: 200%;
   background-repeat: repeat-x;
-  background-size: 50% 100%;
-  animation: featured-sweep 10.5s linear infinite;
-  /* The ramp runs from a FLOOR up to a peak and back, never to transparent.
-     That matters most on a phone: the tile is one card wide, and a card there
-     is 358px against 838px on a desktop, so a ramp with transparent shoulders
-     put most of the card IN its shoulder — the card visibly lurched between
-     half-dark and all-blue instead of a highlight crossing it. Holding a floor
-     means the card is always tinted and the sweep is a lift above it. Both ends
-     are the same value, so the tile still repeats seamlessly.
-
-     Peak alpha is 0.36 and remains the worst case for text contrast (the floor
-     is lighter, so it measures better); see .featured-card below for why the
-     card's muted text is darkened to sit under it. */
+  background-size: 200% 100%;
+  animation: featured-sweep 22s linear infinite;
+  /* The ramp runs from a FLOOR up to a peak and back, never to transparent, so
+     the card is always tinted and the sweep is a lift above it rather than a
+     swing out of darkness. Peak alpha 0.36 is the worst case for text contrast
+     (the floor is lighter); see .featured-card for why the muted text on these
+     cards is darkened to sit under it. */
   background-image: linear-gradient(
     90deg,
     rgba(59, 130, 246, 0.14) 0%,
@@ -401,14 +399,11 @@ select { accent-color: #2383e2; }
   );
 }
 
-/* Dark surface: the same glow, composited WITHOUT a blend mode.
-   `mix-blend-mode: screen` has to re-read the card underneath on every frame of
-   an animation, and on phone GPUs that combination — blend + animated transform
-   + a rounded overflow clip — produced flicker and torn edges. These colours at
-   opacity 0.75 composite to exactly what `screen` at 0.68 produced over
-   bg-ink-50's dark value (#252525), solved per stop, so the card looks
-   identical and the expensive part of the pipeline is gone. */
-.dark .featured-sweep::before {
+/* Dark surface: the same glow, composited without a blend mode. These colours
+   at opacity 0.75 land on exactly what `screen` at 0.68 produced over the dark
+   card (#252525), solved per stop. */
+.dark .featured-sweep {
+  opacity: 0.75;
   background-image: linear-gradient(
     90deg,
     #2f4b8b 0%,
@@ -421,7 +416,6 @@ select { accent-color: #2383e2; }
     #31549d 85%,
     #2f4b8b 100%
   );
-  opacity: 0.75;
 }
 
 /* Muted text on a paid-placement card sits directly over the sweep — the chips
@@ -494,53 +488,39 @@ select { accent-color: #2383e2; }
 /* ---------------------------------------------------------------------------
    Gradient bold card (see src/components/ui/gradient-bold-card.tsx).
 
-   The blob travels the four corners of the card on a square path, which is the
-   original component's motion. The translate values are per-axis rather than
-   the original's symmetric -100%/0%: on a wide, short panel a symmetric path
-   would park the blob off the top and bottom edges for half the cycle, so the
-   vertical throw is cut to a quarter of the horizontal one and the colour stays
-   in frame the whole way round.
+   Same painted-not-composited approach as the featured sweep above, and for
+   the same reason. The original component drifts a blurred circle behind a
+   glass panel; all that is ever visible of it is the 5px rim the panel does
+   not cover, so what a reader actually sees is a band of colour travelling
+   around the border. That is reproduced here by scrolling a gradient rather
+   than by moving and blurring an element — no filter, no transform, no layer.
+
+   The ramp is pink -> red -> yellow -> red -> pink so the tile repeats without
+   a seam, which keeps the original's three colours exactly.
 --------------------------------------------------------------------------- */
 @keyframes gradient-bold-blob {
-  0%   { transform: translate3d(-100%, -60%, 0); }
-  25%  { transform: translate3d(0%, -60%, 0); }
-  50%  { transform: translate3d(0%, -40%, 0); }
-  75%  { transform: translate3d(-100%, -40%, 0); }
-  100% { transform: translate3d(-100%, -60%, 0); }
+  from { background-position: 0% 50%; }
+  to   { background-position: 200% 50%; }
 }
 
 .gradient-bold-card__blob {
-  animation: gradient-bold-blob 9s linear infinite;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-repeat: repeat-x;
+  background-size: 200% 100%;
+  background-image: linear-gradient(
+    90deg,
+    #ec4899 0%,
+    #ef4444 25%,
+    #eab308 50%,
+    #ef4444 75%,
+    #ec4899 100%
+  );
+  animation: gradient-bold-blob 18s linear infinite;
 }
 
-/* The card's neumorphic shadow is built for a light page; on the dark surface
-   the dark variant carries it, and the panel keeps its own contrast. */
-.gradient-bold-card {
-  isolation: isolate;
-}
 
-/* ---------------------------------------------------------------------------
-   Rounded clipping around a moving child.
-
-   Both of these effects animate a transform inside a parent that rounds its
-   corners with `overflow: hidden`. WebKit clips that case on a fast path
-   rather than with a real mask, and against a composited, moving child it gets
-   it wrong — corners tear and the layer flickers. It is phone-GPU behaviour,
-   so it does not reproduce on a desktop and cannot be chased by measurement
-   here.
-
-   This forces the mask-based path instead. Both stops are fully opaque, so as
-   a mask it changes no pixel; its only job is to make WebKit clip properly.
-   Ignored where it is not supported.
-
-   `will-change` is deliberately absent. A running transform animation already
-   gets its own layer; declaring it permanently pins GPU memory for every card
-   carrying one, and eviction under pressure is its own source of flicker.
---------------------------------------------------------------------------- */
-.featured-card,
-.gradient-bold-card {
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
-}
 
 /* ---------------------------------------------------------------------------
    Footer landscape.
