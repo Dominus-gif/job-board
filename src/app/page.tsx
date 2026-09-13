@@ -87,27 +87,28 @@ export default async function HomePage() {
         />
         {/* Dot-matrix world map, behind the hero column. Decorative and
             non-interactive; it sits under the content rather than beside it so
-            the hero's centred layout is untouched at every width. Held at 50%,
+            the hero's centred layout is untouched at every width. Held at 40%,
             and masked at the edges so it fades into the page rather than
             ending on a hard rectangle. */}
         <div
           className="pointer-events-none absolute left-1/2 top-[62%] z-0 w-[min(1180px,168vw)] -translate-x-1/2 -translate-y-1/2 [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_88%)]"
-          style={{ opacity: 0.5 }}
+          style={{ opacity: 0.4 }}
           aria-hidden
         >
           <WorldDotMatrix />
         </div>
-        {/* Scrim between the globe and the words.
-            Measured before this existed: the globe's landmass dots put pixels
-            at rgb(76,76,76) behind the light-theme headline, taking its worst
-            case to 1.3:1. The average was fine — it is individual dots landing
-            inside glyphs that does the damage, which an opacity change cannot
-            fix. So the page colour is laid back over the top of the hero, where
-            the heading and the standfirst are, and released lower down, which
-            leaves the globe reading clearly behind the stats card and the
-            search box and never behind running text. */}
+        {/* Scrim between the map and the words.
+            Individual dots landing inside glyphs are what does the damage, and
+            no opacity setting fixes that — at 40% the legend line under the
+            stats still measured 2.9:1 against the dots behind it. So the page
+            colour is laid back over the CENTRE COLUMN, where every piece of
+            hero text lives, and released towards the edges. That is the right
+            shape for this map: the text is in a narrow centred column and the
+            continents are out at the sides, so the map keeps the part of
+            itself worth seeing and gives up only the part nobody can read
+            through. */}
         <div
-          className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_bottom,#ffffff_0%,#ffffff_44%,rgba(255,255,255,0.55)_58%,rgba(255,255,255,0)_72%)] dark:bg-[linear-gradient(to_bottom,#202020_0%,#202020_44%,rgba(32,32,32,0.55)_58%,rgba(32,32,32,0)_72%)]"
+          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_44%_74%_at_50%_46%,#ffffff_0%,#ffffff_58%,rgba(255,255,255,0.6)_78%,rgba(255,255,255,0)_100%)] dark:bg-[radial-gradient(ellipse_44%_74%_at_50%_46%,#202020_0%,#202020_58%,rgba(32,32,32,0.6)_78%,rgba(32,32,32,0)_100%)]"
           aria-hidden
         />
         <div className="relative mx-auto max-w-6xl px-4 pt-11 pb-12 md:pt-14 md:pb-14">
