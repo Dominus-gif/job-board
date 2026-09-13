@@ -19,3 +19,6 @@ next-env.d.ts
 # Design sources: large, frequently re-saved binaries bloat git history
 # permanently and cannot be diffed. Exported PNGs are tracked instead.
 *.psd
+# The 11MB footer master. The build reads the optimised public/footer-landscape.jpg,
+# so the source only ever costs the repo size.
+Design/footer_image_m.jpg
