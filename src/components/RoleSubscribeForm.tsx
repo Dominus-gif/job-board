@@ -1,24 +1,15 @@
 "use client";
 
-import { useActionState, useState } from "react";
-import { useFormStatus } from "react-dom";
+import { useActionState, useEffect, useState } from "react";
 import { subscribeRoleAction, type ActionResult } from "@/app/actions";
 import { CATEGORIES } from "@/lib/taxonomy";
 import { Select, type SelectOption } from "@/components/ui/Select";
+import { ConfettiSubmitButton } from "@/components/ui/ConfettiSubmitButton";
 
 const CATEGORY_OPTIONS: SelectOption[] = [
   { value: "All categories", label: "All categories" },
   ...CATEGORIES.map((c) => ({ value: c, label: c })),
 ];
-
-function SubmitButton({ label }: { label: string }) {
-  const { pending } = useFormStatus();
-  return (
-    <button type="submit" disabled={pending} className="btn-primary shrink-0 disabled:opacity-60">
-      {pending ? "Saving…" : label}
-    </button>
-  );
-}
 
 /**
  * Compact role-targeted subscribe widget: pick a job category, enter an email,
@@ -30,6 +21,11 @@ function SubmitButton({ label }: { label: string }) {
 export function RoleSubscribeForm({ buttonLabel = "Notify me", className = "" }: { buttonLabel?: string; className?: string }) {
   const [state, formAction] = useActionState<ActionResult | null, FormData>(subscribeRoleAction, null);
   const [category, setCategory] = useState("");
+  // Only a subscription the server accepted earns the confetti.
+  const [subscribed, setSubscribed] = useState(false);
+  useEffect(() => {
+    if (state?.ok) setSubscribed(true);
+  }, [state]);
   const field =
     "w-full rounded-xl border border-ink-200 bg-white px-4 py-2.5 text-ink-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200";
 
@@ -57,7 +53,12 @@ export function RoleSubscribeForm({ buttonLabel = "Notify me", className = "" }:
           className={`${field} flex-1 placeholder:text-ink-400`}
         />
 
-        <SubmitButton label={buttonLabel} />
+        <ConfettiSubmitButton
+          label={buttonLabel}
+          pendingLabel="Saving…"
+          doneLabel="Subscribed"
+          done={subscribed}
+        />
       </div>
 
       {state && (

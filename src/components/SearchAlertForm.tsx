@@ -1,17 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
-import { useFormStatus } from "react-dom";
+import { useActionState, useEffect, useState } from "react";
 import { subscribeSearchAction, type ActionResult } from "@/app/actions";
-
-function Submit({ label }: { label: string }) {
-  const { pending } = useFormStatus();
-  return (
-    <button type="submit" disabled={pending} className="btn-primary shrink-0 disabled:opacity-60">
-      {pending ? "Saving…" : label}
-    </button>
-  );
-}
+import { ConfettiSubmitButton } from "@/components/ui/ConfettiSubmitButton";
 
 /**
  * Alert signup for the CURRENT search rather than a broad category.
@@ -22,6 +13,11 @@ function Submit({ label }: { label: string }) {
  */
 export function SearchAlertForm({ params, summary }: { params: Record<string, string>; summary: string }) {
   const [state, formAction] = useActionState<ActionResult | null, FormData>(subscribeSearchAction, null);
+  // Only an alert the server accepted earns the confetti.
+  const [subscribed, setSubscribed] = useState(false);
+  useEffect(() => {
+    if (state?.ok) setSubscribed(true);
+  }, [state]);
 
   return (
     <section className="mt-10 rounded-2xl border border-ink-100 bg-white p-5 shadow-card">
@@ -48,7 +44,7 @@ export function SearchAlertForm({ params, summary }: { params: Record<string, st
           placeholder="you@example.com"
           className="w-full rounded-xl border border-ink-200 bg-white px-4 py-2.5 text-ink-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
         />
-        <Submit label="Alert me" />
+        <ConfettiSubmitButton label="Alert me" pendingLabel="Saving…" doneLabel="Alerts on" done={subscribed} />
       </form>
 
       {state && (
