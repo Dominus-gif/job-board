@@ -87,12 +87,12 @@ export default async function HomePage() {
         />
         {/* Dot-matrix world map, behind the hero column. Decorative and
             non-interactive; it sits under the content rather than beside it so
-            the hero's centred layout is untouched at every width. Held at 40%,
+            the hero's centred layout is untouched at every width. Held at 52%,
             and masked at the edges so it fades into the page rather than
             ending on a hard rectangle. */}
         <div
           className="pointer-events-none absolute left-1/2 top-[62%] z-0 w-[min(1180px,168vw)] -translate-x-1/2 -translate-y-1/2 [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_88%)]"
-          style={{ opacity: 0.4 }}
+          style={{ opacity: 0.52 }}
           aria-hidden
         >
           <WorldDotMatrix />
