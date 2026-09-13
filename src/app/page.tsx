@@ -7,6 +7,8 @@ import { JobList } from "@/components/JobList";
 import { JobBoard } from "@/components/JobBoard";
 import { PopularLocations } from "@/components/PopularLocations";
 import { GradientBoldCard } from "@/components/ui/gradient-bold-card";
+import { AtomicGlobe } from "@/components/ui/atomic-globe";
+import { AnimatedNumber } from "@/components/ui/number-flow";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { RoleSubscribeForm } from "@/components/RoleSubscribeForm";
 import { FaqSection } from "@/components/FaqSection";
@@ -58,9 +60,9 @@ export default async function HomePage() {
 
   const totalRoles = jobs.length + regionalCount;
   const stats = [
-    [totalRoles.toLocaleString("en-US"), "Open roles", "Total remote roles listed right now."],
-    [jobs.length.toLocaleString("en-US"), "Anywhere", "Fully location-independent — work from any country, no region or timezone limits."],
-    [regionalCount.toLocaleString("en-US"), "Regional", "Remote, but limited to a specific country or region."],
+    [totalRoles, "Open roles", "Total remote roles listed right now."],
+    [jobs.length, "Anywhere", "Fully location-independent — work from any country, no region or timezone limits."],
+    [regionalCount, "Regional", "Remote, but limited to a specific country or region."],
   ] as const;
 
   const jsonLd = [...siteJsonLd(), jobListJsonLd(jobs, "Remote Jobs You Can Do From Anywhere")];
@@ -81,6 +83,31 @@ export default async function HomePage() {
       <section className="relative overflow-hidden border-b border-ink-100 bg-white">
         <div
           className="pointer-events-none absolute inset-0 bg-meridian opacity-60 [background-size:44px_44px] [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]"
+          aria-hidden
+        />
+        {/* Globe, behind the hero column. Decorative and non-interactive; it
+            sits under the content rather than beside it so the hero's centred
+            layout is untouched at every width. Held at 70% — a 30% reduction —
+            and masked at the edges so it reads as part of the background
+            rather than as an image dropped on top of it. */}
+        <div
+          className="pointer-events-none absolute left-1/2 top-[68%] z-0 w-[min(620px,112vw)] -translate-x-1/2 -translate-y-1/2 [mask-image:radial-gradient(circle_at_center,black_44%,transparent_74%)]"
+          style={{ opacity: 0.7 }}
+          aria-hidden
+        >
+          <AtomicGlobe />
+        </div>
+        {/* Scrim between the globe and the words.
+            Measured before this existed: the globe's landmass dots put pixels
+            at rgb(76,76,76) behind the light-theme headline, taking its worst
+            case to 1.3:1. The average was fine — it is individual dots landing
+            inside glyphs that does the damage, which an opacity change cannot
+            fix. So the page colour is laid back over the top of the hero, where
+            the heading and the standfirst are, and released lower down, which
+            leaves the globe reading clearly behind the stats card and the
+            search box and never behind running text. */}
+        <div
+          className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_bottom,#ffffff_0%,#ffffff_44%,rgba(255,255,255,0.55)_58%,rgba(255,255,255,0)_72%)] dark:bg-[linear-gradient(to_bottom,#202020_0%,#202020_44%,rgba(32,32,32,0.55)_58%,rgba(32,32,32,0)_72%)]"
           aria-hidden
         />
         <div className="relative mx-auto max-w-6xl px-4 pt-11 pb-12 md:pt-14 md:pb-14">
@@ -106,7 +133,9 @@ export default async function HomePage() {
               <dl className="grid grid-cols-3 divide-x divide-ink-100 max-[360px]:gap-y-2 max-[360px]:divide-x-0">
                 {stats.map(([value, label, hint]) => (
                   <div key={label} title={hint} className="min-w-0 cursor-help px-1.5 py-3.5 sm:px-2">
-                    <dt className="font-display text-lg font-extrabold tabular-nums text-ink-900 sm:text-xl md:text-2xl">{value}</dt>
+                    <dt className="font-display text-lg font-extrabold tabular-nums text-ink-900 sm:text-xl md:text-2xl">
+                      <AnimatedNumber value={value} />
+                    </dt>
                     <dd className="mt-0.5 flex min-h-[2em] items-center justify-center text-[10px] font-medium uppercase tracking-wide text-ink-400 sm:text-[11px] sm:tracking-wider">{label}</dd>
                   </div>
                 ))}

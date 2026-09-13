@@ -498,46 +498,57 @@ select { accent-color: #2383e2; }
    The ramp is pink -> red -> yellow -> red -> pink so the tile repeats without
    a seam, which keeps the original's three colours exactly.
 --------------------------------------------------------------------------- */
+/* A beam running the perimeter, rather than a band sliding left to right.
+   A conic gradient centred on the card and rotated once per cycle puts its
+   bright arc at a single angle from the centre at any moment — and since the
+   panel covers everything but the rim, that arc is only ever visible where it
+   crosses the border. The result is one point of light going round the
+   rectangle and returning to where it started.
+
+   The element is square and oversized so that every rotation still covers the
+   card's corners; the card's own overflow clips the rest. It is `transform:
+   rotate`, so the compositor runs it without repainting. */
 @keyframes gradient-bold-blob {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .gradient-bold-card__blob {
   position: absolute;
-  inset-block: 0;
-  left: 0;
+  left: 50%;
+  top: 50%;
   z-index: 0;
-  width: 200%;
-  background-repeat: repeat-x;
-  background-size: 50% 100%;
+  /* Square and wider than the card, so the conic sweep reaches every corner. */
+  width: 165%;
+  aspect-ratio: 1;
   animation: gradient-bold-blob 5s linear infinite;
-  /* White through grey and back, with both ends on the same value so the tile
-     repeats without a seam.
-
-     The light theme cannot start at pure white: the page behind this card is
-     white too, so half the ramp would simply disappear and the rim would read
-     as no border at all. It starts at a light grey instead and runs deeper,
-     which keeps the same white-to-grey character against the surface it is
-     actually seen on. Dark mode gets the literal white. */
-  background-image: linear-gradient(
-    90deg,
-    #e4e4e7 0%,
-    #a1a1aa 25%,
-    #52525b 50%,
-    #a1a1aa 75%,
-    #e4e4e7 100%
+  /* Transparent at both ends of the turn so the loop closes invisibly; the
+     ramp is the beam's tail, the last stop its head. Light mode cannot start
+     at pure white — the page behind this card is white too — so it runs a
+     light grey to a deep one instead, keeping the same character against the
+     surface it is actually seen on. */
+  background-image: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 205deg,
+    rgba(161, 161, 170, 0.35) 275deg,
+    #a1a1aa 322deg,
+    #52525b 348deg,
+    #e4e4e7 358deg,
+    transparent 360deg
   );
 }
 
 .dark .gradient-bold-card__blob {
-  background-image: linear-gradient(
-    90deg,
-    #ffffff 0%,
-    #d4d4d8 25%,
-    #71717a 50%,
-    #d4d4d8 75%,
-    #ffffff 100%
+  background-image: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 205deg,
+    rgba(212, 212, 216, 0.3) 275deg,
+    #71717a 322deg,
+    #d4d4d8 348deg,
+    #ffffff 358deg,
+    transparent 360deg
   );
 }
 
