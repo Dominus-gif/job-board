@@ -382,33 +382,37 @@ select { accent-color: #2383e2; }
   pointer-events: none;
   background-repeat: repeat-x;
   background-size: 200% 100%;
-  animation: featured-sweep 16s linear infinite;
+  animation: featured-sweep 9s linear infinite;
+  /* A background-position animation repaints, and without containment that
+     invalidation walks back up to the card — so the title, the chips and the
+     salary pill get re-rastered sixty times a second alongside the gradient.
+     This is an empty decorative span, so bounding it costs nothing and keeps
+     the per-frame work to the gradient alone. It does NOT promote a moving
+     layer; nothing here moves, only its paint changes. */
+  contain: paint;
   /* The ramp runs from a FLOOR up to a peak and back, never to transparent, so
      the card is always tinted and the sweep is a lift above it rather than a
      swing out of darkness. Peak alpha 0.36 is the worst case for text contrast
      (the floor is lighter); see .featured-card for why the muted text on these
-     cards is darkened to sit under it. */
+     cards is darkened to sit under it.
+
+     Five stops per ramp rather than nine. Every frame of a background-position
+     animation re-rasterises the gradient, and that cost scales with how many
+     stops it has to interpolate between — on a phone this is the whole card,
+     every frame, on the main thread. Five is indistinguishable here and
+     roughly halves the work. */
   background-image: linear-gradient(
     90deg,
     rgba(59, 130, 246, 0.14) 0%,
-    rgba(59, 130, 246, 0.18) 7.5%,
-    rgba(59, 130, 246, 0.23) 15%,
-    rgba(59, 130, 246, 0.3) 21%,
+    rgba(59, 130, 246, 0.24) 15%,
     rgba(59, 130, 246, 0.36) 25%,
-    rgba(59, 130, 246, 0.3) 29%,
-    rgba(59, 130, 246, 0.23) 35%,
-    rgba(59, 130, 246, 0.18) 42.5%,
+    rgba(59, 130, 246, 0.24) 35%,
     rgba(59, 130, 246, 0.14) 50%,
-    rgba(59, 130, 246, 0.18) 57.5%,
-    rgba(59, 130, 246, 0.23) 65%,
-    rgba(59, 130, 246, 0.3) 71%,
+    rgba(59, 130, 246, 0.24) 65%,
     rgba(59, 130, 246, 0.36) 75%,
-    rgba(59, 130, 246, 0.3) 79%,
-    rgba(59, 130, 246, 0.23) 85%,
-    rgba(59, 130, 246, 0.18) 92.5%,
+    rgba(59, 130, 246, 0.24) 85%,
     rgba(59, 130, 246, 0.14) 100%
   );
-
 }
 
 /* Dark surface: the same glow, composited without a blend mode. These colours
@@ -419,24 +423,15 @@ select { accent-color: #2383e2; }
   background-image: linear-gradient(
     90deg,
     #2f4b8b 0%,
-    #31549d 7.5%,
     #335eb4 15%,
-    #356fcd 21%,
     #2581eb 25%,
-    #356fcd 29%,
     #335eb4 35%,
-    #31549d 42.5%,
     #2f4b8b 50%,
-    #31549d 57.5%,
     #335eb4 65%,
-    #356fcd 71%,
     #2581eb 75%,
-    #356fcd 79%,
     #335eb4 85%,
-    #31549d 92.5%,
     #2f4b8b 100%
   );
-
 }
 
 /* Muted text on a paid-placement card sits directly over the sweep — the chips
@@ -530,6 +525,9 @@ select { accent-color: #2383e2; }
   z-index: 0;
   background-repeat: repeat-x;
   background-size: 200% 100%;
+  /* Same reason as .featured-sweep: bound the repaint to this span so the
+     numbers and labels above it are not re-rastered every frame. */
+  contain: paint;
   background-image: linear-gradient(
     90deg,
     #ec4899 0%,
@@ -542,8 +540,7 @@ select { accent-color: #2383e2; }
     #ef4444 87.5%,
     #ec4899 100%
   );
-
-  animation: gradient-bold-blob 14s linear infinite;
+  animation: gradient-bold-blob 8s linear infinite;
 }
 
 

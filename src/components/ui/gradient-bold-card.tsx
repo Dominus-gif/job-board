@@ -41,11 +41,11 @@ export function GradientBoldCard({
           animation and the paint it animates stay in one place. */}
       <span aria-hidden className="gradient-bold-card__blob" />
 
-      {/* The panel, inset by 5px so the colour reads as a live gradient edge
-          around it rather than a flat border. */}
+      {/* The panel. Its inset is the width of the visible gradient edge — 4px,
+          reduced 20% from the original's 5px. */}
       <span
         aria-hidden
-        className="absolute inset-[5px] z-10 rounded-xl bg-white/95 outline outline-2 outline-white dark:bg-black/70 dark:outline-gray-700"
+        className="absolute inset-[4px] z-10 rounded-xl bg-white/95 outline outline-2 outline-white dark:bg-black/70 dark:outline-gray-700"
       />
 
       <div className={`relative z-20 ${contentClassName}`}>{children}</div>
