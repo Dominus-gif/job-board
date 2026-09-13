@@ -87,7 +87,7 @@ export default async function HomePage() {
         />
         {/* Dot-matrix world map, behind the hero column. Decorative and
             non-interactive; it sits under the content rather than beside it so
-            the hero's centred layout is untouched at every width. Held at 38%.
+            the hero's centred layout is untouched at every width. Held at 18.5%.
 
             Full-bleed, not a fixed 1180px: on a 1920 desktop that width left
             the map floating in the middle of the section with bare page either
@@ -108,7 +108,7 @@ export default async function HomePage() {
             wider than the screen is exactly what the full-width text wants. */}
         <div
           className="pointer-events-none absolute inset-x-0 top-1/2 z-0 w-full -translate-y-1/2 [mask-image:radial-gradient(ellipse_70%_62%_at_50%_50%,black_55%,transparent_100%)]"
-          style={{ opacity: 0.385 }}
+          style={{ opacity: 0.185 }}
           aria-hidden
         >
           <WorldDotMatrix />
