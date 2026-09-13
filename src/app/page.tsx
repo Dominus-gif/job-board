@@ -87,12 +87,28 @@ export default async function HomePage() {
         />
         {/* Dot-matrix world map, behind the hero column. Decorative and
             non-interactive; it sits under the content rather than beside it so
-            the hero's centred layout is untouched at every width. Held at 52%,
-            and masked at the edges so it fades into the page rather than
-            ending on a hard rectangle. */}
+            the hero's centred layout is untouched at every width.
+
+            Full-bleed, not a fixed 1180px: on a 1920 desktop that width left
+            the map floating in the middle of the section with bare page either
+            side, and the centre scrim then ate most of what was left, so only
+            two slivers survived. At 100% it is wider than it is tall for the
+            hero, so the top and bottom crop — which costs the Arctic and the
+            southern ocean and nothing else.
+
+            The scrim that follows is sized in REM rather than percent for the
+            same reason. As a percentage it scaled with the viewport, so a wider
+            screen blanked a proportionally wider strip and the map never got
+            any more room; in rem the protected area is the width of the text
+            column and no more, so every pixel a bigger screen adds goes to the
+            map. A plain length, not min(): a math function is not accepted in
+            a radial-gradient's explicit size, and the browser drops the whole
+            declaration rather than just that value — the scrim silently
+            disappears. No cap is needed anyway, since on a phone an ellipse
+            wider than the screen is exactly what the full-width text wants. */}
         <div
-          className="pointer-events-none absolute left-1/2 top-[62%] z-0 w-[min(1180px,168vw)] -translate-x-1/2 -translate-y-1/2 [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_88%)]"
-          style={{ opacity: 0.52 }}
+          className="pointer-events-none absolute inset-x-0 top-1/2 z-0 w-full -translate-y-1/2 [mask-image:radial-gradient(ellipse_70%_62%_at_50%_50%,black_55%,transparent_100%)]"
+          style={{ opacity: 0.55 }}
           aria-hidden
         >
           <WorldDotMatrix />
@@ -108,7 +124,7 @@ export default async function HomePage() {
             itself worth seeing and gives up only the part nobody can read
             through. */}
         <div
-          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_44%_74%_at_50%_46%,#ffffff_0%,#ffffff_58%,rgba(255,255,255,0.6)_78%,rgba(255,255,255,0)_100%)] dark:bg-[radial-gradient(ellipse_44%_74%_at_50%_46%,#202020_0%,#202020_58%,rgba(32,32,32,0.6)_78%,rgba(32,32,32,0)_100%)]"
+          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_29rem_76%_at_50%_46%,#ffffff_0%,#ffffff_78%,rgba(255,255,255,0.55)_92%,rgba(255,255,255,0)_100%)] dark:bg-[radial-gradient(ellipse_29rem_76%_at_50%_46%,#202020_0%,#202020_78%,rgba(32,32,32,0.55)_92%,rgba(32,32,32,0)_100%)]"
           aria-hidden
         />
         <div className="relative mx-auto max-w-6xl px-4 pt-11 pb-12 md:pt-14 md:pb-14">

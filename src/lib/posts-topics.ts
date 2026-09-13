@@ -1,17 +1,13 @@
-import { getAllPosts } from "./posts";
-import type { Post } from "./posts";
-
 /**
- * Editorial sections for the guides index.
+ * Topic taxonomy for the guides index.
  *
  * The posts carry 60 tags between them and 44 of those are used exactly once,
- * so grouping on tags would produce 44 sections of one. This is a deliberate
- * taxonomy instead: five sections that describe what a reader is actually
- * trying to do, with each post assigned to one.
+ * so labelling on tags would be meaningless. This is a deliberate taxonomy
+ * instead: five topics that describe what a reader is actually trying to do,
+ * with each post assigned to one.
  *
- * A post that is not listed here still appears — it falls into the last
- * section rather than vanishing from the index, so publishing never silently
- * drops an article.
+ * A post missing from this table still appears on the index and simply gets a
+ * neutral label, so publishing never depends on remembering to edit this file.
  */
 
 export interface PostTopic {
@@ -69,54 +65,18 @@ export const POST_TOPICS: PostTopic[] = [
   },
 ];
 
-export interface IndexedPost {
-  post: Post;
-  /** Running position down the whole index, 1-based. */
-  index: number;
-}
-
-export interface PostSection {
-  id: string;
-  title: string;
-  blurb: string;
-  posts: IndexedPost[];
-}
+const TOPIC_BY_SLUG = new Map<string, string>(
+  POST_TOPICS.flatMap((t) => t.slugs.map((slug) => [slug, t.title] as const))
+);
 
 /**
- * The index as it is rendered: sections in editorial order, posts newest first
- * within each, and a single running number down the page. The number counts
- * rendered order rather than date, so it reads as a catalogue rather than as a
- * date rank that jumps around inside each section.
+ * The topic label for a post, for the column on the index.
+ *
+ * The index is a single list rather than five blocks, so the taxonomy is
+ * carried per row instead of as section headings — the categorisation still
+ * reaches the reader, but without cutting the page up. A post missing from the
+ * table above falls back to a neutral label rather than an empty cell.
  */
-export function getPostSections(): { sections: PostSection[]; total: number } {
-  const all = getAllPosts();
-  const bySlug = new Map(all.map((p) => [p.slug, p]));
-  const claimed = new Set<string>();
-
-  const sections: PostSection[] = POST_TOPICS.map((t) => {
-    const posts = t.slugs
-      .map((slug) => bySlug.get(slug))
-      .filter((p): p is Post => {
-        if (!p) return false;
-        claimed.add(p.slug);
-        return true;
-      })
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    return { id: t.id, title: t.title, blurb: t.blurb, posts: posts.map((post) => ({ post, index: 0 })) };
-  }).filter((s) => s.posts.length > 0);
-
-  const rest = all.filter((p) => !claimed.has(p.slug));
-  if (rest.length > 0) {
-    sections.push({
-      id: "more",
-      title: "More guides",
-      blurb: "Everything else we have published.",
-      posts: rest.map((post) => ({ post, index: 0 })),
-    });
-  }
-
-  let n = 0;
-  for (const s of sections) for (const p of s.posts) p.index = ++n;
-
-  return { sections, total: n };
+export function topicOf(slug: string): string {
+  return TOPIC_BY_SLUG.get(slug) ?? "Remote work";
 }
