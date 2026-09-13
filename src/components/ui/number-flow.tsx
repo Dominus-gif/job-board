@@ -44,7 +44,19 @@ export function AnimatedNumber({
 
   return (
     <span className={className} suppressHydrationWarning>
-      <NumberFlow value={shown} trend={1} locales="en-US" willChange />
+      <NumberFlow
+        value={shown}
+        trend={1}
+        locales="en-US"
+        willChange
+        /* Three seconds end to end. The digits both travel and spin, so both
+           timings have to be set — leaving either at its default would have
+           the two halves of the same number finish at different moments. The
+           easing decelerates, so it arrives rather than stopping dead. */
+        transformTiming={{ duration: 3000, easing: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+        spinTiming={{ duration: 3000, easing: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+        opacityTiming={{ duration: 700, easing: "ease-out" }}
+      />
     </span>
   );
 }

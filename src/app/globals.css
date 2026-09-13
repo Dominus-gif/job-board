@@ -555,6 +555,49 @@ select { accent-color: #2383e2; }
 
 
 /* ---------------------------------------------------------------------------
+   Dot-matrix world map (see src/components/ui/world-dot-matrix.tsx).
+
+   The generated SVG is used as a MASK, not as an image. That is what lets one
+   asset serve both themes: the file supplies the shape of the land, and the
+   colour is a background underneath it that CSS can change. As an <img> it
+   would have needed a second file, or a filter, to work in dark mode.
+
+   Nothing here animates. This replaced a WebGL globe, and after four rounds of
+   chasing compositor artefacts on phones the most valuable property it has is
+   that there is nothing for a compositor to get wrong.
+--------------------------------------------------------------------------- */
+.world-dots {
+  width: 100%;
+  -webkit-mask-image: url("/world-dots.svg");
+  mask-image: url("/world-dots.svg");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  background-color: #2b2a26;
+}
+
+.dark .world-dots {
+  background-color: #f5f5f4;
+}
+
+/* Cities. Sized as a share of the map's width so they hold their proportion at
+   any breakpoint, and a step brighter than the land so they read as markers
+   rather than as more coastline. */
+.world-dots__pin {
+  position: absolute;
+  width: 1.05%;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
+  background-color: #14171a;
+}
+
+.dark .world-dots__pin {
+  background-color: #ffffff;
+}
+
+/* ---------------------------------------------------------------------------
    Footer landscape.
 
    A photograph, not line art, so it cannot be blended in the way the previous

@@ -7,7 +7,7 @@ import { JobList } from "@/components/JobList";
 import { JobBoard } from "@/components/JobBoard";
 import { PopularLocations } from "@/components/PopularLocations";
 import { GradientBoldCard } from "@/components/ui/gradient-bold-card";
-import { AtomicGlobe } from "@/components/ui/atomic-globe";
+import { WorldDotMatrix } from "@/components/ui/world-dot-matrix";
 import { AnimatedNumber } from "@/components/ui/number-flow";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { RoleSubscribeForm } from "@/components/RoleSubscribeForm";
@@ -22,20 +22,20 @@ export const metadata: Metadata = {
 
 const HOME_FAQ = [
   {
-    q: "What makes a job 'truly location-independent'?",
-    a: "It can be done from anywhere in the world with no country, region, or timezone restriction. We reject anything that says 'US only', 'EU-based', 'must overlap EST', or requires local work authorization.",
+    q: 'What does "truly location-independent" actually mean?',
+    a: "You can work from a beach in Bali, a coffee shop in Berlin, or your couch in Ohio. No \u201cUS only\u201d fine print, no required time zone overlaps, and no local work visa hassles. If a listing restricts where you physically sit, it doesn\u2019t make our cut.",
   },
   {
-    q: "Where do these jobs come from?",
-    a: "We aggregate them hourly from companies' public applicant tracking systems (Ashby, Greenhouse, Lever, Workable), then filter ruthlessly for global-remote roles and enrich them with skills, salary, and benefits.",
+    q: "Where do you find these listings?",
+    a: "We pull directly from the source. Every hour, our system scans hiring platforms like Ashby, Greenhouse, Lever, and Workable. We then strip out the geo-restricted noise and tag each role with actual salary data, required skills, and perks so you don\u2019t have to hunt for the details.",
   },
   {
-    q: "Is it free to apply?",
-    a: "Always. You apply directly on the company's own site. You should never have to pay to apply.",
+    q: "Does it cost anything to apply?",
+    a: "Zero. We link you straight to the employer\u2019s official job board so you can apply directly. If a job site ever asks you for money to submit a resume, run.",
   },
   {
-    q: "How often are new jobs added?",
-    a: "Continuously. Our ingestion pipeline polls company boards on a schedule, and new global-remote roles appear as soon as they pass the filter.",
+    q: "How frequently do you update the board?",
+    a: "In real time or as soon as a company posts a qualifying global role and it passes our filter, it goes live on the site. No waiting for a weekly newsletter blast. However, sometime due to operations challenges listings can stay online while recruiters close the job profiles from there end.",
   },
 ];
 
@@ -85,17 +85,17 @@ export default async function HomePage() {
           className="pointer-events-none absolute inset-0 bg-meridian opacity-60 [background-size:44px_44px] [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]"
           aria-hidden
         />
-        {/* Globe, behind the hero column. Decorative and non-interactive; it
-            sits under the content rather than beside it so the hero's centred
-            layout is untouched at every width. Held at 70% — a 30% reduction —
-            and masked at the edges so it reads as part of the background
-            rather than as an image dropped on top of it. */}
+        {/* Dot-matrix world map, behind the hero column. Decorative and
+            non-interactive; it sits under the content rather than beside it so
+            the hero's centred layout is untouched at every width. Held at 50%,
+            and masked at the edges so it fades into the page rather than
+            ending on a hard rectangle. */}
         <div
-          className="pointer-events-none absolute left-1/2 top-[68%] z-0 w-[min(620px,112vw)] -translate-x-1/2 -translate-y-1/2 [mask-image:radial-gradient(circle_at_center,black_44%,transparent_74%)]"
-          style={{ opacity: 0.7 }}
+          className="pointer-events-none absolute left-1/2 top-[62%] z-0 w-[min(1180px,168vw)] -translate-x-1/2 -translate-y-1/2 [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_88%)]"
+          style={{ opacity: 0.5 }}
           aria-hidden
         >
-          <AtomicGlobe />
+          <WorldDotMatrix />
         </div>
         {/* Scrim between the globe and the words.
             Measured before this existed: the globe's landmass dots put pixels
