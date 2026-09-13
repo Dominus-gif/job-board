@@ -111,7 +111,11 @@ export default async function JobPage(props: { params: Promise<{ slug: string }>
 
   return (
     <LivenessProvider slug={job.slug}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {/* Omitted when the record cannot be marked up to Google's JobPosting
+          rules (see jobPostingJsonLd) — no markup beats broken markup. */}
+      {jsonLd && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      )}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }} />
 
       {/* ── Header band ─────────────────────────────────────────── */}
