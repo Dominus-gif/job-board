@@ -46,13 +46,13 @@ jobs:
 
       - name: Commit the verdicts
         run: |
-          if git diff --quiet -- src/lib/generated/job-liveness.json; then
+          if git diff --quiet -- src/lib/generated/job-liveness.json src/lib/generated/retired-jobs.json; then
             echo "no change"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/lib/generated/job-liveness.json
+          git add src/lib/generated/job-liveness.json src/lib/generated/retired-jobs.json
           # [skip ci] so this does not trigger a deploy of its own; the nightly
           # build is what publishes the result.
           git commit -m "liveness sweep [skip ci]"

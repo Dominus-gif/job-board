@@ -26,6 +26,7 @@ import { NORDHARTON_COMPANY, NORDHARTON_JOBS } from "./seed/nordharton";
 // work for the ~10k curated jobs — it just parses them — so they're always
 // present and the board can't fall back to the snapshot on Vercel.
 import curatedJobs from "./generated/curated-jobs.json";
+import retiredApplyUrls from "./generated/retired-jobs.json";
 
 const TTL_MS = Number(process.env.ANYWHERE_CACHE_TTL_MS ?? 30 * 60 * 1000); // 30 min
 const LIVE_ENABLED = process.env.ANYWHERE_LIVE !== "false";
@@ -215,15 +216,34 @@ async function loadRealJobs(): Promise<Job[]> {
 /** Public read: the real jobs plus the always-on manual (featured) jobs.
  * Never throws — a data hiccup on a cold serverless instance must degrade to the
  * committed baseline (styled empty state / full board), never a raw 500. */
+/**
+ * Apply links the liveness sweep has retired (see scripts/check-liveness.ts).
+ *
+ * Applied HERE, in loadJobs, rather than in db.ts's allPublished — which is
+ * where it started, and which was wrong. Five call sites read loadJobs
+ * directly, getJobBySlug among them, so a retired listing vanished from the
+ * board while its own page still rendered with a working Apply button. One
+ * filter at the source cannot be bypassed by the next call site someone adds.
+ *
+ * Built once at module load from a generated list of just the retired URLs —
+ * not from the sweep's full ledger, which carries a record per listing so its
+ * rotation knows what it last looked at and would have put 1.5MB of working
+ * into the worker bundle for no runtime purpose.
+ */
+const RETIRED: ReadonlySet<string> = new Set(retiredApplyUrls as string[]);
+
+const dropRetired = (jobs: Job[]): Job[] =>
+  RETIRED.size === 0 ? jobs : jobs.filter((j) => !j.apply_url || !RETIRED.has(j.apply_url));
+
 export async function loadJobs(): Promise<Job[]> {
   try {
-    return serve(await loadRealJobs());
+    return dropRetired(serve(await loadRealJobs()));
   } catch (err) {
     console.warn("[store] loadJobs failed — serving baseline:", (err as Error)?.message);
     try {
-      return serve(baseline);
+      return dropRetired(serve(baseline));
     } catch {
-      return baseline;
+      return dropRetired(baseline);
     }
   }
 }

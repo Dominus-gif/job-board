@@ -20,8 +20,10 @@
  *      /acme?error=true, so status alone is not enough. A 403, a 429, a 5xx or
  *      a timeout is us being blocked or the host being unwell — never the job
  *      being gone.
- *   2. Two consecutive dead readings before a job is retired. One bad night
- *      should not empty a company's page.
+ *   2. A 404 or 410 retires on sight — the server is stating the posting does
+ *      not exist, and there is nothing a second pass would add. The inferred
+ *      "bounced to the board" case is a guess, so that one needs two readings
+ *      before it acts.
  *   3. A circuit breaker on how many came back ALIVE, not on how many came back
  *      dead. Under 40% success means we are being blocked, and nothing is
  *      written. A ceiling on the dead share would have refused the first real
@@ -34,7 +36,7 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 
-type Verdict = "alive" | "dead" | "unknown";
+type Verdict = "alive" | "gone" | "bounced" | "unknown";
 
 interface Record_ {
   /** ISO timestamp of the last completed check. */
@@ -47,8 +49,9 @@ interface Record_ {
 type Ledger = Record<string, Record_>;
 
 const LEDGER_PATH = join(process.cwd(), "src", "lib", "generated", "job-liveness.json");
+const RETIRED_PATH = join(process.cwd(), "src", "lib", "generated", "retired-jobs.json");
 const DEAD_STRIKES = 2;
-const CONCURRENCY = 10;
+const CONCURRENCY = Number(process.env.LIVENESS_CONCURRENCY) || 10;
 const PER_HOST_GAP_MS = 250;
 const TIMEOUT_MS = 10_000;
 /**
@@ -60,7 +63,7 @@ const TIMEOUT_MS = 10_000;
  */
 const MIN_ALIVE_RATIO = 0.4;
 /** Below this age a posting is almost certainly still up; do not spend a request. */
-const MIN_AGE_DAYS = 7;
+const MIN_AGE_DAYS = Number(process.env.LIVENESS_MIN_AGE_DAYS ?? 7);
 
 const args = process.argv.slice(2);
 const DRY = args.includes("--dry");
@@ -138,8 +141,8 @@ async function probe(url: string): Promise<Verdict> {
         headers: { "user-agent": "getremotejobsnow-liveness/1.0 (+https://getremotejobsnow.com)" },
       });
     }
-    if (res.status === 404 || res.status === 410) return "dead";
-    if (res.ok && bouncedToRoot(url, res.url)) return "dead";
+    if (res.status === 404 || res.status === 410) return "gone";
+    if (res.ok && bouncedToRoot(url, res.url)) return "bounced";
     if (res.ok) return "alive";
     // 403, 429, 5xx: us being blocked or them being unwell. Not a verdict.
     return "unknown";
@@ -189,19 +192,22 @@ async function main() {
 
   const tally = results.reduce<Record<Verdict, number>>(
     (acc, r) => ({ ...acc, [r.verdict]: acc[r.verdict] + 1 }),
-    { alive: 0, dead: 0, unknown: 0 }
+    { alive: 0, gone: 0, bounced: 0, unknown: 0 }
   );
-  const decided = tally.alive + tally.dead;
-  const deadRatio = decided > 0 ? tally.dead / decided : 0;
-  console.log(`[liveness] alive ${tally.alive}  dead ${tally.dead}  unknown ${tally.unknown}  (dead ${(deadRatio * 100).toFixed(1)}% of decided)`);
+  const dead = tally.gone + tally.bounced;
+  const decided = tally.alive + dead;
+  const deadRatio = decided > 0 ? dead / decided : 0;
+  console.log(
+    `[liveness] alive ${tally.alive}  gone(404/410) ${tally.gone}  bounced ${tally.bounced}  unknown ${tally.unknown}  (dead ${(deadRatio * 100).toFixed(1)}% of decided)`
+  );
 
   // Where the dead ones are concentrated. A systemic fault spreads evenly; a
   // genuine backlog clusters in the sources we no longer re-scrape.
   const deadByHost = new Map<string, number>();
-  for (const r of results) if (r.verdict === "dead") deadByHost.set(r.host, (deadByHost.get(r.host) ?? 0) + 1);
+  for (const r of results) if (r.verdict !== "alive" && r.verdict !== "unknown") deadByHost.set(r.host, (deadByHost.get(r.host) ?? 0) + 1);
   const top = [...deadByHost.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6);
   if (top.length) console.log(`[liveness] dead by host: ${top.map(([h, n]) => `${h}=${n}`).join("  ")}`);
-  for (const r of results.filter((x) => x.verdict === "dead").slice(0, 3)) {
+  for (const r of results.filter((x) => x.verdict === "gone").slice(0, 3)) {
     console.log(`[liveness]   e.g. dead: ${r.url.slice(0, 96)}`);
   }
 
@@ -230,9 +236,19 @@ async function main() {
       ledger[url] = { at, strikes: prev?.strikes ?? 0, last: "unknown" };
       continue;
     }
-    if (verdict === "dead") {
+    if (verdict === "gone") {
+      // A 404 or a 410 is the server saying the posting does not exist. There
+      // is nothing to confirm on a second pass, and making a visitor click
+      // through to a dead page for another six hours to satisfy a counter
+      // helps nobody. Retire on sight.
+      const before = prev?.strikes ?? 0;
+      ledger[url] = { at, strikes: DEAD_STRIKES, last: "gone" };
+      if (before < DEAD_STRIKES) retired++;
+    } else if (verdict === "bounced") {
+      // This one IS a guess — the status was 200 and we inferred removal from
+      // where the redirect landed. Two readings before acting on it.
       const strikes = (prev?.strikes ?? 0) + 1;
-      ledger[url] = { at, strikes, last: "dead" };
+      ledger[url] = { at, strikes, last: "bounced" };
       if (strikes >= DEAD_STRIKES && (prev?.strikes ?? 0) < DEAD_STRIKES) retired++;
     } else {
       if ((prev?.strikes ?? 0) >= DEAD_STRIKES) revived++;
@@ -250,6 +266,17 @@ async function main() {
   mkdirSync(dirname(LEDGER_PATH), { recursive: true });
   writeFileSync(LEDGER_PATH, JSON.stringify(ledger));
   console.log(`[liveness] wrote ${Object.keys(ledger).length} records to ${LEDGER_PATH}`);
+
+  // The runtime needs the verdict, not the working. The ledger carries a
+  // record per listing so the rotation knows what it last looked at — 1.5MB of
+  // it — and every byte of that would otherwise be bundled into the worker.
+  // What actually gets imported is this: the retired URLs and nothing else.
+  const retiredUrls = Object.entries(ledger)
+    .filter(([, r]) => r.strikes >= DEAD_STRIKES)
+    .map(([url]) => url)
+    .sort();
+  writeFileSync(RETIRED_PATH, JSON.stringify(retiredUrls));
+  console.log(`[liveness] wrote ${retiredUrls.length} retired urls to ${RETIRED_PATH}`);
 }
 
 main().catch((err) => {

@@ -9,7 +9,6 @@
 import type { Category, Company, Job, JobSubmission, Subscriber } from "./types";
 import { companies as allowList, loadJobs, isLive, getSnapshotPool } from "./store";
 import { IN_DEMAND_THRESHOLD, runtimeInterest } from "./interest";
-import livenessLedger from "./generated/job-liveness.json";
 
 export { isLive } from "./store";
 
@@ -33,28 +32,11 @@ function applyInterest(job: Job): Job {
 
 /* -------------------------------- queries -------------------------------- */
 
-/**
- * Apply links the liveness sweep has found gone twice running.
- *
- * Read once at module load — it is a plain object of at most a few thousand
- * keys, and doing this per request would be the kind of work that made the
- * board slow on cold starts. Written by scripts/check-liveness.ts; see that
- * file for why a listing has to fail twice before it lands here.
- */
-const RETIRED: ReadonlySet<string> = new Set(
-  Object.entries(livenessLedger as Record<string, { strikes?: number }>)
-    .filter(([, r]) => (r?.strikes ?? 0) >= 2)
-    .map(([url]) => url)
-);
-
 /** Every published job (worldwide + regional), interest-folded and ranked. */
 async function allPublished(): Promise<Job[]> {
   const jobs = await loadJobs();
-  return jobs
-    .filter((j) => j.status === "published")
-    .filter((j) => !j.apply_url || !RETIRED.has(j.apply_url))
-    .map(applyInterest)
-    .sort(byRank);
+  // Retired listings are already gone: loadJobs drops them at the source.
+  return jobs.filter((j) => j.status === "published").map(applyInterest).sort(byRank);
 }
 
 /** The main board: only truly worldwide, location-independent roles. */
