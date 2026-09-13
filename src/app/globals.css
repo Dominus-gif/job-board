@@ -349,30 +349,27 @@ select { accent-color: #2383e2; }
    is twice the card's width and carries two copies of the ramp, so moving it
    exactly one card-width returns it to an identical position — the loop has no
    seam. */
-/* The gradient is PAINTED and scrolled, not carried on a moving layer.
-   Four passes were spent trying to make a composited, transformed child behave
-   inside this card on a phone — shrinking the swing, dropping the blend mode,
-   removing a nested rounded clip, forcing the WebKit mask path. Each fixed
-   something real and none of them stopped the flicker, because the flicker is
-   in the compositor and every one of those fixes still asked the compositor to
-   carry a moving layer.
+/* Moved back onto the compositor.
+   A background-position animation repaints the whole card every frame on the
+   main thread. That never tears, but on a phone it cannot hold 60fps over a
+   358x290 card at 3x density, and judder at that scale is indistinguishable
+   from flicker — which is what was still being reported.
+   A transform animation is handed to the compositor and runs without
+   repainting anything, so it is smooth by construction.
 
-   This asks it to carry nothing. There is no child element, no transform, no
-   promoted layer and no clip of a moving thing: just a background on the card
-   whose position animates. A background-position animation repaints rather
-   than composites, so there is no layer to tear, evict or mis-clip. It costs
-   main-thread paint instead — which for a gradient over one card is cheap, and
-   which degrades as dropped frames rather than as artefacts.
+   This has not actually been tried clean before. Every earlier transform
+   version carried something extra that is now gone: a second nested rounded
+   clip, `contain: paint`, `translateZ(0)`, permanent `will-change`, and
+   `mix-blend-mode`. Each of those is a way to make the compositor mishandle a
+   moving layer; together they are why this path looked unusable. What is left
+   is the plain case — one moving child, one clip, no hints.
 
-   The tile is twice the card's width and carries TWO complete ramps, so a
-   whole ramp fits in each card width. With one ramp stretched over the tile
-   the card only ever showed half of it — a shallow slope with so little
-   variation across it that the motion was measurable but not visible. Both
-   ends of the tile are the same value, so shifting by one whole tile (200%)
-   returns to an identical position and the loop has no seam. */
+   The strip is two card-widths carrying two tiles, so one card-width shows one
+   whole ramp, and translating by exactly one tile (-50% of the strip) returns
+   to an identical position: no seam. */
 @keyframes featured-sweep {
-  from { background-position: 0% 0; }
-  to   { background-position: 200% 0; }
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
 }
 
 .featured-sweep {
@@ -380,56 +377,43 @@ select { accent-color: #2383e2; }
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-repeat: repeat-x;
-  background-size: 200% 100%;
-  animation: featured-sweep 9s linear infinite;
-  /* A background-position animation repaints, and without containment that
-     invalidation walks back up to the card — so the title, the chips and the
-     salary pill get re-rastered sixty times a second alongside the gradient.
-     This is an empty decorative span, so bounding it costs nothing and keeps
-     the per-frame work to the gradient alone. It does NOT promote a moving
-     layer; nothing here moves, only its paint changes. */
-  contain: paint;
-  /* The ramp runs from a FLOOR up to a peak and back, never to transparent, so
-     the card is always tinted and the sweep is a lift above it rather than a
-     swing out of darkness. Peak alpha 0.36 is the worst case for text contrast
-     (the floor is lighter); see .featured-card for why the muted text on these
-     cards is darkened to sit under it.
+  /* No clip, no containment, no promotion hint. The card is already
+     `overflow-hidden rounded-xl` and that one clip is enough. */
+}
 
-     Five stops per ramp rather than nine. Every frame of a background-position
-     animation re-rasterises the gradient, and that cost scales with how many
-     stops it has to interpolate between — on a phone this is the whole card,
-     every frame, on the main thread. Five is indistinguishable here and
-     roughly halves the work. */
+.featured-sweep::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 200%;
+  background-repeat: repeat-x;
+  background-size: 50% 100%;
+  animation: featured-sweep 5s linear infinite;
+  /* Floor to peak and back, never to transparent, so the card is always tinted
+     and the sweep is a lift above it. Peak alpha 0.36 is the worst case for
+     text contrast; see .featured-card for why the muted text is darkened. */
   background-image: linear-gradient(
     90deg,
     rgba(59, 130, 246, 0.14) 0%,
-    rgba(59, 130, 246, 0.24) 15%,
-    rgba(59, 130, 246, 0.36) 25%,
-    rgba(59, 130, 246, 0.24) 35%,
-    rgba(59, 130, 246, 0.14) 50%,
-    rgba(59, 130, 246, 0.24) 65%,
-    rgba(59, 130, 246, 0.36) 75%,
-    rgba(59, 130, 246, 0.24) 85%,
+    rgba(59, 130, 246, 0.24) 30%,
+    rgba(59, 130, 246, 0.36) 50%,
+    rgba(59, 130, 246, 0.24) 70%,
     rgba(59, 130, 246, 0.14) 100%
   );
 }
 
-/* Dark surface: the same glow, composited without a blend mode. These colours
-   at opacity 0.75 land on exactly what `screen` at 0.68 produced over the dark
-   card (#252525), solved per stop. */
-.dark .featured-sweep {
+/* Dark surface: these colours at opacity 0.75 land on exactly what
+   `mix-blend-mode: screen` at 0.68 produced over the dark card (#252525),
+   solved per stop — same glow, none of the blend cost. */
+.dark .featured-sweep::before {
   opacity: 0.75;
   background-image: linear-gradient(
     90deg,
     #2f4b8b 0%,
-    #335eb4 15%,
-    #2581eb 25%,
-    #335eb4 35%,
-    #2f4b8b 50%,
-    #335eb4 65%,
-    #2581eb 75%,
-    #335eb4 85%,
+    #335eb4 30%,
+    #2581eb 50%,
+    #335eb4 70%,
     #2f4b8b 100%
   );
 }
@@ -515,32 +499,46 @@ select { accent-color: #2383e2; }
    a seam, which keeps the original's three colours exactly.
 --------------------------------------------------------------------------- */
 @keyframes gradient-bold-blob {
-  from { background-position: 0% 50%; }
-  to   { background-position: 200% 50%; }
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
 }
 
 .gradient-bold-card__blob {
   position: absolute;
-  inset: 0;
+  inset-block: 0;
+  left: 0;
   z-index: 0;
+  width: 200%;
   background-repeat: repeat-x;
-  background-size: 200% 100%;
-  /* Same reason as .featured-sweep: bound the repaint to this span so the
-     numbers and labels above it are not re-rastered every frame. */
-  contain: paint;
+  background-size: 50% 100%;
+  animation: gradient-bold-blob 5s linear infinite;
+  /* White through grey and back, with both ends on the same value so the tile
+     repeats without a seam.
+
+     The light theme cannot start at pure white: the page behind this card is
+     white too, so half the ramp would simply disappear and the rim would read
+     as no border at all. It starts at a light grey instead and runs deeper,
+     which keeps the same white-to-grey character against the surface it is
+     actually seen on. Dark mode gets the literal white. */
   background-image: linear-gradient(
     90deg,
-    #ec4899 0%,
-    #ef4444 12.5%,
-    #eab308 25%,
-    #ef4444 37.5%,
-    #ec4899 50%,
-    #ef4444 62.5%,
-    #eab308 75%,
-    #ef4444 87.5%,
-    #ec4899 100%
+    #e4e4e7 0%,
+    #a1a1aa 25%,
+    #52525b 50%,
+    #a1a1aa 75%,
+    #e4e4e7 100%
   );
-  animation: gradient-bold-blob 8s linear infinite;
+}
+
+.dark .gradient-bold-card__blob {
+  background-image: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #d4d4d8 25%,
+    #71717a 50%,
+    #d4d4d8 75%,
+    #ffffff 100%
+  );
 }
 
 
