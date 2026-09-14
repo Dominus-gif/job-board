@@ -755,7 +755,17 @@ select { accent-color: #2383e2; }
       rgba(255, 255, 255, 0.35) 54%,
       rgba(255, 255, 255, 0) 62%
     ),
-    linear-gradient(180deg, #f7ecd4 0%, #eedca9 30%, #e0c583 62%, #cfad64 100%);
+    linear-gradient(
+      180deg,
+      rgba(247, 236, 212, 0.9) 0%,
+      rgba(238, 220, 169, 0.9) 30%,
+      rgba(224, 197, 131, 0.9) 62%,
+      rgba(207, 173, 100, 0.9) 100%
+    );
+  /* The gold rides at 90% over an opaque warm base rather than over the card,
+     so it loses a tenth of its intensity without the card's blue sweep
+     bleeding through and turning it green. */
+  background-color: #fbf7ee;
   background-size: 250% 100%, 100% 100%;
   background-position: -75% 0, 0 0;
   background-repeat: no-repeat;
@@ -820,7 +830,14 @@ select { accent-color: #2383e2; }
       rgba(255, 255, 255, 0.3) 54%,
       rgba(255, 255, 255, 0) 62%
     ),
-    linear-gradient(180deg, #f2e2c0 0%, #e8d197 30%, #d8b96f 62%, #c39f53 100%);
+    linear-gradient(
+      180deg,
+      rgba(242, 226, 192, 0.9) 0%,
+      rgba(232, 209, 151, 0.9) 30%,
+      rgba(216, 185, 111, 0.9) 62%,
+      rgba(195, 159, 83, 0.9) 100%
+    );
+  background-color: #f6efe0;
   box-shadow:
     inset 0 0 0 1px rgba(255, 240, 205, 0.55),
     inset 0 1px 0 rgba(255, 255, 255, 0.4),
@@ -848,85 +865,82 @@ select { accent-color: #2383e2; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   "New" badge — the glow treatment.
+   "New" badge — a white plate with a green shine.
 
-   Same pill as Featured and as the badge it replaces: the shared SHAPE class
-   in StatusBadge.tsx still supplies radius, padding, type and icon, and this
-   only supplies colour and motion. A dark plate with a green sparkle reads at
-   a glance on a white card in a way the old ink-100 chip did not, which is the
-   whole point of the change.
-
-   The pulse is opacity on an overlay carrying a fixed shadow, not an animated
-   `box-shadow` on the badge itself. Animating a blurred shadow repaints it
-   every frame, and sorted-by-newest pages can put two dozen of these on screen
-   at once; animating opacity hands the whole thing to the compositor and
-   rasterises the glow once. The overlay carries no background and its inset
-   ring sits at the very edge, so it can never tint the label.
+   Same pill as Featured: the shared SHAPE class in StatusBadge.tsx supplies
+   radius, padding, type and the sparkle, and this supplies colour and motion
+   only. Same sheen mechanic as `.badge-gold` too — a moving background layer
+   rather than a clipped child, for the same reason: a second rounded clip
+   inside the card's rounded clip is what made the card sweep flicker on
+   phones. Green instead of white, and slower, so the two badges never read as
+   the same event. No drifting stars — those stay the Featured badge's alone.
    ───────────────────────────────────────────────────────────────────────── */
 .badge-new {
   position: relative;
-  --new-main: #22c55e;
-  --new-soft: rgba(34, 197, 94, 0.55);
-  color: var(--new-main);
-  background-color: #232323;
-  /* The resting edge and a soft inner tint, both under the text. */
+  /* Forest green, not the signal green: the label has to clear 4.5:1 against
+     white AND against the sheen at its brightest, which is the worst case. */
+  color: #166534;
+  background-color: #ffffff;
+  background-image: linear-gradient(
+    105deg,
+    rgba(34, 197, 94, 0) 38%,
+    rgba(34, 197, 94, 0.2) 46%,
+    rgba(34, 197, 94, 0.4) 50%,
+    rgba(34, 197, 94, 0.2) 54%,
+    rgba(34, 197, 94, 0) 62%
+  );
+  background-size: 250% 100%;
+  background-position: -75% 0;
+  background-repeat: no-repeat;
+  /* A green edge, because a white plate on a white card has none of its own. */
   box-shadow:
-    inset 0 0 0 1px rgba(34, 197, 94, 0.3),
-    inset 0 0 6px rgba(34, 197, 94, 0.16);
+    inset 0 0 0 1px rgba(34, 197, 94, 0.55),
+    0 1px 2px rgba(21, 128, 61, 0.14);
+  animation: badge-new-sheen 5s ease-in-out infinite;
 }
 
-.badge-new::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  box-shadow:
-    inset 0 0 0 1px var(--new-main),
-    0 0 12px var(--new-soft);
-  opacity: 0.2;
-  animation: badge-new-glow 2.4s ease-in-out infinite;
-}
-
-@keyframes badge-new-glow {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 1; }
+/* Sweep, then park off the right edge. 5s against the gold badge's 3.2s, so
+   the pair never pulses together. */
+@keyframes badge-new-sheen {
+  0% { background-position: -75% 0; }
+  45%, 100% { background-position: 175% 0; }
 }
 
 .badge-new svg {
-  /* Static filter, animated transform — the drop shadow rasterises once. */
-  filter: drop-shadow(0 0 4px var(--new-soft));
-  animation: badge-new-twinkle 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.6));
 }
 
-@keyframes badge-new-twinkle {
-  0%, 100% { opacity: 0.78; transform: scale(0.92); }
-  50% { opacity: 1; transform: scale(1.08); }
-}
-
-/* Dark surface: the cards are already #202020, so a charcoal plate would read
-   as a hole punched in the card. A deep green one sits ON the card instead,
-   and the green is lifted to hold its contrast against it. */
+/* Dark surface: the cards are #202020, so a white plate would glare. A deep
+   green one sits on the card instead, with the green and the sheen lifted to
+   match. */
 .dark .badge-new {
-  --new-main: #3ade78;
-  --new-soft: rgba(58, 222, 120, 0.5);
-  background-color: #16301f;
+  color: #56e78d;
+  /* Plate and sheen peak both pulled down from the first pass: the label was
+     measuring 4.19:1 against the plate at the top of the sweep, which is the
+     frame that decides whether the badge is readable. */
+  background-color: #132a19;
+  background-image: linear-gradient(
+    105deg,
+    rgba(86, 231, 141, 0) 38%,
+    rgba(86, 231, 141, 0.1) 46%,
+    rgba(86, 231, 141, 0.22) 50%,
+    rgba(86, 231, 141, 0.1) 54%,
+    rgba(86, 231, 141, 0) 62%
+  );
   box-shadow:
-    inset 0 0 0 1px rgba(58, 222, 120, 0.28),
-    inset 0 0 6px rgba(58, 222, 120, 0.14);
+    inset 0 0 0 1px rgba(86, 231, 141, 0.42),
+    0 1px 3px rgba(0, 0, 0, 0.35);
 }
 
-/* The global reduced-motion rule clamps the duration, which would leave both
-   of these frozen on whatever frame they started on. Pin them to a readable
-   resting state instead: glow held part-way up, sparkle at full size. */
+.dark .badge-new svg {
+  filter: drop-shadow(0 0 3px rgba(86, 231, 141, 0.45));
+}
+
+/* The global reduced-motion rule clamps the duration, which would leave the
+   sheen parked on whatever frame it started on. Park it deliberately instead. */
 @media (prefers-reduced-motion: reduce) {
-  .badge-new::after {
+  .badge-new {
     animation: none;
-    opacity: 0.7;
-  }
-  .badge-new svg {
-    animation: none;
-    opacity: 1;
-    transform: none;
+    background-position: 175% 0;
   }
 }

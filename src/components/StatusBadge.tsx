@@ -5,9 +5,9 @@
  * never the only signal.
  *
  * Featured wears a gold face with a shine that sweeps across it and four small
- * stars drifting above (`.badge-gold`). New wears a dark plate with a green
- * sparkle and a glow that fades in and out (`.badge-new`). Both treatments are
- * in globals.css; neither changes the pill.
+ * stars drifting above (`.badge-gold`). New wears a white plate with a green
+ * sparkle and the same shine, slower and in green (`.badge-new`). Both
+ * treatments are in globals.css; neither changes the pill.
  *
  * The two never appear together — `isNew` is false for a featured job — so the
  * gold and the green are never competing on one card.
