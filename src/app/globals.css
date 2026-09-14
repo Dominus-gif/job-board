@@ -717,3 +717,132 @@ select { accent-color: #2383e2; }
 .btn-celebrate {
   animation: btn-celebrate 1.4s ease-out;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Featured badge — the gold treatment.
+
+   Same pill as every other status badge (StatusBadge.tsx holds the shared
+   shape class), so radius, padding, type and icon are untouched. Only the
+   face changes: a champagne-gold plate, a shine that sweeps left to right and
+   then rests, and four small stars drifting above.
+
+   The shine is a moving BACKGROUND layer, not a child element clipped to the
+   pill. A child would need its own `overflow: hidden`, and a second rounded
+   clip inside the card's rounded clip is exactly what made the featured card
+   sweep flicker on phones. The badge is about 70x19px, so repainting it is a
+   rounding error and paint-animating the sheen sidesteps the problem outright.
+   The stars are the clean transform case the card sweep settled on: one moving
+   child, the card's single clip, no promotion hints.
+   ───────────────────────────────────────────────────────────────────────── */
+.badge-gold-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.badge-gold {
+  position: relative;
+  /* Dark bronze on the gold. Measured against the rendered plate rather than
+     the token, because the plate is a gradient and the text sits over its
+     darker half. */
+  color: #4a3208;
+  text-shadow: 0 1px 0 rgba(255, 250, 225, 0.45);
+  background-image:
+    linear-gradient(
+      105deg,
+      rgba(255, 255, 255, 0) 38%,
+      rgba(255, 255, 255, 0.35) 46%,
+      rgba(255, 255, 255, 0.75) 50%,
+      rgba(255, 255, 255, 0.35) 54%,
+      rgba(255, 255, 255, 0) 62%
+    ),
+    linear-gradient(180deg, #f7ecd4 0%, #eedca9 30%, #e0c583 62%, #cfad64 100%);
+  background-size: 250% 100%, 100% 100%;
+  background-position: -75% 0, 0 0;
+  background-repeat: no-repeat;
+  /* The bevel as inset rings rather than a border, so the pill measures the
+     same as the neutral one and the badge row never shifts by a pixel. */
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 247, 222, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -2px 3px rgba(96, 70, 20, 0.13),
+    0 1px 3px rgba(150, 112, 40, 0.3);
+  animation: badge-gold-sheen 3.2s ease-in-out infinite;
+}
+
+/* Sweep, then park off the right edge for the rest of the cycle — the rest is
+   what keeps it from reading as a nervous loop. */
+@keyframes badge-gold-sheen {
+  0% { background-position: -75% 0, 0 0; }
+  45%, 100% { background-position: 175% 0, 0 0; }
+}
+
+.badge-gold svg {
+  filter: drop-shadow(0 1px 0 rgba(255, 250, 230, 0.5));
+}
+
+.badge-sparks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.badge-spark {
+  position: absolute;
+  fill: #d8a948;
+  filter: drop-shadow(0 0 2px rgba(216, 169, 72, 0.5));
+  animation-name: badge-spark-float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes badge-spark-float {
+  0%, 100% { opacity: 0.12; transform: translate3d(0, 3px, 0) scale(0.55); }
+  50% { opacity: 0.8; transform: translate3d(0, -5px, 0) scale(0.95); }
+}
+
+/* Placement, size and timing per star, staggered so they never sync up. They
+   sit inside the card's 20px padding, so nothing is ever clipped. */
+.badge-spark--1 { left: 12%; top: -8px; width: 7px; height: 7px; animation-duration: 4s; animation-delay: 0s; }
+.badge-spark--2 { left: 40%; top: -12px; width: 5px; height: 5px; animation-duration: 5s; animation-delay: 1.2s; }
+.badge-spark--3 { right: 14%; top: -9px; width: 6px; height: 6px; animation-duration: 3.6s; animation-delay: 2s; }
+.badge-spark--4 { left: 66%; top: -6px; width: 4px; height: 4px; animation-duration: 4.4s; animation-delay: 0.7s; }
+
+/* The dark surface gets a slightly deeper plate so the badge sits in the card
+   rather than glaring out of it; the bronze text stays put, and so does its
+   contrast, because the plate under the text barely moves. */
+.dark .badge-gold {
+  background-image:
+    linear-gradient(
+      105deg,
+      rgba(255, 255, 255, 0) 38%,
+      rgba(255, 255, 255, 0.3) 46%,
+      rgba(255, 255, 255, 0.62) 50%,
+      rgba(255, 255, 255, 0.3) 54%,
+      rgba(255, 255, 255, 0) 62%
+    ),
+    linear-gradient(180deg, #f2e2c0 0%, #e8d197 30%, #d8b96f 62%, #c39f53 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 240, 205, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 3px rgba(70, 50, 12, 0.22),
+    0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.dark .badge-spark {
+  fill: #e8c476;
+  filter: drop-shadow(0 0 3px rgba(232, 196, 118, 0.5));
+}
+
+/* The global prefers-reduced-motion rule clamps animation-duration, which
+   leaves the sheen parked wherever the first frame lands. Pin both to their
+   resting state instead: a plain gold plate and steady stars. */
+@media (prefers-reduced-motion: reduce) {
+  .badge-gold {
+    animation: none;
+    background-position: 175% 0, 0 0;
+  }
+  .badge-spark {
+    animation: none;
+    opacity: 0.55;
+  }
+}
