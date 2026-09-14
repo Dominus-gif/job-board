@@ -11,9 +11,19 @@ import { usePathname } from "next/navigation";
  * on screen changes. With no indicator the click reads as ignored, and people
  * click again.
  *
- * The bar starts from the click, not from the route change: a route change is
+ * The bar starts from the gesture, not from the route change: a route change is
  * the END of the wait, so starting there would only ever show the bar after the
- * slow part is over. It finishes on whichever signal lands first —
+ * slow part is over. Three gestures move this document, and all three are
+ * covered:
+ *
+ *   - a click on a link            (capture-phase click listener)
+ *   - a search box submit          (capture-phase submit listener)
+ *   - back / forward               (popstate)
+ *
+ * plus `startRouteProgress()` for anything that navigates from code, such as
+ * the sort dropdown's `router.push`.
+ *
+ * It finishes on whichever signal lands first —
  *
  *   1. the pathname changing (the normal case, fires the instant React commits)
  *   2. the URL changing at all (covers query-only moves like the sort dropdown)
@@ -38,6 +48,18 @@ const TICK_MS = 120;
 /** Time the finished bar stays at 100% before fading out. */
 const FADE_MS = 280;
 const SAFETY_MS = 12_000;
+/**
+ * Back/forward is served from the router's own cache and is normally instant.
+ * It also arrives with the address bar ALREADY moved, so signal 2 above is
+ * gone and only the pathname can finish it — which a query-only step back
+ * never changes. Hence a much tighter cap for those: worst case the bar sits
+ * for a moment, rather than the twelve seconds the click path can afford.
+ */
+const POP_SAFETY_MS = 3_000;
+
+/** Elements that handle their own click and navigate nothing. */
+const INERT_CONTROLS =
+  "button, [role='button'], [role='dialog'], [role='menu'], [role='listbox'], input, select, textarea, label";
 
 export function RouteProgress() {
   const pathname = usePathname();
@@ -49,10 +71,13 @@ export function RouteProgress() {
   const tick = useRef<ReturnType<typeof setInterval> | null>(null);
   const safety = useRef<ReturnType<typeof setTimeout> | null>(null);
   const fade = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /** The last address we know this document rendered, for the popstate guard. */
+  const here = useRef("");
 
   const finish = useCallback(() => {
     if (!running.current) return;
     running.current = false;
+    here.current = window.location.pathname + window.location.search;
     if (tick.current) { clearInterval(tick.current); tick.current = null; }
     if (safety.current) { clearTimeout(safety.current); safety.current = null; }
     // Resolved before the bar ever appeared — drop it without a flash.
@@ -65,53 +90,63 @@ export function RouteProgress() {
     }, FADE_MS);
   }, []);
 
-  const start = useCallback(() => {
-    if (running.current) return;
-    running.current = true;
+  const begin = useCallback(
+    (opts: { urlAlreadyMoved?: boolean } = {}) => {
+      if (running.current) return;
+      running.current = true;
 
-    // A new navigation during the previous one's fade-out: clear it first so
-    // the bar restarts from the left instead of snapping back from 100%.
-    if (fade.current) {
-      clearTimeout(fade.current);
-      fade.current = null;
-      shown.current = false;
-      setVisible(false);
-      setValue(0);
-    }
-
-    const from = window.location.href;
-    let elapsed = 0;
-
-    tick.current = setInterval(() => {
-      elapsed += TICK_MS;
-      if (window.location.href !== from) {
-        finish();
-        return;
+      // A new navigation during the previous one's fade-out: clear it first so
+      // the bar restarts from the left instead of snapping back from 100%.
+      if (fade.current) {
+        clearTimeout(fade.current);
+        fade.current = null;
+        shown.current = false;
+        setVisible(false);
+        setValue(0);
       }
-      if (!shown.current) {
-        if (elapsed < SHOW_AFTER_MS) return;
-        shown.current = true;
-        setVisible(true);
-        setValue(10);
-        return;
-      }
-      // Ease toward 90% and stall there. The bar must never claim to be done
-      // before the page actually is.
-      setValue((v) => (v >= 90 ? v : v + Math.max(0.5, (90 - v) * 0.08)));
-    }, TICK_MS);
 
-    safety.current = setTimeout(finish, SAFETY_MS);
-  }, [finish]);
+      // Back/forward has already rewritten the address bar by the time we hear
+      // about it, so the URL is no longer evidence that the navigation landed.
+      const watchUrl = !opts.urlAlreadyMoved;
+      const from = window.location.href;
+      let elapsed = 0;
+
+      tick.current = setInterval(() => {
+        elapsed += TICK_MS;
+        if (watchUrl && window.location.href !== from) {
+          finish();
+          return;
+        }
+        if (!shown.current) {
+          if (elapsed < SHOW_AFTER_MS) return;
+          shown.current = true;
+          setVisible(true);
+          setValue(10);
+          return;
+        }
+        // Ease toward 90% and stall there. The bar must never claim to be done
+        // before the page actually is.
+        setValue((v) => (v >= 90 ? v : v + Math.max(0.5, (90 - v) * 0.08)));
+      }, TICK_MS);
+
+      safety.current = setTimeout(finish, opts.urlAlreadyMoved ? POP_SAFETY_MS : SAFETY_MS);
+    },
+    [finish]
+  );
+
+  /** Listener-shaped wrapper: never let an Event object reach `begin`'s options. */
+  const start = useCallback(() => begin(), [begin]);
 
   // Completion: the committed route changed.
   const seen = useRef(pathname);
   useEffect(() => {
+    here.current = window.location.pathname + window.location.search;
     if (pathname === seen.current) return;
     seen.current = pathname;
     finish();
   }, [pathname, finish]);
 
-  // Start: any click that will actually navigate this document.
+  // Start: any gesture that will actually navigate this document.
   useEffect(() => {
     function onClick(e: MouseEvent) {
       if (e.button !== 0) return;
@@ -125,13 +160,7 @@ export function RouteProgress() {
       // them. Checked structurally rather than via defaultPrevented because
       // this listener runs in the capture phase (see below), before any of
       // those handlers have had a chance to run.
-      if (
-        target.closest(
-          "button, [role='button'], [role='dialog'], [role='menu'], [role='listbox'], input, select, textarea, label"
-        )
-      ) {
-        return;
-      }
+      if (target.closest(INERT_CONTROLS)) return;
 
       const a = target.closest("a");
       if (!(a instanceof HTMLAnchorElement) || a.hasAttribute("download")) return;
@@ -151,21 +180,70 @@ export function RouteProgress() {
       if (url.origin !== window.location.origin) return;
       if (url.pathname === window.location.pathname && url.search === window.location.search) return;
 
-      start();
+      begin();
+    }
+
+    /**
+     * The search boxes on the homepage, /jobs, /find-remote-jobs and the 404
+     * page are plain `<form action="/jobs" method="get">`. Submitting one is a
+     * full document navigation with no link click anywhere in it, and the
+     * submit button is deliberately ignored by the click listener above — so
+     * without this, searching was the one gesture on the site that produced no
+     * feedback at all.
+     *
+     * Narrow on purpose: a real URL action, same origin, and GET. That is the
+     * shape of a form that moves the document. It excludes the server-action
+     * subscribe forms (POST, no URL action) and the contact form (handled in
+     * JS with preventDefault), neither of which navigates anywhere.
+     */
+    function onSubmit(e: Event) {
+      const form = e.target;
+      if (!(form instanceof HTMLFormElement)) return;
+      if ((form.getAttribute("method") || "get").toLowerCase() !== "get") return;
+      const formTarget = form.getAttribute("target");
+      if (formTarget && formTarget !== "_self") return;
+
+      const action = form.getAttribute("action");
+      if (!action) return;
+      let url: URL;
+      try {
+        url = new URL(action, window.location.href);
+      } catch {
+        return;
+      }
+      if (url.origin !== window.location.origin) return;
+
+      begin();
+    }
+
+    /**
+     * Back and forward. The address bar has already moved by the time this
+     * fires, so `begin` is told not to treat a URL change as the finish line.
+     * A step that only moves the hash loads nothing, and gets no bar.
+     */
+    function onPop() {
+      const next = window.location.pathname + window.location.search;
+      if (here.current && next === here.current) return;
+      here.current = next;
+      begin({ urlAlreadyMoved: true });
     }
 
     // Capture phase: next/link calls preventDefault() on every internal click
     // to take over the navigation, and React's own stopPropagation() in the
     // card buttons keeps those events from reaching document at all. Listening
-    // during capture sidesteps both — we see the click first, and decide from
+    // during capture sidesteps both — we see the event first, and decide from
     // the element itself whether it is a navigation.
     document.addEventListener("click", onClick, true);
+    document.addEventListener("submit", onSubmit, true);
+    window.addEventListener("popstate", onPop);
     window.addEventListener(START_EVENT, start);
     return () => {
       document.removeEventListener("click", onClick, true);
+      document.removeEventListener("submit", onSubmit, true);
+      window.removeEventListener("popstate", onPop);
       window.removeEventListener(START_EVENT, start);
     };
-  }, [start]);
+  }, [begin, start]);
 
   // Unmount (and Fast Refresh) must not leave timers running.
   useEffect(
