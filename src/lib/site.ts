@@ -86,3 +86,21 @@ export const ADSENSE = {
     return this.client.replace(/^ca-/, "");
   },
 };
+
+/**
+ * Datafast analytics. Both values are public by design — they are read
+ * straight out of the page source by anyone who looks — so they are defaulted
+ * in code for the same reason the GA and AdSense ids are: a build environment
+ * that forgets a variable should not silently stop reporting. Still
+ * overridable per environment, and clearing NEXT_PUBLIC_DATAFAST_ID switches
+ * the script off entirely (useful for a preview deploy that should not count
+ * as traffic).
+ */
+export const DATAFAST = {
+  websiteId: (process.env.NEXT_PUBLIC_DATAFAST_ID || "dfid_PeY69FJPO7G9FlLdwKIGW").trim(),
+  /** The property's registered domain; Datafast rejects hits from anywhere else. */
+  domain: (process.env.NEXT_PUBLIC_DATAFAST_DOMAIN || "getremotejobsnow.com").trim(),
+  get enabled(): boolean {
+    return this.websiteId.startsWith("dfid_") && this.domain.length > 0;
+  },
+};

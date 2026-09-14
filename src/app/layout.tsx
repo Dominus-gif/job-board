@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { SITE, ADSENSE, FEATURES, SUPABASE } from "@/lib/site";
+import { SITE, ADSENSE, DATAFAST, FEATURES, SUPABASE } from "@/lib/site";
 import { getSubscriberCount } from "@/lib/db";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -79,6 +79,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${body.variable} ${editorialSerif.variable} ${editorialMono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        {/* Datafast — privacy-friendly pageview analytics, alongside GA4 rather
+            than instead of it. Left as Datafast ship it: a deferred tag in the
+            head, rather than a next/script that waits for hydration. `defer`
+            already keeps it off the parser's critical path, and loading it this
+            early is what counts a visitor who bounces before React boots. */}
+        {DATAFAST.enabled && (
+          <script
+            defer
+            data-website-id={DATAFAST.websiteId}
+            data-domain={DATAFAST.domain}
+            src="https://datafa.st/js/script.js"
+          />
+        )}
       </head>
       <body className="min-h-screen flex flex-col">
         <ThemeGuard />
