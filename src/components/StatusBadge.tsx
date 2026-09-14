@@ -5,11 +5,14 @@
  * never the only signal.
  *
  * Featured wears a gold face with a shine that sweeps across it and four small
- * stars drifting above; the treatment is in `.badge-gold` in globals.css.
- * Featured is paid placement, so it is the one badge that gets to be loud, and
- * the only one: New keeps the plain neutral chip.
+ * stars drifting above (`.badge-gold`). New wears a dark plate with a green
+ * sparkle and a glow that fades in and out (`.badge-new`). Both treatments are
+ * in globals.css; neither changes the pill.
  *
- * "New" is backed by real recency (posted within a few days); we deliberately
+ * The two never appear together — `isNew` is false for a featured job — so the
+ * gold and the green are never competing on one card.
+ *
+ * "New" is backed by real recency (posted within five days); we deliberately
  * dropped the old "Trending" badge, which appeared on ~every card and therefore
  * carried no signal.
  */
@@ -65,7 +68,7 @@ export function StatusBadge({ kind }: { kind: keyof typeof MAP }) {
   }
 
   return (
-    <span className={`${SHAPE} bg-ink-100 text-ink-700 ring-1 ring-inset ring-ink-200`}>
+    <span className={`${SHAPE} badge-new`}>
       {icon} {label}
     </span>
   );
