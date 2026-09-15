@@ -75,9 +75,22 @@ export function applyLinkIsSpecific(applyUrl: string | undefined | null): boolea
   }
 }
 
-/** Should this listing be offered to search engines as a destination? */
+/**
+ * Should this listing be offered to search engines as a destination?
+ *
+ * The description test is on what the PAGE renders, not on what is stored. When
+ * `has_full_description` is set we fetched the employer's complete posting and
+ * the page renders it — often 5,000+ characters — so the stored excerpt is a
+ * fallback and a poor measure of the page.
+ *
+ * It is the captured fact, not "the apply URL looks like an ATS link": 65 of
+ * the 5,008 addressable listings did not yield a description, and a page that
+ * falls back to an 80-word excerpt is not one to offer as a search result.
+ */
 export function jobIsIndexable(
-  job: Pick<Job, "description_html" | "status" | "is_active" | "apply_url" | "is_featured">
+  job: Pick<Job, "description_html" | "status" | "is_active" | "apply_url" | "is_featured"> & {
+    has_full_description?: boolean;
+  }
 ): boolean {
   if (job.status === "expired" || job.is_active === false) return false;
   if (isDirectoryPointer(job.description_html)) return false;
@@ -87,6 +100,7 @@ export function jobIsIndexable(
   // it. The description rule still applies: paid does not mean exempt from
   // being a real page.
   if (!job.is_featured && !applyLinkIsSpecific(job.apply_url)) return false;
+  if (job.has_full_description) return true;
   return descriptionWords(job.description_html) >= MIN_DESCRIPTION_WORDS;
 }
 

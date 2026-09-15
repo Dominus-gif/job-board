@@ -25,6 +25,7 @@ interface Enrichable {
   company_slug?: string;
   company_name: string;
   description_html: string;
+  has_full_description?: boolean;
 }
 
 /**
@@ -36,16 +37,19 @@ interface Enrichable {
  * old 520 were the company's opening paragraph and identical across every
  * posting they had.
  *
- * 800 rather than the 1300 this was first set to, and the reason is worth
- * recording because it is counter-intuitive: de-duplicating the descriptions
- * made them COMPRESS WORSE. 5,575 listings used to share identical text, which
- * gzip collapsed to almost nothing. Unique prose does not collapse, so at 1300
- * the Worker measured 11.17 MB gzipped against a 10 MB ceiling — the fix for
- * one problem had created another. At 800 the dataset gzips to 2.39 MB, level
- * with where it sat before enrichment, and every listing that clears the
- * indexing bar still clears it (6,246 of them, against 3,096 before).
+ * 500, and deliberately small, because this is no longer what the reader sees.
+ * The job page fetches the employer's COMPLETE posting at render time — see
+ * src/lib/job-description.ts — so this is a card snippet, a search index and a
+ * fallback for the 37% of listings that are not on an addressable board.
+ *
+ * Worth recording why it cannot simply be large: the dataset is inlined into
+ * the Worker three times over, and de-duplicating the descriptions made them
+ * COMPRESS WORSE — 5,575 listings used to share identical text that gzip
+ * collapsed to nothing, and unique prose does not. At 1300 the Worker measured
+ * 11.17 MB gzipped against a 10 MB ceiling. Storing the full text was never
+ * possible at any cap; fetching it was the answer.
  */
-export const STORE_CHARS = 800;
+export const STORE_CHARS = 500;
 
 /** Minimum that must survive stripping, else the original is kept. */
 const MIN_BODY_CHARS = 200;
@@ -118,6 +122,8 @@ export function applyEnrichment(jobs: Enrichable[]): EnrichResult {
       const body = trimToSentence(text, STORE_CHARS).trim();
       if (body.length < MIN_BODY_CHARS) return; // keep what we had
       j.description_html = `<p>${body}</p>`;
+      // The page will render the employer's complete posting for this one.
+      j.has_full_description = true;
       strippedWords += removed;
       enriched++;
     });

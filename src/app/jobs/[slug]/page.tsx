@@ -22,6 +22,7 @@ import {
   GlobeIcon, BriefcaseIcon, CalendarIcon, WalletIcon, TagIcon, CheckIcon, BuildingIcon, ArrowUpRightIcon, PinIcon,
 } from "@/components/icons";
 import { jobInsights } from "@/lib/insights";
+import { fullDescription } from "@/lib/job-description";
 import { JobInsightsPanel } from "@/components/JobInsights";
 
 // Render live-added slugs on demand, and revalidate so removed jobs flip to
@@ -103,14 +104,19 @@ export default async function JobPage(props: { params: Promise<{ slug: string }>
   const tier = salaryTier(job.salary);
   const daysLeft = daysUntil(job.expires_at);
   // Secondary sections are best-effort: never let them 500 a valid job page.
-  const [similar, companyJobs, company, insights] = await Promise.all([
+  const [similar, companyJobs, company, insights, fullText] = await Promise.all([
     getSimilarJobs(job).catch(() => []),
     getJobsByCompany(job.company_slug).catch(() => []),
     getCompanyBySlug(job.company_slug).catch(() => undefined),
     // The one part of this page that is ours rather than the employer's. Also
     // best-effort: a stats failure must never cost the visitor the listing.
     jobInsights(job).catch(() => null),
+    // The employer's COMPLETE description, from their own board. Too large to
+    // store (see src/lib/job-description.ts) and always more current than a
+    // snapshot. Null on any failure, and the stored excerpt covers that.
+    fullDescription(job).catch(() => null),
   ]);
+  const description = fullText ?? job.description_html;
   const otherRoles = companyJobs.length;
   const jsonLd = jobPostingJsonLd(job);
   const crumbs = breadcrumbJsonLd([
@@ -204,7 +210,7 @@ export default async function JobPage(props: { params: Promise<{ slug: string }>
               </div>
             )}
             <h2 className="font-display text-lg font-bold text-ink-900">About this role</h2>
-            <div className="prose-job mt-3 max-w-none" dangerouslySetInnerHTML={{ __html: job.description_html }} />
+            <div className="prose-job mt-3 max-w-none" dangerouslySetInnerHTML={{ __html: description }} />
             {/* Everything above this line is the employer's words. Everything
                 below is what the board can tell you that they cannot. */}
             {insights && <JobInsightsPanel insights={insights} category={job.category} />}

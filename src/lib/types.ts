@@ -92,6 +92,13 @@ export interface Job {
   skills: string[];
   benefits: Benefit[];
   is_featured: boolean;
+  /**
+   * We fetched this employer's complete posting from their board and the page
+   * renders it (src/lib/job-description.ts). Distinct from "the apply URL looks
+   * like an ATS link" — this means the capture succeeded, which is what makes
+   * the page substantial enough to index.
+   */
+  has_full_description?: boolean;
   source: JobSource;
   provider?: AtsProvider;
   board_token?: string; // ATS board id, used to re-verify liveness
