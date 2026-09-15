@@ -65,10 +65,10 @@ async function main() {
     if (dropReport.dropped > 0) {
       console.log(
         `[snapshot] ${dropReport.dropped} job(s) cannot be described completely — ` +
-          (process.env.DROP_INCOMPLETE === "1" ? "dropped" : "kept, held out of the index")
+          (process.env.KEEP_INCOMPLETE === "1" ? "kept (KEEP_INCOMPLETE=1)" : "removed")
       );
     }
-    const publishable = (process.env.DROP_INCOMPLETE === "1" ? kept : all) as unknown as typeof all;
+    const publishable = (process.env.KEEP_INCOMPLETE === "1" ? all : kept) as unknown as typeof all;
 
     // Same guard as build-curated: without the capture files this run would
     // publish excerpt-only jobs and lose every fetched description the

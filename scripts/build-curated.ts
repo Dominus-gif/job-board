@@ -458,19 +458,24 @@ const retiredUrls = new Set<string>(
 const notRetired = all.filter((j) => !j.apply_url || !retiredUrls.has(j.apply_url));
 
 /**
- * Listings we cannot describe completely.
+ * Listings we cannot describe completely are not published.
  *
- * By default they stay on the board and stop being indexed (jobIsIndexable
- * applies the same test), which is reversible. DROP_INCOMPLETE=1 removes them
- * outright instead — a bigger, one-way call about inventory.
+ * The board's rule: a listing on this site shows the employer's whole posting.
+ * What it costs is the ~2,000 whose employer publishes through a JS-rendered
+ * applicant tracker, where the description arrives from an internal XHR and no
+ * amount of fetching HTML finds it.
+ *
+ * Nothing is destroyed. The listings stay in the seed files; they return the
+ * moment a capture run finds their description, or immediately with
+ * KEEP_INCOMPLETE=1.
  */
-const dropIncomplete = process.env.DROP_INCOMPLETE === "1";
+const keepIncomplete = process.env.KEEP_INCOMPLETE === "1";
 const { kept: complete, report: dropReport } = dropIncompleteDescriptions(notRetired);
-const live = dropIncomplete ? complete : notRetired;
+const live = keepIncomplete ? notRetired : complete;
 console.log(
   `[curated] ${dropReport.dropped} listing(s) cannot be described completely ` +
     `(${Object.entries(dropReport.byReason).map(([k, n]) => `${k}: ${n}`).join(", ")}) — ` +
-    (dropIncomplete ? "DROPPED (DROP_INCOMPLETE=1)" : "kept on the board, held out of the index")
+    (keepIncomplete ? "KEPT (KEEP_INCOMPLETE=1)" : "removed from the board")
 );
 console.log(`[curated] dropped ${all.length - live.length} record(s) the runtime already filters out as retired`);
 
@@ -483,7 +488,7 @@ const slim: Slim[] = live.map((j) => {
 
 const OUT = join(process.cwd(), "src", "lib", "generated", "curated-jobs.json");
 writeFileSync(OUT, JSON.stringify(slim));
-console.log(`[curated] wrote ${all.length} prebuilt curated jobs (${roleJobs.length} real roles + ${dirJobs.length} directory + ${flexJobs.length} aggregator) to generated/curated-jobs.json`);
+console.log(`[curated] wrote ${slim.length} prebuilt curated jobs to generated/curated-jobs.json (from ${all.length} built: ${all.length - notRetired.length} retired, ${notRetired.length - live.length} incomplete)`);
 console.log(`[curated] dropped ${droppedDefect} listing(s) with an unusable title or a non-English body`);
 console.log(`[curated] dropped ${droppedAttribution} listing(s) whose employer could not be verified against the ATS board in their apply URL`);
 console.log(`[curated] ashby: ${ashbyWorldwide} worldwide + ${ashbyRegional} regional, ${ashbyRejected} rejected by the work-from-anywhere classifier`);

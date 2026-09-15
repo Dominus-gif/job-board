@@ -132,5 +132,11 @@ export const NORDHARTON_JOBS: Job[] = SEEDS.map(({ raw, scope, region, category 
   board_token: undefined,
   ats_job_id: undefined,
   is_featured: true,
+  // These descriptions are written here, in full — there is no employer board to
+  // fetch a longer version from, so the stored text IS the complete posting.
+  // Without this the completeness rule judges them as an excerpt and removes
+  // them: the Cloud & Infrastructure Engineer listing measured 897 characters
+  // against a 900 threshold, and it is finished, not truncated.
+  has_full_description: true,
   category,
 }));

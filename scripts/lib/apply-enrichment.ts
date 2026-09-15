@@ -149,11 +149,13 @@ export interface DropReport {
 /**
  * Remove listings that cannot show the employer's whole posting.
  *
- * OFF BY DEFAULT, and opt-in via DROP_INCOMPLETE=1. Deleting a couple of
- * thousand listings from a live board is not a call to make as a side effect of
- * a description fix — the default is that those listings stay browsable and
- * stop being indexed, which gets search engines the same outcome and is
- * reversible. See jobIsIndexable, which applies the same completeness test.
+ * ON by default, since the board's rule is now that a published listing carries
+ * the employer's whole posting. A page promising a job and delivering 89 words
+ * that stop mid-sentence is worse for a reader than not being there.
+ *
+ * KEEP_INCOMPLETE=1 reverses it, and nothing is destroyed by removing them: the
+ * listings live in the seed files and come back on the next build if the flag is
+ * set, or as soon as a capture run finds their description.
  *
  * `has_full_description` means the capture succeeded and the page fetches the
  * whole posting at render time, so those pass by construction. Everything else
