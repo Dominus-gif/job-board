@@ -28,4 +28,6 @@ Design/footer_image_m.jpg
 # and the TRIMMED result is what gets committed, inside curated-jobs.json and
 # snapshot.json. Keeping the raw capture out of git keeps the repo clonable.
 src/lib/generated/job-content.json
+src/lib/generated/job-content-generic.json
+src/lib/generated/unreachable-descriptions.json
 src/lib/generated/discovered-roles.json

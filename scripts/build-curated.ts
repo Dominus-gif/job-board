@@ -9,7 +9,7 @@
  * Runs in `prebuild`; the output is also committed so a build never depends on
  * it succeeding.
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Job, RawJob } from "../src/lib/types";
 import { toPublishedJob } from "../src/lib/pipeline";
@@ -21,7 +21,7 @@ import remoteJobsRoles from "../src/lib/seed/remotejobs-roles.json";
 import capitalOneRoles from "../src/lib/seed/capitalone-roles.json";
 import ashbyRoles from "../src/lib/seed/ashby-roles.json";
 import realSlugs from "../src/lib/seed/real-company-slugs.json";
-import { applyEnrichment } from "./lib/apply-enrichment";
+import { applyEnrichment, dropIncompleteDescriptions } from "./lib/apply-enrichment";
 
 const DAY = 24 * 60 * 60 * 1000;
 const slugify = (n: string) => n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -131,6 +131,33 @@ function bodyIsEnglish(html: string): boolean {
 }
 
 const JUNK_TITLE = /don.?t see|didn.?t see|can.?t find|general application|spontaneous application|talent (pool|community|network)|future (opportunities|openings|roles)|join our talent|open (remote )?roles|other (open )?roles|none of (these|the above)|fill out (a|an|the) (general|application)|looking for people with|introduce yourself|general interest/i;
+
+/**
+ * Do not regenerate without the capture files.
+ *
+ * The descriptions in the committed curated-jobs.json come from
+ * job-content.json (41 MB) and job-content-generic.json, neither of which is in
+ * git. CI runs this script as part of `npm run build`, so a rebuild there would
+ * quietly reproduce the dataset WITHOUT those descriptions — and because
+ * indexability now depends on has_full_description, that silently de-indexed
+ * half the board: the live sitemap dropped to 3,071 job pages against the 6,400
+ * the committed data supports.
+ *
+ * So: no capture files, no regeneration. The committed output is authoritative
+ * and is refreshed locally by running the enrichment scripts. Loud, because a
+ * build that quietly ships worse data than the repo holds is the failure this
+ * is here to prevent.
+ */
+// Keyed on the ATS capture specifically. The generic file alone would let a
+// rebuild proceed and silently drop the 4,943 descriptions that come from it.
+const haveCapture = existsSync(join(process.cwd(), "src", "lib", "generated", "job-content.json"));
+if (!haveCapture) {
+  console.warn("[curated] no capture files present - KEEPING the committed curated-jobs.json.");
+  console.warn("[curated] Regenerating without them would drop every fetched description and");
+  console.warn("[curated] de-index the listings that depend on them. Run verify-and-enrich.ts");
+  console.warn("[curated] and enrich-generic.ts locally, then commit the rebuilt dataset.");
+  process.exit(0);
+}
 
 // Wrapped so a build never fails here: the output is committed, so on any error
 // the existing curated-jobs.json is kept and the deploy still succeeds.
@@ -428,7 +455,23 @@ const retiredUrls = new Set<string>(
     }
   })()
 );
-const live = all.filter((j) => !j.apply_url || !retiredUrls.has(j.apply_url));
+const notRetired = all.filter((j) => !j.apply_url || !retiredUrls.has(j.apply_url));
+
+/**
+ * Listings we cannot describe completely.
+ *
+ * By default they stay on the board and stop being indexed (jobIsIndexable
+ * applies the same test), which is reversible. DROP_INCOMPLETE=1 removes them
+ * outright instead — a bigger, one-way call about inventory.
+ */
+const dropIncomplete = process.env.DROP_INCOMPLETE === "1";
+const { kept: complete, report: dropReport } = dropIncompleteDescriptions(notRetired);
+const live = dropIncomplete ? complete : notRetired;
+console.log(
+  `[curated] ${dropReport.dropped} listing(s) cannot be described completely ` +
+    `(${Object.entries(dropReport.byReason).map(([k, n]) => `${k}: ${n}`).join(", ")}) — ` +
+    (dropIncomplete ? "DROPPED (DROP_INCOMPLETE=1)" : "kept on the board, held out of the index")
+);
 console.log(`[curated] dropped ${all.length - live.length} record(s) the runtime already filters out as retired`);
 
 type Slim = Omit<Job, "company_logo" | "expires_at" | "source" | "status" | "is_active" | "verified" | "is_featured">;

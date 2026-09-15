@@ -7,6 +7,9 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["src/**/*.test.ts"],
+    // scripts/ carries the build-time logic that decides what gets published —
+    // the completeness rule and the boilerplate stripper both live there, and
+    // both are the kind of thing that fails silently if it regresses.
+    include: ["src/**/*.test.ts", "scripts/**/*.test.ts"],
   },
 });

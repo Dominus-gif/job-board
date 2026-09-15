@@ -9,11 +9,20 @@ import {
   robotsFor,
 } from "./indexing";
 
-/** A listing with enough of its own description to be worth indexing. */
-const words = (n: number) => "<p>" + Array.from({ length: n }, (_, i) => `word${i}`).join(" ") + "</p>";
+/**
+ * A listing description of roughly `n` words that reads like prose — sentences
+ * with real endings. The completeness rule now checks that a stored
+ * description finishes on a sentence rather than stopping mid-thought, so a
+ * fixture of bare tokens is not a valid stand-in for one.
+ */
+const words = (n: number) => {
+  const sentence = "We are hiring an engineer to own this part of the platform end to end. ";
+  const per = sentence.trim().split(" ").length;
+  return "<p>" + sentence.repeat(Math.max(1, Math.ceil(n / per))).trim() + "</p>";
+};
 const job = (over: Record<string, unknown> = {}) =>
   ({
-    description_html: words(120),
+    description_html: words(200),
     status: "published",
     is_active: true,
     apply_url: "https://boards.greenhouse.io/acme/jobs/123",
@@ -40,6 +49,12 @@ describe("jobIsIndexable", () => {
     expect(jobIsIndexable(job({ description_html: words(33) }))).toBe(false);
   });
 
+  it("holds back a description that stops mid-thought", () => {
+    // The Elation Health page: long enough by word count, but cut off. Judging
+    // on length alone would have indexed it.
+    expect(jobIsIndexable(job({ description_html: "<p>" + words(200).slice(3, -4) + " Serve as…</p>" }))).toBe(false);
+  });
+
   it("holds back the company directory pointers", () => {
     expect(jobIsIndexable(job({ description_html: "<p>Roles hiring for: Ruby, Go, QA.</p>" + words(120) }))).toBe(false);
     expect(
@@ -60,6 +75,12 @@ describe("jobIsIndexable", () => {
 
   it("still holds a featured listing to the description rule", () => {
     expect(jobIsIndexable(job({ is_featured: true, description_html: words(33) }))).toBe(false);
+  });
+
+  it("indexes on the fetched posting, not the stored fallback", () => {
+    // has_full_description means the page renders the employer's whole posting,
+    // so the short stored text is a fallback and a bad thing to judge on.
+    expect(jobIsIndexable(job({ description_html: words(20), has_full_description: true }))).toBe(true);
   });
 
   it("never indexes an expired or inactive listing", () => {

@@ -17,6 +17,7 @@
  * that reads worse than either choice alone. Both read these predicates.
  */
 import type { Job } from "../types";
+import { isComplete } from "./description-completeness";
 
 /**
  * A listing page needs this much of its own description before it is worth
@@ -100,7 +101,13 @@ export function jobIsIndexable(
   // it. The description rule still applies: paid does not mean exempt from
   // being a real page.
   if (!job.is_featured && !applyLinkIsSpecific(job.apply_url)) return false;
+  // The page renders the employer's whole posting.
   if (job.has_full_description) return true;
+  // Otherwise the stored text IS the page, so it has to be a complete
+  // description on its own: long enough, finishing on a real sentence, and not
+  // ending in the ellipsis an excerpt builder leaves behind. This is what keeps
+  // a page like "…Serve as …" out of search results.
+  if (!isComplete(job.description_html, false)) return false;
   return descriptionWords(job.description_html) >= MIN_DESCRIPTION_WORDS;
 }
 

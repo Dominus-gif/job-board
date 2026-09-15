@@ -12,6 +12,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { stripCompanyBoilerplate, trimToSentence } from "./dedupe-boilerplate";
+import { describeCompleteness } from "../../src/lib/seo/description-completeness";
 
 interface ContentRec {
   title: string;
@@ -91,13 +92,20 @@ export interface EnrichResult {
 }
 
 export function applyEnrichment(jobs: Enrichable[]): EnrichResult {
-  let content: Record<string, ContentRec>;
-  try {
-    const path = join(process.cwd(), "src", "lib", "generated", "job-content.json");
-    content = JSON.parse(readFileSync(path, "utf8")) as Record<string, ContentRec>;
-  } catch {
-    return { enriched: 0, strippedWords: 0, available: 0 };
-  }
+  // Two capture files: the ATS board sweep and the generic pass. Merged here so
+  // the rest of the build does not care which route found a description.
+  const read = (name: string): Record<string, ContentRec> => {
+    try {
+      return JSON.parse(readFileSync(join(process.cwd(), "src", "lib", "generated", name), "utf8")) as Record<
+        string,
+        ContentRec
+      >;
+    } catch {
+      return {};
+    }
+  };
+  const content = { ...read("job-content.json"), ...read("job-content-generic.json") };
+  if (Object.keys(content).length === 0) return { enriched: 0, strippedWords: 0, available: 0 };
 
   // Group by employer: the template can only be found by comparing one
   // company's postings against each other.
@@ -129,4 +137,36 @@ export function applyEnrichment(jobs: Enrichable[]): EnrichResult {
     });
   }
   return { enriched, strippedWords, available };
+}
+
+
+export interface DropReport {
+  kept: number;
+  dropped: number;
+  byReason: Record<string, number>;
+}
+
+/**
+ * Remove listings that cannot show the employer's whole posting.
+ *
+ * OFF BY DEFAULT, and opt-in via DROP_INCOMPLETE=1. Deleting a couple of
+ * thousand listings from a live board is not a call to make as a side effect of
+ * a description fix — the default is that those listings stay browsable and
+ * stop being indexed, which gets search engines the same outcome and is
+ * reversible. See jobIsIndexable, which applies the same completeness test.
+ *
+ * `has_full_description` means the capture succeeded and the page fetches the
+ * whole posting at render time, so those pass by construction. Everything else
+ * has to argue from the stored text: long enough, finishing on a real sentence,
+ * and not ending in the ellipsis an excerpt builder leaves behind.
+ */
+export function dropIncompleteDescriptions<T extends Enrichable>(jobs: T[]): { kept: T[]; report: DropReport } {
+  const byReason: Record<string, number> = {};
+  const kept = jobs.filter((j) => {
+    const v = describeCompleteness(j.description_html, j.has_full_description === true);
+    if (v.complete) return true;
+    byReason[v.reason] = (byReason[v.reason] ?? 0) + 1;
+    return false;
+  });
+  return { kept, report: { kept: kept.length, dropped: jobs.length - kept.length, byReason } };
 }

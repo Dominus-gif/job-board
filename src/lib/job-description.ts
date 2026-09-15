@@ -111,17 +111,74 @@ function extract(platform: AtsAddress["platform"], id: string, data: unknown): s
 }
 
 /**
+ * JobPosting JSON-LD embedded in the employer's own page.
+ *
+ * Job sites publish this so Google for Jobs can read them, which makes it both
+ * authoritative and complete wherever it exists — and it is the only general
+ * route into the 1,565 hosts that are not one of the five ATS platforms.
+ * Reaches roughly a third of them; the rest render their description from an
+ * internal XHR and cannot be read without a browser.
+ */
+async function viaJsonLd(url: string): Promise<string | null> {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
+  try {
+    const res = await fetch(url, {
+      headers: { "user-agent": UA, accept: "text/html,application/xhtml+xml" },
+      signal: ctrl.signal,
+      redirect: "follow",
+      next: { revalidate: REVALIDATE_SECONDS },
+    });
+    if (!res.ok) return null;
+    const html = await res.text();
+    for (const m of html.matchAll(/<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
+      let parsed: unknown;
+      try {
+        parsed = JSON.parse(m[1].trim());
+      } catch {
+        continue;
+      }
+      const nodes: unknown[] = Array.isArray(parsed)
+        ? parsed
+        : ((parsed as { "@graph"?: unknown[] })?.["@graph"] ?? [parsed]);
+      for (const n of nodes) {
+        const x = n as Record<string, unknown>;
+        if (x?.["@type"] !== "JobPosting") continue;
+        const desc = String(x.description ?? "");
+        if (desc) return desc;
+      }
+    }
+    return null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
  * The full description for a listing, sanitised and ready to render, or null
  * when it cannot be had — in which case render what is stored.
+ *
+ * Only called for listings the build confirmed it could capture
+ * (`has_full_description`). That gate matters: without it every one of the
+ * ~2,000 listings whose description is unreachable would spend the timeout on
+ * every cache miss, to fail.
  */
-export async function fullDescription(job: { apply_url: string }): Promise<string | null> {
-  const addr = atsAddress(job.apply_url);
-  if (!addr) return null;
-  const endpoint = postingEndpoint(addr);
-  if (!endpoint) return null;
+export async function fullDescription(job: {
+  apply_url: string;
+  has_full_description?: boolean;
+}): Promise<string | null> {
+  if (job.has_full_description === false) return null;
 
-  const data = await getJson(endpoint);
-  const raw = extract(addr.platform, addr.id, data);
+  let raw: string | null = null;
+  const addr = atsAddress(job.apply_url);
+  if (addr) {
+    const endpoint = postingEndpoint(addr);
+    if (endpoint) raw = extract(addr.platform, addr.id, await getJson(endpoint));
+  }
+  // Not on an ATS board, or the board did not answer: try the page itself.
+  if (!raw) raw = await viaJsonLd(job.apply_url);
   if (!raw) return null;
 
   // Greenhouse escapes its HTML; decoding twice covers feeds that double-escape.

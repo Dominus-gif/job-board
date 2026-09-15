@@ -13,7 +13,7 @@
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { applyEnrichment } from "./lib/apply-enrichment";
+import { applyEnrichment, dropIncompleteDescriptions } from "./lib/apply-enrichment";
 import type { Job } from "../src/lib/types";
 import { ingestAndProcess } from "../src/lib/pipeline";
 import companies from "../src/lib/seed/companies.json";
@@ -60,13 +60,32 @@ async function main() {
       console.log(`[snapshot] ${enrich.strippedWords} words of repeated company template removed`);
     }
 
+    // Same rule as the curated half: publish only what we can describe.
+    const { kept, report: dropReport } = dropIncompleteDescriptions(all as unknown as Parameters<typeof dropIncompleteDescriptions>[0]);
+    if (dropReport.dropped > 0) {
+      console.log(
+        `[snapshot] ${dropReport.dropped} job(s) cannot be described completely — ` +
+          (process.env.DROP_INCOMPLETE === "1" ? "dropped" : "kept, held out of the index")
+      );
+    }
+    const publishable = (process.env.DROP_INCOMPLETE === "1" ? kept : all) as unknown as typeof all;
+
+    // Same guard as build-curated: without the capture files this run would
+    // publish excerpt-only jobs and lose every fetched description the
+    // committed snapshot carries.
+    const haveCapture = existsSync(join(process.cwd(), "src", "lib", "generated", "job-content.json"));
+    if (!haveCapture) {
+      console.warn("[snapshot] no capture files — keeping the committed snapshot.json");
+      process.exit(0);
+    }
+
     const existing = existingCount();
     const floor = Math.max(50, Math.floor(existing * 0.7));
-    if (all.length >= floor) {
-      writeFileSync(OUT, JSON.stringify(all));
-      console.log(`[snapshot] wrote ${all.length} jobs (${report.jobs.length} worldwide + ${report.regionalCount} regional).`);
+    if (publishable.length >= floor) {
+      writeFileSync(OUT, JSON.stringify(publishable));
+      console.log(`[snapshot] wrote ${publishable.length} jobs (${report.jobs.length} worldwide + ${report.regionalCount} regional).`);
     } else {
-      console.warn(`[snapshot] fresh ingest ${all.length} < floor ${floor} (existing ${existing}) — keeping existing snapshot.`);
+      console.warn(`[snapshot] fresh ingest ${publishable.length} < floor ${floor} (existing ${existing}) — keeping existing snapshot.`);
     }
   } catch (err) {
     console.warn("[snapshot] failed — keeping existing snapshot:", (err as Error)?.message);
