@@ -48,13 +48,26 @@ function cleanDesc(html: string | undefined | null): string {
 /**
  * Aggregator excerpt length.
  *
- * These 2,500-odd listings sat at the full 1,400-character cap and accounted for
- * 3.5 MB of the 5 MB of description text in the bundle — with the dataset inlined
- * several times by the bundler, that was most of the gap between a 9.6 MB worker
- * and the 10 MB ceiling. A shorter excerpt buys back the headroom; the apply link
- * still goes to the employer's full posting, which the page already points to.
+ * This number is a straight trade against the Cloudflare Worker's 10 MB script
+ * ceiling: the dataset is inlined into the bundle, so every character here is
+ * paid for ~10,000 times over.
+ *
+ * It sat at 520 to buy headroom, and that was the single biggest reason the
+ * board read as thin — the median listing carried 33 words, and because a
+ * 520-character cut keeps only the employer's opening "about us" paragraph, all
+ * of a company's roles ended up with the SAME 520 characters. 5,575 listings
+ * shared a description with another listing; GitLab's intro was on 207 pages.
+ *
+ * 1200 is where that stops. It is past the boilerplate and into the role, so
+ * ~3,000 listings now carry text that is actually about the job, and those
+ * listings stop duplicating each other. It costs ~2.2 MB of JSON, which the
+ * index cuts below (see src/lib/seo/indexing.ts) more than pay back.
+ *
+ * The 8,801 rows from the curated spreadsheets are NOT helped by this: they were
+ * scraped at ~200 characters and there is no more text to recover. Those are the
+ * listings the indexing policy keeps out of Google rather than pretending about.
  */
-const AGG_EXCERPT = 520;
+const AGG_EXCERPT = 1200;
 
 const TAGS = new RegExp("<[^>]+>", "g");
 const WHITESPACE = new RegExp("[ \\t\\r\\n]+", "g");
@@ -79,6 +92,32 @@ interface RoleRec { company: string; domain: string | null; title: string; desc:
 // Evergreen "no open role" catch-all postings that ATS boards carry (e.g.
 // "Don't see the job you're looking for? Fill out a general application"). They
 // are real board entries but read as leaked copy in a job feed — drop them.
+/**
+ * Rows whose title is not a job title. The imports produced 11 listings called
+ * "EM", "AL" and "BE" — a truncated column, not a role — and a handful with no
+ * title at all. A page whose <h1> is two letters is indefensible on its own
+ * terms, never mind to a reviewer.
+ */
+function titleIsUsable(title: string): boolean {
+  const t = (title || "").trim();
+  return t.length >= 4 && /[a-z]{3}/i.test(t);
+}
+
+/**
+ * The site is English. 41 listings carried Korean or Japanese descriptions that
+ * no visitor here can read, which is a bad page however good the underlying job
+ * is. Detected on the body rather than the title, since a title can legitimately
+ * carry a non-Latin company name.
+ */
+const CJK_OR_CYRILLIC = /[　-鿿가-힯Ѐ-ӿ]/;
+function bodyIsEnglish(html: string): boolean {
+  const text = (html || "").replace(TAGS, " ");
+  if (!CJK_OR_CYRILLIC.test(text)) return true;
+  // Tolerate a stray glyph; reject a body that is substantially non-Latin.
+  const foreign = (text.match(new RegExp(CJK_OR_CYRILLIC.source, "g")) || []).length;
+  return foreign / Math.max(text.length, 1) < 0.02;
+}
+
 const JUNK_TITLE = /don.?t see|didn.?t see|can.?t find|general application|spontaneous application|talent (pool|community|network)|future (opportunities|openings|roles)|join our talent|open (remote )?roles|other (open )?roles|none of (these|the above)|fill out (a|an|the) (general|application)|looking for people with|introduce yourself|general interest/i;
 
 // Wrapped so a build never fails here: the output is committed, so on any error
@@ -147,6 +186,7 @@ for (const r of roles as RoleRec[]) {
   boardLabels.get(b)!.add(r.company);
 }
 let droppedAttribution = 0;
+let droppedDefect = 0;
 function attributionTrusted(r: RoleRec): boolean {
   if (MISATTRIBUTED.has(r.company.trim().toLowerCase())) return false;
   const b = boardSlugOf(r.apply);
@@ -195,6 +235,10 @@ const roleJobs: Job[] = dedupedRoles.map((rec, i) => {
 // and the generic "Open Remote Roles" placeholders).
 const dirJobs: Job[] = (curated as DirRec[])
   .filter((rec) => rec.title !== "Open Remote Roles" && !JUNK_TITLE.test(rec.title) && !HAS_REAL.has(slugify(rec.company)))
+  .filter((rec) => {
+    if (!titleIsUsable(rec.title) || !bodyIsEnglish(rec.desc)) { droppedDefect++; return false; }
+    return true;
+  })
   .filter((rec) => {
     // Same attribution guard as the role feed above.
     if (!attributionTrusted(rec as unknown as RoleRec)) { droppedAttribution++; return false; }
@@ -245,6 +289,8 @@ const flexJobs: Job[] = ([
 ])
   .filter((rec) => {
     if (JUNK_TITLE.test(rec.title)) return false;
+    if (!titleIsUsable(rec.title)) { droppedDefect++; return false; }
+    if (!bodyIsEnglish(rec.desc)) { droppedDefect++; return false; }
     if (!attributionTrusted({ company: rec.company, apply: rec.apply } as RoleRec)) { droppedAttribution++; return false; }
     return true;
   })
@@ -292,6 +338,7 @@ let ashbyRejected = 0;
 const ashbyJobs: Job[] = [];
 (ashbyRoles as AshbyRec[]).forEach((rec, i) => {
   if (JUNK_TITLE.test(rec.title)) return;
+  if (!titleIsUsable(rec.title) || !bodyIsEnglish(rec.desc)) { droppedDefect++; return; }
   if (!attributionTrusted({ company: rec.company, apply: rec.apply } as RoleRec)) {
     droppedAttribution++;
     return;
@@ -332,9 +379,35 @@ const ashbyJobs: Job[] = [];
 });
 
 const all = [...roleJobs, ...dirJobs, ...flexJobs, ...ashbyJobs];
+
+/**
+ * Drop everything the runtime can work out for itself.
+ *
+ * This file is inlined into the Cloudflare Worker bundle, three times over —
+ * once per entry point that reaches the store — so a byte here is paid for at
+ * roughly 18x. At 25 keys across 10,806 records, the KEY NAMES alone were 3.4 MB
+ * before any value was written.
+ *
+ * Six fields go. Five are constants for every curated row (`source`, `status`,
+ * `is_active`, `verified`, `is_featured`) and one, `company_logo`, is a pure
+ * function of `company_domain` that resolveLogo() already computes at load.
+ * `expires_at` is posted_at + 60 days and is derived the same way.
+ *
+ * store.ts rehydrates all of them in one pass (see hydrateCurated). The saving
+ * is what pays for raising AGG_EXCERPT from 520 to 1200 — without it the longer
+ * descriptions would have pushed the worker against its 10 MB ceiling.
+ */
+type Slim = Omit<Job, "company_logo" | "expires_at" | "source" | "status" | "is_active" | "verified" | "is_featured">;
+const slim: Slim[] = all.map((j) => {
+  const { company_logo, expires_at, source, status, is_active, verified, is_featured, ...rest } = j;
+  void company_logo; void expires_at; void source; void status; void is_active; void verified; void is_featured;
+  return rest;
+});
+
 const OUT = join(process.cwd(), "src", "lib", "generated", "curated-jobs.json");
-writeFileSync(OUT, JSON.stringify(all));
+writeFileSync(OUT, JSON.stringify(slim));
 console.log(`[curated] wrote ${all.length} prebuilt curated jobs (${roleJobs.length} real roles + ${dirJobs.length} directory + ${flexJobs.length} aggregator) to generated/curated-jobs.json`);
+console.log(`[curated] dropped ${droppedDefect} listing(s) with an unusable title or a non-English body`);
 console.log(`[curated] dropped ${droppedAttribution} listing(s) whose employer could not be verified against the ATS board in their apply URL`);
 console.log(`[curated] ashby: ${ashbyWorldwide} worldwide + ${ashbyRegional} regional, ${ashbyRejected} rejected by the work-from-anywhere classifier`);
 

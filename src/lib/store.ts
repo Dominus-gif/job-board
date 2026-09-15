@@ -65,7 +65,34 @@ function processSeed(): Job[] {
  * board to just these few jobs. Kept out of the ATS allow-list so ingest never
  * fetches a board for them.
  */
-const manualJobs: Job[] = withOverrides([...NORDHARTON_JOBS, ...(curatedJobs as Job[])]);
+/**
+ * Put back the fields build-curated.ts leaves out of the shipped file.
+ *
+ * Those six are either constant across every curated row or a pure function of
+ * a field that IS shipped, so storing them cost ~2.4 MB of bundle (values plus
+ * their repeated key names) to say nothing new. See the comment on `slim` in
+ * scripts/build-curated.ts for why bundle bytes are expensive here.
+ *
+ * One pass at module load over ~10k records — the same parse the file already
+ * pays for, and nothing per request.
+ */
+const CURATED_TTL_DAYS = 60;
+function hydrateCurated(rows: unknown[]): Job[] {
+  return (rows as Job[]).map((j) => ({
+    ...j,
+    company_logo: resolveLogo({ domain: j.company_domain, name: j.company_name }),
+    expires_at:
+      j.expires_at ??
+      new Date(Date.parse(j.posted_at) + CURATED_TTL_DAYS * 24 * 60 * 60 * 1000).toISOString(),
+    source: j.source ?? "manual",
+    status: j.status ?? "published",
+    is_active: j.is_active ?? true,
+    verified: j.verified ?? true,
+    is_featured: j.is_featured ?? false,
+  }));
+}
+
+const manualJobs: Job[] = withOverrides([...NORDHARTON_JOBS, ...hydrateCurated(curatedJobs as unknown[])]);
 
 /** Union the always-on manual jobs onto a set of real (scraped/snapshot) jobs. */
 const TRAILING_SLASH = new RegExp("/+$");

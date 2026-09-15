@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { allLandingSlugs, resolveLanding } from "@/lib/landing";
+import { allLandingSlugs, canonicalLandingSlug, resolveLanding } from "@/lib/landing";
 import { abs } from "@/lib/site";
 import { CategoryBar } from "@/components/CategoryBar";
 import { JobBoard } from "@/components/JobBoard";
@@ -8,6 +8,7 @@ import { AnywhereVsRegional } from "@/components/AnywhereVsRegional";
 import { FaqSection } from "@/components/FaqSection";
 import { WfaCrossLinks } from "@/components/WfaCrossLinks";
 import { jobListJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
+import { landingIsIndexable, robotsFor } from "@/lib/seo/indexing";
 
 export const dynamicParams = true;
 export const revalidate = 1800;
@@ -20,11 +21,15 @@ export async function generateMetadata(props: { params: Promise<{ landing: strin
   const params = await props.params;
   const view = await resolveLanding(params.landing);
   if (!view) return {};
-  const url = abs(`/${view.slug}`);
+  const canonicalSlug = canonicalLandingSlug(view.slug);
+  const url = abs(`/${canonicalSlug}`);
   return {
     // metaTitle already carries "| getremotejobsnow.com"; use absolute to skip the template.
     title: { absolute: view.metaTitle },
     description: view.metaDescription,
+    // A filtered view with almost nothing in it is a page about an empty result
+    // set. It stays reachable and linked; it is not offered as a destination.
+    robots: robotsFor(landingIsIndexable(view.jobs.length) && canonicalSlug === view.slug),
     alternates: {
       canonical: url,
       types: { "application/rss+xml": abs(view.rss) },

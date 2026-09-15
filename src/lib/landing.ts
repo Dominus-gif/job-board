@@ -26,6 +26,69 @@ import { topCategoryLabels } from "./seo-hubs";
 import { locationSeoFor, type LocationSeo } from "./seo/locations";
 import { toText } from "./pipeline/text";
 
+/**
+ * How each skill tag is written when it faces a reader.
+ *
+ * The tags are lowercase storage keys ("aws", "ci_cd", "next.js"). Printing
+ * them raw is what produced titles like "Remote aws Jobs" and "Remote python
+ * Jobs" across 34 landing pages — the single most obvious tell that the set was
+ * generated rather than written. A tag with no entry here is Title Cased, so a
+ * new skill never reintroduces the bug.
+ */
+const SKILL_DISPLAY: Record<string, string> = {
+  aws: "AWS", gcp: "GCP", azure: "Azure", sql: "SQL", seo: "SEO", php: "PHP",
+  "ci_cd": "CI/CD", "ui/ux": "UI/UX", "c#": "C#", "next.js": "Next.js",
+  node: "Node.js", postgres: "PostgreSQL", mysql: "MySQL", mongodb: "MongoDB",
+  graphql: "GraphQL", rest: "REST", javascript: "JavaScript", typescript: "TypeScript",
+  react: "React", vue: "Vue", svelte: "Svelte", python: "Python", ruby: "Ruby",
+  rust: "Rust", java: "Java", go: "Go", elixir: "Elixir", kafka: "Kafka",
+  redis: "Redis", spark: "Spark", docker: "Docker", kubernetes: "Kubernetes",
+  terraform: "Terraform", salesforce: "Salesforce", hubspot: "HubSpot",
+  zendesk: "Zendesk", figma: "Figma",
+};
+
+export function skillLabel(skill: string): string {
+  return (
+    SKILL_DISPLAY[skill.toLowerCase()] ??
+    skill.replace(/[-_]/g, " ").replace(/[a-z]/g, (c) => c.toUpperCase())
+  );
+}
+
+/**
+ * URL segment for a skill. Everything outside [a-z0-9-] is folded to a hyphen:
+ * "c#" used to reach the sitemap as `/remote-c#-jobs`, where the `#` starts a
+ * fragment and the page 404s, and "ui/ux" would have split the path in two.
+ */
+export function skillSlug(skill: string): string {
+  return `remote-${skill.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}-jobs`;
+}
+
+/**
+ * A skill hub has to earn its page. Below this many live listings it is a
+ * search-engine artefact rather than something a job seeker would browse —
+ * `/remote-mysql-jobs` was shipping with one result — so it stays reachable but
+ * drops out of the sitemap and carries `noindex`.
+ */
+export const MIN_SKILL_LISTINGS = 8;
+
+/**
+ * Hubs that render the same list under a different name.
+ *
+ * `/work-from-anywhere-jobs` and `/fully-remote-jobs` are both "every worldwide
+ * role on the board" — same query, same results, different headline. Keeping two
+ * indexable URLs for one list is the duplicate-content case Google describes,
+ * so the pair points at one canonical. Both stay live: the copy and the FAQ
+ * differ, and the keyword each targets is worth having a page for.
+ */
+const CANONICAL_ALIAS: Record<string, string> = {
+  "fully-remote-jobs": "work-from-anywhere-jobs",
+};
+
+/** The URL a landing page should declare as its own, following any alias. */
+export function canonicalLandingSlug(slug: string): string {
+  return CANONICAL_ALIAS[slug] ?? slug;
+}
+
 export interface FaqItem {
   q: string;
   a: string;
@@ -832,11 +895,17 @@ export async function resolveLanding(slug: string): Promise<LandingView | null> 
 
   // 3. Skill pages: /remote-<skill>-jobs
   if (catMatch) {
-    const skillSlug = catMatch[1];
-    const dotted = await getJobsBySkill(skillSlug.replace(/-/g, ".")); // next.js
-    const jobs = dotted.length ? dotted : await getJobsBySkill(skillSlug);
+    const segment = catMatch[1];
+    // Resolve through the canonical table rather than munging the segment, so
+    // "ui-ux" reaches the "ui/ux" tag and "ci-cd" reaches "ci_cd".
+    const known = await getAllSkills();
+    const match = known.find((s) => skillSlug(s.skill) === slug);
+    const dotted = match
+      ? await getJobsBySkill(match.skill)
+      : await getJobsBySkill(segment.replace(/-/g, ".")); // next.js
+    const jobs = dotted.length ? dotted : await getJobsBySkill(segment);
     if (jobs.length) {
-      const label = skillSlug.replace(/-/g, " ");
+      const label = skillLabel(match?.skill ?? segment);
       return {
         slug,
         title: `Remote ${label} Jobs — Work From Anywhere`,
@@ -866,6 +935,8 @@ export async function allLandingSlugs(): Promise<string[]> {
   const geoSlugs = Object.keys(GEO_PAGES);
   const wfaSlugs = Object.keys(WFA_HUBS);
   const skills = await getAllSkills();
-  const skillSlugs = skills.map((s) => `remote-${s.skill.replace(/[.]/g, "-")}-jobs`);
+  const skillSlugs = skills
+    .filter((s) => s.count >= MIN_SKILL_LISTINGS)
+    .map((s) => skillSlug(s.skill));
   return Array.from(new Set([...categorySlugs, ...seoSlugs, ...geoSlugs, ...wfaSlugs, ...skillSlugs]));
 }

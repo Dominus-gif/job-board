@@ -6,6 +6,7 @@ import { JobList } from "@/components/JobList";
 import { StarRating } from "@/components/StarRating";
 import { CompanyLogo } from "@/components/CompanyLogo";
 import { CalendarIcon, UsersIcon, PinIcon, BriefcaseIcon, ArrowUpRightIcon, CheckIcon } from "@/components/icons";
+import { companyIsIndexable, robotsFor } from "@/lib/seo/indexing";
 
 export const dynamicParams = true;
 export const revalidate = 1800;
@@ -28,6 +29,9 @@ export async function generateMetadata(props: { params: Promise<{ company: strin
   return {
     title: `${company.name} — Remote Jobs, Reviews & Company Profile`,
     description: `${company.name} company profile: details, employee ratings from Glassdoor and more, and their ${company.jobCount} open remote ${company.jobCount === 1 ? "role" : "roles"}${company.worldwideCount > 0 ? ` (${company.worldwideCount} work-from-anywhere)` : ""}.`,
+    // Two thirds of these pages exist to show a single job. They stay on the
+    // site and stay linked; they stop being offered as search destinations.
+    robots: robotsFor(companyIsIndexable(company.jobCount)),
     alternates: { canonical: abs(`/companies/${company.slug}`) },
   };
 }

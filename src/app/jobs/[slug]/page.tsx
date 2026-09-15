@@ -7,6 +7,7 @@ import { formatSalary, salaryTier } from "@/lib/salary";
 import { formatDate, daysUntil } from "@/lib/format";
 import { abs } from "@/lib/site";
 import { jobPostingJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
+import { jobIsIndexable, robotsFor } from "@/lib/seo/indexing";
 import { cityHubForLocation, hubPath } from "@/lib/seo/locations";
 import { categoryToSlug } from "@/lib/taxonomy";
 import { JobList } from "@/components/JobList";
@@ -20,6 +21,8 @@ import { StatusBadge } from "@/components/StatusBadge";
 import {
   GlobeIcon, BriefcaseIcon, CalendarIcon, WalletIcon, TagIcon, CheckIcon, BuildingIcon, ArrowUpRightIcon, PinIcon,
 } from "@/components/icons";
+import { jobInsights } from "@/lib/insights";
+import { JobInsightsPanel } from "@/components/JobInsights";
 
 // Render live-added slugs on demand, and revalidate so removed jobs flip to
 // the "not active" state without a redeploy.
@@ -77,6 +80,10 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   return {
     title,
     description,
+    // A listing that is mostly template is still a useful page for someone who
+    // searched the board for it; it is not a page to offer Google as a result.
+    // See src/lib/seo/indexing.ts — the sitemap applies the same test.
+    robots: robotsFor(jobIsIndexable(job)),
     alternates: { canonical: url },
     openGraph: { title, description, url, type: "article", images: [job.company_logo] },
     twitter: { card: "summary", title, description },
@@ -96,10 +103,13 @@ export default async function JobPage(props: { params: Promise<{ slug: string }>
   const tier = salaryTier(job.salary);
   const daysLeft = daysUntil(job.expires_at);
   // Secondary sections are best-effort: never let them 500 a valid job page.
-  const [similar, companyJobs, company] = await Promise.all([
+  const [similar, companyJobs, company, insights] = await Promise.all([
     getSimilarJobs(job).catch(() => []),
     getJobsByCompany(job.company_slug).catch(() => []),
     getCompanyBySlug(job.company_slug).catch(() => undefined),
+    // The one part of this page that is ours rather than the employer's. Also
+    // best-effort: a stats failure must never cost the visitor the listing.
+    jobInsights(job).catch(() => null),
   ]);
   const otherRoles = companyJobs.length;
   const jsonLd = jobPostingJsonLd(job);
@@ -195,6 +205,9 @@ export default async function JobPage(props: { params: Promise<{ slug: string }>
             )}
             <h2 className="font-display text-lg font-bold text-ink-900">About this role</h2>
             <div className="prose-job mt-3 max-w-none" dangerouslySetInnerHTML={{ __html: job.description_html }} />
+            {/* Everything above this line is the employer's words. Everything
+                below is what the board can tell you that they cannot. */}
+            {insights && <JobInsightsPanel insights={insights} category={job.category} />}
             <AdSlot />
             <div className="mt-8 space-y-4">
               <ReferralNudge />

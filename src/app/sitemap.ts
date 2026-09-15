@@ -5,8 +5,22 @@ import { getAllPosts } from "@/lib/posts";
 import { TOOLS } from "@/lib/tools";
 import { CATEGORIES } from "@/lib/taxonomy";
 import { abs, FEATURES } from "@/lib/site";
+import { jobIsIndexable, companyIsIndexable } from "@/lib/seo/indexing";
 
 export const revalidate = 1800;
+
+/**
+ * The sitemap is a claim: "these URLs are worth your crawl budget and worth
+ * ranking." It used to list all 12,797 pages the site can render, most of them
+ * a template around 33 words, and that claim is what the AdSense review was
+ * judging.
+ *
+ * It now lists only what clears the bar in src/lib/seo/indexing.ts — the same
+ * predicates the pages themselves use for their robots tag, so a URL is never
+ * submitted here and then served with `noindex`. Everything excluded is still
+ * on the site, still linked, still reachable; it just is not offered as a
+ * search destination.
+ */
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
@@ -66,21 +80,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const companies = (await getCompanies()).map((c) => ({
-    url: abs(`/companies/${c.slug}`),
-    lastModified: now,
-    changeFrequency: "daily" as const,
-    priority: 0.6,
-  }));
+  const companies = (await getCompanies())
+    .filter((c) => companyIsIndexable(c.jobCount))
+    .map((c) => ({
+      url: abs(`/companies/${c.slug}`),
+      lastModified: now,
+      changeFrequency: "daily" as const,
+      priority: 0.6,
+    }));
 
-  // Every listing gets its own indexable URL — worldwide and regional alike.
+  // A listing is listed here when it carries enough of its own description to
+  // be a destination — see jobIsIndexable. Worldwide and regional alike.
   const [worldwide, regional] = await Promise.all([getAllJobs(), getRegionalJobs()]);
-  const jobs = [...worldwide, ...regional].map((job) => ({
-    url: abs(`/jobs/${job.slug}`),
-    lastModified: new Date(job.posted_at),
-    changeFrequency: "weekly" as const,
-    priority: job.is_featured ? 0.9 : 0.7,
-  }));
+  const jobs = [...worldwide, ...regional]
+    .filter((job) => jobIsIndexable(job))
+    .map((job) => ({
+      url: abs(`/jobs/${job.slug}`),
+      lastModified: new Date(job.posted_at),
+      changeFrequency: "weekly" as const,
+      priority: job.is_featured ? 0.9 : 0.7,
+    }));
 
   return [...staticPages, ...jobFacets, ...landings, ...companies, ...posts, ...tools, ...jobs];
 }
