@@ -77,11 +77,16 @@ export function applyLinkIsSpecific(applyUrl: string | undefined | null): boolea
 
 /** Should this listing be offered to search engines as a destination? */
 export function jobIsIndexable(
-  job: Pick<Job, "description_html" | "status" | "is_active" | "apply_url">
+  job: Pick<Job, "description_html" | "status" | "is_active" | "apply_url" | "is_featured">
 ): boolean {
   if (job.status === "expired" || job.is_active === false) return false;
   if (isDirectoryPointer(job.description_html)) return false;
-  if (!applyLinkIsSpecific(job.apply_url)) return false;
+  // The apply-link rule is a heuristic standing in for human review. A featured
+  // listing is paid placement that has had the real thing, and the operator
+  // chose where its button points — so the heuristic does not get to de-index
+  // it. The description rule still applies: paid does not mean exempt from
+  // being a real page.
+  if (!job.is_featured && !applyLinkIsSpecific(job.apply_url)) return false;
   return descriptionWords(job.description_html) >= MIN_DESCRIPTION_WORDS;
 }
 

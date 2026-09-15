@@ -17,6 +17,7 @@ const job = (over: Record<string, unknown> = {}) =>
     status: "published",
     is_active: true,
     apply_url: "https://boards.greenhouse.io/acme/jobs/123",
+    is_featured: false,
     ...over,
   }) as Parameters<typeof jobIsIndexable>[0];
 
@@ -49,6 +50,16 @@ describe("jobIsIndexable", () => {
   it("holds back a listing whose apply link cannot reach the posting", () => {
     expect(jobIsIndexable(job({ apply_url: "https://acme.com/careers" }))).toBe(false);
     expect(jobIsIndexable(job({ apply_url: "https://acme.com/" }))).toBe(false);
+  });
+
+  it("does not let the apply-link heuristic de-index paid placement", () => {
+    const careersRoot = { apply_url: "https://acme.com/careers" };
+    expect(jobIsIndexable(job(careersRoot))).toBe(false);
+    expect(jobIsIndexable(job({ ...careersRoot, is_featured: true }))).toBe(true);
+  });
+
+  it("still holds a featured listing to the description rule", () => {
+    expect(jobIsIndexable(job({ is_featured: true, description_html: words(33) }))).toBe(false);
   });
 
   it("never indexes an expired or inactive listing", () => {
