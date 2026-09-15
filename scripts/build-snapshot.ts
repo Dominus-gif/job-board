@@ -13,6 +13,7 @@
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { applyEnrichment } from "./lib/apply-enrichment";
 import type { Job } from "../src/lib/types";
 import { ingestAndProcess } from "../src/lib/pipeline";
 import companies from "../src/lib/seed/companies.json";
@@ -50,6 +51,15 @@ async function main() {
     // return a handful of jobs; keeping the committed file guarantees the
     // deployment always bundles the full baseline. Only overwrite when the fresh
     // scrape is at least 70% of what we already have (and non-trivial).
+    // The same enrichment the curated build runs. Both halves of the board have
+    // to get it: enriching only one left GitLab's opening paragraph on 204
+    // snapshot pages while the curated half was already fixed.
+    const enrich = applyEnrichment(all as unknown as Parameters<typeof applyEnrichment>[0]);
+    if (enrich.available > 0) {
+      console.log(`[snapshot] ${enrich.enriched} of ${enrich.available} jobs carry the employer's own description`);
+      console.log(`[snapshot] ${enrich.strippedWords} words of repeated company template removed`);
+    }
+
     const existing = existingCount();
     const floor = Math.max(50, Math.floor(existing * 0.7));
     if (all.length >= floor) {

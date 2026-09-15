@@ -9,7 +9,7 @@
  * Runs in `prebuild`; the output is also committed so a build never depends on
  * it succeeding.
  */
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Job, RawJob } from "../src/lib/types";
 import { toPublishedJob } from "../src/lib/pipeline";
@@ -21,6 +21,7 @@ import remoteJobsRoles from "../src/lib/seed/remotejobs-roles.json";
 import capitalOneRoles from "../src/lib/seed/capitalone-roles.json";
 import ashbyRoles from "../src/lib/seed/ashby-roles.json";
 import realSlugs from "../src/lib/seed/real-company-slugs.json";
+import { applyEnrichment } from "./lib/apply-enrichment";
 
 const DAY = 24 * 60 * 60 * 1000;
 const slugify = (n: string) => n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -72,6 +73,17 @@ const AGG_EXCERPT = 1200;
 const TAGS = new RegExp("<[^>]+>", "g");
 const WHITESPACE = new RegExp("[ \\t\\r\\n]+", "g");
 const TRAILING_WORD = new RegExp("[ \\t\\r\\n]+[^ \\t\\r\\n]*$");
+
+function plainText(html: string): string {
+  return (html || "")
+    .replace(TAGS, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&#39;|&rsquo;/g, "'")
+    .replace(/&quot;|&ldquo;|&rdquo;/g, '"')
+    .replace(WHITESPACE, " ")
+    .trim();
+}
 
 function excerptAt(html: string, limit: number): string {
   const t = (html || "").replace(TAGS, " ").replace(WHITESPACE, " ").trim();
@@ -380,25 +392,47 @@ const ashbyJobs: Job[] = [];
 
 const all = [...roleJobs, ...dirJobs, ...flexJobs, ...ashbyJobs];
 
+/* ---------------------------------------------------------------------------
+ * Replace excerpts with what the employer actually published.
+ *
+ * scripts/verify-and-enrich.ts asks each ATS board for its own postings and
+ * writes the full descriptions to generated/job-content.json, keyed by apply
+ * URL. That file is read at build time and never shipped — only the trimmed
+ * result reaches the bundle.
+ *
+ * The employer's template is stripped before trimming, so what is stored is the
+ * part that differs between their roles. See scripts/lib/apply-enrichment.ts;
+ * build-snapshot.ts runs the identical pass over the other half of the board.
+ * ------------------------------------------------------------------------- */
+{
+  const r = applyEnrichment(all);
+  console.log(`[curated] ${r.enriched} of ${r.available} listings now carry the employer's own description`);
+  console.log(`[curated] ${r.strippedWords} words of repeated company template removed`);
+}
+
 /**
- * Drop everything the runtime can work out for itself.
+ * Drop what the runtime already refuses to serve.
  *
- * This file is inlined into the Cloudflare Worker bundle, three times over —
- * once per entry point that reaches the store — so a byte here is paid for at
- * roughly 18x. At 25 keys across 10,806 records, the KEY NAMES alone were 3.4 MB
- * before any value was written.
- *
- * Six fields go. Five are constants for every curated row (`source`, `status`,
- * `is_active`, `verified`, `is_featured`) and one, `company_logo`, is a pure
- * function of `company_domain` that resolveLogo() already computes at load.
- * `expires_at` is posted_at + 60 days and is derived the same way.
- *
- * store.ts rehydrates all of them in one pass (see hydrateCurated). The saving
- * is what pays for raising AGG_EXCERPT from 520 to 1200 — without it the longer
- * descriptions would have pushed the worker against its 10 MB ceiling.
+ * store.ts filters every listing in retired-jobs.json out at load — the apply
+ * link 404s, or the employer's own board no longer carries the posting. Those
+ * records were still being shipped in full, description and all, to be thrown
+ * away on arrival. After the verification sweep that is 2,868 records of pure
+ * bundle weight.
  */
+const retiredUrls = new Set<string>(
+  (() => {
+    try {
+      return JSON.parse(readFileSync(join(process.cwd(), "src", "lib", "generated", "retired-jobs.json"), "utf8")) as string[];
+    } catch {
+      return [];
+    }
+  })()
+);
+const live = all.filter((j) => !j.apply_url || !retiredUrls.has(j.apply_url));
+console.log(`[curated] dropped ${all.length - live.length} record(s) the runtime already filters out as retired`);
+
 type Slim = Omit<Job, "company_logo" | "expires_at" | "source" | "status" | "is_active" | "verified" | "is_featured">;
-const slim: Slim[] = all.map((j) => {
+const slim: Slim[] = live.map((j) => {
   const { company_logo, expires_at, source, status, is_active, verified, is_featured, ...rest } = j;
   void company_logo; void expires_at; void source; void status; void is_active; void verified; void is_featured;
   return rest;

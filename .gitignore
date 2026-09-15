@@ -22,3 +22,10 @@ next-env.d.ts
 # The 11MB footer master. The build reads the optimised public/footer-landscape.jpg,
 # so the source only ever costs the repo size.
 Design/footer_image_m.jpg
+
+# Enrichment intermediates. verify-and-enrich.ts writes the employers' full
+# descriptions here (41 MB) and the roles we don't carry; the build reads them
+# and the TRIMMED result is what gets committed, inside curated-jobs.json and
+# snapshot.json. Keeping the raw capture out of git keeps the repo clonable.
+src/lib/generated/job-content.json
+src/lib/generated/discovered-roles.json
