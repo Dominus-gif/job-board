@@ -138,9 +138,14 @@ function CityPicker({ available, onAdd }: { available: Zone[]; onAdd: (tz: strin
 }
 
 /* ------------------------------ main widget ------------------------------ */
+const EPOCH = new Date(0);
+
 export function WorldTimeBuddy() {
   const [zones, setZones] = useState<Zone[]>(DEFAULT);
-  const [now, setNow] = useState<Date>(() => new Date());
+  // Null until mounted: the page is prerendered, so a clock rendered on the
+  // server would never match the visitor's time and hydration would fail.
+  const [clock, setNow] = useState<Date | null>(null);
+  const now = clock ?? EPOCH;
   const [selMin, setSelMin] = useState<number | null>(null); // null = follow "now"
 
   useEffect(() => {
@@ -151,6 +156,7 @@ export function WorldTimeBuddy() {
         setZones([{ city, tz }, ...DEFAULT]);
       }
     } catch { /* keep default */ }
+    setNow(new Date());
     const id = setInterval(() => setNow(new Date()), 30000);
     return () => clearInterval(id);
   }, []);
@@ -168,6 +174,13 @@ export function WorldTimeBuddy() {
   function addCity(tz: string) { const z = CATALOG.find((c) => c.tz === tz); if (z) setZones((zs) => [...zs, z]); }
 
   if (!home) return null;
+  if (!clock) {
+    return (
+      <div className="flex min-h-[683px] items-center justify-center rounded-2xl border border-ink-100 bg-white text-sm text-ink-400 shadow-card">
+        Loading world clock…
+      </div>
+    );
+  }
 
   // Time in a zone at the reference minute (relative to home).
   const zoneAt = (tz: string) => {
