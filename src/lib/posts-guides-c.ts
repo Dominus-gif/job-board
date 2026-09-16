@@ -180,6 +180,7 @@ export const POSTS_CLUSTER_C: Post[] = [
     description:
       "Why so many remote jobs quietly exclude candidates in Asia-Pacific, what our own data shows about APAC roles, and how to find the ones genuinely open to you.",
     date: "2026-09-16T06:00:00.000Z",
+    updated: "2026-09-16T14:35:00.000Z",
     author: AUTHOR,
     tags: ["Asia-Pacific", "Remote Jobs India", "Remote Jobs Australia", "Time Zones"],
     readMinutes: 5,
@@ -193,7 +194,7 @@ export const POSTS_CLUSTER_C: Post[] = [
       <p>It's rarely intended as exclusion. It's just the default of teams who've only ever worked within a few hours of each other.</p>
 
       <h2>What our data shows</h2>
-      <p>On our board, most remote roles are tied to a region. Of the <strong>5,517</strong> region-restricted listings we carry, about <strong>30%</strong> are limited to the United States and around <strong>11%</strong> to Europe. Roles we can tie to <strong>Asia-Pacific</strong> make up about <strong>3.3%</strong>, and to <strong>India</strong> about <strong>3.1%</strong>.</p>
+      <p>On our board, most remote roles are tied to a region. Of the roughly <strong>5,500</strong> region-restricted listings we carry, more than half, about <strong>55%</strong>, are tied to the United States once city names are counted as well as country names. Around <strong>16%</strong> are tied to continental Europe and <strong>8%</strong> to the UK. Roles we can tie to <strong>Asia-Pacific</strong> make up about <strong>5%</strong>, and to <strong>India</strong> about <strong>3%</strong>.</p>
       <p>Location-independent roles are scarce everywhere. Only <strong>337</strong> of our <strong>5,854</strong> listings, under 6%, pass our work-from-anywhere filter. That scarcity hits APAC candidates hardest, because so many of the remaining "remote" roles carry a US or European timezone requirement.</p>
       <p>So if your search feels harder than people elsewhere describe, you're not imagining it.</p>
 
@@ -240,7 +241,7 @@ export const POSTS_CLUSTER_C: Post[] = [
       },
       {
         q: "How many remote jobs are open to Asia-Pacific candidates?",
-        a: "On our board, roles tied to Asia-Pacific make up about 3.3 percent of region-restricted listings and roles tied to India about 3.1 percent. Truly work-from-anywhere roles, which have no timezone requirement, are under 6 percent of all listings.",
+        a: "On our board, roles tied to Asia-Pacific make up about 5 percent of region-restricted listings and roles tied to India about 3 percent, while more than half are tied to the United States. Truly work-from-anywhere roles, which have no timezone requirement, are under 6 percent of all listings.",
       },
       {
         q: "What remote roles suit Asia-Pacific timezones?",
