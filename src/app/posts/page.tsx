@@ -75,7 +75,7 @@ export default function PostsPage() {
       )}
 
       {/* The index.
-          One continuous numbered list rather than a page cut into five
+          One continuous numbered list rather than a page cut into topic
           sections. Each row still says which topic it belongs to, in its own
           column, so the categorisation survives without the reader having to
           jump between blocks to see what exists. The columns line up down the

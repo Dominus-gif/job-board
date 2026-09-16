@@ -3,8 +3,8 @@
  *
  * The posts carry 60 tags between them and 44 of those are used exactly once,
  * so labelling on tags would be meaningless. This is a deliberate taxonomy
- * instead: five topics that describe what a reader is actually trying to do,
- * with each post assigned to one.
+ * instead: a handful of topics that describe what a reader is actually trying
+ * to do, with each post assigned to one.
  *
  * A post missing from this table still appears on the index and simply gets a
  * neutral label, so publishing never depends on remembering to edit this file.
@@ -29,6 +29,18 @@ export const POST_TOPICS: PostTopic[] = [
     ],
   },
   {
+    id: "staying-safe",
+    title: "Staying safe",
+    blurb: "Spotting fake postings, scams and ghost jobs, and how we check the roles we list.",
+    slugs: [
+      "how-to-spot-fake-remote-job-postings",
+      "ghost-jobs-how-to-tell-a-role-is-still-open",
+      "remote-job-scams-how-they-make-money",
+      "how-we-source-and-verify-listings",
+      "apply-directly-on-company-career-pages",
+    ],
+  },
+  {
     id: "market",
     title: "The remote job market",
     blurb: "Where demand actually is, which roles are growing, and which are quietly disappearing.",
@@ -47,10 +59,38 @@ export const POST_TOPICS: PostTopic[] = [
     slugs: ["first-remote-job-2026-no-experience", "best-remote-jobs-without-tech-background-2026"],
   },
   {
+    id: "searching-smarter",
+    title: "Searching smarter",
+    blurb: "Reading job descriptions closely, applying at the right moment, and keeping track of it all.",
+    slugs: [
+      "how-to-spot-hybrid-bait-in-remote-job-descriptions",
+      "the-date-posted-problem-why-freshness-matters",
+      "remote-job-application-tracker-minimal-system",
+      "what-recruiters-see-when-you-apply-remotely",
+    ],
+  },
+  {
+    id: "time-zones",
+    title: "Time zones",
+    blurb: "How much overlap a team needs, schedules you can sustain, and hours rules that shut people out.",
+    slugs: [
+      "timezone-overlap-how-much-you-need",
+      "working-across-timezones-without-burning-out",
+      "remote-jobs-in-asia-pacific-timezone-filters",
+    ],
+  },
+  {
     id: "pay-and-paperwork",
     title: "Pay and paperwork",
-    blurb: "What remote roles pay, how to negotiate it, and what moving abroad does to your taxes.",
-    slugs: ["remote-salaries-2026-negotiate-the-premium", "digital-nomad-visas-2026"],
+    blurb: "What remote roles pay, how to compare offers and benefits, and what moving abroad does to your taxes.",
+    slugs: [
+      "remote-salaries-2026-negotiate-the-premium",
+      "digital-nomad-visas-2026",
+      "what-a-100k-remote-salary-really-buys",
+      "hourly-vs-annual-remote-pay-converting-offers",
+      "salary-transparency-laws-2026",
+      "remote-benefits-decoded-by-region",
+    ],
   },
   {
     id: "by-place-and-company",

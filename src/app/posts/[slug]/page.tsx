@@ -5,6 +5,7 @@ import { abs, SITE } from "@/lib/site";
 import { getAllPosts, getPost } from "@/lib/posts";
 import { formatDate } from "@/lib/format";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
+import { Faq } from "@/components/Faq";
 
 export function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
@@ -58,6 +59,21 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
       { name: "Posts", path: "/posts" },
       { name: post.title, path: `/posts/${post.slug}` },
     ]),
+    // Only when the article actually carries questions. The answers are plain
+    // text precisely so they can be reused here word for word.
+    ...(post.faq && post.faq.length > 0
+      ? [
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: post.faq.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -82,6 +98,13 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
       </h1>
 
       <div className="prose-post mt-8" dangerouslySetInnerHTML={{ __html: post.html }} />
+
+      {post.faq && post.faq.length > 0 && (
+        <section className="mt-12">
+          <h2 className="mb-5 font-display text-2xl font-bold tracking-tight text-ink-900">Frequently asked questions</h2>
+          <Faq items={post.faq} />
+        </section>
+      )}
 
       <div className="mt-10 rounded-xl border border-ink-100 bg-ink-50 p-6 text-center">
         <p className="font-display text-lg font-semibold text-ink-900">Ready to find your remote job?</p>

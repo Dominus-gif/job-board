@@ -4,6 +4,8 @@
  * `.prose-post` styles. Each post is its own SEO-optimised, indexable page with
  * Article JSON-LD. Kept as data (no CMS/DB) to match the rest of the app.
  */
+import type { FaqItem } from "./landing";
+
 export interface Post {
   slug: string;
   title: string;
@@ -14,9 +16,16 @@ export interface Post {
   tags: string[];
   readMinutes: number;
   html: string; // authored body (rendered with .prose-post)
+  /**
+   * Questions a reader is likely to arrive with, answered in plain text.
+   * Rendered under the article and emitted as FAQPage JSON-LD, so each answer
+   * has to stand on its own without the surrounding prose.
+   */
+  faq?: FaqItem[];
 }
 
 import { POSTS_2026 } from "./posts-2026";
+import { POSTS_GUIDES } from "./posts-guides";
 
 export const POSTS: Post[] = [
   {
@@ -132,7 +141,7 @@ export const POSTS: Post[] = [
 ];
 
 export function getAllPosts(): Post[] {
-  return [...POSTS, ...POSTS_2026].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return [...POSTS, ...POSTS_2026, ...POSTS_GUIDES].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export function getPost(slug: string): Post | undefined {
