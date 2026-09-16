@@ -30,7 +30,7 @@ export const POSTS_CLUSTER_G: Post[] = [
       <p>A truly distributed company hires where the talent is, so a meaningful share of its openings should be open across countries, or at least across wide regions. That's easy to check and hard to fake.</p>
       <p>Our board shows how rare it is. At the time of writing, we list roles from <strong>1,076</strong> companies, and only <strong>30</strong> of them have even one role that passes our work-from-anywhere filter. Among the <strong>425</strong> companies with five or more open roles, <strong>22</strong> have at least one location-free opening, and just one has nothing but location-free roles.</p>
       <p>A few employers stand out. Of the 73 roles we list for Remote, the global HR and payroll platform, 69 are open worldwide. So are 43 of Supabase's 57 and 101 of Canonical's 151. We keep a <a href="/posts/most-remote-friendly-companies-hiring-worldwide">ranking of the most remote-friendly employers on our board</a>, built from the same data.</p>
-      <p>You can run this check yourself. Open a company's page in our <a href="/companies">company directory</a> and look at its mix of worldwide and regional roles, or scan its careers page for location labels.</p>
+      <p>You can run this check yourself with the <a href="/tools/company-remote-score">company remote hiring score</a>, which shows each employer's worldwide share, regions and posting activity. Or open a company's page in our <a href="/companies">company directory</a> and look at its mix of worldwide and regional roles, or scan its careers page for location labels.</p>
 
       <h2>2. Whether remote applies to every team</h2>
       <p>Some companies let engineers work from anywhere while keeping sales, finance and leadership in an office. That's a remote engineering team inside a co-located company. It can still be a good job, but your career may stall if the decisions get made in a building you never visit.</p>
@@ -142,6 +142,8 @@ export const POSTS_CLUSTER_G: Post[] = [
         <li><strong>Location-free doesn't mean hours-free.</strong> Some roles are hired to cover a region, such as Europe or Asia-Pacific, and come with matching working hours even though you can live anywhere.</li>
         <li><strong>One name needs explaining.</strong> Remote, second on the list, is a company that provides global HR and payroll services. Its name describes its business as well as its hiring.</li>
       </ul>
+
+      <p>To look up any employer with three or more open roles, including ones outside this top ten, use the <a href="/tools/company-remote-score">company remote hiring score</a>.</p>
 
       <h2>How to use it</h2>
       <ol>

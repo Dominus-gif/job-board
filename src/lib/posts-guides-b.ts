@@ -57,6 +57,8 @@ export const POSTS_CLUSTER_B: Post[] = [
       <p>City A pays more after tax, but City B leaves you with roughly twice as much to save. That's the result most salary comparisons hide.</p>
       <blockquote>Two people on the same salary can end up living very different lives. Compare what's left after tax, currency and rent, and the better offer often changes.</blockquote>
 
+      <p>For a quick first pass across countries, the <a href="/tools/salary-purchasing-power">salary purchasing-power calculator</a> applies World Bank price levels to any salary. It works at national level, so treat it as a starting point for your own budget.</p>
+
       <h2>Where this goes wrong</h2>
       <ul>
         <li><strong>Assuming a remote employer won't care where you live.</strong> Many companies pay by location band, and moving can change your salary. Check before you plan around it.</li>
@@ -144,6 +146,8 @@ export const POSTS_CLUSTER_B: Post[] = [
       </ol>
       <p>On that illustration the salaried role is ahead, despite the contract's higher headline. Your own numbers will differ, but the method holds.</p>
 
+      <p>To run this comparison with your own numbers, including benefits and contractor costs, use the <a href="/tools/offer-comparator">offer comparison calculator</a>.</p>
+
       <h2>Before you sign</h2>
       <p>Ask how many payments there are each year, whether leave is paid, who pays which contributions, and what currency you'll be paid in. Those four answers settle most comparisons. For the bigger picture on what's worth negotiating, see <a href="/posts/remote-benefits-decoded-by-region">remote benefits by region</a>, and browse <a href="/remote-management-finance-jobs">finance and operations roles</a> or <a href="/remote-sales-marketing-jobs">sales and marketing roles</a> to see how employers in those fields present pay. Sales offers need extra care, since base pay plus commission is a conversion puzzle of its own.</p>
     `,
@@ -219,6 +223,8 @@ export const POSTS_CLUSTER_B: Post[] = [
         <li><strong>Don't anchor first if you can avoid it.</strong> Where the law restricts questions about pay history, you're entitled not to answer them.</li>
       </ol>
       <blockquote>A hidden salary isn't always a bad sign. But it is always a question worth asking before the third interview.</blockquote>
+
+      <p>To see what employers who do publish pay are offering in your field, try the <a href="/tools/salary-band-estimator">remote salary band estimator</a>, which is built from the listings on our board.</p>
 
       <h2>Where to look</h2>
       <p>If you'd rather start with roles that are more likely to show pay, the <a href="/remote-jobs-in-usa">US remote board</a> is a good place to begin, given how many states now require it, and the <a href="/remote-jobs-in-canada">Canadian remote board</a> covers the provinces with their own rules. For how to compare the numbers once you have them, see our guide to <a href="/posts/hourly-vs-annual-remote-pay-converting-offers">converting hourly and annual pay</a>, and use the <a href="/tools/remote-salary-converter">salary converter</a> when currencies differ.</p>
@@ -304,6 +310,8 @@ export const POSTS_CLUSTER_B: Post[] = [
       <p>Many companies hiring internationally don't employ you directly. They either use an <strong>employer of record</strong>, which employs you locally on their behalf, or they engage you as a <strong>contractor</strong>.</p>
       <p>Those two are very different. An employer of record usually gives you a proper local employment contract, with the statutory benefits of your country. A contractor arrangement usually gives you none of them. There's no paid leave, no employer pension and no statutory health cover through work, and you become responsible for your own taxes and contributions.</p>
       <blockquote>Before you compare benefits, find out whether you're being employed or engaged. It changes the answer more than any perk on the list.</blockquote>
+
+      <p>To put a number on what working from home costs you, and how much a stipend would cover, try the <a href="/tools/home-office-cost-calculator">home office cost calculator</a>.</p>
 
       <h2>What's worth negotiating</h2>
       <ol>

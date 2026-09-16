@@ -41,6 +41,8 @@ export const POSTS_CLUSTER_C: Post[] = [
       <p><strong>Sydney and Berlin.</strong> Depending on the season the gap is eight to ten hours, because the two cities change their clocks in opposite halves of the year. Sydney's working day ends around the time Berlin's begins. On nine-to-five schedules there's <strong>no natural overlap at all</strong>, so someone has to move.</p>
       <blockquote>Most "impossible" timezone pairs aren't impossible. They just need one person to shift their day by a couple of hours, and a clear agreement about who.</blockquote>
 
+      <p>For more than two people, the <a href="/tools/team-timezone-matrix">team timezone matrix</a> shows every pair's overlap and the best shared window on a given date.</p>
+
       <h2>The daylight saving trap</h2>
       <p>Clocks don't change on the same day everywhere. The US moves its clocks on the second Sunday in March and the first Sunday in November. The UK and the EU move on the last Sunday in March and the last Sunday in October.</p>
       <p>That leaves two or three weeks each spring, and about a week each autumn, when the gap between New York and London is <strong>four hours instead of five</strong>. Recurring meetings suddenly land an hour off for one side. It catches teams out every year, so it's worth a calendar reminder.</p>
@@ -141,6 +143,8 @@ export const POSTS_CLUSTER_C: Post[] = [
         <li><strong>Two evenings a week, optional:</strong> a later slot for the occasional meeting that can't move. Never every night.</li>
         <li><strong>End of every day:</strong> a short written handover.</li>
       </ul>
+
+      <p>To build a template like this for your own team, add everyone's city and hours to the <a href="/tools/team-timezone-matrix">team timezone matrix</a>. It finds the shared window and shows who overlaps with whom.</p>
 
       <h2>Warning signs</h2>
       <ul>

@@ -154,6 +154,35 @@
 .callout-warning { @apply my-6 rounded-2xl bg-amber-50 p-4 ring-1 ring-inset ring-amber-200; }
 .prose-post .callout-warning p { @apply my-0 text-sm leading-relaxed text-amber-900; }
 
+/* Tool status tones — a tinted surface with ink that clears 4.5:1 in both
+   themes. Always paired with a text label, never colour alone. `--tone` is the
+   solid mark colour (meters, dots). */
+.tone-critical { background-color: #fdecec; color: #8f1c1c; --tone: #d14343; }
+.tone-high { background-color: #fdf0e4; color: #7f3707; --tone: #dd7426; }
+.tone-medium { background-color: #fbf4dc; color: #6f4e00; --tone: #c99416; }
+.tone-ok { background-color: #e7f5ed; color: #155c36; --tone: #2e9a5f; }
+.tone-info { background-color: #eaf4fb; color: #15497f; --tone: #2383e2; }
+.tone-neutral { background-color: #f1f0ec; color: #4a4842; --tone: #9b9a97; }
+.dark .tone-critical { background-color: rgba(209, 67, 67, 0.16); color: #f5b0b0; --tone: #e06666; }
+.dark .tone-high { background-color: rgba(221, 116, 38, 0.16); color: #f6c39a; --tone: #e8904f; }
+.dark .tone-medium { background-color: rgba(201, 148, 22, 0.16); color: #f0d68f; --tone: #d9ab3c; }
+.dark .tone-ok { background-color: rgba(46, 154, 95, 0.16); color: #9fdcb9; --tone: #4cb67c; }
+.dark .tone-info { background-color: rgba(79, 151, 214, 0.16); color: #b4d4f1; --tone: #4f97d6; }
+.dark .tone-neutral { background-color: rgba(255, 255, 255, 0.06); color: #d4d3cf; --tone: #787774; }
+
+/* Chart tokens for the tools and the job insights panel (single-hue emphasis:
+   the highlighted mark in the accent, everything else in a recessive grey). */
+.viz { --viz-bar: #bdbbb4; --viz-bar-hover: #a5a39c; --viz-accent: #2383e2; --viz-accent-soft: rgba(35, 131, 226, 0.12); --viz-grid: #e9e9e7; --viz-axis: #787774; --viz-surface: #f7f6f3; --viz-ink: #2b2a26; }
+.dark .viz { --viz-bar: #4a4945; --viz-bar-hover: #5c5b56; --viz-accent: #4f97d6; --viz-accent-soft: rgba(79, 151, 214, 0.16); --viz-grid: #333333; --viz-axis: #9b9a97; --viz-surface: #252525; --viz-ink: #f5f5f4; }
+
+/* Tool range inputs share the World Time Buddy look. */
+.tool-range { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 9999px; background: #e9e9e7; cursor: pointer; }
+.tool-range::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; border-radius: 9999px; background: #2383e2; border: 3px solid #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.28); }
+.tool-range::-moz-range-thumb { height: 16px; width: 16px; border-radius: 9999px; background: #2383e2; border: 3px solid #fff; }
+.dark .tool-range { background: #333; }
+.dark .tool-range::-webkit-slider-thumb { background: #4f97d6; border-color: #202020; }
+.dark .tool-range::-moz-range-thumb { background: #4f97d6; border-color: #202020; }
+
 /* World Time Buddy — premium range slider. */
 .wtb-range { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 9999px; background: #e9e9e7; cursor: pointer; }
 .wtb-range::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; border-radius: 9999px; background: #2b2a26; border: 3px solid #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.28); transition: transform 0.1s; }

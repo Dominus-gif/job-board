@@ -64,6 +64,8 @@ export const POSTS_CLUSTER_H2: Post[] = [
       </ol>
       <p>Our guide to <a href="/posts/what-a-100k-remote-salary-really-buys">what a remote salary really buys</a> shows how to judge a number once you have it, and our ranking of the <a href="/posts/most-remote-friendly-companies-hiring-worldwide">most remote-friendly companies</a> shows who is behind these listings.</p>
 
+      <p>To filter published pay by field, seniority and region yourself, use the <a href="/tools/salary-band-estimator">remote salary band estimator</a>, which is built on the same listings.</p>
+
       <h2>How we calculated this</h2>
       <p>We took every current listing with a published salary, used the midpoint of each range, or the single figure where only one was given, and kept US-dollar figures only, so no exchange rates were involved. Listings without pay are left out, which is the biggest limitation of any salary analysis built on job ads. The figures are a snapshot from September 2026. The <a href="/work-from-anywhere-jobs">work-from-anywhere board</a> always shows the current roles, and our page of <a href="/real-work-from-anywhere-jobs">verified work-from-anywhere roles</a> lists only those taken straight from employers' own systems.</p>
     `,
@@ -297,7 +299,7 @@ export const POSTS_CLUSTER_H2: Post[] = [
       <p>As a rule, you're taxed where you live and work, not where your employer is based. If you're not a US citizen or resident and you do all your work outside the US, working for a US company usually doesn't make your pay subject to US income tax, but your own country will expect you to declare it. Contractors often need to register as self-employed and pay their own social contributions. Our guide to <a href="/posts/remote-work-taxes-living-abroad">working remotely from abroad</a> covers residency and treaties in more depth. This is general information, so check your country's rules or speak to an adviser.</p>
 
       <h2>Visas, if you plan to move</h2>
-      <p>If you stay in your own country, you usually don't need a visa to work remotely for a foreign company. If you want to move while you work remotely, look at the digital nomad and remote-worker visas that many countries now offer. Our guide to <a href="/posts/digital-nomad-visas-2026">digital nomad visas</a> compares the main ones.</p>
+      <p>If you stay in your own country, you usually don't need a visa to work remotely for a foreign company. If you want to move while you work remotely, look at the digital nomad and remote-worker visas that many countries now offer. Our guide to <a href="/posts/digital-nomad-visas-2026">digital nomad visas</a> compares the main ones, and the <a href="/tools/nomad-visa-checker">nomad visa checker</a> tests your income against 16 programmes.</p>
 
       <h2>Time zones</h2>
       <p>Working hours are often the real filter. A role that's open worldwide may still require overlap with a US or European team. Work out your overlap before you apply with the <a href="/tools/timezone-overlap">timezone overlap finder</a>, and read our piece on <a href="/posts/remote-jobs-in-asia-pacific-timezone-filters">how "US hours" filters shut out Asia-Pacific candidates</a> for ways to turn a time difference into an advantage.</p>

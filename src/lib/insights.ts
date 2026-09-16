@@ -7,26 +7,32 @@
  * AdSense review made about the site.
  *
  * This module is the answer: a reader arriving at a listing gets the numbers
- * only a board holds. What comparable roles pay, how this one sits against
- * them, how many others are open right now, which of the skills it asks for is
- * actually in demand, and precisely where they have to live to be eligible.
- * None of it is on the employer's page, none of it is scraped, and all of it is
- * computed from the board's own corpus — so it costs no bundle weight and is
- * different on every listing.
+ * only a board holds. What comparable roles pay and how this one sits among
+ * them, how many others are open and who is hiring, how fresh this posting is
+ * next to the rest, which of its skills are actually in demand, and precisely
+ * where an applicant has to live. None of it is on the employer's page, none
+ * of it is scraped, and all of it is computed from the board's own corpus.
  *
  * Everything here is measured, never estimated. Where the corpus has too small
  * a sample to say something true, the field is omitted rather than filled with
  * a confident-sounding guess — a made-up benchmark would be worse than none.
+ * The payload is deliberately compact (binned distributions, not raw rows) so
+ * it can travel to the interactive panel on every job page.
  */
 import type { Job } from "./types";
 import { getAllJobs, getRegionalJobs } from "./db";
 import { applicantAreas } from "./seo/job-location";
-import { skillLabel } from "./landing";
+import { skillLabel, skillSlug } from "./landing";
+import { categoryToSlug } from "./taxonomy";
+import { binValues, quantile, type Bin } from "./stats";
+
+export { compactMoney } from "./stats";
 
 /** Below this many comparable salaries, a percentile is noise. Say nothing. */
 const MIN_SALARY_SAMPLE = 12;
 /** Below this many listings, a "roles open" count is not worth printing. */
 const MIN_COUNT_TO_REPORT = 3;
+const DAY = 86_400_000;
 
 export interface SalaryContext {
   /** Where this role's midpoint sits among comparable roles, 0-100. */
@@ -37,6 +43,8 @@ export interface SalaryContext {
   currency: string;
   sample: number;
   category: string;
+  /** This listing's own midpoint. */
+  value: number;
 }
 
 export interface Benchmark {
@@ -48,19 +56,41 @@ export interface Benchmark {
   category: string;
 }
 
+export interface PayDistribution {
+  bins: Bin[];
+  median: number;
+  p25: number;
+  p75: number;
+  /** 101 evenly spaced quantiles (0–100) so the panel can place any figure. */
+  quantiles: number[];
+  sample: number;
+  /** Share of this category's listings that publish pay, 0-100. */
+  publishedShare: number;
+}
+
 export interface JobInsights {
   /** Present when the listing states a salary AND we have enough to compare it to. */
   salary?: SalaryContext;
   /** Present when the listing states NO salary but the category has a usable range. */
   benchmark?: Benchmark;
+  /** Category pay spread, when there's enough data to draw it. */
+  pay?: PayDistribution;
   /** Other roles open right now in the same category, same scope. */
   comparable: number;
+  /** The same category in the other scope (worldwide vs region-locked). */
+  otherScope: number;
+  /** Roles in this category posted in the last seven days. */
+  newThisWeek: number;
+  categoryTotal: number;
+  categoryHref: string;
+  /** Employers with the most open roles in this category and scope. */
+  topCompanies: { name: string; slug: string; count: number; isThis: boolean }[];
   /** The listing's skills, with how many other open roles ask for each. */
-  skills: { skill: string; label: string; openings: number }[];
+  skills: { skill: string; label: string; openings: number; share: number; href: string }[];
   /** Where an applicant has to be. Same resolver the JobPosting markup uses. */
   eligibility: { worldwide: boolean; areas: string[] };
   /** How this posting's age compares to the board. */
-  age: { days: number; medianDays: number };
+  age: { days: number; medianDays: number; fresherThan: number; buckets: { label: string; count: number; from: number; to: number }[] };
 }
 
 /* ------------------------------------------------------------------------ */
@@ -68,13 +98,15 @@ export interface JobInsights {
 /* ------------------------------------------------------------------------ */
 
 interface Corpus {
-  /** Sorted salary midpoints per category, USD-comparable rows only. */
   salaryByCategory: Map<string, number[]>;
-  /** Open roles per category+scope key. */
   countByCategoryScope: Map<string, number>;
-  /** Open roles per skill. */
+  countByCategory: Map<string, number>;
+  paidByCategory: Map<string, number>;
   countBySkill: Map<string, number>;
-  /** Median age of a listing on the board, in days. */
+  countByCategorySkill: Map<string, number>;
+  companiesByCategoryScope: Map<string, Map<string, { name: string; count: number }>>;
+  newByCategory: Map<string, number>;
+  ages: number[];
   medianAgeDays: number;
 }
 
@@ -86,14 +118,24 @@ const midpoint = (j: Job): number | null => {
   return Math.round((min + max) / 2);
 };
 
+const bump = <K>(m: Map<K, number>, k: K, by = 1) => m.set(k, (m.get(k) ?? 0) + by);
+
 async function buildCorpus(): Promise<Corpus> {
   const [worldwide, regional] = await Promise.all([getAllJobs(), getRegionalJobs()]);
   const all = [...worldwide, ...regional];
 
-  const salaryByCategory = new Map<string, number[]>();
-  const countByCategoryScope = new Map<string, number>();
-  const countBySkill = new Map<string, number>();
-  const ages: number[] = [];
+  const c: Corpus = {
+    salaryByCategory: new Map(),
+    countByCategoryScope: new Map(),
+    countByCategory: new Map(),
+    paidByCategory: new Map(),
+    countBySkill: new Map(),
+    countByCategorySkill: new Map(),
+    companiesByCategoryScope: new Map(),
+    newByCategory: new Map(),
+    ages: [],
+    medianAgeDays: 0,
+  };
   const now = Date.now();
 
   for (const j of all) {
@@ -102,29 +144,38 @@ async function buildCorpus(): Promise<Corpus> {
     // by the exchange rate rather than by the job.
     const mid = midpoint(j);
     if (mid != null && j.salary.currency === "USD") {
-      const arr = salaryByCategory.get(j.category) ?? [];
+      const arr = c.salaryByCategory.get(j.category) ?? [];
       arr.push(mid);
-      salaryByCategory.set(j.category, arr);
+      c.salaryByCategory.set(j.category, arr);
     }
+    if (j.salary && (j.salary.min != null || j.salary.max != null)) bump(c.paidByCategory, j.category);
 
     const key = `${j.category}|${j.scope}`;
-    countByCategoryScope.set(key, (countByCategoryScope.get(key) ?? 0) + 1);
+    bump(c.countByCategoryScope, key);
+    bump(c.countByCategory, j.category);
 
-    for (const s of j.skills) countBySkill.set(s, (countBySkill.get(s) ?? 0) + 1);
+    const cos = c.companiesByCategoryScope.get(key) ?? new Map<string, { name: string; count: number }>();
+    const entry = cos.get(j.company_slug) ?? { name: j.company_name, count: 0 };
+    entry.count++;
+    cos.set(j.company_slug, entry);
+    c.companiesByCategoryScope.set(key, cos);
 
-    const age = (now - Date.parse(j.posted_at)) / 86_400_000;
-    if (Number.isFinite(age) && age >= 0) ages.push(age);
+    for (const s of j.skills) {
+      bump(c.countBySkill, s);
+      bump(c.countByCategorySkill, `${j.category}|${s}`);
+    }
+
+    const age = (now - Date.parse(j.posted_at)) / DAY;
+    if (Number.isFinite(age) && age >= 0) {
+      c.ages.push(age);
+      if (age <= 7) bump(c.newByCategory, j.category);
+    }
   }
 
-  for (const arr of salaryByCategory.values()) arr.sort((a, b) => a - b);
-  ages.sort((a, b) => a - b);
-
-  return {
-    salaryByCategory,
-    countByCategoryScope,
-    countBySkill,
-    medianAgeDays: ages.length ? Math.round(ages[Math.floor(ages.length / 2)]) : 0,
-  };
+  for (const arr of c.salaryByCategory.values()) arr.sort((a, b) => a - b);
+  c.ages.sort((a, b) => a - b);
+  c.medianAgeDays = c.ages.length ? Math.round(c.ages[Math.floor(c.ages.length / 2)]) : 0;
+  return c;
 }
 
 function corpus(): Promise<Corpus> {
@@ -154,6 +205,15 @@ function percentileOf(sorted: number[], value: number): number {
   return Math.round((below / sorted.length) * 100);
 }
 
+const AGE_BUCKETS: { label: string; from: number; to: number }[] = [
+  { label: "Under 3 days", from: 0, to: 3 },
+  { label: "3–7 days", from: 3, to: 7 },
+  { label: "1–2 weeks", from: 7, to: 14 },
+  { label: "2–4 weeks", from: 14, to: 30 },
+  { label: "1–1.5 months", from: 30, to: 45 },
+  { label: "Over 1.5 months", from: 45, to: Infinity },
+];
+
 /* ------------------------------------------------------------------------ */
 
 /**
@@ -170,9 +230,11 @@ export async function jobInsights(job: Job): Promise<JobInsights | null> {
 
   const catSalaries = c.salaryByCategory.get(job.category) ?? [];
   const mid = midpoint(job);
+  const categoryTotal = c.countByCategory.get(job.category) ?? 0;
 
   let salary: SalaryContext | undefined;
   let benchmark: Benchmark | undefined;
+  let pay: PayDistribution | undefined;
   if (catSalaries.length >= MIN_SALARY_SAMPLE) {
     if (mid != null && job.salary.currency === "USD") {
       salary = {
@@ -182,6 +244,7 @@ export async function jobInsights(job: Job): Promise<JobInsights | null> {
         currency: "USD",
         sample: catSalaries.length,
         category: job.category,
+        value: mid,
       };
     } else {
       benchmark = {
@@ -193,13 +256,35 @@ export async function jobInsights(job: Job): Promise<JobInsights | null> {
         category: job.category,
       };
     }
+    pay = {
+      bins: binValues(catSalaries, 12, undefined, undefined, 10_000),
+      median: quantile(catSalaries, 0.5),
+      p25: quantile(catSalaries, 0.25),
+      p75: quantile(catSalaries, 0.75),
+      quantiles: Array.from({ length: 101 }, (_, i) => quantile(catSalaries, i / 100)),
+      sample: catSalaries.length,
+      publishedShare: categoryTotal ? Math.round(((c.paidByCategory.get(job.category) ?? 0) / categoryTotal) * 100) : 0,
+    };
   }
 
   // "Comparable" excludes this listing itself.
-  const comparable = Math.max(0, (c.countByCategoryScope.get(`${job.category}|${job.scope}`) ?? 1) - 1);
+  const key = `${job.category}|${job.scope}`;
+  const comparable = Math.max(0, (c.countByCategoryScope.get(key) ?? 1) - 1);
+  const otherScope = c.countByCategoryScope.get(`${job.category}|${job.scope === "worldwide" ? "regional" : "worldwide"}`) ?? 0;
+
+  const topCompanies = [...(c.companiesByCategoryScope.get(key)?.entries() ?? [])]
+    .map(([slug, v]) => ({ slug, name: v.name, count: v.count, isThis: slug === job.company_slug }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
+    .slice(0, 5);
 
   const skills = job.skills
-    .map((s) => ({ skill: s, label: skillLabel(s), openings: Math.max(0, (c.countBySkill.get(s) ?? 1) - 1) }))
+    .map((s) => ({
+      skill: s,
+      label: skillLabel(s),
+      openings: Math.max(0, (c.countBySkill.get(s) ?? 1) - 1),
+      share: categoryTotal ? Math.round(((c.countByCategorySkill.get(`${job.category}|${s}`) ?? 0) / categoryTotal) * 100) : 0,
+      href: `/${skillSlug(s)}`,
+    }))
     .filter((s) => s.openings >= MIN_COUNT_TO_REPORT)
     .sort((a, b) => b.openings - a.openings)
     .slice(0, 6);
@@ -208,22 +293,30 @@ export async function jobInsights(job: Job): Promise<JobInsights | null> {
     .map((a) => a.name)
     .filter((n) => n !== "Worldwide");
 
+  const days = Math.max(0, (Date.now() - Date.parse(job.posted_at)) / DAY);
+  const older = c.ages.length ? c.ages.filter((a) => a > days).length : 0;
+
   return {
     salary,
     benchmark,
+    pay,
     comparable,
+    otherScope,
+    newThisWeek: c.newByCategory.get(job.category) ?? 0,
+    categoryTotal,
+    categoryHref: `/remote-${categoryToSlug(job.category)}-jobs`,
+    topCompanies,
     skills,
     eligibility: { worldwide: job.scope === "worldwide", areas },
     age: {
-      days: Math.max(0, Math.round((Date.now() - Date.parse(job.posted_at)) / 86_400_000)),
+      days: Math.round(days),
       medianDays: c.medianAgeDays,
+      fresherThan: c.ages.length ? Math.round((older / c.ages.length) * 100) : 0,
+      buckets: AGE_BUCKETS.map((b) => ({
+        ...b,
+        to: Number.isFinite(b.to) ? b.to : 60,
+        count: c.ages.filter((a) => a >= b.from && a < b.to).length,
+      })),
     },
   };
-}
-
-/** "$120k" / "$1.2k" — compact, for inline benchmark figures. */
-export function compactMoney(n: number, currency = "USD"): string {
-  const sym = currency === "USD" ? "$" : currency === "EUR" ? "€" : currency === "GBP" ? "£" : "";
-  if (n >= 1000) return `${sym}${Math.round(n / 1000)}k`;
-  return `${sym}${n}`;
 }

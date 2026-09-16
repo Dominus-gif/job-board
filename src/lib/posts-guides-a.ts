@@ -74,7 +74,7 @@ export const POSTS_CLUSTER_A: Post[] = [
         <li>Does the pay make sense for the work?</li>
         <li>Is anyone rushing me?</li>
       </ol>
-      <p>If any answer worries you, stop and verify before sharing anything. Starting from a board that only lists roles traced back to an employer, like our <a href="/work-from-anywhere-jobs">work-from-anywhere jobs</a> or the wider <a href="/remote-regional-jobs">regional remote board</a>, removes much of this work before you begin. It doesn't remove the need to stay alert once someone contacts you.</p>
+      <p>Our <a href="/tools/fake-job-checker">fake job posting checker</a> runs a version of these checks on any message you paste. If any answer worries you, stop and verify before sharing anything. Starting from a board that only lists roles traced back to an employer, like our <a href="/work-from-anywhere-jobs">work-from-anywhere jobs</a> or the wider <a href="/remote-regional-jobs">regional remote board</a>, removes much of this work before you begin. It doesn't remove the need to stay alert once someone contacts you.</p>
       <p>One last habit worth building: use a unique, strong password for every job board and hiring-platform account you create. Scammers who harvest one login often try it everywhere else. Our <a href="/tools/password-generator">password generator</a> makes that painless.</p>
     `,
     faq: [
@@ -228,7 +228,7 @@ export const POSTS_CLUSTER_A: Post[] = [
       <h2>What to do if you're caught</h2>
       <p>Speed matters. Contact your bank immediately to try to stop or recall payments. Report the fraud to the relevant authority in your country and to the site where you found the posting. Keep every message and receipt. And don't let embarrassment slow you down. These schemes are run by people who do nothing else, and they catch careful people too.</p>
       <p>It also helps to keep your job search separate from the rest of your online life. Use a dedicated email address and a different strong password for each job site; our <a href="/tools/password-generator">password generator</a> can create those for you. Then a scammer who gets hold of one login gets nothing else.</p>
-      <p>For a quick pre-application routine, see our <a href="/posts/how-to-spot-fake-remote-job-postings">red-flag checklist for fake remote postings</a>. When you want to start from roles already traced back to a real employer, the <a href="/work-from-anywhere-jobs">work-from-anywhere board</a> and <a href="/jobs">full job search</a> are good places to begin.</p>
+      <p>To test a specific message, paste it into our <a href="/tools/fake-job-checker">fake job posting checker</a>. For a quick pre-application routine, see our <a href="/posts/how-to-spot-fake-remote-job-postings">red-flag checklist for fake remote postings</a>. When you want to start from roles already traced back to a real employer, the <a href="/work-from-anywhere-jobs">work-from-anywhere board</a> and <a href="/jobs">full job search</a> are good places to begin.</p>
     `,
     faq: [
       {

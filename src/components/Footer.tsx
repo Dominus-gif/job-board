@@ -125,7 +125,7 @@ export function Footer() {
             {/* Tools + Posts stack so this column matches the taller single lists. */}
             <div className="space-y-8">
               <FooterCol title="Tools">
-                {TOOLS.map((t) => (
+                {TOOLS.filter((t) => t.featured).map((t) => (
                   <FooterLink key={t.slug} href={`/tools/${t.slug}`}>{t.short}</FooterLink>
                 ))}
                 <FooterLink href="/tools">All tools</FooterLink>

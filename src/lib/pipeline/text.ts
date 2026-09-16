@@ -79,23 +79,4 @@ export function sanitizeDescription(html: string): string {
     .trim();
 }
 
-/** Whole-word-ish containment: matches `needle` bounded by non-alphanumerics. */
-export function containsPhrase(haystack: string, needle: string): boolean {
-  const n = needle.toLowerCase().trim();
-  if (!n) return false;
-  // Phrases containing regex-significant chars (./+/#) are matched literally
-  // with lenient boundaries so "next.js", "c#", "utc+" behave.
-  const escaped = n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const boundaryStart = /^[a-z0-9]/.test(n) ? "(?<![a-z0-9])" : "";
-  const boundaryEnd = /[a-z0-9]$/.test(n) ? "(?![a-z0-9])" : "";
-  const re = new RegExp(`${boundaryStart}${escaped}${boundaryEnd}`, "i");
-  return re.test(haystack);
-}
-
-/** Return the first needle from `list` found in `haystack`, or null. */
-export function firstMatch(haystack: string, list: string[]): string | null {
-  for (const needle of list) {
-    if (containsPhrase(haystack, needle)) return needle;
-  }
-  return null;
-}
+export { containsPhrase, firstMatch } from "./phrase";

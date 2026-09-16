@@ -275,6 +275,7 @@ export const POSTS_2026: Post[] = [
     description:
       "A side-by-side comparison of the main digital nomad visas in 2026 — income thresholds, duration and tax treatment — plus the questions nobody asks first.",
     date: "2026-09-01T09:00:00.000Z",
+    updated: "2026-09-16T16:30:00.000Z",
     author: "getremotejobsnow.com Editorial",
     tags: ["Digital Nomad Visa", "Remote Work Abroad", "Nomad Tax", "Work From Anywhere", "Relocation"],
     readMinutes: 10,
@@ -292,14 +293,16 @@ export const POSTS_2026: Post[] = [
           <tr><th>Country</th><th>Typical income requirement</th><th>Initial duration</th><th>Tax treatment (indicative)</th></tr>
         </thead>
         <tbody>
-          <tr><td><strong>Portugal</strong></td><td>~4× national minimum wage</td><td>1 year, renewable to 5</td><td>Reformed NHR regime; favourable rates for qualifying activities</td></tr>
-          <tr><td><strong>Spain</strong></td><td>~2× national average wage</td><td>1 year, renewable to 5</td><td>Reduced non-resident rate (commonly cited ~15% for qualifying applicants in early years)</td></tr>
-          <tr><td><strong>Croatia</strong></td><td>Set monthly minimum, adjusted annually</td><td>Up to 1 year</td><td>Foreign income generally not taxed locally under the scheme</td></tr>
+          <tr><td><strong>Portugal</strong></td><td>4× the national minimum wage (€3,680 a month in 2026)</td><td>1 year, renewable to 5</td><td>The old NHR regime is closed to newcomers; its replacement (IFICI) offers a 20% rate for qualifying roles only</td></tr>
+          <tr><td><strong>Spain</strong></td><td>2× the national minimum wage (about €2,849 a month in 2026)</td><td>1 year from a consulate, or up to 3 years if you apply inside Spain</td><td>Remote employees can opt into the special regime for incoming workers: 24% on qualifying employment income up to €600,000</td></tr>
+          <tr><td><strong>Croatia</strong></td><td>About €3,622 a month in 2026 (2.5× the average net salary)</td><td>Up to 18 months</td><td>Foreign income generally not taxed locally under the scheme</td></tr>
           <tr><td><strong>Thailand (LTR)</strong></td><td>High income + asset tests</td><td>Up to 10 years</td><td>Preferential treatment for qualifying foreign income</td></tr>
-          <tr><td><strong>UAE</strong></td><td>Proof of monthly foreign income</td><td>1 year, renewable</td><td>No personal income tax</td></tr>
-          <tr><td><strong>Estonia</strong></td><td>Monthly income threshold</td><td>Up to 1 year</td><td>Tax residency can trigger after 183 days</td></tr>
+          <tr><td><strong>UAE</strong></td><td>US$3,500 a month from outside the UAE</td><td>1 year, renewable</td><td>No personal income tax</td></tr>
+          <tr><td><strong>Estonia</strong></td><td>€4,500 a month (gross)</td><td>Up to 1 year</td><td>Tax residency can trigger after 183 days</td></tr>
         </tbody>
       </table>
+
+      <p>To check your own income against these and ten more programmes, use our <a href="/tools/nomad-visa-checker">digital nomad visa checker</a>.</p>
 
       <h2>The 183-day rule is the thing that actually gets people</h2>
       <p>Most countries treat you as a tax resident once you've spent roughly <strong>183 days</strong> there in a 12-month period. A nomad visa grants you the right to <em>stay</em>; it does not automatically exempt you from becoming tax resident.</p>
@@ -319,7 +322,7 @@ export const POSTS_2026: Post[] = [
       <ol>
         <li><strong>Confirm in writing that your employer permits it</strong>, and for which countries. Do this first — everything else is wasted effort otherwise.</li>
         <li><strong>Check the current official requirements</strong> on the consulate or immigration site, not a blog (including this one). Thresholds change annually.</li>
-        <li><strong>Model your day count</strong> against the 183-day line in both the country you're leaving and the one you're entering.</li>
+        <li><strong>Model your day count</strong> against the 183-day line in both the country you're leaving and the one you're entering. Our <a href="/tools/tax-residency-day-counter">tax residency day counter</a> does the arithmetic.</li>
         <li><strong>Check for a double-taxation treaty</strong> between your home country and your destination.</li>
         <li><strong>Verify healthcare cover</strong> — most schemes require private insurance meeting a minimum level.</li>
         <li><strong>Talk to a cross-border tax adviser</strong> before you commit. One consultation is far cheaper than a mistake.</li>

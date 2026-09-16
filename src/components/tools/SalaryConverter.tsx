@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import { Select } from "@/components/ui/Select";
+import { FX_PER_USD } from "@/lib/data/price-levels";
 
-// Indicative FX rates relative to USD (update periodically; labelled as such).
-const RATES: Record<string, number> = { USD: 1, EUR: 0.92, GBP: 0.79, CAD: 1.37, AUD: 1.52, INR: 83.2 };
+// Units per US dollar: World Bank 2025 annual averages, shared with the other pay tools.
+const RATES: Record<string, number> = Object.fromEntries(
+  ["USD", "EUR", "GBP", "CAD", "AUD", "INR"].map((c) => [c, FX_PER_USD[c] ?? 1]),
+);
 const CURRENCIES = Object.keys(RATES);
 const CURRENCY_OPTIONS = CURRENCIES.map((c) => ({ value: c, label: c }));
 const field =
@@ -58,7 +61,7 @@ export function SalaryConverter() {
           </div>
         </div>
       </div>
-      <p className="mt-3 text-xs text-ink-400">Rates are indicative and for guidance only — check a live FX source before negotiating.</p>
+      <p className="mt-3 text-xs text-ink-400">Rates are 2025 annual averages from the World Bank, for guidance only. Check a live rate before negotiating.</p>
     </div>
   );
 }

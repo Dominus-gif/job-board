@@ -41,6 +41,8 @@ export const POSTS_CLUSTER_F: Post[] = [
       <p>On paper, the move more than doubles what you save. Notice two things, though. The net pay line assumes your tax bill stays the same, which is rarely true when you change country. And the line for costs that don't fall goes up, not down. Both deserve a closer look.</p>
       <p>For a general method of comparing cities, our guide to <a href="/posts/what-a-100k-remote-salary-really-buys">what a remote salary really buys</a> goes step by step. This article is about what changes when the move crosses a border.</p>
 
+      <p>For a quick comparison across 70 countries, the <a href="/tools/salary-purchasing-power">salary purchasing-power calculator</a> uses World Bank price levels. National averages hide big differences between cities, so use it to shortlist places, then price the one you choose.</p>
+
       <h2>What gets cheaper, and what doesn't</h2>
       <p>Local prices are where the savings come from: rent, eating out, public transport, childcare, cleaning, repairs and most services. These can fall a long way.</p>
       <p>Globally priced things don't. Laptops, phones, software subscriptions and most online services cost roughly the same everywhere, and imported goods can cost more. Some costs only appear after you move:</p>
@@ -129,6 +131,8 @@ export const POSTS_CLUSTER_F: Post[] = [
       <p>Most tax treaties follow the OECD model, which says employment income is generally taxed where the work is physically done. There's a short-stay exception. Your home country keeps the right to tax you if you spend no more than 183 days in the other country in any twelve-month period, your employer isn't resident there, and your pay isn't borne by a business presence your employer has there.</p>
       <p>In practice, a few weeks of working from a holiday rental rarely changes anything. Moving for good usually does. Once you live and work in a new country, it will normally expect to tax your salary, and your old country will either give up its claim or credit the tax you pay abroad.</p>
       <p>The 183-day figure is repeated so often that people treat it as a safe harbour. It isn't one. Countries count days differently, and residency can start sooner if you set up a home. Our guide to <a href="/posts/digital-nomad-visas-2026">digital nomad visas</a> explains why so many people get caught out.</p>
+
+      <p>An accurate count of your days is the simplest protection. The <a href="/tools/tax-residency-day-counter">tax residency day counter</a> tracks calendar-year and rolling 12-month totals for each country.</p>
 
       <h2>If you're a US citizen</h2>
       <p>The United States taxes its citizens on their worldwide income wherever they live, so moving abroad doesn't end your US filing obligations. Two main tools reduce double taxation. The foreign earned income exclusion lets qualifying people exclude up to <strong>$132,900</strong> of foreign earnings for tax year 2026, up from $130,000 for 2025. The foreign tax credit gives you credit for income tax paid to another country. Which one works better depends on the tax rates where you live.</p>
@@ -250,6 +254,8 @@ export const POSTS_CLUSTER_F: Post[] = [
         <li><strong>Canada.</strong> The simplified flat-rate method from the pandemic years ended after 2022. Employees now need a form signed by their employer and must claim actual costs.</li>
       </ul>
       <blockquote>In many countries, the most valuable home office support is the kind your employer pays, not the kind you claim yourself.</blockquote>
+
+      <p>Our <a href="/tools/home-office-cost-calculator">home office cost calculator</a> applies these rules to your own costs and shows what's left after any stipend.</p>
 
       <h2>What employers offer</h2>
       <p>Home office support varies hugely between employers, and our own listings show how uneven it is. Among the worldwide roles on our board, 72 mention an equipment budget, but 69 of those come from a single employer. Coworking stipends show up in roles from only a handful of companies. So don't assume a remote job includes this kind of support. Look for it in the listing, and ask if it isn't there.</p>

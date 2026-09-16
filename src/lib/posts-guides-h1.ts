@@ -194,14 +194,14 @@ export const POSTS_CLUSTER_H1: Post[] = [
 
       <h2>The daily 30 minutes</h2>
       <h3>Minutes 0 to 5: scan what's new</h3>
-      <p>Use the same saved search every day. On our <a href="/jobs">full job search</a>, set your filters for category, region, pay and job type, sort by newest, then bookmark the page. The filters are stored in the page address, so the bookmark opens straight to your search. If you'd rather not visit at all, our <a href="/rss-feeds">RSS feeds</a> send new roles in a category to your feed reader.</p>
+      <p>Use the same saved search every day. Build it once with the <a href="/tools/search-link-builder">search link builder</a>, or on our <a href="/jobs">full job search</a> set your filters for category, region, pay and job type, sort by newest, then bookmark the page. The filters are stored in the page address, so the bookmark opens straight to your search. If you'd rather not visit at all, our <a href="/rss-feeds">RSS feeds</a> send new roles in a category to your feed reader.</p>
       <p>Open anything promising in a new tab and keep scanning. Don't read in depth yet.</p>
       <h3>Minutes 5 to 10: filter hard</h3>
       <p>Now read the tabs you opened. Close anything with a hidden office or location requirement, a time zone you can't manage, or a role you wouldn't actually take. Our <a href="/posts/how-to-spot-hybrid-bait-in-remote-job-descriptions">guide to hybrid bait</a> lists the phrases worth searching for.</p>
       <h3>Minutes 10 to 25: apply to one or two</h3>
       <p>Confirm each role is live on the employer's site, save a copy of the description, then apply. Keep a strong base CV and adapt the top third for each role, with a short, specific note on why you fit. One good application beats five rushed ones.</p>
       <h3>Minutes 25 to 30: update your tracker</h3>
-      <p>Log what you applied for, set a follow-up date and clear any follow-ups due today. A simple spreadsheet is plenty. We describe a minimal one in <a href="/posts/remote-job-application-tracker-minimal-system">our application tracker guide</a>.</p>
+      <p>Log what you applied for, set a follow-up date and clear any follow-ups due today. A simple spreadsheet is plenty, or use our free <a href="/tools/application-tracker">application tracker</a>. We describe a minimal spreadsheet in <a href="/posts/remote-job-application-tracker-minimal-system">our application tracker guide</a>.</p>
       <blockquote>Stop when the half hour is up, even on a good day. A routine you can keep for two months beats a burst you can keep for a week.</blockquote>
 
       <h2>The weekly hour</h2>

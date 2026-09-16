@@ -82,6 +82,8 @@ export const POSTS_CLUSTER_D: Post[] = [
         <li><strong>If it's still unclear, ask</strong> before you apply. "Is this role open to candidates based in my country?" is a perfectly reasonable question.</li>
       </ol>
 
+      <p>To run these checks on a posting you found elsewhere, paste it into the <a href="/tools/jd-remote-analyzer">truly-remote job description analyzer</a>. It uses the same phrase lists as our filter and highlights every match.</p>
+
       <h2>Let a strict filter do the first pass</h2>
       <p>Checking every posting by hand is tiring, which is why hybrid bait works. Our <a href="/work-from-anywhere-jobs">work-from-anywhere board</a> runs these checks before a role is shown, and is strict enough that fewer than 6% of our listings qualify. It isn't infallible, and an unusual posting can slip through, but it removes most of the noise before you start reading. If you want to understand exactly how the checks work, see <a href="/posts/how-we-source-and-verify-listings">how we source and verify listings</a>.</p>
     `,
@@ -270,6 +272,8 @@ export const POSTS_CLUSTER_D: Post[] = [
       <h2>What to track about the market, not just yourself</h2>
       <p>After a few weeks your tracker becomes useful data. Which roles lead to replies? Which salary ranges show up most? Are country-restricted roles responding better than worldwide ones? Those patterns are worth more than any single application.</p>
 
+      <p>If you'd rather not build the spreadsheet yourself, our free <a href="/tools/application-tracker">job application tracker</a> uses the same statuses and follow-up dates. It runs in your browser and exports to CSV.</p>
+
       <h2>Start small</h2>
       <p>Open a spreadsheet, add the ten columns, and add your next five applications. That's enough to begin. For finding roles to fill it with, try the <a href="/work-from-anywhere-jobs">work-from-anywhere board</a> or the <a href="/jobs">full remote job search</a>, and check each posting's real availability first with our guide to <a href="/posts/apply-directly-on-company-career-pages">applying on company career pages</a>.</p>
     `,
@@ -338,6 +342,8 @@ export const POSTS_CLUSTER_D: Post[] = [
         <li><strong>Show you can work remotely.</strong> Written communication, prior distributed work and the tools you've used matter more for remote roles.</li>
         <li><strong>Apply early and on the employer's own page.</strong> See <a href="/posts/apply-directly-on-company-career-pages">why applying directly is safest</a>.</li>
       </ol>
+
+      <p>To check how closely your CV matches a posting's wording, paste both into the <a href="/tools/ats-keyword-checker">ATS keyword checker</a>.</p>
 
       <h2>Researching a company before you apply</h2>
       <p>Our <a href="/companies">company directory</a> shows the roles we currently list for each employer, which gives you a quick sense of whether a company is hiring broadly or filling one position. For roles open regardless of location, start with the <a href="/work-from-anywhere-jobs">work-from-anywhere board</a>, and for everything else, the <a href="/remote-regional-jobs">regional remote board</a>.</p>
