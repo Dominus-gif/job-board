@@ -62,6 +62,11 @@ In the Cloudflare dashboard (Workers → Build), use:
 The `NODE_OPTIONS` bump is **required**: the build prerenders ~675 pages and each
 worker parses ~10k job records, which overflows Node's default heap.
 
+The Worker entry is `cloudflare-worker.mjs`, not the generated
+`.open-next/worker.js` it wraps. It swaps Next's empty 404 shell (sent when a
+dynamic page calls `notFound()`) for the prerendered not-found page, so every
+404 carries readable HTML. Keep `main` in `wrangler.jsonc` pointing at it.
+
 ## 3b. Plan requirement (measured)
 
 `npx wrangler deploy --dry-run` reports:

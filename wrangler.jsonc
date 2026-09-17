@@ -1,7 +1,8 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "getremotejobsnow",
-  "main": ".open-next/worker.js",
+  // Wraps the OpenNext worker so 404s ship rendered HTML (see the file).
+  "main": "cloudflare-worker.mjs",
   "compatibility_date": "2025-08-01",
   // nodejs_compat: required by OpenNext + our Node-API deps (sanitize-html).
   "compatibility_flags": ["nodejs_compat"],

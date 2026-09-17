@@ -4,13 +4,13 @@ import { LegalShell } from "@/components/LegalShell";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: `How ${SITE.name} collects, uses, and protects your data, including cookies and third-party advertising such as Google AdSense.`,
+  description: `How ${SITE.name} collects, uses, and protects your data, including cookies, analytics (Google Analytics 4 and Datafast) and advertising such as Google AdSense.`,
   alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {
   return (
-    <LegalShell eyebrow="Legal" title="Privacy Policy" updated="July 21, 2026">
+    <LegalShell eyebrow="Legal" title="Privacy Policy" updated="September 17, 2026">
       <p>
         This Privacy Policy explains how {SITE.name} (“we”, “us”) collects, uses, and safeguards information when you
         visit our website. By using the site you agree to the practices described here.
@@ -34,6 +34,31 @@ export default function PrivacyPage() {
       <p>
         We use cookies to remember preferences, measure traffic, and serve advertising. You can disable cookies in your
         browser settings, though some features may not work as intended.
+      </p>
+
+      <h2>Analytics</h2>
+      <p>
+        We use two analytics services to understand which pages are useful and how visitors find the site. Neither is
+        used to identify you personally, and we do not combine their data with your email address.
+      </p>
+      <ul>
+        <li>
+          <strong>Google Analytics 4</strong> (Google LLC) records the pages you view, how you reached them, your
+          approximate location, device and browser, and events such as which page template or ad slot was shown. It
+          sets first-party cookies (named <code>_ga</code> and <code>_ga_*</code>) to recognise repeat visits. Google
+          processes this data under its{" "}
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer nofollow">privacy policy</a>. You can opt out with the{" "}
+          <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer nofollow">Google Analytics opt-out browser add-on</a>.
+        </li>
+        <li>
+          <strong>Datafast</strong> records page views, referrers and approximate location to give us aggregate traffic
+          counts. See{" "}
+          <a href="https://datafa.st/privacy-policy" target="_blank" rel="noopener noreferrer nofollow">Datafast’s privacy policy</a>.
+        </li>
+      </ul>
+      <p>
+        The free tools on this site (such as the application tracker and the tax residency day counter) keep what you
+        enter in your own browser. It is not sent to us or to these analytics services.
       </p>
 
       <h2>Advertising &amp; Google AdSense</h2>

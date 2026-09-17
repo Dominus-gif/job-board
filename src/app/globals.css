@@ -175,6 +175,69 @@
 .viz { --viz-bar: #bdbbb4; --viz-bar-hover: #a5a39c; --viz-accent: #2383e2; --viz-accent-soft: rgba(35, 131, 226, 0.12); --viz-grid: #e9e9e7; --viz-axis: #787774; --viz-surface: #f7f6f3; --viz-ink: #2b2a26; }
 .dark .viz { --viz-bar: #4a4945; --viz-bar-hover: #5c5b56; --viz-accent: #4f97d6; --viz-accent-soft: rgba(79, 151, 214, 0.16); --viz-grid: #333333; --viz-axis: #9b9a97; --viz-surface: #252525; --viz-ink: #f5f5f4; }
 
+/* 404 and error pages: a departures board (src/components/lost). The board is
+   dark in both themes, like the real thing; its tokens are local so the site's
+   ink remaps can't reach them. */
+.lost-accent { color: #1a6fc4; }
+.dark .lost-accent { color: #7fb2de !important; }
+.lost-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, rgba(55, 53, 47, 0.13) 1px, transparent 0);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 75% 35%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 75% 35%, #000 20%, transparent 75%);
+}
+.dark .lost-grid { background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.09) 1px, transparent 0); }
+.lost-board {
+  --lb-bg: #1f1e1b; --lb-rule: #383631; --lb-ink: #f3f2ef; --lb-muted: #a9a7a1;
+  --lb-status: #cfcdc8; --lb-tile: #2d2c28; --lb-tile-top: #35342f; --lb-link: #7fb2de; --lb-amber: #f4b860;
+  background: var(--lb-bg); color: var(--lb-ink);
+  border-radius: 1rem; overflow: hidden;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 24px 48px -28px rgba(15, 15, 15, 0.55);
+}
+.dark .lost-board { --lb-bg: #141413; --lb-rule: #2c2b28; --lb-tile: #22211e; --lb-tile-top: #292825; border: 1px solid #2c2b28; }
+.lost-tile {
+  position: relative; display: inline-block; overflow: hidden;
+  width: 1.02em; height: 1.28em; border-radius: 0.14em;
+  font-family: var(--font-editorial-mono), ui-monospace, monospace;
+  font-size: clamp(3.4rem, 11vw, 5.4rem); line-height: 1.28em; text-align: center;
+  color: var(--lb-ink);
+  background: linear-gradient(to bottom, var(--lb-tile-top) 0 50%, var(--lb-tile) 50% 100%);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+/* The hinge: a dark seam across the middle of each flap. */
+.lost-tile::after {
+  content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 1px); height: 2px;
+  background: var(--lb-bg); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.lost-strip {
+  display: flex; flex-direction: column;
+  transform: translateY(var(--to));
+  animation: lost-flap calc(var(--steps) * 90ms) steps(var(--steps), jump-none) var(--delay) both;
+}
+.lost-glyph { display: block; height: 1.28em; }
+@keyframes lost-flap { from { transform: translateY(0); } to { transform: translateY(var(--to)); } }
+.lost-cancelled {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  color: var(--lb-amber); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem;
+}
+.lost-blink {
+  width: 0.45rem; height: 0.45rem; border-radius: 9999px; background: var(--lb-amber);
+  animation: lost-blink 1.4s ease-in-out infinite;
+}
+@keyframes lost-blink { 50% { opacity: 0.25; } }
+.lost-link { color: var(--lb-ink); outline: none; transition: background-color 150ms ease; }
+.lost-row:hover .lost-link, .lost-link:focus-visible { background: rgba(255, 255, 255, 0.05); }
+.lost-link:focus-visible { box-shadow: inset 3px 0 0 var(--lb-link); }
+.lost-arrow { color: var(--lb-link); transition: transform 150ms ease; }
+.lost-row:hover .lost-arrow, .lost-link:focus-visible .lost-arrow { transform: translateX(4px); }
+.lost-spin { display: inline-flex; animation: lost-spin 0.8s linear infinite; }
+@keyframes lost-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .lost-strip, .lost-blink, .lost-spin { animation: none; }
+  .lost-arrow { transition: none; }
+}
+
 /* Tool range inputs share the World Time Buddy look. */
 .tool-range { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 9999px; background: #e9e9e7; cursor: pointer; }
 .tool-range::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; border-radius: 9999px; background: #2383e2; border: 3px solid #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.28); }
