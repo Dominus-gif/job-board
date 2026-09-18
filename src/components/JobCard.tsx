@@ -56,17 +56,19 @@ export function JobCard({
   const needle = highlightQuery?.trim().toLowerCase();
   const skillMatches = (s: string) => !!needle && s.toLowerCase().includes(needle);
 
-  return (
-    <Link
-      href={`/jobs/${job.slug}`}
-      className={`group relative flex scroll-mt-24 items-start gap-4 overflow-hidden rounded-xl border p-5 transition-colors duration-150 ${
-        inactive
-          ? "border-ink-100 bg-ink-50/60 opacity-75"
-          : job.is_featured
-            ? "featured-card border-ink-200 bg-ink-50 hover:bg-ink-100"
-            : "border-ink-100 bg-white hover:border-ink-200 hover:bg-ink-50"
-      }`}
-    >
+  // A closed listing has no page left to open: the slug 404s once the employer
+  // removes the posting. Linking it anyway sent crawlers (and readers) to a
+  // dead URL from /archived and /bookmarks, so the closed card is plain markup.
+  const shellClass = `group relative flex scroll-mt-24 items-start gap-4 overflow-hidden rounded-xl border p-5 transition-colors duration-150 ${
+    inactive
+      ? "border-ink-100 bg-ink-50/60 opacity-75"
+      : job.is_featured
+        ? "featured-card border-ink-200 bg-ink-50 hover:bg-ink-100"
+        : "border-ink-100 bg-white hover:border-ink-200 hover:bg-ink-50"
+  }`;
+
+  const content = (
+    <>
       {/* Paid placement marker. Decorative, behind the content (see globals.css),
           and dropped entirely on inactive cards so a closed listing never looks
           promoted. */}
@@ -177,6 +179,14 @@ export function JobCard({
         </div>
         <div className="mt-1"><JobCardActions job={job} /></div>
       </div>
+    </>
+  );
+
+  return inactive ? (
+    <div className={shellClass}>{content}</div>
+  ) : (
+    <Link href={`/jobs/${job.slug}`} className={shellClass}>
+      {content}
     </Link>
   );
 }

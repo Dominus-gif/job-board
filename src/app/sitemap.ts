@@ -1,11 +1,10 @@
 import type { MetadataRoute } from "next";
 import { getAllJobs, getRegionalJobs, getCompanies } from "@/lib/db";
-import { allLandingSlugs, WFA_HUB_SLUGS } from "@/lib/landing";
+import { allLandingSlugs, canonicalLandingSlug, resolveLanding, WFA_HUB_SLUGS } from "@/lib/landing";
 import { getAllPosts } from "@/lib/posts";
 import { TOOLS } from "@/lib/tools";
-import { CATEGORIES } from "@/lib/taxonomy";
 import { abs, FEATURES } from "@/lib/site";
-import { jobIsIndexable, companyIsIndexable } from "@/lib/seo/indexing";
+import { jobIsIndexable, companyIsIndexable, landingIsIndexable } from "@/lib/seo/indexing";
 
 export const revalidate = 1800;
 
@@ -48,12 +47,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: path === "/" ? 1 : HUBS.includes(path) ? 0.8 : 0.6,
   }));
 
-  // Indexable /jobs filter facets (category + region) — long-tail SEO surfaces.
-  const REGION_FACETS = ["United States", "Europe", "UK", "Asia-Pacific", "Canada", "India"];
-  const jobFacets = [
-    ...CATEGORIES.map((c) => `/jobs?category=${encodeURIComponent(c)}`),
-    ...REGION_FACETS.map((r) => `/jobs?region=${encodeURIComponent(r)}`),
-  ].map((path) => ({ url: abs(path), lastModified: now, changeFrequency: "daily" as const, priority: 0.6 }));
+  // The /jobs?category= and /jobs?region= facets used to be listed here as
+  // long-tail surfaces. They were dropped: each one is the same result set as a
+  // dedicated landing page (/remote-backend-jobs, /remote-jobs-in-europe) that
+  // has its own copy and FAQ, so Search Console reported them as "Duplicate,
+  // Google chose different canonical". The facets stay linked from the board's
+  // own filters; they are just not submitted as separate destinations.
 
   const posts = getAllPosts().map((p) => ({
     url: abs(`/posts/${p.slug}`),
@@ -72,13 +71,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // The work-from-anywhere cluster hubs are declared daily rather than hourly:
   // their listings turn over on the nightly rebuild, and an honest interval is
   // worth more than an optimistic one.
+  //
+  // A landing page is submitted only when the page itself would allow indexing:
+  // it is the canonical slug (not an alias pointing somewhere else) and it has
+  // enough results to be worth ranking. Both tests match [landing]/page.tsx, so
+  // a URL is never listed here and then served noindex or with a canonical
+  // pointing elsewhere.
   const wfaHubs = new Set(WFA_HUB_SLUGS);
-  const landings = (await allLandingSlugs()).map((slug) => ({
-    url: abs(`/${slug}`),
-    lastModified: now,
-    changeFrequency: (wfaHubs.has(slug) ? "daily" : "hourly") as "daily" | "hourly",
-    priority: 0.8,
-  }));
+  const landingSlugs = await allLandingSlugs();
+  const landingEntries = await Promise.all(
+    landingSlugs.map(async (slug) => {
+      if (canonicalLandingSlug(slug) !== slug) return null;
+      const view = await resolveLanding(slug);
+      if (!view || !landingIsIndexable(view.jobs.length)) return null;
+      return {
+        url: abs(`/${slug}`),
+        lastModified: now,
+        changeFrequency: (wfaHubs.has(slug) ? "daily" : "hourly") as "daily" | "hourly",
+        priority: 0.8,
+      };
+    }),
+  );
+  const landings = landingEntries.filter((e): e is NonNullable<typeof e> => e !== null);
 
   const companies = (await getCompanies())
     .filter((c) => companyIsIndexable(c.jobCount))
@@ -101,5 +115,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: job.is_featured ? 0.9 : 0.7,
     }));
 
-  return [...staticPages, ...jobFacets, ...landings, ...companies, ...posts, ...tools, ...jobs];
+  return [...staticPages, ...landings, ...companies, ...posts, ...tools, ...jobs];
 }
