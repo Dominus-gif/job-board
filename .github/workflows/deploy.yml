@@ -60,6 +60,14 @@ jobs:
       # and did not pick up wrangler.jsonc, failing with "Missing entry-point"
       # before it ever reached authentication. Running the project's own script
       # keeps CI identical to what is run locally.
+      # Remember which build is live before replacing it, so the cache prune
+      # below keeps it for a dashboard rollback.
+      - name: Record live build id
+        run: |
+          id=$(curl -s "https://getremotejobsnow.com/about?cb=$(date +%s)" | grep -oE '\\"b\\":\\"[A-Za-z0-9_-]+' | head -1 | sed -E 's/.*"//')
+          echo "PREV_BUILD_ID=$id" >> "$GITHUB_ENV"
+          echo "live build before deploy: ${id:-unknown}"
+
       - name: Deploy
         run: npm run cf:deploy
         env:
@@ -77,3 +85,11 @@ jobs:
           done
           echo "::error::Site did not return 200 after deploy"
           exit 1
+
+      # Each deploy writes its pages to KV under incremental-cache/<BUILD_ID>/
+      # and nothing removed older builds, so storage grew past the free 1 GB.
+      # Keeps the new build and the one it replaced; never fails the deploy.
+      - name: Prune stale page cache
+        run: NEW_BUILD_ID=$(cat .next/BUILD_ID) node scripts/prune-kv-cache.mjs
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
