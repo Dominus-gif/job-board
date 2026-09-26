@@ -32,10 +32,14 @@ import { isComplete } from "./description-completeness";
 export const MIN_DESCRIPTION_WORDS = 60;
 
 /**
- * A company page below this many live listings is a name, a logo and a list of
- * one. 1,777 of them shipped at 83-95 words apiece.
+ * A company page below this many live listings is a name, a logo and a short
+ * list of job titles. 1,777 of them once shipped at 83-95 words apiece.
+ *
+ * Raised from 3 to 10 on 2026-09-26 after the second AdSense rejection: at 3,
+ * 524 company pages were submitted at a median of ~200 words, most of it job
+ * titles. At 10 the index keeps the 131 employers with a real presence here.
  */
-export const MIN_COMPANY_LISTINGS = 3;
+export const MIN_COMPANY_LISTINGS = 10;
 
 /** A filtered view below this many results is an empty room with a sign on it. */
 export const MIN_LANDING_LISTINGS = 8;
@@ -89,11 +93,19 @@ export function applyLinkIsSpecific(applyUrl: string | undefined | null): boolea
  * falls back to an 80-word excerpt is not one to offer as a search result.
  */
 export function jobIsIndexable(
-  job: Pick<Job, "description_html" | "status" | "is_active" | "apply_url" | "is_featured"> & {
+  job: Pick<Job, "description_html" | "status" | "is_active" | "apply_url" | "is_featured" | "scope"> & {
     has_full_description?: boolean;
   }
 ): boolean {
   if (job.status === "expired" || job.is_active === false) return false;
+  // Only work-from-anywhere roles are offered to search engines (2026-09-26).
+  // Most of a listing page is the employer's own description, which also runs
+  // on their careers page and on every other board that carries the role. The
+  // worldwide roles are the ones this site adds something to: it is the only
+  // place they are filtered out of the much larger remote market. Region-locked
+  // roles stay on the site, linked and fully usable, but they were 90% of the
+  // submitted URLs and read to AdSense review as republished content.
+  if (job.scope !== "worldwide") return false;
   if (isDirectoryPointer(job.description_html)) return false;
   // The apply-link rule is a heuristic standing in for human review. A featured
   // listing is paid placement that has had the real thing, and the operator

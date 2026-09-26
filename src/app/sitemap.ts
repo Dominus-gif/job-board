@@ -104,7 +104,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
   // A listing is listed here when it carries enough of its own description to
-  // be a destination — see jobIsIndexable. Worldwide and regional alike.
+  // be a destination — see jobIsIndexable. In practice that is the worldwide
+  // board only; regional roles are not submitted.
   const [worldwide, regional] = await Promise.all([getAllJobs(), getRegionalJobs()]);
   const jobs = [...worldwide, ...regional]
     .filter((job) => jobIsIndexable(job))

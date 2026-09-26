@@ -14,7 +14,6 @@ import { JobList } from "@/components/JobList";
 import { ScamNotice, ReferralNudge } from "@/components/ScamNotice";
 import { LivenessProvider, ApplyButton, InactiveBanner } from "@/components/JobLiveness";
 import { ShareButtons } from "@/components/ShareButtons";
-import { AdSlot } from "@/components/AdSlot";
 import { CompanyLogo } from "@/components/CompanyLogo";
 import { StatusBadge } from "@/components/StatusBadge";
 import {
@@ -214,7 +213,6 @@ export default async function JobPage(props: { params: Promise<{ slug: string }>
             {/* Everything above this line is the employer's words. Everything
                 below is what the board can tell you that they cannot. */}
             {insights && <JobInsightsPanel insights={insights} category={job.category} />}
-            <AdSlot />
             <div className="mt-8 space-y-4">
               <ReferralNudge />
               <ScamNotice />

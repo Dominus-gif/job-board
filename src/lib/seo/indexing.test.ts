@@ -27,6 +27,7 @@ const job = (over: Record<string, unknown> = {}) =>
     is_active: true,
     apply_url: "https://boards.greenhouse.io/acme/jobs/123",
     is_featured: false,
+    scope: "worldwide",
     ...over,
   }) as Parameters<typeof jobIsIndexable>[0];
 
@@ -85,6 +86,7 @@ describe("jobIsIndexable", () => {
 
   it("never indexes an expired or inactive listing", () => {
     expect(jobIsIndexable(job({ status: "expired" }))).toBe(false);
+    expect(jobIsIndexable(job({ scope: "regional" }))).toBe(false);
     expect(jobIsIndexable(job({ is_active: false }))).toBe(false);
   });
 });
@@ -105,8 +107,8 @@ describe("applyLinkIsSpecific", () => {
 describe("thresholds", () => {
   it("a company page needs more than a list of one", () => {
     expect(companyIsIndexable(1)).toBe(false);
-    expect(companyIsIndexable(2)).toBe(false);
-    expect(companyIsIndexable(3)).toBe(true);
+    expect(companyIsIndexable(9)).toBe(false);
+    expect(companyIsIndexable(10)).toBe(true);
   });
 
   it("a filtered view needs results to be a page about", () => {
