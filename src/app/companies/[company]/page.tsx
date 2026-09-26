@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { getCompanies, getCompanyBySlug, getJobsByCompany } from "@/lib/db";
 import { abs } from "@/lib/site";
 import { JobList } from "@/components/JobList";
-import { StarRating } from "@/components/StarRating";
 import { CompanyLogo } from "@/components/CompanyLogo";
 import { CalendarIcon, UsersIcon, PinIcon, BriefcaseIcon, ArrowUpRightIcon, CheckIcon } from "@/components/icons";
 import { companyIsIndexable, robotsFor } from "@/lib/seo/indexing";
@@ -28,7 +27,7 @@ export async function generateMetadata(props: { params: Promise<{ company: strin
   if (!company) return {};
   return {
     title: `${company.name} — Remote Jobs, Reviews & Company Profile`,
-    description: `${company.name} company profile: details, employee ratings from Glassdoor and more, and their ${company.jobCount} open remote ${company.jobCount === 1 ? "role" : "roles"}${company.worldwideCount > 0 ? ` (${company.worldwideCount} work-from-anywhere)` : ""}.`,
+    description: `${company.name} company profile: details and their ${company.jobCount} open remote ${company.jobCount === 1 ? "role" : "roles"}${company.worldwideCount > 0 ? ` (${company.worldwideCount} work-from-anywhere)` : ""}.`,
     // Two thirds of these pages exist to show a single job. They stay on the
     // site and stay linked; they stop being offered as search destinations.
     robots: robotsFor(companyIsIndexable(company.jobCount)),
@@ -74,7 +73,6 @@ export default async function CompanyPage(props: { params: Promise<{ company: st
               )}
               <h1 className="font-display text-3xl font-extrabold text-ink-900 md:text-4xl">{company.name}</h1>
               <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-ink-500">
-                {company.rating != null && <StarRating rating={company.rating} count={company.review_count} />}
                 {company.domain && (
                   <a href={`https://${company.domain}`} target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-sm font-medium text-brand-700 hover:text-brand-800">
@@ -105,35 +103,6 @@ export default async function CompanyPage(props: { params: Promise<{ company: st
           <p className="max-w-3xl text-lg leading-relaxed text-ink-600">{companyAbout(company)}</p>
         </section>
 
-        {/* Reviews */}
-        {company.reviews && company.reviews.length > 0 && (
-          <section className="mt-10">
-            <span className="eyebrow">Reviews</span>
-            <h2 className="mb-4 mt-2 font-display text-xl font-extrabold text-ink-900">What employees say</h2>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {company.reviews.map((r) => (
-                <a
-                  key={r.source}
-                  href={r.url || reviewUrl(r.source, company)}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                  className="card group p-5 transition hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-lift"
-                >
-                  <div className="flex items-center justify-between">
-                    <p className="font-display font-bold text-ink-900">{r.source}</p>
-                    <ArrowUpRightIcon className="h-4 w-4 text-ink-300 transition group-hover:text-brand-600" />
-                  </div>
-                  <div className="mt-2"><StarRating rating={r.rating} count={r.count} /></div>
-                  <p className="mt-2 text-xs font-medium text-brand-700">Read reviews on {r.source} →</p>
-                </a>
-              ))}
-            </div>
-            <p className="mt-3 text-xs text-ink-400">
-              Ratings aggregated from public employer-review sources. Figures are indicative — open each site for the latest.
-            </p>
-          </section>
-        )}
-
         {/* Jobs */}
         <section className="mt-12">
           <span className="eyebrow">Open roles</span>
@@ -152,40 +121,26 @@ export default async function CompanyPage(props: { params: Promise<{ company: st
   );
 }
 
-/** Build a working link to a company's page on a given review site. */
-function reviewUrl(source: string, c: NonNullable<Awaited<ReturnType<typeof getCompanyBySlug>>>): string {
-  const q = encodeURIComponent(c.name);
-  const s = source.toLowerCase();
-  if (s.includes("glassdoor")) return `https://www.glassdoor.com/Search/results.htm?keyword=${q}`;
-  if (s.includes("comparably")) return `https://www.comparably.com/companies/${c.slug}`;
-  if (s.includes("indeed")) return `https://www.indeed.com/cmp/${encodeURIComponent(c.name.replace(/\s+/g, "-"))}`;
-  if (s.includes("ambition")) return `https://www.ambitionbox.com/reviews/${c.slug}-reviews`;
-  return `https://www.google.com/search?q=${q}+${encodeURIComponent(source)}+reviews`;
-}
-
 /** Compose a 5–6 line company profile from structured fields (or use an override). */
 function companyAbout(c: NonNullable<Awaited<ReturnType<typeof getCompanyBySlug>>>): string {
   if (c.about) return c.about;
-  const remote = /all-remote/i.test(c.headquarters ?? "")
-    ? "runs as a fully distributed, all-remote team"
-    : "operates with a remote-friendly culture";
+  const allRemote = /all-remote/i.test(c.headquarters ?? "");
   const s: string[] = [];
-  s.push(c.description ?? `${c.name} is a remote-first company.`);
-  s.push(
-    c.founded
-      ? `Founded in ${c.founded}, ${c.name} ${remote}${c.employees ? ` and employs roughly ${c.employees} people` : ""}${c.headquarters ? ` (${c.headquarters})` : ""}.`
-      : `${c.name} ${remote}.`
-  );
+  if (c.description) s.push(c.description);
+  const facts: string[] = [];
+  if (c.founded) facts.push(`was founded in ${c.founded}`);
+  if (c.employees) facts.push(`employs roughly ${c.employees} people`);
+  if (allRemote) facts.push("runs as a fully distributed, all-remote team");
+  else if (c.headquarters) facts.push(`is based in ${c.headquarters}`);
+  if (facts.length) {
+    const list = facts.length === 1 ? facts[0] : `${facts.slice(0, -1).join(", ")} and ${facts[facts.length - 1]}`;
+    s.push(`${c.name} ${list}.`);
+  }
   s.push(
     c.worldwideCount > 0
       ? `They hire remotely${c.worldwideCount === c.jobCount ? " with no country restriction, so every role below is one you can do from anywhere in the world" : `, including ${c.worldwideCount} work-from-anywhere ${c.worldwideCount === 1 ? "role" : "roles"} open worldwide`}.`
       : `They hire remotely, though their current openings are tied to specific countries or regions (shown on each role below).`
   );
-  if (c.rating != null) {
-    s.push(
-      `Current and former employees rate ${c.name} ${c.rating.toFixed(1)} out of 5${c.review_count ? ` across ${c.review_count.toLocaleString("en-US")}+ reviews` : ""} on sites like Glassdoor and Comparably.`
-    );
-  }
   s.push(
     c.jobCount === 1
       ? `Right now there is one open remote role you can apply to below.`

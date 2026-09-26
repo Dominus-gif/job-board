@@ -3,7 +3,6 @@
 import { Fragment, useMemo, useState } from "react";
 import Link from "next/link";
 import type { CompanyListing } from "@/lib/db";
-import { StarRating } from "./StarRating";
 import { CompanyLogo } from "./CompanyLogo";
 import { InFeedAd } from "./InFeedAd";
 import { SearchIcon, CloseIcon } from "./icons";
@@ -13,13 +12,12 @@ import { Select } from "./ui/Select";
 const AD_EVERY = 9;
 const PAGE = 60;
 
-type SortId = "roles" | "name" | "worldwide" | "rated";
+type SortId = "roles" | "name" | "worldwide";
 
 const SORTS: { value: SortId; label: string }[] = [
   { value: "roles", label: "Most open roles" },
   { value: "name", label: "Name (A–Z)" },
   { value: "worldwide", label: "Most worldwide roles" },
-  { value: "rated", label: "Highest rated" },
 ];
 
 /**
@@ -51,9 +49,6 @@ export function CompanyDirectory({ companies }: { companies: CompanyListing[] })
           return a.name.localeCompare(b.name);
         case "worldwide":
           return b.worldwideCount - a.worldwideCount || b.jobCount - a.jobCount || a.name.localeCompare(b.name);
-        case "rated":
-          // Unrated companies sink rather than tying at zero with genuinely poor ones.
-          return (b.rating ?? -1) - (a.rating ?? -1) || (b.review_count ?? 0) - (a.review_count ?? 0) || a.name.localeCompare(b.name);
         default:
           return b.jobCount - a.jobCount || a.name.localeCompare(b.name);
       }
@@ -135,7 +130,6 @@ export function CompanyDirectory({ companies }: { companies: CompanyListing[] })
                     </p>
                   </div>
                 </div>
-                {c.rating != null && <div className="mt-3"><StarRating rating={c.rating} count={c.review_count} /></div>}
                 {c.description && <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-500">{c.description}</p>}
               </Link>
               {(i + 1) % AD_EVERY === 0 && i < shown.length - 1 && <InFeedAd />}

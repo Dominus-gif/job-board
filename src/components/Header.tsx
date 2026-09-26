@@ -8,8 +8,11 @@ import { NavLinks } from "./NavLinks";
 
 const NAV: [string, string][] = [
   ["Browse jobs", "/jobs"],
-  ["Find jobs", "/find-remote-jobs"],
   ["Companies", "/companies"],
+  // The guides and tools are the site's own work; they belong in the main nav,
+  // not only in the footer.
+  ["Guides", "/posts"],
+  ["Tools", "/tools"],
   ...(FEATURES.newsletter ? ([["Newsletter", "/newsletter"]] as [string, string][]) : []),
   ...(FEATURES.advertise ? ([["Advertise", "/advertise"]] as [string, string][]) : []),
 ];

@@ -586,7 +586,7 @@ function locationFaq(loc: LocationSeo, cfg: GeoConfig, jobs: Job[]): FaqItem[] {
     },
     {
       q: `Do you list hybrid or office-based jobs in ${cfg.place}?`,
-      a: `No. Every listing is fully remote and is pulled from the employer's own careers page or hiring system. A role that asks for days in an office, or describes itself as hybrid, is rejected before it reaches this page — which is why this board is smaller than a general job site's.`,
+      a: `We try not to. Roles that describe themselves as hybrid or ask for days in an office are filtered out before they reach this page, which is why this board is smaller than a general job site's. Filters are not perfect, so if you find an office-based role here, tell us through the contact page and we'll remove it.`,
     },
     {
       q: `How many remote jobs in ${cfg.place} are open right now?`,

@@ -30,12 +30,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Honest changefreq per page type so Google trusts the signal: content hubs
   // update often; static/legal pages rarely do.
   const DAILY = new Set(["/", "/jobs", "/companies", "/remote-regional-jobs", ...HUBS]);
-  const WEEKLY = new Set(["/tools", "/posts", "/hiring", "/rss-feeds"]);
+  const WEEKLY = new Set(["/tools", "/posts", "/hiring"]);
   const staticFreq = (path: string): "daily" | "weekly" | "monthly" =>
     DAILY.has(path) ? "daily" : WEEKLY.has(path) ? "weekly" : "monthly";
 
   const staticPages = [
-    "/", "/jobs", "/companies", "/hiring", "/rss-feeds", "/remote-regional-jobs", "/tools", "/posts",
+    "/", "/jobs", "/companies", "/hiring", "/remote-regional-jobs", "/tools", "/posts",
     ...HUBS,
     "/about", "/how-it-works", "/faq", "/contact", "/privacy", "/terms",
     ...(FEATURES.advertise ? ["/advertise"] : []),

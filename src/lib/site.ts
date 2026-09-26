@@ -1,9 +1,9 @@
 /** Global site configuration used across metadata, RSS, sitemap and JSON-LD. */
 export const SITE = {
   name: "getremotejobsnow.com",
-  tagline: "The only job board where every job is truly location-independent.",
+  tagline: "Remote jobs sorted by where you can actually work from: anywhere in the world, or a named region.",
   description:
-    "Browse remote jobs you can do from anywhere — location-independent roles with no country, region, or timezone limits. Fresh listings, updated daily.",
+    "Browse remote jobs, each labelled as work-from-anywhere or limited to a named country or region, plus free guides and tools for remote job seekers. Updated daily.",
   get url() {
     // Explicit override wins; otherwise auto-detect the Vercel URL so canonical
     // links, sitemap, RSS and JSON-LD are correct without any manual config.

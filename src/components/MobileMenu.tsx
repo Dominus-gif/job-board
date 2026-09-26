@@ -8,6 +8,8 @@ const LINKS: [string, string][] = [
   ["Browse jobs", "/jobs"],
   ["Find jobs", "/find-remote-jobs"],
   ["Companies", "/companies"],
+  ["Guides", "/posts"],
+  ["Tools", "/tools"],
   ["Bookmarks", "/bookmarks"],
   ...(FEATURES.newsletter ? ([["Newsletter", "/newsletter"]] as [string, string][]) : []),
   ...(FEATURES.advertise ? ([["Advertise", "/advertise"]] as [string, string][]) : []),

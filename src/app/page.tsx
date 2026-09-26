@@ -13,6 +13,7 @@ import { NewsletterForm } from "@/components/NewsletterForm";
 import { RoleSubscribeForm } from "@/components/RoleSubscribeForm";
 import { FaqSection } from "@/components/FaqSection";
 import { AdSlot } from "@/components/AdSlot";
+import { HomeGuides } from "@/components/HomeGuides";
 import { PinIcon, ArrowUpRightIcon, SearchIcon } from "@/components/icons";
 import { siteJsonLd, jobListJsonLd } from "@/lib/jsonld";
 
@@ -27,7 +28,7 @@ const HOME_FAQ = [
   },
   {
     q: "Where do you find these listings?",
-    a: "We pull directly from the source. Every hour, our system scans hiring platforms like Ashby, Greenhouse, Lever, and Workable. We then strip out the geo-restricted noise and tag each role with actual salary data, required skills, and perks so you don\u2019t have to hunt for the details.",
+    a: "Most listings come from employers\u2019 own hiring systems, such as Ashby, Greenhouse, Lever and Workable, with a smaller number from other remote job sources. Every role is checked for location limits: roles with none go on the main work-from-anywhere board, and roles tied to a country or region go on a separate, clearly labelled regional board. We add salary, skills and benefits where the posting states them.",
   },
   {
     q: "Does it cost anything to apply?",
@@ -35,7 +36,7 @@ const HOME_FAQ = [
   },
   {
     q: "How frequently do you update the board?",
-    a: "In real time or as soon as a company posts a qualifying global role and it passes our filter, it goes live on the site. No waiting for a weekly newsletter blast. However, sometime due to operations challenges listings can stay online while recruiters close the job profiles from there end.",
+    a: "Once a day. The board is rebuilt every night, which picks up new roles and removes ones the employer has closed. Because of that daily cycle, a role an employer closes during the day can stay listed until the next rebuild, so always confirm on the employer\u2019s own page before you apply.",
   },
 ];
 
@@ -228,6 +229,8 @@ export default async function HomePage() {
             </span>
           </Link>
         )}
+
+        <HomeGuides />
 
         <AdSlot />
 

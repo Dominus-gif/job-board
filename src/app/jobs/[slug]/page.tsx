@@ -13,7 +13,6 @@ import { categoryToSlug } from "@/lib/taxonomy";
 import { JobList } from "@/components/JobList";
 import { ScamNotice, ReferralNudge } from "@/components/ScamNotice";
 import { LivenessProvider, ApplyButton, InactiveBanner } from "@/components/JobLiveness";
-import { StarRating } from "@/components/StarRating";
 import { ShareButtons } from "@/components/ShareButtons";
 import { AdSlot } from "@/components/AdSlot";
 import { CompanyLogo } from "@/components/CompanyLogo";
@@ -118,6 +117,7 @@ export default async function JobPage(props: { params: Promise<{ slug: string }>
   ]);
   const description = fullText ?? job.description_html;
   const otherRoles = companyJobs.length;
+  const worldwideRoles = companyJobs.filter((j) => j.scope === "worldwide").length;
   const jsonLd = jobPostingJsonLd(job);
   const crumbs = breadcrumbJsonLd([
     { name: "Jobs", path: "/" },
@@ -315,20 +315,18 @@ export default async function JobPage(props: { params: Promise<{ slug: string }>
                 </div>
               </div>
 
-              {company?.rating != null && (
-                <div className="mt-4 flex items-center justify-between gap-2 rounded-xl bg-ink-50 px-3 py-2.5">
-                  <StarRating rating={company.rating} count={company.review_count} />
-                  <span className="text-[11px] font-semibold uppercase tracking-wide text-ink-400">Reviews</span>
-                </div>
-              )}
-
               {company?.description && (
                 <p className="mt-3 text-sm leading-relaxed text-ink-600">{company.description}</p>
               )}
 
               <div className="mt-4 flex items-center gap-2 rounded-xl bg-ink-50 px-3 py-2.5 text-sm text-ink-600">
                 <BuildingIcon className="h-4 w-4 text-ink-400" />
-                {otherRoles} active {otherRoles === 1 ? "role" : "roles"} · all location-independent
+                {otherRoles} active {otherRoles === 1 ? "role" : "roles"}
+                {worldwideRoles === otherRoles
+                  ? " · all work-from-anywhere"
+                  : worldwideRoles > 0
+                    ? ` · ${worldwideRoles} work-from-anywhere`
+                    : " · region-based"}
               </div>
               <Link href={`/companies/${job.company_slug}`}
                 className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:text-brand-800">
@@ -343,8 +341,8 @@ export default async function JobPage(props: { params: Promise<{ slug: string }>
               <div className="mt-4">
                 <ShareButtons
                   url={abs(`/jobs/${job.slug}`)}
-                  title={`${job.title} at ${job.company_name} — Remote Worldwide`}
-                  message={`${job.title} at ${job.company_name}${salary ? ` (${salary})` : ""} — work from anywhere in the world 🌍 via getremotejobsnow.com, the only job board where every job is truly location-independent.`}
+                  title={`${job.title} at ${job.company_name} — ${job.scope === "worldwide" ? "Remote Worldwide" : `Remote (${job.location})`}`}
+                  message={`${job.title} at ${job.company_name}${salary ? ` (${salary})` : ""} — ${job.scope === "worldwide" ? "remote, work from anywhere in the world" : `remote, open to candidates in ${job.location}`}, via getremotejobsnow.com.`}
                 />
               </div>
             </div>
