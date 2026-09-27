@@ -99,13 +99,20 @@ function filterJobs(jobs: Job[], f: Filters): Job[] {
   });
 }
 
-/** Reorder filtered results. Relevance ("") keeps the store's ranked order. */
+/**
+ * Reorder filtered results. Relevance ("") keeps the store's ranked order.
+ * Featured listings are paid placement and stay at the top under every sort;
+ * the chosen sort orders them among themselves and the rest below them.
+ */
 function sortJobs(jobs: Job[], sort: string): Job[] {
+  const featuredFirst = (a: Job, b: Job) => Number(b.is_featured) - Number(a.is_featured);
   if (sort === "newest") {
-    return [...jobs].sort((a, b) => new Date(b.posted_at).getTime() - new Date(a.posted_at).getTime());
+    return [...jobs].sort((a, b) => featuredFirst(a, b) || new Date(b.posted_at).getTime() - new Date(a.posted_at).getTime());
   }
   if (sort === "salary") {
-    return [...jobs].sort((a, b) => (salaryMidpointUsd(b.salary) ?? -1) - (salaryMidpointUsd(a.salary) ?? -1));
+    return [...jobs].sort(
+      (a, b) => featuredFirst(a, b) || (salaryMidpointUsd(b.salary) ?? -1) - (salaryMidpointUsd(a.salary) ?? -1),
+    );
   }
   return jobs;
 }

@@ -1,0 +1,510 @@
+{
+  "source": "https://nordharton.com/careers",
+  "fetchedAt": "2026-09-27T03:00:06.287Z",
+  "roles": [
+    {
+      "slug": "senior-full-stack-engineer",
+      "url": "https://nordharton.com/careers/senior-full-stack-engineer",
+      "title": "Senior Full-Stack Engineer",
+      "team": "Engineering",
+      "postedLabel": "Posted 2 weeks ago",
+      "postedAt": "2026-09-13T00:00:00.000Z",
+      "location": "Remote · Europe / Americas timezones",
+      "employment": "Full-time",
+      "level": "Senior (5+ years)",
+      "salary": "$130k – $170k + equity",
+      "teamSize": "Product Engineering (team of 6)",
+      "lead": "We're looking for a senior engineer who's happiest shipping real features to real users — someone who can own a slice of a product end to end, from the database schema to the last pixel, and who cares as much about the empty state as the happy path.",
+      "sections": [
+        {
+          "heading": "About the role",
+          "paragraphs": [
+            "You'll join a small, senior product team where there are no tickets thrown over a wall. We pair with clients directly, make our own product decisions, and take responsibility for the outcome — not just the code. Most of us have been the person on call, so we build things we're comfortable being woken up by."
+          ],
+          "items": []
+        },
+        {
+          "heading": "What you'll do",
+          "paragraphs": [],
+          "items": [
+            "Design, build, and ship production features across the stack — TypeScript, React/Next.js, Node, and PostgreSQL.",
+            "Own the architecture of the services you build, and be ready to defend the trade-offs to a room of smart people.",
+            "Sit in on client calls, understand the actual problem, and translate fuzzy business goals into a concrete plan.",
+            "Care about the whole experience — loading, empty, error, and permission-denied states are your job too, not an afterthought.",
+            "Review code thoughtfully, write the tests that matter, and leave the codebase a little better than you found it."
+          ]
+        },
+        {
+          "heading": "What we're looking for",
+          "paragraphs": [],
+          "items": [
+            "5+ years building and operating web applications that real people depend on.",
+            "Deep, practical fluency in TypeScript and a modern React framework (Next.js preferred).",
+            "Strong instincts for data modeling and API design — you've felt the pain of getting them wrong.",
+            "You communicate clearly in writing and would rather over-share context than leave a teammate guessing."
+          ]
+        },
+        {
+          "heading": "Nice to have (not required)",
+          "paragraphs": [],
+          "items": [
+            "Experience modernizing a legacy system without a big-bang rewrite.",
+            "Comfort with cloud infrastructure and CI/CD (you can get your own thing to production).",
+            "A side project, an open-source contribution, or a strong opinion about a framework you can back up."
+          ]
+        },
+        {
+          "heading": "What we offer",
+          "paragraphs": [],
+          "items": [
+            "Fully remote, async-friendly, with real overlap hours — not 3 a.m. standups.",
+            "Genuinely senior peers and zero micromanagement.",
+            "A hardware budget and a yearly learning stipend.",
+            "Meaningful equity — we want you to own a piece of what you build."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "product-designer",
+      "url": "https://nordharton.com/careers/product-designer",
+      "title": "Product Designer (Enterprise UX)",
+      "team": "Design",
+      "postedLabel": "Posted 5 days ago",
+      "postedAt": "2026-09-22T00:00:00.000Z",
+      "location": "Remote · EU / Americas timezones",
+      "employment": "Full-time",
+      "level": "Mid–Senior (4+ years)",
+      "salary": "$110k – $145k + equity",
+      "teamSize": "Design (team of 3)",
+      "lead": "Enterprise software has a reputation for being ugly and confusing. We're looking for a designer who takes that personally — who can make genuinely complex, data-dense products feel calm, obvious, and even pleasant to use.",
+      "sections": [
+        {
+          "heading": "About the role",
+          "paragraphs": [
+            "You'll own the end-to-end design of complex products — research, flows, prototypes, and the shipped pixels — working shoulder to shoulder with engineers who care about craft. We don't have a big design bureaucracy; we have real problems and the autonomy to solve them well."
+          ],
+          "items": []
+        },
+        {
+          "heading": "What you'll do",
+          "paragraphs": [],
+          "items": [
+            "Lead design for complex, data-heavy enterprise products from first sketch to shipped screen.",
+            "Design the whole spectrum of states — empty, loading, error, permission-denied — because in enterprise software they're the common case, not the exception.",
+            "Build and maintain a real design system alongside engineering, so consistency is a default, not a chore.",
+            "Run lightweight research and usability sessions, and let what you learn change your mind.",
+            "Bring clarity to genuine complexity — your job is to make hard things feel simple, not to make simple things look pretty."
+          ]
+        },
+        {
+          "heading": "What we're looking for",
+          "paragraphs": [],
+          "items": [
+            "4+ years designing complex software (B2B / enterprise experience is a strong plus).",
+            "A portfolio that shows judgment — clarity brought to messy, real problems, not just dribbble shots.",
+            "Fluency in Figma and a working understanding of what's cheap vs expensive to build.",
+            "You're comfortable being the person who says 'this is too complicated' and then fixing it."
+          ]
+        },
+        {
+          "heading": "Nice to have (not required)",
+          "paragraphs": [],
+          "items": [
+            "You can prototype in code, or at least read it well enough to collaborate closely.",
+            "Experience owning or contributing to a design system used by multiple teams.",
+            "A point of view about accessibility that goes beyond passing a contrast checker."
+          ]
+        },
+        {
+          "heading": "What we offer",
+          "paragraphs": [],
+          "items": [
+            "A seat at the table from discovery onward — not a service desk taking pixel requests.",
+            "Small, senior team with high trust and low process.",
+            "Fully remote with real overlap hours, hardware budget, and learning stipend.",
+            "Equity, because your design decisions shape the business."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cloud-infrastructure-engineer",
+      "url": "https://nordharton.com/careers/cloud-infrastructure-engineer",
+      "title": "Cloud & Infrastructure Engineer",
+      "team": "Platform",
+      "postedLabel": "Posted 3 weeks ago",
+      "postedAt": "2026-09-06T00:00:00.000Z",
+      "location": "Remote · Global",
+      "employment": "Full-time",
+      "level": "Senior (4+ years)",
+      "salary": "$125k – $165k + equity",
+      "teamSize": "Platform (team of 4)",
+      "lead": "You'll build the scalable, cost-predictable foundation our client platforms run on — the kind of infrastructure that's boring in the best way, because it just works and nobody has to think about it.",
+      "sections": [
+        {
+          "heading": "About the role",
+          "paragraphs": [
+            "Platform work here isn't a ticket queue. You'll design the systems, automate the toil away, and make problems visible before customers feel them. We treat security and cost as design constraints from day one, not clean-up work for later."
+          ],
+          "items": []
+        },
+        {
+          "heading": "What you'll do",
+          "paragraphs": [],
+          "items": [
+            "Design and operate cloud infrastructure on AWS/GCP, with everything defined as code.",
+            "Build CI/CD pipelines that make shipping to production safe, fast, and unremarkable.",
+            "Set up observability and alerting so we hear about problems before customers do.",
+            "Keep performance high and costs predictable — and be able to explain the bill.",
+            "Bake security and compliance into the platform so product teams inherit it for free."
+          ]
+        },
+        {
+          "heading": "What we're looking for",
+          "paragraphs": [],
+          "items": [
+            "4+ years in DevOps / platform / SRE roles on a major cloud provider.",
+            "Strong with Terraform (or similar), containers, and Kubernetes in production.",
+            "Solid scripting and automation instincts — you delete toil rather than tolerate it.",
+            "A calm, methodical approach to incidents, and the habit of writing down what you learned."
+          ]
+        },
+        {
+          "heading": "Nice to have (not required)",
+          "paragraphs": [],
+          "items": [
+            "Experience with multi-region or multi-tenant architectures.",
+            "Cost-optimization war stories you're a little proud of.",
+            "Security or compliance experience in a regulated industry."
+          ]
+        },
+        {
+          "heading": "What we offer",
+          "paragraphs": [],
+          "items": [
+            "Ownership of the platform, not just its tickets.",
+            "Fully remote, global-friendly, async-first.",
+            "Hardware budget, learning stipend, and on-call that's humane and fairly compensated.",
+            "Equity in a company where the platform is a real differentiator."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "machine-learning-engineer",
+      "url": "https://nordharton.com/careers/machine-learning-engineer",
+      "title": "Machine Learning Engineer",
+      "team": "AI & Data",
+      "postedLabel": "Posted 1 week ago",
+      "postedAt": "2026-09-20T00:00:00.000Z",
+      "location": "Remote · EU / Americas timezones",
+      "employment": "Full-time",
+      "level": "Mid–Senior (4+ years)",
+      "salary": "$110k – $150k + equity",
+      "teamSize": "AI & Data (team of 4)",
+      "lead": "We're looking for an ML engineer who cares about what happens after the notebook — someone who can take a model from a promising experiment to a reliable service that clients actually depend on, and who knows the difference between a good metric and a useful one.",
+      "sections": [
+        {
+          "heading": "About the role",
+          "paragraphs": [
+            "You'll own machine learning problems end to end: framing the question, wrangling the data, training the model, and — the part most people skip — getting it into production and keeping it honest once real inputs start arriving. We treat data quality and monitoring as first-class work, not afterthoughts."
+          ],
+          "items": []
+        },
+        {
+          "heading": "What you'll do",
+          "paragraphs": [],
+          "items": [
+            "Frame business problems as ML problems, then build, evaluate, and ship the models that solve them.",
+            "Own the full lifecycle — data pipelines, training, deployment, and monitoring — not just the modeling notebook.",
+            "Build the evaluation harness that tells the truth about whether a model is actually working in production.",
+            "Watch for drift and degradation, and be ready to retrain or roll back before clients feel it.",
+            "Work directly with clients and product to make sure the model solves the real problem, not a proxy for it."
+          ]
+        },
+        {
+          "heading": "What we're looking for",
+          "paragraphs": [],
+          "items": [
+            "4+ years building and deploying machine learning systems that ran in production.",
+            "Strong Python and the practical ML stack (e.g. PyTorch or TensorFlow, scikit-learn, pandas).",
+            "Solid grounding in data modeling, feature engineering, and honest evaluation — you've been burned by a leaky metric.",
+            "You communicate trade-offs clearly and would rather ship a simpler model that works than a clever one that doesn't."
+          ]
+        },
+        {
+          "heading": "Nice to have (not required)",
+          "paragraphs": [],
+          "items": [
+            "Experience with MLOps tooling and getting models served reliably at scale.",
+            "Comfort with cloud infrastructure and data pipelines end to end.",
+            "A paper, a competition placing, or a production model you're genuinely proud of."
+          ]
+        },
+        {
+          "heading": "What we offer",
+          "paragraphs": [],
+          "items": [
+            "Real ownership of ML problems from framing to production — no ticket queue.",
+            "Fully remote, async-friendly, with real overlap hours.",
+            "Hardware and compute budget, plus a yearly learning stipend.",
+            "Meaningful equity — you own a piece of what you build."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "applied-ai-engineer",
+      "url": "https://nordharton.com/careers/applied-ai-engineer",
+      "title": "Applied AI Engineer (LLM)",
+      "team": "AI & Data",
+      "postedLabel": "Posted 4 days ago",
+      "postedAt": "2026-09-23T00:00:00.000Z",
+      "location": "Remote · EU / Americas timezones",
+      "employment": "Full-time",
+      "level": "Mid–Senior (4+ years)",
+      "salary": "$110k – $150k + equity",
+      "teamSize": "AI & Data (team of 4)",
+      "lead": "We're looking for an engineer who can turn large language models into products that are useful, safe, and dependable — someone who's past the demo phase and knows that the hard part is everything between an impressive prototype and a system you'd trust in front of a client.",
+      "sections": [
+        {
+          "heading": "About the role",
+          "paragraphs": [
+            "You'll build AI features that real businesses run on — retrieval systems, assistants grounded in a client's own data, and workflows where a human stays in the loop on anything that matters. We care as much about guardrails, evaluation, and cost as we do about the clever prompt."
+          ],
+          "items": []
+        },
+        {
+          "heading": "What you'll do",
+          "paragraphs": [],
+          "items": [
+            "Design and ship LLM-powered features — retrieval-augmented systems, assistants, and agentic workflows grounded in real data.",
+            "Build the evaluation and guardrails that make AI output trustworthy enough to put in front of clients.",
+            "Keep a human in the loop where it counts, and draw hard lines around anything irreversible an AI shouldn't do alone.",
+            "Watch and control latency, cost, and quality — an impressive feature that's slow or expensive isn't shippable.",
+            "Work with clients and product to find where AI genuinely helps, and to say so when it doesn't."
+          ]
+        },
+        {
+          "heading": "What we're looking for",
+          "paragraphs": [],
+          "items": [
+            "4+ years in software engineering, with real, shipped experience building on LLMs or ML APIs.",
+            "Strong Python and/or TypeScript, and fluency with the modern AI tooling ecosystem.",
+            "A healthy skepticism about model output — you build checks for the failure modes rather than trusting the happy path.",
+            "You communicate clearly and can explain to a non-technical stakeholder what AI can and can't reliably do."
+          ]
+        },
+        {
+          "heading": "Nice to have (not required)",
+          "paragraphs": [],
+          "items": [
+            "Experience with retrieval, vector search, or grounding models in private data.",
+            "Familiarity with prompt evaluation, fine-tuning, or building agentic systems safely.",
+            "A side project or demo that shows you can take an AI idea all the way to something usable."
+          ]
+        },
+        {
+          "heading": "What we offer",
+          "paragraphs": [],
+          "items": [
+            "Work on genuinely current AI problems with the autonomy to solve them well.",
+            "Fully remote, async-friendly, with real overlap hours.",
+            "Hardware and API/compute budget, plus a yearly learning stipend.",
+            "Meaningful equity in a company where AI is a real differentiator."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "frontend-engineer",
+      "url": "https://nordharton.com/careers/frontend-engineer",
+      "title": "Frontend Engineer (React / Next.js)",
+      "team": "Engineering",
+      "postedLabel": "Posted 6 days ago",
+      "postedAt": "2026-09-21T00:00:00.000Z",
+      "location": "Remote · Europe / Americas timezones",
+      "employment": "Full-time",
+      "level": "Mid (3+ years)",
+      "salary": "$110k – $150k + equity",
+      "teamSize": "Product Engineering (team of 6)",
+      "lead": "We're looking for a frontend engineer who sweats the details — someone who can turn a design into an interface that's fast, accessible, and genuinely nice to use, and who treats the empty and error states as part of the craft, not clean-up.",
+      "sections": [
+        {
+          "heading": "About the role",
+          "paragraphs": [
+            "You'll build the interfaces clients live in every day, working closely with design and backend engineers who care about quality. There's no wall between design and dev here — you'll have real input on how things look and feel, and real ownership of how they perform."
+          ],
+          "items": []
+        },
+        {
+          "heading": "What you'll do",
+          "paragraphs": [],
+          "items": [
+            "Build polished, responsive, accessible interfaces in React and Next.js with TypeScript.",
+            "Turn designs into pixel-accurate, performant UI — and push back thoughtfully when something won't work in practice.",
+            "Own the full range of states — loading, empty, error, permission-denied — because that's where good frontends are made.",
+            "Care about performance and accessibility as features, not checkboxes you tick at the end.",
+            "Collaborate closely with design and backend so the seams between them disappear."
+          ]
+        },
+        {
+          "heading": "What we're looking for",
+          "paragraphs": [],
+          "items": [
+            "3+ years building production web interfaces with React (Next.js a strong plus).",
+            "Strong TypeScript, CSS, and an eye for detail that makes good design feel effortless.",
+            "A real understanding of accessibility and web performance, and how to actually improve them.",
+            "You communicate clearly and would rather ask a question than guess at an ambiguous design."
+          ]
+        },
+        {
+          "heading": "Nice to have (not required)",
+          "paragraphs": [],
+          "items": [
+            "Experience with design systems and component libraries used across teams.",
+            "Comfort with animation and interaction detail (e.g. Framer Motion) done tastefully.",
+            "A side project or portfolio piece where the craft is obvious."
+          ]
+        },
+        {
+          "heading": "What we offer",
+          "paragraphs": [],
+          "items": [
+            "A real say in how the product looks and feels — not just implementing tickets.",
+            "Fully remote, async-friendly, with real overlap hours.",
+            "Hardware budget and a yearly learning stipend.",
+            "Meaningful equity — your work is what clients actually touch."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "business-analyst",
+      "url": "https://nordharton.com/careers/business-analyst",
+      "title": "Business Analyst",
+      "team": "Strategy",
+      "postedLabel": "Posted 2 weeks ago",
+      "postedAt": "2026-09-13T00:00:00.000Z",
+      "location": "Remote · EU / Americas timezones",
+      "employment": "Full-time",
+      "level": "Mid (3+ years)",
+      "salary": "$110k – $150k + equity",
+      "teamSize": "Strategy & Delivery (team of 5)",
+      "lead": "We're looking for a business analyst who can sit between the client and the build team and make both sides sharper — someone who turns fuzzy goals into clear requirements, and who cares whether what we ship actually moved the number it was supposed to.",
+      "sections": [
+        {
+          "heading": "About the role",
+          "paragraphs": [
+            "You'll be the person who makes sure we're solving the right problem before anyone writes code. You'll talk to clients, dig into their data and processes, and translate what you learn into requirements the team can build against — then close the loop and check it worked."
+          ],
+          "items": []
+        },
+        {
+          "heading": "What you'll do",
+          "paragraphs": [],
+          "items": [
+            "Work directly with clients to understand their goals, processes, and the problem underneath the request.",
+            "Turn fuzzy business goals into clear, testable requirements the delivery team can build against.",
+            "Analyze data and processes to find where the real friction and opportunity are, and back recommendations with evidence.",
+            "Define the metrics that tell us whether a project actually worked — before it ships, not after.",
+            "Keep clients and the build team aligned, so nothing important gets lost in translation."
+          ]
+        },
+        {
+          "heading": "What we're looking for",
+          "paragraphs": [],
+          "items": [
+            "3+ years as a business analyst, product analyst, or similar bridging business and delivery.",
+            "Strong analytical skills and comfort working with data to support a recommendation.",
+            "Excellent written and verbal communication — you can run a client workshop and write a crisp requirements doc.",
+            "A habit of asking 'what problem are we actually solving?' before jumping to a solution."
+          ]
+        },
+        {
+          "heading": "Nice to have (not required)",
+          "paragraphs": [],
+          "items": [
+            "Familiarity with SQL or BI tools for digging into data yourself.",
+            "Experience in enterprise or consulting environments with multiple stakeholders.",
+            "Exposure to how software actually gets built, so your requirements are realistic."
+          ]
+        },
+        {
+          "heading": "What we offer",
+          "paragraphs": [],
+          "items": [
+            "A real seat in shaping what gets built and why — not just note-taking.",
+            "Fully remote, async-friendly, with real overlap hours.",
+            "Hardware budget and a yearly learning stipend.",
+            "Meaningful equity in the outcomes you help define."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sales-executive",
+      "url": "https://nordharton.com/careers/sales-executive",
+      "title": "Sales Executive (B2B / Enterprise)",
+      "team": "Sales",
+      "postedLabel": "Posted 3 days ago",
+      "postedAt": "2026-09-24T00:00:00.000Z",
+      "location": "Remote · EU / Americas timezones",
+      "employment": "Full-time",
+      "level": "Mid–Senior (3+ years)",
+      "salary": "$110k – $150k + equity",
+      "teamSize": "Revenue (team of 3)",
+      "lead": "We're looking for a salesperson who sells by being genuinely useful — someone who can understand a complex technical product, have a real conversation about a client's problem, and build trust rather than pressure. No spray-and-pray, no overpromising.",
+      "sections": [
+        {
+          "heading": "About the role",
+          "paragraphs": [
+            "You'll own relationships with prospective clients from first conversation to signed engagement, working closely with the people who actually deliver the work. Because we sell complex, high-trust services, honesty and understanding beat hard-closing every time — and we'd rather lose a bad-fit deal than win it."
+          ],
+          "items": []
+        },
+        {
+          "heading": "What you'll do",
+          "paragraphs": [],
+          "items": [
+            "Own the full sales cycle for B2B / enterprise engagements — from first conversation to close.",
+            "Understand the product and the client's problem well enough to have a genuinely useful conversation, not a pitch.",
+            "Build long-term trust with prospects and set expectations honestly — we deliver what we sell.",
+            "Work closely with delivery and strategy so what we promise is what we can actually build.",
+            "Keep the pipeline and forecast clear and honest, so the whole team can plan around it."
+          ]
+        },
+        {
+          "heading": "What we're looking for",
+          "paragraphs": [],
+          "items": [
+            "3+ years in B2B sales, ideally selling technical or consulting services with longer cycles.",
+            "The ability to grasp a complex product and explain its value in plain language.",
+            "Genuine listening skills — you sell by understanding the problem, not by talking over it.",
+            "A track record of building trust and hitting targets without burning relationships."
+          ]
+        },
+        {
+          "heading": "Nice to have (not required)",
+          "paragraphs": [],
+          "items": [
+            "Experience selling software, cloud, AI, or professional services to enterprise buyers.",
+            "Comfort talking to technical stakeholders without needing to be an engineer.",
+            "A network in industries where complex digital transformation is a real need."
+          ]
+        },
+        {
+          "heading": "What we offer",
+          "paragraphs": [],
+          "items": [
+            "A product you can sell honestly, backed by a team that delivers on the promise.",
+            "Fully remote, async-friendly, with real overlap hours.",
+            "Hardware budget and a yearly learning stipend.",
+            "Meaningful equity, so you share in the growth you drive."
+          ]
+        }
+      ]
+    }
+  ]
+}

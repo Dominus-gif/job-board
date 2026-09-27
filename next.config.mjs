@@ -34,6 +34,9 @@ const nextConfig = {
       },
       // Sponsor is merged into the Advertise page.
       { source: "/sponsor", destination: "/advertise", permanent: true },
+      // Two company-name posts merged into one broader guide (2026-09-27).
+      { source: "/posts/does-spacex-have-remote-jobs", destination: "/posts/remote-jobs-at-ai-labs-and-space-companies", permanent: true },
+      { source: "/posts/safe-superintelligence-and-ai-lab-careers", destination: "/posts/remote-jobs-at-ai-labs-and-space-companies", permanent: true },
       // Browsers requesting the literal /favicon.ico get the PNG icon instead of
       // a 404 (modern browsers already use the <link rel="icon"> to /icon.png).
       { source: "/favicon.ico", destination: "/icon.png", permanent: true },

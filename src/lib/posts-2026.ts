@@ -630,96 +630,78 @@ export const POSTS_2026: Post[] = [
     `,
   },
   {
-    slug: "does-spacex-have-remote-jobs",
-    title: "Does SpaceX Have Remote Jobs? The Honest Answer (and What to Do Instead)",
+    slug: "remote-jobs-at-ai-labs-and-space-companies",
+    title: "Remote Jobs at AI Labs and Space Companies: Who Really Hires Remotely",
     description:
-      "SpaceX is one of the most on-site employers in tech. Here's why remote roles are vanishingly rare — and where the real remote space-tech jobs are.",
-    date: "2026-09-07T09:00:00.000Z",
+      "How AI labs and space companies really hire: office policies, export rules, and why only 4 of 464 AI roles on our board are open worldwide. Plus where to look.",
+    date: "2026-09-27T02:00:00.000Z",
     author: "getremotejobsnow.com Editorial",
-    tags: ["SpaceX Careers", "Aerospace Jobs", "Remote Engineering Jobs", "Deep Tech Careers", "Remote Job Search"],
-    readMinutes: 6,
-    html: `
-      <p><strong>Short answer: essentially no.</strong> SpaceX is one of the most strongly on-site employers in the industry, and it has been consistently public about that. If you are searching for "SpaceX remote jobs," the honest thing anyone can tell you is to plan around relocation, not around working from home.</p>
-      <p>We list <strong>zero</strong> SpaceX roles on this board. That is not an oversight — it is the correct result for a work-from-anywhere job board.</p>
-
-      <div class="callout-warning">
-        <p><strong>A note on why you may see "SpaceX remote" listings elsewhere.</strong> Aggregators frequently attach well-known company names to jobs scraped from unrelated applicant-tracking boards. We found exactly this problem in our own data and removed the affected listings rather than publish them. If you see a "SpaceX — work from anywhere" posting, check that the apply link actually goes to a SpaceX-owned careers page before you spend time on it.</p>
-      </div>
-
-      <h2>Why SpaceX in particular is on-site</h2>
-      <p>This isn't cultural stubbornness — the work genuinely resists remote:</p>
-      <ul>
-        <li><strong>Hardware.</strong> Rockets are built, tested and flown in physical places. Manufacturing, integration, test and launch operations cannot be done from a laptop.</li>
-        <li><strong>Export control.</strong> Launch-vehicle and spacecraft work falls under strict regimes (ITAR/EAR in the US) that constrain who may access technical data and from where. That alone rules out casual cross-border remote work.</li>
-        <li><strong>Security and clearance.</strong> Government and defense-adjacent programmes often require facility access and, in some cases, clearances.</li>
-        <li><strong>Pace.</strong> The organisation is built around tight physical iteration loops between engineering and the factory floor.</li>
-      </ul>
-      <p>Even the software roles sit close to the hardware, which is why they are advertised at Hawthorne, Starbase, Redmond and the launch sites rather than as distributed positions.</p>
-
-      <h2>If you want space and deep tech, but remote</h2>
-      <p>The remote-friendly slice of this field is the part that isn't touching flight hardware:</p>
-      <ul>
-        <li><strong>Satellite data and geospatial analytics.</strong> Earth-observation companies employ remote data engineers, ML engineers and analysts — the product is imagery and models, not hardware.</li>
-        <li><strong>Simulation, modelling and GNC software.</strong> Often remote-viable when decoupled from test facilities.</li>
-        <li><strong>Ground-segment and mission-ops software.</strong> Cloud infrastructure for satellite constellations is ordinary distributed systems work.</li>
-        <li><strong>Space-adjacent SaaS.</strong> The tooling companies selling into aerospace hire remotely far more readily than the primes do.</li>
-      </ul>
-      <p>A realistic framing: the closer a role sits to physical flight hardware or export-controlled data, the less remote it gets. The further out you move — data, cloud, tooling, analytics — the more remote roles appear.</p>
-
-      <h2>What actually transfers</h2>
-      <p>If you're aiming at SpaceX-calibre engineering but need location freedom, the strongest remote-viable categories in our data are <strong>AI, data and machine learning (883 postings)</strong> and <strong>DevOps and platform engineering (531 postings, $201,000 median disclosed salary)</strong>. Both reward the simulation, controls and systems-thinking background that aerospace candidates already have.</p>
-
-      <h2>The bottom line</h2>
-      <p>If working at SpaceX specifically is the goal, budget for relocation and apply through their official careers site. If <em>location freedom</em> is the goal, aerospace primes are the wrong target and the adjacent data and infrastructure roles are the right one.</p>
-      <p>Browse <a href="/remote-devops-jobs">remote DevOps and platform jobs</a>, <a href="/remote-backend-jobs">backend engineering</a>, or <a href="/page/1">every work-from-anywhere role we track</a>.</p>
-    `,
-  },
-  {
-    slug: "safe-superintelligence-and-ai-lab-careers",
-    title: "Safe Superintelligence Careers & AI Lab Jobs: How Frontier Labs Actually Hire",
-    description:
-      "Frontier AI labs hire very differently from normal tech companies — and mostly on-site. How that hiring works, and where the remote AI jobs actually are.",
-    date: "2026-09-06T12:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
-    tags: ["AI Careers", "Safe Superintelligence", "AI Lab Jobs", "Machine Learning Jobs", "Remote AI Jobs"],
+    tags: ["AI Careers", "Aerospace Jobs", "Remote AI Jobs", "Deep Tech Careers", "Remote Job Search"],
     readMinutes: 7,
     html: `
-      <p>Searches for frontier-lab careers — Safe Superintelligence, Anthropic, OpenAI, DeepMind — have climbed steadily, and most of the advice written about them is guesswork. Here is what can actually be said with confidence, plus where the genuinely remote AI work is.</p>
+      <p>People search for "SpaceX remote jobs", "Safe Superintelligence careers" or "remote OpenAI jobs" hoping the most exciting employers in technology will let them work from home. The honest answer is that the frontier of AI and space is one of the least remote corners of the job market. This guide uses the listings on our board, and the employers' own job postings, to show how these companies actually hire and where remote work in AI and deep tech really is.</p>
 
-      <h2>Frontier labs are the opposite of remote-first</h2>
-      <p>The research labs at the frontier are, as a group, among the most concentrated in-person employers in technology. That's a deliberate choice, and the reasoning is consistent across them:</p>
+      <h2>What our board shows</h2>
+      <p>At the time of writing, our board carries 4,785 remote roles. 464 of them, just under 10%, are AI, machine learning or data science roles by title. Only 4 of those 464 are open worldwide with no location condition: two at Canonical, one at Camunda and one at Diligent Robotics. Every other AI role on the board is tied to a country or region.</p>
       <ul>
-        <li><strong>Research iterates in conversation.</strong> Small teams working on unpublished results tend to co-locate; the feedback loop is whiteboard-speed, not document-speed.</li>
-        <li><strong>Security posture.</strong> Model weights, unpublished results and safety work carry serious confidentiality requirements, which pushes toward controlled physical environments.</li>
-        <li><strong>Compute proximity matters organisationally,</strong> even when the clusters themselves are remote — the decisions about them are made in tight groups.</li>
+        <li><strong>Where they are:</strong> 270 are limited to the United States, 54 to Europe and 33 to the UK. 141 of the 464 name somewhere in the San Francisco Bay Area in their location line, and 36 name New York.</li>
+        <li><strong>What they pay:</strong> 94 publish a US dollar range. The median midpoint is about $248,750 a year, with the middle half between about $206,000 and $275,000, among the highest figures on the board.</li>
       </ul>
-      <p>Safe Superintelligence in particular has been unusually private about hiring: a small team, very few public postings, and recruiting that runs largely through direct networks rather than job boards. If you cannot find its listings, that is the reason — not a search problem.</p>
+      <p>High pay and a tight location go together here. The employers paying the most for AI talent are the ones that want that talent in a few specific cities.</p>
 
-      <div class="callout-warning">
-        <p><strong>Watch for name collisions.</strong> Several unrelated companies use similar names — "Safe Security", for example, is a cyber-risk company with a completely different hiring profile. Aggregators conflate them regularly (we caught and removed exactly this mix-up in our own data). Before applying, confirm the apply link resolves to the organisation you think it does.</p>
-      </div>
+      <h2>Frontier AI labs are office-based by policy</h2>
+      <p>The labs building the largest models say plainly in their own postings that they expect people in an office:</p>
+      <ul>
+        <li><strong>Anthropic</strong> postings state that "we expect all staff to be in one of our offices at least 25% of the time", and add that some roles need more. On our board, each of its 7 current roles names an office city, and the ones marked "Remote-Friendly" are limited to the United States.</li>
+        <li><strong>OpenAI</strong> postings describe "a hybrid work model of 3 days in the office per week" and offer relocation assistance to new employees. It had 29 roles on our board at the time of writing, none open worldwide, with a handful listed as remote within the US.</li>
+        <li><strong>Cohere</strong> had 16 roles on the board, mostly tied to office cities such as London, Paris and Toronto.</li>
+      </ul>
+      <p><strong>Safe Superintelligence</strong> (SSI) is a special case. It is a small company with offices in Palo Alto and Tel Aviv, it publishes very few open roles, and reporting on the company describes a deliberately slow hiring approach focused on senior researchers and engineers. If you cannot find its listings on any job board, that is why. There are no SSI roles on our board.</p>
+      <p>The usual reasons labs keep people close are easy to see. Research moves fastest when a small team can argue over unpublished results in the same room. Model weights and unreleased work carry serious security requirements. Decisions about very expensive compute are made by small groups. Those reasons do not apply equally to every role inside a lab, which is why sales, operations and some engineering roles tend to be more flexible than research.</p>
 
-      <h2>What frontier labs screen for</h2>
-      <p>Hiring bars differ from ordinary software roles in specific ways:</p>
+      <h2>Space companies: export rules come first</h2>
+      <p>Space and aerospace hiring has a harder limit than office culture: export control. Rockets, satellites and the technical data behind them are covered by US export regulations, known as ITAR and EAR, which restrict who may access that information. In practice most roles require you to be a "US person": a US citizen, a permanent resident, or a refugee or asylee.</p>
+      <p>You can see this in the postings themselves. Astranis, a satellite company with roles on our board, states that "U.S. Citizenship, Lawful Permanent Residency, or Refugee/Asylee Status" is required "to comply with U.S. Government space technology export regulations". SpaceX's postings carry a similar export-regulation requirement, and its roles are advertised at its own sites rather than as remote positions.</p>
+      <p>Our board reflects this. We carry only a handful of roles at space companies, such as Relativity Space in Long Beach and Astranis in San Francisco, and none is open worldwide. We list no SpaceX roles at all, which is the expected result for a board that checks location conditions: the work is built, tested and launched in physical places.</p>
+      <p>One warning. Aggregators sometimes attach famous company names to unrelated listings. If you see a posting that promises "work from anywhere at SpaceX", check that the apply link goes to the company's own careers site before you spend any time on it. Our guide to <a href="/posts/how-to-spot-fake-remote-job-postings">spotting fake remote job postings</a> covers the other warning signs.</p>
+
+      <h2>Where the remote AI and deep-tech jobs are</h2>
+      <p>"AI job" is much broader than "frontier lab". Most remote AI work sits in the applied layer: companies building products on top of models, and the infrastructure those products need.</p>
+      <ul>
+        <li><strong>AI-native product companies.</strong> ElevenLabs had 68 roles on our board, and 29 of them were open worldwide. Some of its postings say simply that "this role is remote, so it can be executed globally". See its <a href="/companies/elevenlabs">company page</a>.</li>
+        <li><strong>Remote-first software companies adding AI.</strong> The four worldwide AI roles on the board came from companies that already hire as distributed teams, such as <a href="/companies/canonical">Canonical</a>.</li>
+        <li><strong>Remote within one country.</strong> Many AI roles are remote inside a single country rather than worldwide. OpenAI lists some roles as "US - Remote", and several AI startups list US-remote roles. If you live in that country, these are real remote jobs. The <a href="/tools/jd-remote-analyzer">remote job description analyzer</a> shows exactly which location, office and time zone conditions a posting sets.</li>
+        <li><strong>Space-adjacent software.</strong> The further a role sits from flight hardware and controlled technical data, the more remote it tends to be: satellite imagery and geospatial analytics, ground-station and mission software, and tooling companies that sell to aerospace. This follows from how export rules work rather than from a count on our board, which carries few such roles.</li>
+      </ul>
+
+      <h2>How to get into AI or deep tech without moving</h2>
       <ol>
-        <li><strong>Demonstrated research output.</strong> Papers, reproductions, or substantial open-source work — evidence you can push on an unsolved problem, not just ship features.</li>
-        <li><strong>Depth over breadth.</strong> A narrow, deep specialism beats a broad résumé.</li>
-        <li><strong>Engineering that survives scale.</strong> Much frontier work is distributed-systems work wearing a research hat.</li>
-        <li><strong>Genuine engagement with safety.</strong> For safety-focused labs, a considered position on the problem is part of the assessment, not a formality.</li>
+        <li><strong>Build in the applied layer first.</strong> Retrieval systems, evaluation, fine-tuning and inference infrastructure are hired for remotely, and they build directly relevant experience. Browse <a href="/remote-backend-jobs">backend</a> and <a href="/remote-devops-jobs">DevOps and platform</a> roles.</li>
+        <li><strong>Make your work visible.</strong> A reproduction of a paper, a benchmark or a useful open-source tool is how people get noticed by employers that barely advertise.</li>
+        <li><strong>Look at infrastructure and operations roles.</strong> Labs need platform, security and operations engineers as much as researchers, and those roles are often more flexible about location.</li>
+        <li><strong>Know your pay range.</strong> AI roles pay at the top of the board. The <a href="/tools/salary-band-estimator">salary band estimator</a> shows the published ranges for your field and level, with the sample size behind each figure.</li>
+        <li><strong>Apply on the employer's own site.</strong> For well-known names in particular, the official careers page is the only listing you can fully trust.</li>
       </ol>
 
-      <h2>Where the remote AI jobs actually are</h2>
-      <p>The good news: "AI job" is far broader than "frontier lab," and the applied layer hires remotely at real volume. Our board currently carries <strong>883 AI, data and machine-learning roles</strong>, including <strong>214 at AI-native companies</strong> — <strong>ElevenLabs</strong> (159 listings), <strong>Cohere</strong> (20), <strong>Anthropic</strong> (12), <strong>OpenAI</strong> (12) and <strong>DeepMind</strong> (10).</p>
-      <p>Applied AI is the strongest Tier A category in our <a href="/posts/remote-job-tier-list-2026">2026 tier list</a>: remote-viable by nature, rising rather than eroding, and the least exposed to being automated by the thing it builds.</p>
-
-      <h2>A realistic path in</h2>
-      <ol>
-        <li><strong>Build in the applied layer first.</strong> Retrieval systems, evaluation, fine-tuning, inference infrastructure — all hire remotely and all build directly relevant credibility.</li>
-        <li><strong>Publish something.</strong> A reproduction, a benchmark, a genuinely useful tool. Public artefacts are how people get noticed by labs that don't advertise.</li>
-        <li><strong>Target infrastructure.</strong> Frontier labs need platform and DevOps engineers as much as researchers, and those roles are more accessible.</li>
-        <li><strong>Apply directly.</strong> For labs specifically, go to their own careers pages — aggregator listings for secretive organisations are exactly where mis-attribution happens.</li>
-      </ol>
-      <p>Browse <a href="/remote-jobs-categories">every category by live volume</a>, <a href="/remote-devops-jobs">remote DevOps roles</a>, or <a href="/companies">the companies hiring now</a>.</p>
+      <p>If working at a frontier lab or a launch company is the goal, plan for relocation and apply through their official careers pages. If location freedom is the goal, the applied AI and infrastructure layer is the better target. Start with the <a href="/work-from-anywhere-jobs">work-from-anywhere roles</a> we track, or read our <a href="/posts/remote-job-tier-list-2026">remote job tier list</a> for the fields that stay remote.</p>
     `,
+    faq: [
+      {
+        q: "Does SpaceX have remote jobs?",
+        a: "Very few, if any. SpaceX builds and tests hardware at its own sites, and its postings require US person status under US export regulations. At the time of writing we listed no SpaceX roles, because none met our location checks. If location freedom matters, satellite data, ground software and aerospace tooling companies are more likely to hire remotely.",
+      },
+      {
+        q: "Does Safe Superintelligence hire remotely?",
+        a: "There is no sign that it does. Safe Superintelligence is a small company with offices in Palo Alto and Tel Aviv, and it publishes very few open roles, mostly for senior researchers and engineers. There were no SSI roles on our board at the time of writing.",
+      },
+      {
+        q: "Can I work for OpenAI or Anthropic remotely?",
+        a: "Mostly not from anywhere. OpenAI's postings describe a hybrid model of three office days a week, and Anthropic's say staff are expected in an office at least 25% of the time. Some roles at both are listed as remote within the United States, but neither had a worldwide role on our board at the time of writing.",
+      },
+      {
+        q: "Where can I find remote AI jobs?",
+        a: "In the applied layer: AI product companies and remote-first software companies building with AI. At the time of writing our board listed 464 AI and data roles, but only 4 were open worldwide. ElevenLabs, with 29 worldwide roles across all functions, was the largest AI company hiring without location limits.",
+      },
+    ],
   },
 ];

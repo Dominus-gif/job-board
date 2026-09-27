@@ -125,8 +125,7 @@ export const POST_TOPICS: PostTopic[] = [
     slugs: [
       "how-to-find-remote-jobs-in-the-usa",
       "remote-jobs-in-europe-where-to-look",
-      "does-spacex-have-remote-jobs",
-      "safe-superintelligence-and-ai-lab-careers",
+      "remote-jobs-at-ai-labs-and-space-companies",
       "getting-hired-remotely-from-outside-the-us",
       "how-to-tell-if-a-company-is-truly-distributed",
       "most-remote-friendly-companies-hiring-worldwide",
