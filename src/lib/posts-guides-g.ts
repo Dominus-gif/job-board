@@ -10,7 +10,7 @@
  */
 import type { Post } from "./posts";
 
-const AUTHOR = "getremotejobsnow.com Editorial";
+const AUTHOR = "Bhargav";
 
 export const POSTS_CLUSTER_G: Post[] = [
   {

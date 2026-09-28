@@ -12,15 +12,16 @@ export default function TermsPage() {
   return (
     <LegalShell eyebrow="Legal" title="Terms of Service" updated="July 21, 2026">
       <p>
-        These Terms govern your use of {SITE.name}. By accessing the site you agree to them. If you do not agree, please
-        do not use the site.
+        These Terms govern your use of {SITE.name}, a site run by {SITE.owner}. By accessing the site you agree to
+        them. If you do not agree, please do not use the site.
       </p>
 
       <h2>About the service</h2>
       <p>
-        {SITE.name} aggregates publicly available job listings from company hiring systems and remote-job sources,
-        filters them for genuinely location-independent roles, and republishes them with added information. We do not
-        employ candidates and are not a party to any hiring decision or employment relationship.
+        {SITE.name} gathers publicly available job listings from company hiring systems and remote-job sources, checks
+        them for location conditions, sorts them into a work-from-anywhere board and a region-locked board, and adds
+        information such as salary and skills where the posting states them. We do not employ candidates and are not a
+        party to any hiring decision or employment relationship.
       </p>
 
       <h2>Listings &amp; accuracy</h2>
@@ -60,7 +61,8 @@ export default function TermsPage() {
 
       <h2>Contact</h2>
       <p>
-        Questions? <a href="/contact">Contact us</a>.
+        Questions? Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> or use our{" "}
+        <a href="/contact">contact form</a>.
       </p>
     </LegalShell>
   );

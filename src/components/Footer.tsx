@@ -99,6 +99,12 @@ export function Footer() {
                 <FooterLink href="/rss-feeds">RSS feeds</FooterLink>
                 <FooterLink href="/contact">Contact</FooterLink>
               </ul>
+              <p className="mt-4 text-sm text-ink-300">
+                Run by {SITE.owner}.{" "}
+                <a href={`mailto:${SITE.email}`} className="underline decoration-ink-500 underline-offset-2 transition hover:text-white">
+                  {SITE.email}
+                </a>
+              </p>
             </div>
           </div>
 

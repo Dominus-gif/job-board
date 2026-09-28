@@ -12,8 +12,9 @@ export default function PrivacyPage() {
   return (
     <LegalShell eyebrow="Legal" title="Privacy Policy" updated="September 17, 2026">
       <p>
-        This Privacy Policy explains how {SITE.name} (“we”, “us”) collects, uses, and safeguards information when you
-        visit our website. By using the site you agree to the practices described here.
+        This Privacy Policy explains how {SITE.name} collects, uses, and safeguards information when you visit our
+        website. The site is run by {SITE.owner}, who is responsible for the data described here and can be reached at{" "}
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. By using the site you agree to the practices described here.
       </p>
 
       <h2>Information we collect</h2>
@@ -92,9 +93,9 @@ export default function PrivacyPage() {
       <h2>Your rights</h2>
       <p>
         Depending on your location (including under the GDPR and CCPA), you may have the right to access, correct, or
-        delete your personal data, or to object to certain processing. To exercise these rights, contact us via our{" "}
-        <a href="/contact">contact form at getremotejobsnow.com/contact</a>. You can unsubscribe from our newsletter at
-        any time via the link in every email.
+        delete your personal data, or to object to certain processing. To exercise these rights, email{" "}
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a> or use our <a href="/contact">contact form</a>. You can
+        unsubscribe from our newsletter at any time via the link in every email.
       </p>
 
       <h2>Data retention &amp; security</h2>
@@ -111,7 +112,8 @@ export default function PrivacyPage() {
 
       <h2>Contact</h2>
       <p>
-        Questions about this policy? <a href="/contact">Contact us</a>.
+        Questions about this policy? Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> or use our{" "}
+        <a href="/contact">contact form</a>.
       </p>
     </LegalShell>
   );

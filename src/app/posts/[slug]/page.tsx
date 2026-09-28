@@ -49,7 +49,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
       description: post.description,
       datePublished: post.date,
       dateModified: post.updated ?? post.date,
-      author: { "@type": "Organization", name: post.author },
+      author: { "@type": "Person", name: post.author, url: abs("/about") },
       publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
       mainEntityOfPage: url,
       url,
@@ -105,6 +105,24 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
           <Faq items={post.faq} />
         </section>
       )}
+
+      {/* Who wrote this and how to correct it. A guide that states figures
+          should say who stands behind them. */}
+      <aside className="mt-12 rounded-xl border border-ink-100 bg-white p-5">
+        <h2 className="font-display text-base font-bold text-ink-900">About the author</h2>
+        <p className="mt-2 text-sm leading-relaxed text-ink-600">
+          {post.author} runs {SITE.name} and writes its guides, using the listings on the board as the source for the
+          figures in them. Found something out of date or wrong?{" "}
+          <a href={`mailto:${SITE.email}`} className="font-medium text-brand-700 hover:text-brand-800">
+            {SITE.email}
+          </a>{" "}
+          reaches me directly, and corrections get made.{" "}
+          <Link href="/about" className="font-medium text-brand-700 hover:text-brand-800">
+            More about the site
+          </Link>
+          .
+        </p>
+      </aside>
 
       <div className="mt-10 rounded-xl border border-ink-100 bg-ink-50 p-6 text-center">
         <p className="font-display text-lg font-semibold text-ink-900">Ready to find your remote job?</p>

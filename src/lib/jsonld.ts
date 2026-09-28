@@ -11,6 +11,17 @@ export function siteJsonLd() {
       name: SITE.name,
       url: SITE.url,
       description: SITE.description,
+      founder: { "@type": "Person", name: SITE.owner },
+      email: SITE.email,
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          contactType: "customer support",
+          email: SITE.email,
+          url: abs("/contact"),
+          availableLanguage: "English",
+        },
+      ],
     },
     {
       "@context": "https://schema.org",

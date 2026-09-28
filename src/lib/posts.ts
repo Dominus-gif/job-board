@@ -35,7 +35,7 @@ export const POSTS: Post[] = [
       "Where US remote jobs are, what they pay and how to spot the office-anchored ones, based on 3,000+ US-open listings on our board. Plus how to apply well.",
     date: "2026-07-28T09:00:00.000Z",
     updated: "2026-09-17T10:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["Remote Jobs USA", "Job Search", "Work From Home"],
     readMinutes: 7,
     html: `
@@ -125,7 +125,7 @@ export const POSTS: Post[] = [
       "Which European countries have the most remote roles, what they pay and why most hide the salary, from 1,293 Europe-open listings on our board.",
     date: "2026-07-20T09:00:00.000Z",
     updated: "2026-09-17T10:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["Remote Jobs Europe", "EU", "Work From Home"],
     readMinutes: 7,
     html: `
@@ -207,7 +207,7 @@ export const POSTS: Post[] = [
       "Work from home and work from anywhere aren't the same. Only 5% of remote roles on our board are truly location-free. Here's why, and how to find them.",
     date: "2026-07-12T09:00:00.000Z",
     updated: "2026-09-17T10:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["Work From Home", "Remote Work", "Guide"],
     readMinutes: 6,
     html: `

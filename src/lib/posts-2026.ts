@@ -16,7 +16,7 @@ export const POSTS_2026: Post[] = [
     description:
       "Return-to-office headlines say remote is over. Our data on 8,794 live listings says something else: remote didn't die in 2026 — it stratified.",
     date: "2026-09-06T09:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["Remote Work Trends", "Return to Office", "RTO 2026", "Future of Work", "Remote Work Statistics"],
     readMinutes: 8,
     html: `
@@ -73,7 +73,7 @@ export const POSTS_2026: Post[] = [
     description:
       "We ranked remote roles A to D using 8,794 live listings — real posting volume, competition and remote viability. One popular 'remote job' scored zero.",
     date: "2026-09-05T09:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["Remote Jobs 2026", "Tier List", "Career Advice", "Job Market Data", "Best Remote Jobs"],
     readMinutes: 9,
     html: `
@@ -125,7 +125,7 @@ export const POSTS_2026: Post[] = [
     description:
       "Most 'remote' jobs quietly require a country or timezone. Only 5.0% of the 8,794 listings we track are genuinely location-free. Here's how to find them.",
     date: "2026-09-04T09:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["Work From Anywhere", "Location Independent Jobs", "Remote Job Search", "Digital Nomad Jobs", "WFA Jobs"],
     readMinutes: 7,
     html: `
@@ -176,7 +176,7 @@ export const POSTS_2026: Post[] = [
     description:
       "You don't need to code to work remotely. Non-technical roles make up the majority of the 8,794 remote jobs we track — with 2026 salary data for each.",
     date: "2026-09-03T09:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["Remote Jobs No Experience", "Non-Technical Remote Jobs", "Career Change", "Remote Sales Jobs", "Work From Home"],
     readMinutes: 8,
     html: `
@@ -230,7 +230,7 @@ export const POSTS_2026: Post[] = [
     description:
       "Sales & Marketing now posts more remote roles than backend, frontend, full-stack and DevOps combined — 1,629 to 1,346. What changed, and what remote AEs earn.",
     date: "2026-09-02T09:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["Remote Sales Jobs", "Account Executive", "Remote Job Market", "Tech Sales", "Remote Salaries"],
     readMinutes: 7,
     html: `
@@ -276,7 +276,7 @@ export const POSTS_2026: Post[] = [
       "A side-by-side comparison of the main digital nomad visas in 2026 — income thresholds, duration and tax treatment — plus the questions nobody asks first.",
     date: "2026-09-01T09:00:00.000Z",
     updated: "2026-09-16T16:30:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["Digital Nomad Visa", "Remote Work Abroad", "Nomad Tax", "Work From Anywhere", "Relocation"],
     readMinutes: 10,
     html: `
@@ -338,7 +338,7 @@ export const POSTS_2026: Post[] = [
     description:
       "Only 15.0% of remote listings publish a salary. Here are the real medians by category from the ones that do — and how to negotiate when there's no number.",
     date: "2026-08-31T09:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["Remote Salaries", "Salary Negotiation", "Remote Work Pay", "Compensation 2026", "Pay Transparency"],
     readMinutes: 9,
     html: `
@@ -405,7 +405,7 @@ export const POSTS_2026: Post[] = [
     description:
       "Data entry now returns zero results across 8,794 remote listings. Here are the roles AI is hollowing out — and the specific bridge path out of each one.",
     date: "2026-08-30T09:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["AI and Jobs", "Career Change", "Future of Work", "Remote Jobs 2026", "Reskilling"],
     readMinutes: 10,
     html: `
@@ -458,7 +458,7 @@ export const POSTS_2026: Post[] = [
     description:
       "GitLab, Canonical, Supabase and Grafana post more location-free roles than anyone. Here's what async-first really means — and how to pass their hiring process.",
     date: "2026-08-29T09:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["Async Work", "Remote First Companies", "GitLab", "Remote Hiring", "Distributed Teams"],
     readMinutes: 9,
     html: `
@@ -518,7 +518,7 @@ export const POSTS_2026: Post[] = [
     description:
       "Only 1% of truly location-free roles are entry-level. That's the bad news. The good news: there's a repeatable path in, and it isn't applying harder.",
     date: "2026-08-28T09:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["Entry Level Remote Jobs", "First Remote Job", "No Experience", "Junior Remote Roles", "Career Advice"],
     readMinutes: 9,
     html: `
@@ -583,7 +583,7 @@ export const POSTS_2026: Post[] = [
     description:
       "Work from anywhere means no country, region or timezone requirement — a stricter thing than remote or work from home. Here's the difference, with data.",
     date: "2026-09-08T09:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["Work From Anywhere", "WFA Meaning", "Remote Work Definitions", "Location Independent", "Work From Home"],
     readMinutes: 6,
     html: `
@@ -635,7 +635,7 @@ export const POSTS_2026: Post[] = [
     description:
       "How AI labs and space companies really hire: office policies, export rules, and why only 4 of 464 AI roles on our board are open worldwide. Plus where to look.",
     date: "2026-09-27T02:00:00.000Z",
-    author: "getremotejobsnow.com Editorial",
+    author: "Bhargav",
     tags: ["AI Careers", "Aerospace Jobs", "Remote AI Jobs", "Deep Tech Careers", "Remote Job Search"],
     readMinutes: 7,
     html: `

@@ -5,7 +5,7 @@ import { LegalShell } from "@/components/LegalShell";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `What ${SITE.name} is, where its listings come from, how roles are checked for location limits, and what we publish ourselves.`,
+  description: `What ${SITE.name} is, who runs it, where its listings come from, and how roles are checked for location limits.`,
   alternates: { canonical: "/about" },
 };
 
@@ -17,6 +17,15 @@ export default function AboutPage() {
         you have to live to take this job?</strong> A listing marked “remote” can mean anywhere in the world, or it can
         mean one country, one time zone or a short list of US states. We sort every role we list so you can see which is
         which before you apply.
+      </p>
+
+      <h2>Who runs this site</h2>
+      <p>
+        {SITE.name} is built and run by {SITE.owner}, a one-person project rather than a company. It started as a
+        personal tool for finding work that was not tied to a city, and it is now open to everyone. The guides and tools
+        on the site are written and built by hand; the listings are gathered automatically and checked against the
+        location rules below. If something here is wrong, it is worth telling me:{" "}
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
       </p>
 
       <h2>Two boards, clearly labelled</h2>
@@ -72,8 +81,9 @@ export default function AboutPage() {
       <h2>Get in touch</h2>
       <p>
         Hiring and want to list a role? See <Link href="/hiring">Post a job</Link>
-        {FEATURES.advertise && <> or <Link href="/advertise">Advertise</Link></>}. For anything else,{" "}
-        <Link href="/contact">contact us</Link>.
+        {FEATURES.advertise && <> or <Link href="/advertise">Advertise</Link></>}. For anything else, email{" "}
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a> or use the{" "}
+        <Link href="/contact">contact form</Link>.
       </p>
     </LegalShell>
   );

@@ -27,7 +27,7 @@ export default function PostsPage() {
       description: p.description,
       datePublished: p.date,
       ...(p.updated ? { dateModified: p.updated } : {}),
-      author: { "@type": "Organization", name: p.author },
+      author: { "@type": "Person", name: p.author },
       url: abs(`/posts/${p.slug}`),
     })),
   };

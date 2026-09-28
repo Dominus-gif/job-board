@@ -1,6 +1,11 @@
 /** Global site configuration used across metadata, RSS, sitemap and JSON-LD. */
 export const SITE = {
   name: "getremotejobsnow.com",
+  /** Who runs the site, and the address that reaches them. Shown on the About,
+      Contact, Privacy and Terms pages, in guide bylines and in Organization
+      JSON-LD, so a reader (or a reviewer) can always tell who is behind this. */
+  owner: "Bhargav",
+  email: "hello@getremotejobsnow.com",
   tagline: "Remote jobs sorted by where you can actually work from: anywhere in the world, or a named region.",
   description:
     "Browse remote jobs, each labelled as work-from-anywhere or limited to a named country or region, plus free guides and tools for remote job seekers. Updated daily.",
