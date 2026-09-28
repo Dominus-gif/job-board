@@ -14,6 +14,7 @@ import { RoleSubscribeForm } from "@/components/RoleSubscribeForm";
 import { FaqSection } from "@/components/FaqSection";
 import { AdSlot } from "@/components/AdSlot";
 import { HomeGuides } from "@/components/HomeGuides";
+import { OwnerNote } from "@/components/OwnerNote";
 import { PinIcon, ArrowUpRightIcon, SearchIcon } from "@/components/icons";
 import { siteJsonLd, jobListJsonLd } from "@/lib/jsonld";
 
@@ -257,8 +258,13 @@ export default async function HomePage() {
         </section>
 
         {/* FAQ */}
-        <section className="py-16">
+        <section className="pt-16">
           <FaqSection items={HOME_FAQ} />
+        </section>
+
+        {/* Who runs the site, in his own words. */}
+        <section className="py-16">
+          <OwnerNote />
         </section>
       </div>
     </div>

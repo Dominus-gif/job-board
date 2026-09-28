@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SITE } from "@/lib/site";
 import { LegalShell } from "@/components/LegalShell";
 import { ContactForm } from "@/components/ContactForm";
+import { OwnerNote } from "@/components/OwnerNote";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -53,6 +54,8 @@ export default function ContactPage() {
         or a screenshot and it will be removed promptly. You can also run the message through our{" "}
         <Link href="/tools/fake-job-checker">fake job checker</Link> first.
       </p>
+
+      <OwnerNote className="mt-12" />
     </LegalShell>
   );
 }
