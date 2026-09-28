@@ -14,15 +14,23 @@ export function OwnerNote({ className = "" }: { className?: string }) {
   return (
     <RainbowPixelContainer
       className={className}
-      particleCount={34}
+      // Density +10% (34 -> 37).
+      particleCount={37}
       minSizePx={4}
       maxSizePx={8}
-      minRiseSeconds={6}
-      maxRiseSeconds={10}
+      // Speed +20%: the same rise covered in 1/1.2 of the time.
+      minRiseSeconds={5}
+      maxRiseSeconds={8.3}
       secondsPerColor={3}
-      paddingYPx={56}
-      paddingXPx={28}
-      paddingXMdPx={64}
+      // Glow +10% on both the bottom edge (26 -> 29) and each pixel (45 -> 50).
+      glowPercent={29}
+      pixelGlowPercent={50}
+      // Panel trimmed ~30%: less padding, slightly smaller text and gap.
+      paddingYPx={30}
+      paddingXPx={20}
+      paddingXMdPx={44}
+      fontSizePx={15}
+      paragraphGapPx={10}
     >
       <p>
         I’m {SITE.owner}, a web developer, and I built GetRemoteJobsNow with one simple mission: to make finding remote

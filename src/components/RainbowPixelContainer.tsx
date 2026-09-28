@@ -75,6 +75,10 @@ export type RainbowPixelContainerProps = {
   pixelRadiusPx?: number;
   /** Drop shadow under the panel. Pass "none" to remove. */
   boxShadow?: string;
+  /** Body text size in px. Default 16. Headings scale from it. */
+  fontSizePx?: number;
+  /** Space between stacked paragraphs in px. Default 16. */
+  paragraphGapPx?: number;
 };
 
 type Particle = {
@@ -168,6 +172,8 @@ const BASE_CSS = `
   --rpx-edge-glow: color-mix(in srgb, currentColor 26%, transparent);
   --rpx-pixel-glow: color-mix(in srgb, currentColor 45%, transparent);
   --rpx-pixel-radius: 1px;
+  --rpx-font-size: 1rem;
+  --rpx-para-gap: 16px;
   --rpx-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.5);
   position: relative;
   overflow: hidden;
@@ -248,16 +254,17 @@ const BASE_CSS = `
 .rainbow-pixel .rainbow-pixel__content h3 {
   margin: 0;
   color: var(--rpx-fg);
-  font-size: 1.875rem;
+  font-size: calc(var(--rpx-font-size) * 1.875);
   line-height: 1.2;
   letter-spacing: -0.02em;
   font-weight: 600;
 }
 
 .rainbow-pixel .rainbow-pixel__content p {
-  margin: 16px auto 0;
+  margin: var(--rpx-para-gap) auto 0;
   max-width: 52ch;
   color: var(--rpx-fg);
+  font-size: var(--rpx-font-size);
   line-height: 1.65;
 }
 
@@ -282,7 +289,7 @@ const BASE_CSS = `
 
 @media (min-width: 768px) {
   .rainbow-pixel .rainbow-pixel__content h2,
-  .rainbow-pixel .rainbow-pixel__content h3 { font-size: 2.6rem; }
+  .rainbow-pixel .rainbow-pixel__content h3 { font-size: calc(var(--rpx-font-size) * 2.6); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -325,6 +332,8 @@ export default function RainbowPixelContainer({
   pixelGlowPercent,
   pixelRadiusPx,
   boxShadow,
+  fontSizePx,
+  paragraphGapPx,
 }: RainbowPixelContainerProps) {
   const palette = colors.length ? colors : RAINBOW_COLORS;
   const particles = makeParticles({
@@ -363,6 +372,8 @@ export default function RainbowPixelContainer({
   if (pixelGlowPercent != null) vars["--rpx-pixel-glow"] = `color-mix(in srgb, currentColor ${pixelGlowPercent}%, transparent)`;
   if (pixelRadiusPx != null) vars["--rpx-pixel-radius"] = `${pixelRadiusPx}px`;
   if (boxShadow) vars["--rpx-shadow"] = boxShadow;
+  if (fontSizePx != null) vars["--rpx-font-size"] = `${fontSizePx}px`;
+  if (paragraphGapPx != null) vars["--rpx-para-gap"] = `${paragraphGapPx}px`;
 
   return (
     <section className={`rainbow-pixel ${className}`.trim()} style={{ ...vars, ...style } as React.CSSProperties}>
