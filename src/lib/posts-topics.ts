@@ -45,6 +45,7 @@ export const POST_TOPICS: PostTopic[] = [
     title: "The remote job market",
     blurb: "Where demand actually is, which roles are growing, and which are quietly disappearing.",
     slugs: [
+      "remote-hiring-report-september-2026",
       "is-remote-work-dying-2026-rto-data",
       "remote-job-tier-list-2026",
       "account-executives-beat-software-engineers-remote",
