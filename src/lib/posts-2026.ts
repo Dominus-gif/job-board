@@ -174,55 +174,86 @@ export const POSTS_2026: Post[] = [
     slug: "best-remote-jobs-without-tech-background-2026",
     title: "The Best Remote Jobs Without a Tech Background in 2026",
     description:
-      "You don't need to code to work remotely. Non-technical roles make up the majority of the 8,794 remote jobs we track — with 2026 salary data for each.",
+      "Non-technical roles are 48% of the remote jobs on our board against 15% for engineering. Here are the fields hiring, what they pay, and how to get in.",
     date: "2026-09-03T09:00:00.000Z",
+    updated: "2026-09-30T13:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Jobs No Experience", "Non-Technical Remote Jobs", "Career Change", "Remote Sales Jobs", "Work From Home"],
     readMinutes: 8,
     html: `
-      <p>The single most persistent myth in remote work is that it's a developers-only club. Our data says the opposite, and it isn't close.</p>
-      <p>Of the <strong>8,794 remote roles</strong> we currently track, engineering accounts for roughly 1,346. <strong>Management &amp; Finance alone accounts for 2,163.</strong> Sales &amp; Marketing adds another 1,629. If you don't write code, you are not on the edge of this market — you're in the middle of it.</p>
-      <p>Here are the non-technical categories with genuine remote demand in 2026, with the median salaries actually disclosed in the listings.</p>
+      <p>The most persistent myth in remote work is that it is a developers-only club. The listings say otherwise, and it is not close.</p>
+      <p>Of the 4,534 remote roles on our board at the time of writing, the four engineering categories (backend, frontend, fullstack and DevOps) hold <strong>682 roles, about 15%</strong>. Management and finance, sales and marketing, and customer support together hold <strong>2,192, about 48%</strong>. If you do not write code, you are not at the edge of this market. You are in the middle of it.</p>
+      <p>The same is true of the roles with no location requirement at all. The largest work-from-anywhere category on the board is management and finance (72 roles), followed by sales and marketing (46). All four engineering categories combined come to 73.</p>
 
-      <h2>1. Sales — Account Executive and revenue roles</h2>
-      <p><strong>627 AE postings · 1,629 across Sales &amp; Marketing · $179,500 median disclosed</strong></p>
-      <p>Sales is the strongest non-technical bet in remote work, for a structural reason: the job was already conducted through a screen. Nobody needs you in an office to run a discovery call. Better still, your output is measured in numbers, which removes the "but how do we know they're working?" objection that haunts other remote roles.</p>
-      <p>Typical structure is a base plus commission, quoted as OTE (on-target earnings) — commonly an $80,000–$120,000 base with $160,000–$197,500 OTE for mid-market and enterprise roles. Verify the split before you sign: a great OTE on an unrealistic quota is a pay cut with extra steps.</p>
-      <p><strong>How to break in without sales experience:</strong> start as an SDR/BDR (booking meetings), where hiring bars are lower and remote roles are plentiful, then move to closing within 12–24 months.</p>
+      <h2>The non-technical fields with real remote demand</h2>
+      <table>
+        <thead><tr><th>Field (by job title)</th><th>Roles</th><th>Worldwide</th><th>Median published pay</th></tr></thead>
+        <tbody>
+          <tr><td>Account executive and closing sales</td><td>362</td><td>5</td><td>$210,000</td></tr>
+          <tr><td>Marketing (all specialisms)</td><td>215</td><td>5</td><td>$162,500</td></tr>
+          <tr><td>Operations</td><td>154</td><td>10</td><td>$150,000</td></tr>
+          <tr><td>Design</td><td>134</td><td>3</td><td>$232,500</td></tr>
+          <tr><td>Accounting and finance</td><td>123</td><td>11</td><td>$153,900</td></tr>
+          <tr><td>Customer support</td><td>144</td><td>8</td><td>$107,000</td></tr>
+          <tr><td>Sales development (SDR and BDR)</td><td>93</td><td>7</td><td>$97,500</td></tr>
+          <tr><td>Data and business analysis</td><td>75</td><td>4</td><td>$171,000</td></tr>
+          <tr><td>Customer success</td><td>74</td><td>7</td><td>$135,450</td></tr>
+          <tr><td>Writing and content</td><td>43</td><td>3</td><td>$110,000</td></tr>
+        </tbody>
+      </table>
+      <p>Medians come from the minority of listings that publish a range in US dollars, which skews towards US employers, so read them as the shape of the market rather than a promise.</p>
 
-      <h2>2. Customer Success</h2>
-      <p><strong>140 customer-success postings</strong></p>
-      <p>Customer Success Managers keep existing accounts renewing and expanding — which, for a subscription business, is more valuable than new logos. It rewards exactly the skills people build in hospitality, teaching, account management and support: patience, clarity, and the ability to run a hard conversation without losing the relationship.</p>
-      <p>It's also one of the cleanest paths from support into a higher-paid commercial track, and it's remote-native because the whole job happens over calls and email.</p>
+      <h2>Sales is the strongest non-technical bet</h2>
+      <p>362 account executive roles, with a median published midpoint of $210,000 across the 57 that disclose. The structural reason is simple: the job was already done through a screen, and nobody needs you in an office to run a discovery call. Output is measured in numbers, which removes the "how do we know they are working" objection that follows other remote roles around.</p>
+      <p>Pay is usually a base plus commission quoted as on-target earnings. Check the split and the quota before you sign, because a generous OTE against an unrealistic quota is a pay cut with extra steps. If you have no sales background, start in sales development (93 roles on the board) and move to closing in 12 to 24 months.</p>
 
-      <h2>3. Accounting and Finance</h2>
-      <p><strong>197 accounting/finance-titled postings · Management &amp; Finance median $162,500</strong></p>
-      <p>Finance is quietly the biggest work-from-anywhere category we have — <strong>140 of our 443 truly location-free roles</strong>. The work is documents, spreadsheets and systems; none of it requires a room. Bookkeeping, financial analysis, FP&amp;A, controller and payroll roles all appear regularly.</p>
-      <p>The catch is credentials: this category rewards formal qualifications (ACCA, CPA, CIMA) far more than most. If you have them, you're in an unusually strong position. If you don't, they're among the highest-ROI certifications for remote work.</p>
+      <h2>Finance and operations travel best</h2>
+      <p>Accounting and finance roles are the most likely non-technical work to be genuinely location-free: 11 of 123 are worldwide, and management and finance is the largest work-from-anywhere category overall. The work is documents, systems and spreadsheets, none of which needs a room. Bookkeeping, financial analysis, FP&amp;A, controller and payroll roles all appear regularly.</p>
+      <p>The catch is credentials. This field rewards formal qualifications such as ACCA, CPA or CIMA more than most. If you have one, you are in an unusually strong position for remote work. If you do not, they are among the highest-return certifications you can take for this market.</p>
+      <p>Operations sits alongside it: 154 roles, median $150,000, ten of them worldwide. It rewards people who can own a process end to end rather than complete tasks.</p>
 
-      <h2>4. Customer Support (with a caveat)</h2>
-      <p><strong>224 postings · $123,500 median disclosed</strong></p>
-      <p>Support remains the most common front door into a tech company without a technical background, and that median is higher than most people expect. But be strategic about <em>which</em> support job you take.</p>
-      <blockquote>Scripted, tier-one ticket clearing is the most automated work in this category. Technical support, onboarding, and roles that own accounts or escalations are far more durable — and they lead somewhere.</blockquote>
-      <p>Treat support as a two-year on-ramp, not a destination: the natural next steps are Customer Success, Solutions Engineering, or Product Operations.</p>
+      <h2>Support and customer success: the on-ramp and the step up</h2>
+      <p>Support remains the most common front door into a software company without a technical background, at 144 roles and a median of $107,000. Be strategic about which support job you take: scripted tier-one ticket clearing is the most automatable work in this category, while technical support, onboarding and escalation ownership are durable and lead somewhere.</p>
+      <p>Customer success is where that somewhere usually is. 74 roles, median $135,450, and it rewards exactly what people build in hospitality, teaching, account management and support: patience, clarity and the ability to run a difficult conversation without losing the relationship.</p>
 
-      <h2>5. Marketing — but specialised, not generalist</h2>
-      <p>Marketing is a large category with a sharp internal divide. Generic content production has collapsed (we count just <strong>66 writer/content postings</strong> against 1,324 engineering roles). Meanwhile lifecycle marketing, demand generation, SEO, and product marketing remain in steady demand.</p>
-      <p>The differentiator is ownership of a number. "I write blog posts" is commoditised. "I own pipeline from organic search, and here's the revenue" is not.</p>
+      <h2>Marketing, but specialised</h2>
+      <p>Marketing is 215 roles with a sharp internal divide. General content production has thinned to 43 writing and content roles across the whole board. Lifecycle marketing, demand generation, SEO and product marketing remain in steady demand at a median of $162,500.</p>
+      <p>The difference is ownership of a number. "I write blog posts" is commoditised. "I own pipeline from organic search, and here is the revenue" is not.</p>
 
-      <h2>6. Healthcare and operations administration</h2>
-      <p>Medical billing, coding, prior authorisation, claims and practice administration have moved remote in volume. These roles are heavily region-locked (licensing and patient-data rules make genuine work-from-anywhere rare), so search them on our <a href="/remote-jobs-in-usa">USA board</a> rather than the worldwide one.</p>
+      <h2>Design pays better than most people expect</h2>
+      <p>134 design roles with a median published midpoint of $232,500, the highest of any non-technical field here. Product design and UX carry it, and the portfolio does the work that a degree does elsewhere.</p>
+
+      <h2>Where the worldwide non-technical roles come from</h2>
+      <p>A short list of employers supplies most of them: <a href="/companies/canonical">Canonical</a> (51 non-technical worldwide roles), <a href="/companies/remote">Remote</a> (25), <a href="/companies/elevenlabs">ElevenLabs</a> (14), <a href="/companies/supabase">Supabase</a> (11) and <a href="/companies/goodstack">Goodstack</a> (8). If location freedom matters more to you than field, following a handful of employers beats searching every day. The <a href="/tools/company-remote-score">company remote score</a> tool scores any employer on the board on how widely it hires.</p>
 
       <h2>The honest caveats</h2>
       <ul>
-        <li><strong>Non-technical does not mean non-skilled.</strong> Every category above rewards a demonstrable specialism. The roles that vanished were the ones requiring neither judgement nor domain knowledge.</li>
-        <li><strong>Entry-level is genuinely scarce.</strong> Only about 4% of the roles we track carry a junior or entry-level title. Expect to enter via SDR, support, or contract work.</li>
-        <li><strong>Most of these are region-locked.</strong> That's not a problem — it just means searching the right board.</li>
+        <li><strong>Non-technical does not mean non-skilled.</strong> Every field above rewards a demonstrable specialism. The roles that disappeared from this market were the ones that needed neither judgement nor domain knowledge.</li>
+        <li><strong>Entry-level is scarce everywhere.</strong> Only 128 roles on the board (2.8%) carry an entry-level title. Expect to enter through sales development, support or contract work, as our <a href="/posts/first-remote-job-2026-no-experience">first remote job guide</a> sets out.</li>
+        <li><strong>Most of this is region-locked.</strong> 94.8% of the board names a country or region. That is not a problem, it just means searching the right board.</li>
+        <li><strong>Healthcare administration is a special case.</strong> Medical billing, coding and claims work has moved remote in volume, but licensing and patient-data rules make it almost entirely country-bound. We list 15 such roles and none is worldwide.</li>
       </ul>
 
-      <h2>Start searching</h2>
-      <p>Browse <a href="/remote-sales-marketing-jobs">remote sales &amp; marketing jobs</a>, <a href="/remote-management-finance-jobs">management &amp; finance</a>, or <a href="/remote-customer-support-jobs">customer support</a>. If you'd rather see everything ranked by how many roles are actually open, try our <a href="/remote-jobs-categories">category overview</a>.</p>
+      <p>Browse <a href="/remote-sales-marketing-jobs">sales and marketing</a>, <a href="/remote-management-finance-jobs">management and finance</a>, <a href="/remote-customer-support-jobs">customer support</a> or <a href="/remote-design-jobs">design</a>. To see what a role should pay for your field and level, use the <a href="/tools/salary-band-estimator">salary band estimator</a>.</p>
     `,
+    faq: [
+      {
+        q: "What remote jobs can I do without a tech background?",
+        a: "Sales, marketing, operations, finance, design, customer support and customer success all hire remotely at volume. On our board those non-technical fields hold about 48% of listings, against about 15% for the four engineering categories combined.",
+      },
+      {
+        q: "Which non-technical remote job pays the most?",
+        a: "Among roles that publish a range, design has the highest median midpoint at about $232,500, followed by account executive roles at $210,000 including commission targets, and data and business analysis at $171,000. Customer support sits lowest at about $107,000.",
+      },
+      {
+        q: "Which non-technical roles are most likely to be work from anywhere?",
+        a: "Finance and operations. Management and finance is the largest work-from-anywhere category on our board with 72 roles, and 11 of 123 accounting and finance roles carry no location requirement. Healthcare administration is the opposite: licensing rules keep it country-bound.",
+      },
+      {
+        q: "How do I move into remote sales with no sales experience?",
+        a: "Start in sales development. Our board carries 93 SDR and BDR roles, hired mainly on temperament and persistence, with a median published midpoint near $97,500 before commission. The usual path to a closing role takes 12 to 24 months.",
+      },
+    ],
   },
   {
     slug: "account-executives-beat-software-engineers-remote",
@@ -271,66 +302,96 @@ export const POSTS_2026: Post[] = [
   },
   {
     slug: "digital-nomad-visas-2026",
-    title: "Digital Nomad Visas in 2026: Every Country, Tax Rate & Income Requirement",
+    title: "Digital Nomad Visas in 2026: Income Requirements and Tax Rules",
     description:
-      "A side-by-side comparison of the main digital nomad visas in 2026 — income thresholds, duration and tax treatment — plus the questions nobody asks first.",
+      "Income thresholds, durations and tax treatment for the main digital nomad visas in 2026, plus the 183-day rule and the employer questions nobody asks first.",
     date: "2026-09-01T09:00:00.000Z",
-    updated: "2026-09-16T16:30:00.000Z",
+    updated: "2026-09-30T13:00:00.000Z",
     author: "Bhargav",
     tags: ["Digital Nomad Visa", "Remote Work Abroad", "Nomad Tax", "Work From Anywhere", "Relocation"],
-    readMinutes: 10,
+    readMinutes: 9,
     html: `
-      <p>A work-from-anywhere job is only half the equation. The other half is the legal right to be somewhere — and since 2020, more than 50 countries have created visas specifically for remote workers earning foreign income.</p>
-      <p>Below is a comparison of the programmes remote workers ask about most, followed by the questions that matter more than the headline tax rate.</p>
+      <p>A work-from-anywhere job is only half the equation. The other half is the legal right to be somewhere. Since 2020 more than 50 countries have created visas aimed specifically at remote workers earning foreign income, and the details vary far more than the marketing suggests.</p>
+      <p>Below are the programmes remote workers ask about most, followed by the three things that matter more than the headline tax rate.</p>
 
       <div class="callout-warning">
-        <p><strong>Read this before the table.</strong> Immigration rules and tax regimes change frequently, thresholds are often tied to a multiple of local minimum wage (so they move annually), and your personal tax outcome depends on your citizenship, your employer's structure and how long you stay. The figures below are indicative and widely reported at the time of writing — <strong>they are not advice, and you should confirm every number with the country's official consulate or immigration portal, and speak to a cross-border tax professional, before making any decision.</strong> If you take one thing from this article, make it the checklist at the end rather than a specific percentage.</p>
+        <p><strong>Read this before the table.</strong> Immigration rules and tax regimes change often, and most thresholds are tied to a local minimum or average wage, so they move every year. Your own tax outcome depends on your citizenship, your employer's structure and how long you stay. The figures here were checked in September 2026 and are indicative, not advice. Confirm every number with the country's own consulate or immigration portal, and take cross-border tax advice, before you commit to anything.</p>
       </div>
 
       <h2>The main programmes at a glance</h2>
       <table>
-        <thead>
-          <tr><th>Country</th><th>Typical income requirement</th><th>Initial duration</th><th>Tax treatment (indicative)</th></tr>
-        </thead>
+        <thead><tr><th>Country</th><th>Income requirement</th><th>Initial duration</th><th>Tax treatment (indicative)</th></tr></thead>
         <tbody>
-          <tr><td><strong>Portugal</strong></td><td>4× the national minimum wage (€3,680 a month in 2026)</td><td>1 year, renewable to 5</td><td>The old NHR regime is closed to newcomers; its replacement (IFICI) offers a 20% rate for qualifying roles only</td></tr>
-          <tr><td><strong>Spain</strong></td><td>2× the national minimum wage (about €2,849 a month in 2026)</td><td>1 year from a consulate, or up to 3 years if you apply inside Spain</td><td>Remote employees can opt into the special regime for incoming workers: 24% on qualifying employment income up to €600,000</td></tr>
-          <tr><td><strong>Croatia</strong></td><td>About €3,622 a month in 2026 (2.5× the average net salary)</td><td>Up to 18 months</td><td>Foreign income generally not taxed locally under the scheme</td></tr>
-          <tr><td><strong>Thailand (LTR)</strong></td><td>High income + asset tests</td><td>Up to 10 years</td><td>Preferential treatment for qualifying foreign income</td></tr>
-          <tr><td><strong>UAE</strong></td><td>US$3,500 a month from outside the UAE</td><td>1 year, renewable</td><td>No personal income tax</td></tr>
-          <tr><td><strong>Estonia</strong></td><td>€4,500 a month (gross)</td><td>Up to 1 year</td><td>Tax residency can trigger after 183 days</td></tr>
+          <tr><td>Italy</td><td>About €2,333 a month</td><td>Up to 1 year, renewable</td><td>Normal Italian rules once resident; consulates began accepting applications in March 2026</td></tr>
+          <tr><td>Spain</td><td>€2,849 a month, twice the national minimum wage</td><td>1 year from a consulate, or up to 3 years applying inside Spain</td><td>Employees can opt into the regime for incoming workers: 24% on employment income up to €600,000. Freelancers registered as autónomos are excluded</td></tr>
+          <tr><td>Hungary</td><td>€3,000 a month</td><td>1 year, renewable once</td><td>You must keep earning at that level while you hold the White Card</td></tr>
+          <tr><td>Greece</td><td>€3,500 a month</td><td>12 months, then a renewable 2-year permit</td><td>Since February 2026 you must apply through a Greek consulate before travelling</td></tr>
+          <tr><td>Malta</td><td>€3,500 a month</td><td>1 year, renewable to 4</td><td>The threshold does not rise with dependants</td></tr>
+          <tr><td>Croatia</td><td>About €3,622 a month, or €43,470 in savings</td><td>Up to 18 months</td><td>Foreign income is not taxed locally under the scheme</td></tr>
+          <tr><td>Portugal</td><td>€3,680 a month, four times the minimum wage, plus about €11,040 in savings</td><td>1 year, renewable to 5</td><td>The old non-habitual resident regime is closed to newcomers; its replacement covers only certain qualifying roles</td></tr>
+          <tr><td>Estonia</td><td>€4,500 a month gross</td><td>Up to 1 year</td><td>Tax residency can start after 183 days</td></tr>
+          <tr><td>UAE</td><td>US$3,500 a month from outside the UAE</td><td>1 year, renewable</td><td>No personal income tax</td></tr>
+          <tr><td>Costa Rica</td><td>US$3,000 a month</td><td>1 year, extendable to 2</td><td>Foreign income exempt under the scheme</td></tr>
+          <tr><td>Brazil</td><td>US$1,500 a month, or US$18,000 in savings</td><td>1 year, renewable</td><td>The lowest income bar of the major programmes</td></tr>
         </tbody>
       </table>
+      <p>To check your own income against these and five more programmes, including Japan, Thailand, Indonesia, Malaysia and Cyprus, use our <a href="/tools/nomad-visa-checker">digital nomad visa checker</a>. It shows which you clear, by how much, and which authority to confirm with.</p>
 
-      <p>To check your own income against these and ten more programmes, use our <a href="/tools/nomad-visa-checker">digital nomad visa checker</a>.</p>
-
-      <h2>The 183-day rule is the thing that actually gets people</h2>
-      <p>Most countries treat you as a tax resident once you've spent roughly <strong>183 days</strong> there in a 12-month period. A nomad visa grants you the right to <em>stay</em>; it does not automatically exempt you from becoming tax resident.</p>
-      <p>This is where the expensive surprises live. Stay under the threshold and you're usually taxed at home. Cross it and you may owe tax locally — possibly in addition to obligations at home, depending on whether a double-taxation treaty applies and how it's written.</p>
-      <blockquote>US citizens should note their situation is different from almost everyone else's: the United States taxes on citizenship, not residence. You file regardless of where you live. Look into the Foreign Earned Income Exclusion and the Foreign Tax Credit — and get professional advice.</blockquote>
+      <h2>The 183-day rule is what actually catches people</h2>
+      <p>Most countries treat you as tax resident once you have spent roughly 183 days there in a 12-month period. A nomad visa grants the right to stay. It does not automatically exempt you from becoming tax resident, and those are separate questions decided by different rules.</p>
+      <p>This is where the expensive surprises live. Stay under the threshold and you are usually taxed at home. Cross it and you may owe tax locally as well, depending on whether a double-taxation treaty applies and how it is written. Some schemes, such as Croatia's and Costa Rica's, explicitly exempt foreign income; others simply apply the normal rules once you are resident.</p>
+      <p>Counting matters, and it is easy to get wrong when trips are split across a year. Our <a href="/tools/tax-residency-day-counter">tax residency day counter</a> does the arithmetic, including the rolling 12-month window that several countries use rather than the calendar year.</p>
+      <p>US citizens are in a different position from almost everyone else: the United States taxes on citizenship rather than residence, so you file regardless of where you live. Look into the Foreign Earned Income Exclusion and the Foreign Tax Credit, and get professional advice rather than guessing.</p>
 
       <h2>Your employer may be the real blocker</h2>
       <p>This is the step most guides skip. Even with a valid nomad visa, your employer may not be able to let you go.</p>
       <ul>
-        <li><strong>Permanent establishment risk.</strong> An employee working from a country can, in some circumstances, create a taxable presence for the company there. Legal teams are genuinely cautious about this.</li>
-        <li><strong>Payroll and social security.</strong> Your employer may be obliged to register locally once you're resident.</li>
-        <li><strong>Data and compliance.</strong> Regulated industries often restrict which countries you may access systems from.</li>
+        <li><strong>Permanent establishment risk.</strong> An employee working from another country can, in some circumstances, create a taxable presence for the company there. Legal teams are genuinely cautious about this, and it is the most common reason a request is refused.</li>
+        <li><strong>Payroll and social security.</strong> Once you are tax resident somewhere, your employer may be obliged to register and contribute locally.</li>
+        <li><strong>Data and compliance rules.</strong> Regulated industries often restrict the countries from which you may access systems at all.</li>
       </ul>
-      <p>This is exactly why genuinely work-from-anywhere roles are rare — only <strong>5.0%</strong> of the listings we track have no location gate at all. Companies that hire through an employer-of-record, or that are structurally all-remote, are the ones most likely to say yes.</p>
+      <p>This is exactly why genuinely location-free jobs are rare. Only 235 of the 4,534 roles on our board, about 5.2%, carry no location requirement. The companies most likely to say yes are the ones already structured for it: all-remote employers, and those hiring through an employer of record. Our guide to <a href="/posts/how-to-tell-if-a-company-is-truly-distributed">telling whether a company is truly distributed</a> covers the signals worth checking before you ask.</p>
+
+      <h2>What these visas do not give you</h2>
+      <ul>
+        <li><strong>The right to work for local clients.</strong> Most schemes require your income to come from outside the country. Spain's, for example, caps Spanish-sourced income at 20%.</li>
+        <li><strong>Healthcare.</strong> Nearly every programme requires private insurance meeting a minimum level of cover for the whole stay.</li>
+        <li><strong>A straight path to permanent residency.</strong> Some count towards it, many do not. Check before you plan a life around one.</li>
+        <li><strong>Cover for your family automatically.</strong> Dependants usually raise the income threshold, often by 50% for a partner and 25 to 30% per child.</li>
+      </ul>
 
       <h2>A practical checklist before you move</h2>
       <ol>
-        <li><strong>Confirm in writing that your employer permits it</strong>, and for which countries. Do this first — everything else is wasted effort otherwise.</li>
-        <li><strong>Check the current official requirements</strong> on the consulate or immigration site, not a blog (including this one). Thresholds change annually.</li>
-        <li><strong>Model your day count</strong> against the 183-day line in both the country you're leaving and the one you're entering. Our <a href="/tools/tax-residency-day-counter">tax residency day counter</a> does the arithmetic.</li>
-        <li><strong>Check for a double-taxation treaty</strong> between your home country and your destination.</li>
-        <li><strong>Verify healthcare cover</strong> — most schemes require private insurance meeting a minimum level.</li>
-        <li><strong>Talk to a cross-border tax adviser</strong> before you commit. One consultation is far cheaper than a mistake.</li>
+        <li>Get written confirmation from your employer that you may work from the specific country. Do this first, because everything else is wasted effort otherwise.</li>
+        <li>Check the current requirements on the consulate or immigration site rather than a blog, including this one. Thresholds move annually with local wages.</li>
+        <li>Model your day count against the 183-day line in both the country you are leaving and the one you are entering.</li>
+        <li>Check whether a double-taxation treaty exists between the two, and what it says about employment income.</li>
+        <li>Price private health insurance that meets the scheme's minimum, and check whether it covers repatriation.</li>
+        <li>Work out what your salary is actually worth locally. Our <a href="/tools/salary-purchasing-power">purchasing-power calculator</a> compares 70 countries using World Bank price levels.</li>
+        <li>Talk to a cross-border tax adviser before you commit. One consultation costs far less than a mistake.</li>
       </ol>
 
       <h2>First, get the job</h2>
-      <p>None of this matters without income that travels. Browse <a href="/page/1">work-from-anywhere jobs with no location requirement</a> — every role on our main board has passed that filter — or read <a href="/posts/how-to-find-work-from-anywhere-jobs">how to find them</a>.</p>
+      <p>A nomad visa is only useful with income that travels. Start from the <a href="/work-from-anywhere-jobs">work-from-anywhere board</a>, where no listing names a country, and read <a href="/posts/remote-work-taxes-living-abroad">what working abroad does to your taxes</a> before you hand in notice.</p>
     `,
+    faq: [
+      {
+        q: "Which digital nomad visa has the lowest income requirement?",
+        a: "Of the major programmes, Brazil is lowest at about US$1,500 a month, or US$18,000 in savings. Costa Rica asks US$3,000 and Italy about €2,333. Estonia is among the highest in Europe at €4,500 a month gross.",
+      },
+      {
+        q: "Do you pay tax on a digital nomad visa?",
+        a: "It depends on the country and how long you stay. Croatia and Costa Rica exempt foreign income under their schemes. Spain offers employees 24% on employment income up to €600,000, though freelancers registered as autónomos are excluded. Most countries treat you as tax resident after about 183 days, which is a separate question from your visa.",
+      },
+      {
+        q: "Can my employer stop me using a digital nomad visa?",
+        a: "In practice, often yes. An employee working abroad can create a taxable presence for the company, trigger local payroll and social security duties, or breach data rules in regulated industries. Get written approval for the specific country before applying for anything.",
+      },
+      {
+        q: "How long can you stay on a digital nomad visa?",
+        a: "Usually one year to start. Croatia allows up to 18 months, Malta renews to a total of four years, Portugal's route leads to a five-year residence path, and Spain grants up to three years if you apply from inside the country. Thailand's long-term resident visa runs up to 10 years but has much higher income and asset tests.",
+      },
+    ],
   },
   {
     slug: "remote-salaries-2026-negotiate-the-premium",
@@ -514,68 +575,91 @@ export const POSTS_2026: Post[] = [
   },
   {
     slug: "first-remote-job-2026-no-experience",
-    title: "How to Get Your First Remote Job in 2026 With Zero Remote Experience",
+    title: "How to Get Your First Remote Job in 2026 With No Experience",
     description:
-      "Only 1% of truly location-free roles are entry-level. That's the bad news. The good news: there's a repeatable path in, and it isn't applying harder.",
+      "Only 128 of 4,534 remote roles on our board carry an entry-level title, and 8 of those are work-from-anywhere. Here is the path in that actually works.",
     date: "2026-08-28T09:00:00.000Z",
+    updated: "2026-09-30T13:00:00.000Z",
     author: "Bhargav",
     tags: ["Entry Level Remote Jobs", "First Remote Job", "No Experience", "Junior Remote Roles", "Career Advice"],
-    readMinutes: 9,
+    readMinutes: 8,
     html: `
-      <p>Let's be honest with you upfront, because most articles on this topic aren't.</p>
-      <p>Of the <strong>443 truly work-from-anywhere roles</strong> we track, exactly <strong>8</strong> carry a junior, entry-level, graduate or intern title. That's about <strong>1%</strong>. Across the whole board of 8,794 listings, senior-titled roles outnumber junior ones roughly <strong>7 to 1</strong>.</p>
-      <p>Entry-level remote work is the scarcest segment of the entire market. Knowing that changes your strategy — because the winning move is not to apply harder to those 8 roles.</p>
+      <p>Start with the number, because most articles on this subject avoid it. Of the 4,534 remote roles on our board at the time of writing, <strong>128 (2.8%) carry an entry-level title</strong>, and only 8 of those are open worldwide. Narrow it to listings that actually use the words junior, graduate, entry-level or intern and you are down to 58 roles. For every one of those, the board carries 29 roles asking for senior, staff, lead or director.</p>
+      <p>Entry-level remote work is the scarcest part of this market. Knowing that changes the strategy, because the winning move is not to apply harder to those 58 roles.</p>
 
-      <h2>Why entry-level remote is so rare</h2>
-      <p>It's not prejudice, it's economics. Junior hires need supervision, feedback and correction — the things distributed work makes most expensive. An experienced hire is largely self-directing; a junior needs someone's attention, and attention across timezones is the scarcest resource a remote company has.</p>
-      <p>So the question isn't "how do I convince someone to take a chance on me remotely?" It's <strong>"how do I stop being a junior hire in the ways that make me expensive?"</strong></p>
+      <h2>Why entry-level remote is rare</h2>
+      <p>This is economics rather than prejudice. A junior hire needs supervision, feedback and correction, which are the things distributed work makes most expensive. An experienced hire is largely self-directing. Attention across time zones is the scarcest resource a remote company has, so the roles that survive a budget conversation are the ones that need least of it.</p>
+      <p>So the useful question is not "how do I convince someone to take a chance on me remotely?" It is "how do I stop being expensive to supervise?" Everything below follows from that.</p>
 
-      <h2>The path that actually works</h2>
-
-      <h3>Step 1: Get experience first, remote second</h3>
-      <p>The fastest route to a remote job is often a local job. Two years of on-site experience makes you a mid-level candidate, and mid-level is where remote hiring actually happens. Trying to start remote <em>and</em> start your career simultaneously means fighting on two fronts.</p>
-      <p>If that's not an option, use the on-ramps below.</p>
-
-      <h3>Step 2: Use the roles that still hire juniors remotely</h3>
-      <p>These are the genuine front doors, in rough order of accessibility:</p>
+      <h2>Where juniors do get hired</h2>
+      <p>The entry-level roles on the board are not spread evenly. They cluster:</p>
       <ul>
-        <li><strong>SDR / BDR (sales development).</strong> The most reliable entry point in remote work right now. Sales is hiring hard (<strong>627 AE postings</strong>), and SDR is the standard runway — 12–24 months to a closing seat with real earnings.</li>
-        <li><strong>Customer support.</strong> 224 postings, <strong>$123,500</strong> median. Aim for technical support, not scripted tier-one.</li>
-        <li><strong>Junior operations / data operations.</strong> Ownership of a process rather than a task.</li>
-        <li><strong>QA and test automation.</strong> Often more accessible than development roles with overlapping skills.</li>
+        <li><strong>Product and operations:</strong> 63 of the 128, the largest single group, mostly coordination and analyst roles inside product teams.</li>
+        <li><strong>Sales and marketing:</strong> 25, almost all sales development.</li>
+        <li><strong>Management and finance:</strong> 19, typically bookkeeping, payroll and finance operations.</li>
+        <li><strong>Engineering and infrastructure:</strong> 15 across DevOps, backend and fullstack combined.</li>
+        <li><strong>Customer support:</strong> 5.</li>
+      </ul>
+      <p>Where pay is published, the median entry-level midpoint is <strong>$112,500</strong>, though only 10 of the 128 name a figure, so treat that as a signal rather than a benchmark.</p>
+
+      <h2>The four on-ramps that actually work</h2>
+      <h3>1. Sales development</h3>
+      <p>The board carries <strong>93 SDR and business development roles</strong>, with a median published midpoint of about $97,500 across the six that disclose. The hiring bar is about temperament and persistence rather than credentials, the work is entirely phone, email and CRM, and the path from booking meetings to closing them typically takes 12 to 24 months. It is the most reliable front door in remote work for someone with no track record.</p>
+      <h3>2. Customer support, chosen carefully</h3>
+      <p>144 support roles, median published pay $107,000, though support job titles specifically sit nearer $89,700. Aim for technical support, onboarding, or roles that own escalations and accounts. Scripted tier-one ticket clearing is the most automatable work in this category and it leads nowhere. Treat support as a two-year on-ramp towards customer success, solutions engineering or product operations, which is a well-worn path. Our <a href="/posts/remote-customer-support-careers">guide to remote support careers</a> maps it out.</p>
+      <h3>3. Operations and data</h3>
+      <p>154 operations roles and 75 analyst roles sit on the board, and they reward process ownership rather than years served. If you can take a messy recurring task, document it, and hand back something that runs without you, you are doing the job.</p>
+      <h3>4. Quality assurance</h3>
+      <p>Only 18 roles, so it is thin, but QA and test automation remain more accessible than development roles while using overlapping skills, and it is a genuine route into engineering from the inside.</p>
+
+      <h2>Replace credentials with evidence</h2>
+      <p>Nobody can vouch for you in a hallway. Your evidence has to be visible without a reference:</p>
+      <ul>
+        <li><strong>Public work.</strong> Open-source contributions, a written case study, a portfolio that shows your reasoning rather than a finished tutorial. Decisions are the thing worth showing.</li>
+        <li><strong>Written communication.</strong> This is the one that moves the needle, because it is the core competency of distributed work and an employer can assess it directly from your application. A short, specific, well-structured message is itself the work sample.</li>
+        <li><strong>Paid work of any size.</strong> Even small freelance projects turn "no experience" into "worked with clients remotely, delivered on a deadline".</li>
+        <li><strong>Volunteering for a distributed organisation.</strong> Non-profits and open-source projects run on exactly the tools and habits employers are looking for.</li>
       </ul>
 
-      <h3>Step 3: Replace credentials with proof</h3>
-      <p>Nobody can vouch for you in a hallway, so your evidence has to be self-serving — visible without a reference:</p>
-      <ol>
-        <li><strong>Public work.</strong> Open-source contributions, a technical blog, a portfolio with real problems and your reasoning. Not tutorials — decisions.</li>
-        <li><strong>Written communication.</strong> This is the one that actually moves the needle, because it's the core competency of distributed work and it's assessable directly from your application.</li>
-        <li><strong>Freelance or contract work.</strong> Even small paid projects convert "no experience" into "worked with clients remotely."</li>
-        <li><strong>Volunteer for a distributed org.</strong> Non-profits and open-source projects run on exactly the tools and habits employers want to see.</li>
-      </ol>
-
-      <h3>Step 4: Take the contract-to-full-time path</h3>
-      <p>This is the most underrated route in remote hiring. A company that won't risk a permanent junior hire will often risk a three-month contract, because the downside is capped. Contract and part-time roles are a small slice of the market (18 of the listings we track), so also approach companies directly and propose a defined trial project.</p>
-      <p>Once you're inside and delivering, you're no longer an unknown junior — you're the person already doing the work.</p>
-
-      <h3>Step 5: Target region-locked roles first</h3>
-      <p>You do not have to win the hardest tier on day one. <strong>95.0%</strong> of remote roles are region-locked — a vastly larger, less globally-contested pool. Land a "remote, US only" or "remote, EU" job, do it well for two years, and you'll be a mid-level remote-experienced candidate applying for work-from-anywhere roles from a completely different position.</p>
-      <blockquote>Work-from-anywhere is a destination, not a starting point. Almost nobody's first remote job is fully location-free.</blockquote>
+      <h2>Two structural moves worth more than any CV tweak</h2>
+      <p><strong>Take the region-locked roles first.</strong> 4,299 of the 4,534 roles on the board (94.8%) are limited to a country or region, against 235 open worldwide. The region-locked pool is roughly eighteen times larger and competes against a smaller field. Land a "remote, US only" or "remote, EU" job, do it well for two years, and you will apply for work-from-anywhere roles as an experienced remote worker rather than an unknown. Work from anywhere is a destination, not a starting point.</p>
+      <p><strong>Consider contract-to-permanent.</strong> A company that will not risk a permanent junior hire will often risk a three-month contract, because the downside is capped. Be realistic about supply: only 50 of the roles we list (1.1%) are contract or part-time, so this usually means approaching companies directly with a defined trial project rather than waiting for a posting.</p>
 
       <h2>Mistakes that keep people stuck</h2>
       <ul>
-        <li><strong>Mass-applying.</strong> 200 generic applications to global roles will lose to 20 tailored ones every time.</li>
+        <li><strong>Mass applying.</strong> Two hundred generic applications to worldwide roles will lose to twenty tailored ones. Use the <a href="/tools/ats-keyword-checker">ATS keyword checker</a> to see which terms a posting actually leans on before you write.</li>
         <li><strong>Waiting to feel ready.</strong> Apply at roughly 60% of the listed requirements. The list is a wish, not a gate.</li>
-        <li><strong>Chasing "no experience" listings.</strong> Legitimate remote work rarely advertises that way — and it's the phrasing scams use most. Remember: data entry returns <strong>zero</strong> results across our entire board.</li>
-        <li><strong>Ignoring the location line.</strong> Applying to roles you're geographically ineligible for feels productive and isn't.</li>
+        <li><strong>Not tracking anything.</strong> After thirty applications you will not remember who you spoke to. The <a href="/tools/application-tracker">application tracker</a> keeps it in your browser, free, no account.</li>
+        <li><strong>Ignoring scams.</strong> Beginners are the main target for fake remote jobs. Anything asking you to pay, to buy equipment through them, or to deposit a cheque is a scam. Run it through the <a href="/tools/fake-job-checker">fake job checker</a> and read <a href="/posts/how-to-spot-fake-remote-job-postings">how to spot fake postings</a>.</li>
       </ul>
 
-      <h2>One rule that matters more than the rest</h2>
-      <p>Applying is always free. A legitimate employer will never ask you to pay for training, equipment or a background check to be hired. Treat any such request as fraud and walk away.</p>
-
-      <h2>Start with the realistic tier</h2>
-      <p>Browse <a href="/fully-remote-no-experience-jobs">entry-level friendly roles</a>, <a href="/remote-customer-support-jobs">customer support</a>, or <a href="/remote-sales-marketing-jobs">sales &amp; marketing</a> — and check the far larger <a href="/remote-regional-jobs">region-locked board</a>, which is where most first remote jobs are actually found.</p>
+      <h2>What to do this week</h2>
+      <ol>
+        <li>Pick one on-ramp above and commit to it for three months rather than applying to everything.</li>
+        <li>Publish one piece of evidence: a case study, a repository, a written breakdown of a problem you solved.</li>
+        <li>Apply to ten <a href="/remote-regional-jobs">region-locked roles</a> in your own country, tailored, rather than fifty worldwide ones.</li>
+        <li>Follow the <a href="/posts/30-minute-remote-job-search-routine">30-minute daily routine</a> so the search does not eat your week.</li>
+      </ol>
+      <p>Browse <a href="/remote-customer-support-jobs">customer support roles</a>, <a href="/remote-sales-marketing-jobs">sales and marketing</a>, or the <a href="/work-from-anywhere-jobs">work-from-anywhere board</a> when you are ready for it.</p>
     `,
+    faq: [
+      {
+        q: "Can you get a remote job with no experience?",
+        a: "Yes, but the entry-level end of remote work is small. On our board, 128 of 4,534 roles (2.8%) carry an entry-level title and only 8 of those are open worldwide. The realistic route is a region-locked role in sales development, customer support, operations or QA, rather than competing for the handful of junior work-from-anywhere jobs.",
+      },
+      {
+        q: "Which remote jobs are easiest to get with no experience?",
+        a: "Sales development is the most reliable: 93 roles on our board, hired on temperament rather than credentials, with a 12 to 24 month path to a closing role. Customer support is next, with 144 roles, though it is worth choosing technical support or onboarding over scripted tier-one work.",
+      },
+      {
+        q: "What do entry-level remote jobs pay?",
+        a: "Among entry-level roles on our board that publish a range, the median midpoint is about $112,500, but only 10 of 128 disclose pay, so that figure rests on a small sample. Sales development roles that publish a range sit closer to $97,500 before commission.",
+      },
+      {
+        q: "Should I apply for work-from-anywhere jobs as a beginner?",
+        a: "Usually not first. They are 5.2% of the board and attract global competition, and only 8 entry-level roles among them. Region-locked remote roles are an eighteen times larger pool. Two years in one of those makes you an experienced remote candidate, which is who worldwide employers hire.",
+      },
+    ],
   },
   {
     slug: "work-from-anywhere-meaning",
