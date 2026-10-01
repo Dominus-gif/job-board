@@ -109,9 +109,14 @@ test.describe("WebMCP tools", () => {
 
     expect(data.total_matched, "tool and page disagree about how many jobs match").toBe(pageTotal);
     expect(data.returned).toBe(Math.min(3, pageTotal));
+    // Absolute and followable, without naming a host. The host comes from
+    // NEXT_PUBLIC_SITE_URL, which differs in all three places this runs: unset
+    // in CI (so the local origin), the production domain in a local build that
+    // reads .gitignored .env.production, and the production domain on a deploy.
+    // Asserting the host here would only pin which machine ran the test.
     for (const r of data.results) {
       expect(r.scope, "scope=worldwide must not return regional roles").toBe("worldwide");
-      expect(r.url).toMatch(/^https:\/\/getremotejobsnow\.com\/jobs\//);
+      expect(r.url, "results must carry a followable absolute URL").toMatch(/^https?:\/\/[^/]+\/jobs\/.+/);
     }
   });
 
