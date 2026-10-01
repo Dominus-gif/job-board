@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { CheckIcon } from "@/components/icons";
 
 export type SelectOption = { value: string; label: string; disabled?: boolean };
@@ -14,6 +15,14 @@ export type SelectOption = { value: string; label: string; disabled?: boolean };
  * (Up/Down/Home/End/Enter/Space/Esc + type-ahead), outside-click + Esc to close.
  * When `name` is set it also writes the value to a hidden input so it submits
  * inside a plain <form> (e.g. the server-action subscribe form).
+ *
+ * THE PANEL IS PORTALLED TO <body>, ON PURPOSE. As an absolutely positioned
+ * child it was clipped by any ancestor with `overflow: hidden`, which is how
+ * the subscribe band's category list ended up sliced in half by the hero
+ * section's decorative background. A portalled, fixed-position panel cannot be
+ * clipped or stacked under anything, wherever a <Select> is dropped in. It
+ * follows the button on scroll and resize, and flips above the button when
+ * there is more room there. tests/dropdown.spec.ts guards all of this.
  */
 export function Select({
   value,
@@ -40,6 +49,7 @@ export function Select({
 }) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
+  const [pos, setPos] = useState<{ top: number; left: number; width: number; maxHeight: number; flip: boolean } | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -75,11 +85,57 @@ export function Select({
   useEffect(() => {
     if (!open) return;
     function onDown(e: MouseEvent) {
-      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
+      const t = e.target as Node;
+      const inRoot = rootRef.current?.contains(t);
+      const inPanel = listRef.current?.contains(t);
+      if (!inRoot && !inPanel) setOpen(false);
     }
     document.addEventListener("mousedown", onDown);
     return () => document.removeEventListener("mousedown", onDown);
   }, [open]);
+
+  /**
+   * Where the panel goes. Measured from the button rather than inherited from a
+   * positioned ancestor, so the panel is unaffected by whatever the button is
+   * nested inside.
+   */
+  const place = useCallback(() => {
+    const btn = btnRef.current;
+    if (!btn) return;
+    const r = btn.getBoundingClientRect();
+    const GAP = 6;
+    const EDGE = 8; // breathing room against the viewport edge
+    const MAX = 288; // the old max-h-72, kept as the ceiling
+    const below = window.innerHeight - r.bottom - GAP - EDGE;
+    const above = r.top - GAP - EDGE;
+    // Flip up only when below is genuinely cramped and above is roomier.
+    const flip = below < 180 && above > below;
+    setPos({
+      top: flip ? r.top - GAP : r.bottom + GAP,
+      left: align === "end" ? r.right : r.left,
+      width: r.width,
+      maxHeight: Math.max(120, Math.min(MAX, flip ? above : below)),
+      flip,
+    });
+  }, [align]);
+
+  useLayoutEffect(() => {
+    if (!open) return;
+    place();
+  }, [open, place]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onMove = () => place();
+    // Capture phase so the panel also follows a scrolling container, not just
+    // the window.
+    window.addEventListener("scroll", onMove, true);
+    window.addEventListener("resize", onMove);
+    return () => {
+      window.removeEventListener("scroll", onMove, true);
+      window.removeEventListener("resize", onMove);
+    };
+  }, [open, place]);
 
   // Keep the active option scrolled into view.
   useEffect(() => {
@@ -138,16 +194,25 @@ export function Select({
         <ChevronIcon className={`h-4 w-4 flex-shrink-0 text-ink-400 transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
 
-      {open && (
+      {open && pos && typeof document !== "undefined" &&
+        createPortal(
         <ul
           ref={listRef}
           role="listbox"
           aria-label={ariaLabel}
           tabIndex={-1}
           onKeyDown={onKeyDown}
-          className={`absolute z-50 mt-1.5 max-h-72 min-w-full overflow-auto rounded-xl border border-ink-100 bg-white p-1 shadow-lg focus:outline-none ${
-            align === "end" ? "right-0" : "left-0"
-          }`}
+          data-select-panel=""
+          style={{
+            position: "fixed",
+            top: pos.top,
+            left: pos.left,
+            minWidth: pos.width,
+            maxWidth: `calc(100vw - 16px)`,
+            maxHeight: pos.maxHeight,
+            transform: `translate(${align === "end" ? "-100%" : "0"}, ${pos.flip ? "-100%" : "0"})`,
+          }}
+          className="z-[60] overflow-auto rounded-xl border border-ink-100 bg-white p-1 shadow-lg focus:outline-none"
         >
           {options.map((o, i) => {
             const isSelected = o.value === value;
@@ -175,7 +240,8 @@ export function Select({
               </li>
             );
           })}
-        </ul>
+        </ul>,
+        document.body,
       )}
     </div>
   );

@@ -64,10 +64,19 @@ export function middleware(req: NextRequest) {
   // TLS is terminated upstream, so the original scheme only survives in the
   // forwarded headers — req.nextUrl.protocol is always https by the time this
   // runs. 301 because the upgrade is permanent.
+  //
+  // Never on localhost. `next start` and `next dev` set x-forwarded-proto: http
+  // themselves, so this rule redirected every local request to an https origin
+  // that nothing is listening on. That is why Playwright's webServer probe
+  // timed out on every CI run since the suite was added, taking the mobile
+  // overflow guard with it, and why local scripts had to pass a fake
+  // x-forwarded-proto header to see a page at all.
+  const host = req.headers.get("host") ?? "";
+  const isLocalHost = /^(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/i.test(host);
   const forwardedProto = req.headers.get("x-forwarded-proto");
   const cfScheme = req.headers.get("cf-visitor");
   const wasPlainHttp = forwardedProto === "http" || (cfScheme ? cfScheme.includes("\"scheme\":\"http\"") : false);
-  if (wasPlainHttp) {
+  if (wasPlainHttp && !isLocalHost) {
     const url = req.nextUrl.clone();
     url.protocol = "https:";
     return NextResponse.redirect(url, 301);
