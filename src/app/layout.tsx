@@ -30,12 +30,15 @@ const editorialSerif = Instrument_Serif({
   style: ["normal", "italic"],
   variable: "--font-editorial",
   display: "swap",
+  // Footer-only: preloading it competes with the content that decides LCP.
+  preload: false,
 });
 const editorialMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-editorial-mono",
   display: "swap",
+  preload: false,
 });
 
 // Google Analytics (GA4). Override with NEXT_PUBLIC_GA_ID if the id ever changes.

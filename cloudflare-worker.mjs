@@ -55,9 +55,122 @@ async function withRenderedNotFound(request, response, env, ctx) {
   return rebuilt(html);
 }
 
+/* -------------------------------------------------------------------------- */
+/* Edge cache for finished HTML                                                */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Serve documents from the colo's own cache so a repeat request never boots
+ * Next at all.
+ *
+ * The pages are already prerendered: responses come back with
+ * `x-nextjs-cache: HIT`, and still take 600ms to 2s to start. That time is not
+ * rendering, it is waking the worker, evaluating a bundle that carries the
+ * whole job dataset, and reading the incremental cache. A Worker response never
+ * enters Cloudflare's CDN cache on its own, so every visitor paid it. Caching
+ * the finished document here skips all of it.
+ *
+ * Freshness, in order of what protects what:
+ *  - The key carries the deployment id, so a new version can never be served
+ *    HTML that points at the previous build's JavaScript chunks.
+ *  - Entries live for EDGE_TTL_SECONDS. The board itself only changes on the
+ *    nightly rebuild, and pages carry revalidate = 1800 behind this.
+ *  - Past REVALIDATE_AFTER_SECONDS a hit is still served immediately and the
+ *    page is refreshed in the background, so one visitor per window pays for
+ *    the next.
+ *
+ * Only plain document GETs qualify. Anything with a Set-Cookie, any non-200,
+ * any RSC navigation and every API route go straight through.
+ */
+const EDGE_TTL_SECONDS = 300;
+const REVALIDATE_AFTER_SECONDS = 60;
+
+const UNCACHEABLE_PATH = /^\/(api|_next\/image|cdn-cgi)\//;
+
+function wantsHtmlDocument(request) {
+  if (!isDocumentRequest(request)) return false;
+  if (UNCACHEABLE_PATH.test(new URL(request.url).pathname)) return false;
+  return (request.headers.get("accept") || "").includes("text/html");
+}
+
+/** The deployment id, so each release caches under its own keys. */
+function buildTag(env) {
+  return env?.CF_VERSION_METADATA?.id || "dev";
+}
+
+function cacheKeyFor(request, env) {
+  const url = new URL(request.url);
+  url.searchParams.set("__build", buildTag(env));
+  return new Request(url.toString(), { method: "GET" });
+}
+
+function isCacheable(response) {
+  return (
+    response.status === 200 &&
+    !response.headers.has("set-cookie") &&
+    (response.headers.get("content-type") || "").includes("text/html")
+  );
+}
+
+/** Render through the app, including the not-found repair above. */
+async function render(request, env, ctx) {
+  const response = await openNext.fetch(request, env, ctx);
+  return withRenderedNotFound(request, response, env, ctx);
+}
+
+async function store(cache, key, response) {
+  const copy = new Response(response.body, response);
+  copy.headers.set("cache-control", `public, s-maxage=${EDGE_TTL_SECONDS}`);
+  copy.headers.delete("set-cookie");
+  await cache.put(key, copy);
+}
+
+function tagged(response, state) {
+  const out = new Response(response.body, response);
+  out.headers.set("x-edge-cache", state);
+  return out;
+}
+
 export default {
   async fetch(request, env, ctx) {
-    const response = await openNext.fetch(request, env, ctx);
-    return withRenderedNotFound(request, response, env, ctx);
+    if (!wantsHtmlDocument(request)) return render(request, env, ctx);
+
+    const cache = caches.default;
+    const key = cacheKeyFor(request, env);
+
+    let hit;
+    try {
+      hit = await cache.match(key);
+    } catch {
+      hit = undefined; // a cache failure must never take the site down
+    }
+
+    if (hit) {
+      const age = Number(hit.headers.get("age") || 0);
+      if (age > REVALIDATE_AFTER_SECONDS) {
+        ctx.waitUntil(
+          (async () => {
+            try {
+              const fresh = await render(request, env, ctx);
+              if (isCacheable(fresh)) await store(cache, key, fresh);
+            } catch (err) {
+              console.error("[edge cache revalidate]", err instanceof Error ? err.message : String(err));
+            }
+          })(),
+        );
+      }
+      return tagged(hit, "HIT");
+    }
+
+    const response = await render(request, env, ctx);
+    if (isCacheable(response)) {
+      const copy = response.clone();
+      ctx.waitUntil(
+        store(cache, key, copy).catch((err) =>
+          console.error("[edge cache put]", err instanceof Error ? err.message : String(err)),
+        ),
+      );
+    }
+    return tagged(response, "MISS");
   },
 };
