@@ -98,8 +98,11 @@ async function withRenderedNotFound(request, response, env, ctx) {
  * Only plain document GETs qualify. Anything with a Set-Cookie, any non-200,
  * any RSC navigation and every API route go straight through.
  */
-const EDGE_TTL_SECONDS = 300;
-const REVALIDATE_AFTER_SECONDS = 60;
+// Half an hour, matching the revalidate on the pages themselves, with a
+// background refresh after five minutes. A short window meant most visitors
+// still met an empty cache, which is the expensive path.
+const EDGE_TTL_SECONDS = 1800;
+const REVALIDATE_AFTER_SECONDS = 300;
 
 const UNCACHEABLE_PATH = /^\/(api|_next\/image|cdn-cgi)\//;
 

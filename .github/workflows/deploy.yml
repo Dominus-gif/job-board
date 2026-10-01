@@ -86,6 +86,24 @@ jobs:
           echo "::error::Site did not return 200 after deploy"
           exit 1
 
+      # The worker caches finished documents per deployment, so every release
+      # starts with an empty cache. Fetch the pages that matter once, with a
+      # browser's Accept header, so a visitor does not pay for the first render.
+      - name: Warm the edge cache
+        continue-on-error: true
+        run: |
+          base=https://getremotejobsnow.com
+          paths="/ /jobs /companies /posts /tools /remote-regional-jobs /find-remote-jobs
+                 /remote-backend-jobs /remote-devops-jobs /remote-design-jobs
+                 /remote-sales-marketing-jobs /remote-management-finance-jobs
+                 /remote-customer-support-jobs /remote-product-jobs
+                 /work-from-anywhere-jobs /remote-jobs-in-usa /remote-jobs-in-europe
+                 /about /how-it-works /faq /contact /privacy /terms"
+          for p in $paths; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -H 'accept: text/html,application/xhtml+xml' "$base$p" || echo 000)
+            echo "warmed $p -> $code"
+          done
+
       # Each deploy writes its pages to KV under incremental-cache/<BUILD_ID>/
       # and nothing removed older builds, so storage grew past the free 1 GB.
       # Keeps the new build and the one it replaced; never fails the deploy.
