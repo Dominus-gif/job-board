@@ -22,6 +22,7 @@ import rawSeedJobs from "./seed/raw-jobs.json";
 import snapshotJobs from "./generated/snapshot.json";
 import { NORDHARTON_COMPANY, NORDHARTON_JOBS } from "./seed/nordharton";
 import { locationRequiresOffice } from "./pipeline/filter";
+import officeBasedIds from "./generated/office-based.json";
 // Prebuilt at `prebuild` (scripts/build-curated.ts) and committed. Loading a
 // plain JSON array here means a cold serverless instance does ZERO enrichment
 // work for the ~10k curated jobs — it just parses them — so they're always
@@ -266,11 +267,18 @@ const dropRetired = (jobs: Job[]): Job[] =>
 /**
  * Office-based listings, dropped at the same single choke point and for the
  * same reason: a filter at the source cannot be bypassed by the next call site
- * someone adds. Only the location is tested here, which is a short string;
- * scripts/build-curated.ts does the costlier description test at build time so
- * no request pays for it.
+ * someone adds.
+ *
+ * Two tests, split by what each costs. The location is a short string, so it is
+ * read per listing here and also catches anything a live scrape brings in. The
+ * description test would mean scanning every stored excerpt on every isolate
+ * boot, so scripts/build-office-based.ts runs it over the committed data and
+ * leaves an id list, the same shape as the retired-listing set above.
  */
-const dropOnsite = (jobs: Job[]): Job[] => jobs.filter((j) => !locationRequiresOffice(j.location));
+const OFFICE_BASED: ReadonlySet<string> = new Set(officeBasedIds as string[]);
+
+const dropOnsite = (jobs: Job[]): Job[] =>
+  jobs.filter((j) => !OFFICE_BASED.has(j.id) && !locationRequiresOffice(j.location));
 
 export async function loadJobs(): Promise<Job[]> {
   try {
