@@ -97,6 +97,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             src="https://datafa.st/js/script.js"
           />
         )}
+        {/* Open the connections the tags below will need, while the document is
+            still being parsed. Lighthouse costs the missing handshakes at about
+            310ms each on mobile; these two origins are the ones we actually ask
+            for on every page, so they are the only ones hinted — a preconnect to
+            an origin a page may not use is a wasted connection, not a free one.
+            Both are guarded by the same flag that loads the script, so turning a
+            tag off takes its hint with it. */}
+        {ADSENSE.enabled && <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />}
+        {GA_ID && <link rel="preconnect" href="https://www.googletagmanager.com" />}
       </head>
       <body className="min-h-screen flex flex-col">
         {/* The publisher entity, on every page, so the `@id` references in each
