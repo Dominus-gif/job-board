@@ -304,6 +304,8 @@ export default async function JobsSearchPage(props: { searchParams: Promise<SP> 
             </div>
           )}
 
+          <h2 className="sr-only">Search results</h2>
+
           {items.length === 0 ? (
             <div className="rounded-xl border border-dashed border-ink-200 bg-white p-12 text-center text-ink-500">
               No roles match these filters. <Link href="/jobs" className="font-medium text-brand-600 hover:text-brand-700">Clear filters</Link>.

@@ -88,7 +88,7 @@ export function Footer() {
             {/* Company links live in the brand column so it fills the row height
                 instead of leaving dead space below the tall link columns. */}
             <div className="mt-8">
-              <h4 className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">Company</h4>
+              <h2 className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">Company</h2>
               <ul className="mt-4 space-y-2.5 text-sm">
                 <FooterLink href="/about">About</FooterLink>
                 <FooterLink href="/how-it-works">How it works</FooterLink>
@@ -145,7 +145,7 @@ export function Footer() {
       {/* Popular searches — keyword-rich internal links on every page. */}
       <div className="relative z-[1] border-t border-white/10">
         <div className="mx-auto max-w-6xl px-4 py-8">
-          <h4 className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">Popular remote job searches</h4>
+          <h2 className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">Popular remote job searches</h2>
           <div className="mt-4 flex flex-wrap gap-2">
             {POPULAR_SEARCHES.map((s) => (
               <Link
@@ -216,7 +216,7 @@ export function Footer() {
 function FooterCol({ title, children, span2 = false }: { title: string; children: React.ReactNode; span2?: boolean }) {
   return (
     <div className={span2 ? "lg:col-span-2" : ""}>
-      <h4 className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">{title}</h4>
+      <h2 className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-ink-400">{title}</h2>
       <ul
         className={`mt-4 space-y-2.5 text-sm ${
           span2 ? "sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-2.5 sm:space-y-0" : ""

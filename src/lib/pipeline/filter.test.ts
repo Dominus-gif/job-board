@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { filterJob } from "./filter";
+import { filterJob, locationRequiresOffice, descriptionRequiresOffice } from "./filter";
 import type { RawJob } from "../types";
 
 function raw(partial: Partial<RawJob>): RawJob {
@@ -55,5 +55,37 @@ describe("Stage B — Work From Anywhere filter", () => {
 
   it("rejects hybrid/onsite", () => {
     expect(filterJob(raw({ location_raw: "Hybrid - Berlin" })).accepted).toBe(false);
+  });
+});
+
+describe("office-based listings", () => {
+  it("drops a location that names an office or a hybrid arrangement", () => {
+    for (const loc of ["Hybrid", "Hybrid - London", "SF Office", "New York Office", "Hybrid in Bangalore, India", "On Site, Palo Alto, California", "Redwood City, CA (Hybrid)"]) {
+      expect(locationRequiresOffice(loc)).toBe(true);
+    }
+  });
+
+  it("keeps a location that offers a remote option beside the office one", () => {
+    for (const loc of ["Montreal, QC (Remote/Hybrid)", "New York City, NY (Hybrid); United States (Remote)", "Remote/Hybrid", "Japan (Remote / Hybrid - Tokyo preferred)"]) {
+      expect(locationRequiresOffice(loc)).toBe(false);
+    }
+  });
+
+  it("keeps ordinary remote locations", () => {
+    for (const loc of ["Anywhere in the World", "Remote - United States", "Europe", "London", ""]) {
+      expect(locationRequiresOffice(loc)).toBe(false);
+    }
+  });
+
+  it("reads an attendance requirement stated in the description", () => {
+    expect(descriptionRequiresOffice("<p>This is a hybrid role based in our Seattle hub.</p>")).toBe(true);
+    expect(descriptionRequiresOffice("<p>We expect 3 days a week in the office.</p>")).toBe(true);
+    expect(descriptionRequiresOffice("<p>Candidates must be within commuting distance.</p>")).toBe(true);
+  });
+
+  it("ignores the word used about something other than attendance", () => {
+    expect(descriptionRequiresOffice("<p>You will run our hybrid cloud estate across AWS and on-prem.</p>")).toBe(false);
+    expect(descriptionRequiresOffice("<p>We take a hybrid approach to testing.</p>")).toBe(false);
+    expect(descriptionRequiresOffice("<p>Fully remote, with an optional office in Berlin.</p>")).toBe(false);
   });
 });

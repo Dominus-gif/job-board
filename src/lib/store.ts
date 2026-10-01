@@ -21,6 +21,7 @@ import companiesSeed from "./seed/companies.json";
 import rawSeedJobs from "./seed/raw-jobs.json";
 import snapshotJobs from "./generated/snapshot.json";
 import { NORDHARTON_COMPANY, NORDHARTON_JOBS } from "./seed/nordharton";
+import { locationRequiresOffice } from "./pipeline/filter";
 // Prebuilt at `prebuild` (scripts/build-curated.ts) and committed. Loading a
 // plain JSON array here means a cold serverless instance does ZERO enrichment
 // work for the ~10k curated jobs — it just parses them — so they're always
@@ -262,15 +263,24 @@ const RETIRED: ReadonlySet<string> = new Set(retiredApplyUrls as string[]);
 const dropRetired = (jobs: Job[]): Job[] =>
   RETIRED.size === 0 ? jobs : jobs.filter((j) => !j.apply_url || !RETIRED.has(j.apply_url));
 
+/**
+ * Office-based listings, dropped at the same single choke point and for the
+ * same reason: a filter at the source cannot be bypassed by the next call site
+ * someone adds. Only the location is tested here, which is a short string;
+ * scripts/build-curated.ts does the costlier description test at build time so
+ * no request pays for it.
+ */
+const dropOnsite = (jobs: Job[]): Job[] => jobs.filter((j) => !locationRequiresOffice(j.location));
+
 export async function loadJobs(): Promise<Job[]> {
   try {
-    return dropRetired(serve(await loadRealJobs()));
+    return dropOnsite(dropRetired(serve(await loadRealJobs())));
   } catch (err) {
     console.warn("[store] loadJobs failed — serving baseline:", (err as Error)?.message);
     try {
-      return dropRetired(serve(baseline));
+      return dropOnsite(dropRetired(serve(baseline)));
     } catch {
-      return dropRetired(baseline);
+      return dropOnsite(dropRetired(baseline));
     }
   }
 }

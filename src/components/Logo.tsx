@@ -13,9 +13,13 @@
  */
 import Image from "next/image";
 
-// Intrinsic size of the trimmed lockup (public/brand-logo*.png).
-const W = 1116;
-const H = 512;
+// Intrinsic size of the files we actually ship. The masters are 1116x512, but
+// images.unoptimized is on for Cloudflare (see CLOUDFLARE.md), so next/image
+// hands the browser whatever file it is given: a 57KB PNG for a ~105px slot.
+// These are the same lockup resized to twice the rendered height and saved as
+// WebP, which costs about 6KB instead.
+const W = 209;
+const H = 96;
 const ALT = "GetRemoteJobsNow.com — Work From Anywhere";
 // Rendered at 48px tall ⇒ ~105px wide. The lockup stacks three lines, so it
 // needs more height than the old single-line wordmark to stay legible; 48px
@@ -27,12 +31,14 @@ export function Logo({ className = "", onDark = false }: { className?: string; o
   if (onDark) {
     return (
       <Image
-        src="/brand-logo-dark.png"
+        src="/brand-logo-dark-96.webp"
         alt={ALT}
         width={W}
         height={H}
         sizes={SIZES}
-        priority
+        /* The footer mark is below the fold on every page; `priority` here was
+           making it compete for bandwidth with the element that decides LCP. */
+        loading="lazy"
         className={`h-[48px] w-auto ${className}`}
       />
     );
@@ -40,8 +46,8 @@ export function Logo({ className = "", onDark = false }: { className?: string; o
   return (
     <span className={`inline-flex items-center ${className}`}>
       {/* Colour mark on the light header; tonal dark mark once it goes dark. */}
-      <Image src="/brand-logo.png" alt={ALT} width={W} height={H} sizes={SIZES} priority className="h-[48px] w-auto dark:hidden" />
-      <Image src="/brand-logo-dark.png" alt="" aria-hidden width={W} height={H} sizes={SIZES} className="hidden h-[48px] w-auto dark:block" />
+      <Image src="/brand-logo-96.webp" alt={ALT} width={W} height={H} sizes={SIZES} priority className="h-[48px] w-auto dark:hidden" />
+      <Image src="/brand-logo-dark-96.webp" alt="" aria-hidden width={W} height={H} sizes={SIZES} className="hidden h-[48px] w-auto dark:block" />
     </span>
   );
 }

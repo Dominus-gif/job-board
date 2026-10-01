@@ -13,7 +13,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Job, RawJob } from "../src/lib/types";
 import { toPublishedJob } from "../src/lib/pipeline";
-import { classifyJob } from "../src/lib/pipeline/filter";
+import { classifyJob, statesOfficeRequirement } from "../src/lib/pipeline/filter";
 import curated from "../src/lib/seed/curated.json";
 import roles from "../src/lib/seed/curated-roles.json";
 import flexRoles from "../src/lib/seed/flexjobs-roles.json";
@@ -469,9 +469,15 @@ const notRetired = all.filter((j) => !j.apply_url || !retiredUrls.has(j.apply_ur
  * moment a capture run finds their description, or immediately with
  * KEEP_INCOMPLETE=1.
  */
+// Office and hybrid listings: the curated seeds set their own scope and so
+// never met classifyJob, which would have rejected them. See
+// statesOfficeRequirement for why the test is deliberately narrow.
+const officeBased = notRetired.filter((j) => statesOfficeRequirement(j.location, j.description_html));
+const officeIds = new Set(officeBased.map((j) => j.id));
+
 const keepIncomplete = process.env.KEEP_INCOMPLETE === "1";
 const { kept: complete, report: dropReport } = dropIncompleteDescriptions(notRetired);
-const live = keepIncomplete ? notRetired : complete;
+const live = (keepIncomplete ? notRetired : complete).filter((j) => !officeIds.has(j.id));
 console.log(
   `[curated] ${dropReport.dropped} listing(s) cannot be described completely ` +
     `(${Object.entries(dropReport.byReason).map(([k, n]) => `${k}: ${n}`).join(", ")}) — ` +
@@ -489,6 +495,7 @@ const slim: Slim[] = live.map((j) => {
 const OUT = join(process.cwd(), "src", "lib", "generated", "curated-jobs.json");
 writeFileSync(OUT, JSON.stringify(slim));
 console.log(`[curated] wrote ${slim.length} prebuilt curated jobs to generated/curated-jobs.json (from ${all.length} built: ${all.length - notRetired.length} retired, ${notRetired.length - live.length} incomplete)`);
+console.log(`[curated] dropped ${officeBased.length} office-based or hybrid listing(s) (location or description states attendance)`);
 console.log(`[curated] dropped ${droppedDefect} listing(s) with an unusable title or a non-English body`);
 console.log(`[curated] dropped ${droppedAttribution} listing(s) whose employer could not be verified against the ATS board in their apply URL`);
 console.log(`[curated] ashby: ${ashbyWorldwide} worldwide + ${ashbyRegional} regional, ${ashbyRejected} rejected by the work-from-anywhere classifier`);
