@@ -30,6 +30,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
       modifiedTime: post.updated ?? post.date,
       authors: [post.author],
       tags: post.tags,
+      images: [{ url: abs("/api/og"), width: 1200, height: 630, alt: SITE.name }],
     },
     twitter: { card: "summary_large_image", title: post.title, description: post.description },
   };
@@ -50,7 +51,7 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
       datePublished: post.date,
       dateModified: post.updated ?? post.date,
       author: { "@type": "Person", name: post.author, url: abs("/about") },
-      publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
+      publisher: { "@id": abs("/#organization") },
       mainEntityOfPage: url,
       url,
       keywords: post.tags.join(", "),

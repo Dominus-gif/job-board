@@ -2,33 +2,47 @@ import type { Job } from "./types";
 import { abs, SITE } from "./site";
 import { applicantAreas } from "./seo/job-location";
 
-/** Organization + WebSite JSON-LD for the site (brand/knowledge-panel signals). */
+/**
+ * The publisher, emitted from the root layout so every page carries it.
+ *
+ * Posts and tools name their publisher by `@id` rather than repeating the
+ * details; a reference only resolves if the entity is on the same page, which
+ * is why this lives in the layout and not on the homepage alone.
+ */
+export function organizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+      "@type": "Organization",
+    "@id": abs("/#organization"),
+    name: SITE.name,
+    url: SITE.url,
+    description: SITE.description,
+    logo: { "@type": "ImageObject", url: abs("/icon.png"), width: 512, height: 512 },
+    founder: { "@type": "Person", name: SITE.owner, url: abs("/about") },
+    email: SITE.email,
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        email: SITE.email,
+        url: abs("/contact"),
+        availableLanguage: "English",
+      },
+    ],
+  };
+}
+
+/** The site entity itself. The homepage is the only page that needs it. */
 export function siteJsonLd() {
   return [
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": "WebSite",
+      "@id": abs("/#website"),
       name: SITE.name,
       url: SITE.url,
       description: SITE.description,
-      founder: { "@type": "Person", name: SITE.owner },
-      email: SITE.email,
-      contactPoint: [
-        {
-          "@type": "ContactPoint",
-          contactType: "customer support",
-          email: SITE.email,
-          url: abs("/contact"),
-          availableLanguage: "English",
-        },
-      ],
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      name: `${SITE.name} — Remote Jobs`,
-      url: SITE.url,
-      description: SITE.description,
+      publisher: { "@id": abs("/#organization") },
     },
   ];
 }
@@ -39,7 +53,9 @@ export function jobListJsonLd(jobs: Job[], name = "Remote Jobs") {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name,
-    numberOfItems: jobs.length,
+    // Count what is actually emitted: a list that announces 232 items and
+    // carries 25 is invalid, and the extra number buys nothing.
+    numberOfItems: Math.min(jobs.length, 25),
     itemListElement: jobs.slice(0, 25).map((j, i) => ({
       "@type": "ListItem",
       position: i + 1,

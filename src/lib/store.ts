@@ -21,7 +21,7 @@ import companiesSeed from "./seed/companies.json";
 import rawSeedJobs from "./seed/raw-jobs.json";
 import snapshotJobs from "./generated/snapshot.json";
 import { NORDHARTON_COMPANY, NORDHARTON_JOBS } from "./seed/nordharton";
-import { locationRequiresOffice } from "./pipeline/filter";
+import { locationRequiresOffice, titleNamesRegion } from "./pipeline/filter";
 import officeBasedIds from "./generated/office-based.json";
 // Prebuilt at `prebuild` (scripts/build-curated.ts) and committed. Loading a
 // plain JSON array here means a cold serverless instance does ZERO enrichment
@@ -280,15 +280,29 @@ const OFFICE_BASED: ReadonlySet<string> = new Set(officeBasedIds as string[]);
 const dropOnsite = (jobs: Job[]): Job[] =>
   jobs.filter((j) => !OFFICE_BASED.has(j.id) && !locationRequiresOffice(j.location));
 
+/**
+ * A role whose title names a place belongs on the regional board, whatever its
+ * location field claims. Same reasoning as dropOnsite: the curated rows never
+ * meet classifyJob, so the test has to run where every source passes through.
+ * The listing keeps its page; it moves board and stops being offered to Google
+ * as work-from-anywhere.
+ */
+const regionaliseByTitle = (jobs: Job[]): Job[] =>
+  jobs.map((j) => {
+    if (j.scope !== "worldwide") return j;
+    const region = titleNamesRegion(j.title);
+    return region ? { ...j, scope: "regional" as const, location: region } : j;
+  });
+
 export async function loadJobs(): Promise<Job[]> {
   try {
-    return dropOnsite(dropRetired(serve(await loadRealJobs())));
+    return regionaliseByTitle(dropOnsite(dropRetired(serve(await loadRealJobs()))));
   } catch (err) {
     console.warn("[store] loadJobs failed — serving baseline:", (err as Error)?.message);
     try {
-      return dropOnsite(dropRetired(serve(baseline)));
+      return regionaliseByTitle(dropOnsite(dropRetired(serve(baseline))));
     } catch {
-      return dropOnsite(dropRetired(baseline));
+      return regionaliseByTitle(dropOnsite(dropRetired(baseline)));
     }
   }
 }

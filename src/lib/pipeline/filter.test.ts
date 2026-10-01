@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { filterJob, locationRequiresOffice, descriptionRequiresOffice } from "./filter";
+import { filterJob, locationRequiresOffice, descriptionRequiresOffice, titleNamesRegion } from "./filter";
 import type { RawJob } from "../types";
 
 function raw(partial: Partial<RawJob>): RawJob {
@@ -87,5 +87,45 @@ describe("office-based listings", () => {
     expect(descriptionRequiresOffice("<p>You will run our hybrid cloud estate across AWS and on-prem.</p>")).toBe(false);
     expect(descriptionRequiresOffice("<p>We take a hybrid approach to testing.</p>")).toBe(false);
     expect(descriptionRequiresOffice("<p>Fully remote, with an optional office in Berlin.</p>")).toBe(false);
+  });
+});
+
+describe("titles that name a place", () => {
+  it("catches the forms employers actually use", () => {
+    const cases: [string, string][] = [
+      ["Senior Sales Engineer - UK", "UK"],
+      ["Account Executive (EMEA)", "EMEA"],
+      ["IoT Solutions Architecture Manager (Americas only)", "Americas"],
+      ["Payroll Specialist Lead - France", "France"],
+      ["Forward Deployed Engineer - Software Engineer - Netherlands", "Netherlands"],
+      ["Full Stack Product Engineer - Remote/Europe", "Europe"],
+      ["Manager, Payroll Operations - Eastern Europe", "Eastern Europe"],
+      ["Payroll Data Administrator - Benelux (12 Month FTC)", "Benelux"],
+      ["Developer Relations Engineer (London, UK)", "UK"],
+      ["Deployment Strategist Lead - India", "India"],
+      ["Lifecycle Specialist, Contract Management - LATAM", "Latin America"],
+    ];
+    for (const [title, region] of cases) expect(titleNamesRegion(title), title).toBe(region);
+  });
+
+  it("leaves genuinely global titles alone", () => {
+    for (const title of [
+      "Senior Backend Engineer",
+      "Customer Support Specialist",
+      "Head of Global Partnerships",
+      "Staff Engineer, Platform",
+      "Technical Writer (Remote)",
+      "Account Executive, Enterprise",
+      "Director of Engineering",
+    ]) {
+      expect(titleNamesRegion(title), title).toBeNull();
+    }
+  });
+
+  it("does not fire on ordinary words that contain a short form", () => {
+    // "us" inside a sentence, "UK" inside a word, "Indiana" containing "India".
+    for (const title of ["Join us as a Product Manager", "Senior Engineer, Ukulele Tech", "Field Rep, Indiana"]) {
+      expect(titleNamesRegion(title), title).toBeNull();
+    }
   });
 });

@@ -82,6 +82,9 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       {/* Hero */}
+      {/* The dot-matrix mask is the LCP element; without this the browser only
+          finds it after parsing the stylesheet. */}
+      <link rel="preload" as="image" href="/world-dots.svg" type="image/svg+xml" fetchPriority="high" />
       <section className="relative overflow-hidden border-b border-ink-100 bg-white">
         <div
           className="pointer-events-none absolute inset-0 bg-meridian opacity-60 [background-size:44px_44px] [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]"

@@ -442,7 +442,14 @@ function matchRegions(hay: string): string[] {
  * response upstream is to publish no JobPosting block rather than a broken one.
  */
 export function applicantAreas(location: string, scope: "worldwide" | "regional"): ApplicantArea[] {
-  if (scope === "worldwide") return [{ "@type": "Country", name: "Worldwide" }];
+  // A worldwide role has no country to name, and "Worldwide" is not one.
+  // Google's JobPosting reference requires "a minimum of one country from which
+  // applicants are eligible to work", and lists no global value; the countries
+  // we would have to invent are not ours to assert on an employer's behalf. So
+  // these postings get no JobPosting block at all, which is the same choice
+  // this module already makes for every other record it cannot describe
+  // honestly. The page itself is unaffected.
+  if (scope === "worldwide") return [];
 
   const raw = location || "";
   const hay = norm(raw);

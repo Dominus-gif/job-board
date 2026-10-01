@@ -10,6 +10,7 @@ import { NewsletterCta } from "@/components/NewsletterCta";
 import { NewsletterCtaGate } from "@/components/NewsletterCtaGate";
 import { RoleSubscribeCta } from "@/components/RoleSubscribeCta";
 import { themeInitScript, ThemeGuard } from "@/components/ThemeToggle";
+import { organizationJsonLd } from "@/lib/jsonld";
 import { TemplateAnalytics } from "@/components/TemplateAnalytics";
 import { RouteProgress } from "@/components/RouteProgress";
 
@@ -94,6 +95,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       </head>
       <body className="min-h-screen flex flex-col">
+        {/* The publisher entity, on every page, so the `@id` references in each
+            page's own markup resolve against something. */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }} />
         <ThemeGuard />
         {/* Click-to-paint feedback for server-rendered navigations. */}
         <RouteProgress />

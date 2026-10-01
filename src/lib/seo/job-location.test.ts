@@ -59,9 +59,12 @@ describe("applicantAreas", () => {
     }
   });
 
-  it("marks a worldwide role Worldwide whatever the string says", () => {
-    expect(applicantAreas("Anywhere in the World", "worldwide")).toEqual([
-      { "@type": "Country", name: "Worldwide" },
-    ]);
+  it("names no area for a worldwide role, so the caller omits the JobPosting", () => {
+    // Google's JobPosting reference asks for "a minimum of one country from
+    // which applicants are eligible to work" and defines no global value, so
+    // the old { Country: "Worldwide" } was markup it could not resolve. There
+    // is no honest country to name on an employer's behalf, and this module's
+    // rule is to say nothing rather than something broken.
+    expect(applicantAreas("Anywhere in the World", "worldwide")).toEqual([]);
   });
 });

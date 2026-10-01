@@ -26,7 +26,7 @@ export async function generateMetadata(props: { params: Promise<{ company: strin
   const company = await getCompanyBySlug(params.company);
   if (!company) return {};
   return {
-    title: `${company.name} — Remote Jobs, Reviews & Company Profile`,
+    title: `${company.name} — Open Remote Jobs & Company Profile`,
     description: `${company.name} company profile: details and their ${company.jobCount} open remote ${company.jobCount === 1 ? "role" : "roles"}${company.worldwideCount > 0 ? ` (${company.worldwideCount} work-from-anywhere)` : ""}.`,
     // Two thirds of these pages exist to show a single job. They stay on the
     // site and stay linked; they stop being offered as search destinations.

@@ -73,7 +73,13 @@ export interface Classification {
  */
 export function classifyJob(job: RawJob): Classification {
   const worldwide = filterJob(job);
-  if (worldwide.accepted) return { scope: "worldwide", reason: worldwide.reason };
+  if (worldwide.accepted) {
+    // The filter reads the location and the description. A title like
+    // "Senior Sales Engineer - UK" says the rest.
+    const titled = titleNamesRegion(job.title);
+    if (!titled) return { scope: "worldwide", reason: worldwide.reason };
+    return { scope: "regional", region: titled, reason: `Title names a place ("${titled}").` };
+  }
 
   const location = (job.location_raw || "").toLowerCase().trim();
   const descText = toText(job.description_html || "");
@@ -135,4 +141,99 @@ export function descriptionRequiresOffice(html: string | undefined | null): bool
 /** Either test, for callers that have the whole record. */
 export function statesOfficeRequirement(location: string | undefined | null, descriptionHtml?: string | null): boolean {
   return locationRequiresOffice(location) || descriptionRequiresOffice(descriptionHtml);
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* Titles that name a place                                                    */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * The region a job title restricts the role to, or null.
+ *
+ * The worldwide filter reads the location field and the description, so a
+ * listing whose ATS location says "Remote - Global" passes even when its own
+ * title says otherwise. 28 of 232 roles on the worldwide board were titled
+ * "Senior Sales Engineer - UK", "Account Executive (EMEA)", "Payroll Specialist
+ * Lead - France" or "IoT Solutions Architecture Manager (Americas only)". Those
+ * pages are the ones we ask Google to index, and they contradict the promise
+ * the board is built on.
+ *
+ * Only unambiguous tokens are listed. Short forms are matched case-sensitively,
+ * so "US" and "UK" do not fire on ordinary words, and country names that double
+ * as personal names (Jordan, Georgia, Chad) are left out entirely: a false
+ * positive here quietly demotes a genuinely global role.
+ */
+const REGION_TOKENS: [RegExp, string][] = [
+  // Multi-country regions, as employers write them.
+  [/\bEMEA\b/, "EMEA"],
+  [/\bAPAC\b/, "Asia-Pacific"],
+  [/\bLATAM\b/, "Latin America"],
+  [/\bAMER\b/, "Americas"],
+  [/\bANZ\b/, "Australia & New Zealand"],
+  [/\bDACH\b/, "DACH"],
+  [/\bMENA\b/, "Middle East & North Africa"],
+  [/\bBenelux\b/i, "Benelux"],
+  [/\bNordics?\b/i, "Nordics"],
+  [/\bEastern Europe\b/i, "Eastern Europe"],
+  [/\bWestern Europe\b/i, "Western Europe"],
+  [/\bNorth America\b/i, "North America"],
+  [/\bLatin America\b/i, "Latin America"],
+  [/\bSouth America\b/i, "South America"],
+  [/\bMiddle East\b/i, "Middle East"],
+  [/\bAmericas\b/i, "Americas"],
+  [/\bEurope(?:an)?\b/i, "Europe"],
+  [/\bAfrica\b/i, "Africa"],
+  // Countries and the forms that appear in titles.
+  [/\bUnited States\b/i, "United States"],
+  [/\bUnited Kingdom\b/i, "UK"],
+  [/\b(?:USA|U\.S\.A?\.?)\b/, "United States"],
+  [/\bUS\b/, "United States"],
+  [/\bUK\b/, "UK"],
+  [/\bUAE\b/, "UAE"],
+  [/\bCanada\b/i, "Canada"],
+  [/\bIndia\b/i, "India"],
+  [/\bFrance\b/i, "France"],
+  [/\bGermany\b/i, "Germany"],
+  [/\bSpain\b/i, "Spain"],
+  [/\bPortugal\b/i, "Portugal"],
+  [/\bItaly\b/i, "Italy"],
+  [/\bIreland\b/i, "Ireland"],
+  [/\bNetherlands\b/i, "Netherlands"],
+  [/\bBelgium\b/i, "Belgium"],
+  [/\bPoland\b/i, "Poland"],
+  [/\bRomania\b/i, "Romania"],
+  [/\bSweden\b/i, "Sweden"],
+  [/\bNorway\b/i, "Norway"],
+  [/\bDenmark\b/i, "Denmark"],
+  [/\bFinland\b/i, "Finland"],
+  [/\bSwitzerland\b/i, "Switzerland"],
+  [/\bAustria\b/i, "Austria"],
+  [/\bAustralia\b/i, "Australia"],
+  [/\bNew Zealand\b/i, "New Zealand"],
+  [/\bJapan\b/i, "Japan"],
+  [/\bSingapore\b/i, "Singapore"],
+  [/\bBrazil\b/i, "Brazil"],
+  [/\bMexico\b/i, "Mexico"],
+  [/\bArgentina\b/i, "Argentina"],
+  [/\bColombia\b/i, "Colombia"],
+  [/\bPhilippines\b/i, "Philippines"],
+  [/\bNigeria\b/i, "Nigeria"],
+  [/\bKenya\b/i, "Kenya"],
+  [/\bSouth Africa\b/i, "South Africa"],
+  [/\bIsrael\b/i, "Israel"],
+  // Cities only where the city implies the country beyond doubt.
+  [/\bLondon\b/i, "UK"],
+  [/\bBerlin\b/i, "Germany"],
+  [/\bBangalore\b|\bBengaluru\b/i, "India"],
+  [/\bToronto\b/i, "Canada"],
+  [/\bSydney\b/i, "Australia"],
+  [/\bDubai\b/i, "UAE"],
+];
+
+export function titleNamesRegion(title: string | undefined | null): string | null {
+  const t = String(title || "");
+  if (!t) return null;
+  for (const [re, label] of REGION_TOKENS) if (re.test(t)) return label;
+  return null;
 }

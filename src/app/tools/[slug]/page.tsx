@@ -41,7 +41,13 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     description: tool.description,
     keywords: tool.keywords,
     alternates: { canonical: url },
-    openGraph: { type: "website", title: tool.title, description: tool.description, url },
+    openGraph: {
+      type: "website",
+      title: tool.title,
+      description: tool.description,
+      url,
+      images: [{ url: abs("/api/og"), width: 1200, height: 630, alt: SITE.name }],
+    },
     twitter: { card: "summary", title: tool.title, description: tool.description },
   };
 }
@@ -98,7 +104,7 @@ export default async function ToolPage(props: { params: Promise<{ slug: string }
       operatingSystem: "Web",
       isAccessibleForFree: true,
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-      publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
+      publisher: { "@id": abs("/#organization") },
     },
     breadcrumbJsonLd([
       { name: "Tools", path: "/tools" },
