@@ -21,3 +21,11 @@
   Cache-Control: public, max-age=2592000
 /footer-landscape.jpg
   Cache-Control: public, max-age=2592000
+
+# Regenerated every build (scripts/build-llms-txt.ts) and read by agents rather
+# than browsers, so an hour at the edge with a day of stale-while-revalidate is
+# plenty. Explicit content-type because Cloudflare serves .txt without a charset
+# and some clients then guess.
+/llms.txt
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  Content-Type: text/plain; charset=utf-8

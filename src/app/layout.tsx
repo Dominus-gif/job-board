@@ -10,6 +10,7 @@ import { NewsletterCta } from "@/components/NewsletterCta";
 import { NewsletterCtaGate } from "@/components/NewsletterCtaGate";
 import { RoleSubscribeCta } from "@/components/RoleSubscribeCta";
 import { themeInitScript, ThemeGuard } from "@/components/ThemeToggle";
+import { AgentTools } from "@/components/AgentTools";
 import { organizationJsonLd } from "@/lib/jsonld";
 import { TemplateAnalytics } from "@/components/TemplateAnalytics";
 import { RouteProgress } from "@/components/RouteProgress";
@@ -148,6 +149,9 @@ gtag('config', '${GA_ID}');`}
           </NewsletterCtaGate>
         )}
         <Footer />
+        {/* WebMCP tools for AI assistants. Last thing in the body: nothing
+            above it waits on this, and it adds nothing to the client bundle. */}
+        <AgentTools />
       </body>
     </html>
   );

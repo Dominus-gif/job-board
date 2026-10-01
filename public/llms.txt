@@ -1,0 +1,124 @@
+# getremotejobsnow.com
+
+> A remote job board that sorts every listing by where you can actually work from: anywhere in the world, or a named country or region. It also publishes original guides and free browser-based tools for remote job seekers.
+
+The board is rebuilt nightly from employers' own hiring systems. Every listing links to the employer's own application page; we never charge job seekers and never collect applications ourselves. The site is run by Bhargav (hello@getremotejobsnow.com).
+
+## What makes the data here unusual
+
+Listings are split into two boards, and the split is the point:
+
+- **Work from anywhere**: no country, region, time zone or local work-authorisation requirement. A small minority of remote jobs qualify.
+- **Regional remote**: genuinely remote but tied to a named place, labelled on every card and page.
+
+Roles that ask for office days, a hybrid schedule or commuting distance are removed from both boards.
+
+## Start here
+
+- [Remote jobs you can do from anywhere](https://getremotejobsnow.com/work-from-anywhere-jobs): the main board, no location requirement of any kind
+- [Regional remote jobs](https://getremotejobsnow.com/remote-regional-jobs): remote roles limited to a named country or region
+- [Search all remote jobs](https://getremotejobsnow.com/jobs): filter by field, region, salary, employment type and scope
+- [Companies hiring remotely](https://getremotejobsnow.com/companies): employers on the board, with how widely each one hires
+- [How the board works](https://getremotejobsnow.com/how-it-works): the location rules, in detail, including what gets rejected
+- [About and contact](https://getremotejobsnow.com/about): who runs the site, where listings come from, how to report an error
+
+## Guides
+
+Written from the board's own listings, with sample sizes and stated limits. Figures are dated in each piece.
+
+- [Remote Hiring Report, September 2026: 4,581 Jobs Analysed](https://getremotejobsnow.com/posts/remote-hiring-report-september-2026): Every open role on our board, counted: where the jobs are, what they pay, which fields hire worldwide, and the 24 employers behind the location-free roles.
+- [Remote Jobs at AI Labs and Space Companies: Who Really Hires Remotely](https://getremotejobsnow.com/posts/remote-jobs-at-ai-labs-and-space-companies): How AI labs and space companies really hire: office policies, export rules, and why only 4 of 464 AI roles on our board are open worldwide. Plus where to look.
+- [How to Get Hired Remotely From Outside the US: The 2026 Guide](https://getremotejobsnow.com/posts/getting-hired-remotely-from-outside-the-us): How candidates outside the US get hired for remote jobs: which roles are open to you, employer of record vs contractor, pay, currency, tax and visas.
+- [Remote Customer Support Jobs in 2026: Pay, Career Paths and Openings](https://getremotejobsnow.com/posts/remote-customer-support-careers): What remote customer support jobs pay, how the career ladder works and where the openings are, using listing data from our own remote job board.
+- [Remote Finance and Accounting Jobs Without a Tech Background](https://getremotejobsnow.com/posts/remote-finance-accounting-jobs): Which remote finance and accounting jobs hire across borders, why many stay tied to one country, and what they pay, based on our own job listings.
+- [Remote Sales Jobs: SaaS SDR Roles vs Field Sales in Disguise](https://getremotejobsnow.com/posts/remote-sales-jobs-sdr-vs-field-sales): How to tell a truly remote sales job from field sales with travel, how base pay and OTE work, and which sales roles on our board hire across borders.
+- [Remote HR, Operations and Admin Jobs: Who Hires and What They Pay](https://getremotejobsnow.com/posts/remote-operations-hr-admin-jobs): Remote roles in HR, recruiting, operations, admin and IT support: how many our board lists, how often they're open worldwide, and what they pay.
+- [Cost-of-Living Arbitrage on a Remote Salary: The Maths and the Traps](https://getremotejobsnow.com/posts/cost-of-living-arbitrage-remote-salary): Earning in dollars or euros while living somewhere cheaper: how to run the numbers, what doesn't get cheaper, and the currency and tax traps.
+- [Working Remotely From Abroad: What Happens to Your Taxes](https://getremotejobsnow.com/posts/remote-work-taxes-living-abroad): Tax residency, the 183-day rule, social security and your employer's risks: what changes when you move abroad but keep your remote job.
+- [What Working From Home Really Costs, and What Tax Relief You Get](https://getremotejobsnow.com/posts/cost-of-working-from-home-by-country): A yearly budget for working from home, from desk to broadband, plus how the US, UK, Germany, the Netherlands, Ireland and Australia treat the costs.
+- [How to Tell If a Company Is Truly Distributed or Remote in Name Only](https://getremotejobsnow.com/posts/how-to-tell-if-a-company-is-truly-distributed): The signals that separate distributed companies from employers that are remote in name only, with evidence from how 1,076 companies hire on our board.
+- [The Most Remote-Friendly Companies Hiring Worldwide, From Our Data](https://getremotejobsnow.com/posts/most-remote-friendly-companies-hiring-worldwide): Which employers list the most work-from-anywhere roles on our board, how often they post, and how many publish salaries. Data as of September 2026.
+- [The Lifecycle of a Remote Job Posting, From Launch to Removal](https://getremotejobsnow.com/posts/job-posting-lifecycle-after-you-apply): How a remote job posting is published, copied, updated and finally removed, and what that means for the dates and listings you see on job boards.
+- [Free vs Paid Remote Job Boards: How to Test What You're Paying For](https://getremotejobsnow.com/posts/free-vs-paid-remote-job-boards): What paid remote job boards actually sell, a 20-minute test you can run on any board, and how our own board scores on the same checks.
+- [Why Job Boards That Pull From Career Pages Are More Reliable](https://getremotejobsnow.com/posts/why-career-page-job-boards-are-more-reliable): What we learned running a board that reads employers' own career pages: why it beats copied listings, and the problems it creates that you should know.
+- [A 30-Minute Daily Routine for Your Remote Job Search](https://getremotejobsnow.com/posts/30-minute-remote-job-search-routine): A realistic daily and weekly remote job search routine: what to check, how many applications to send and when to follow up, in about 30 minutes a day.
+- [Remote Jobs for People With Disabilities or Chronic Illness](https://getremotejobsnow.com/posts/remote-jobs-for-people-with-disabilities): How to find remote roles that suit a disability, chronic illness or health condition: low-meeting jobs, flexible hours, adjustments and disclosure.
+- [Changing Careers Into Remote Work Without Relocating](https://getremotejobsnow.com/posts/remote-career-change-guide): How mid-career professionals move into remote support, operations or sales roles: transferable skills, realistic timelines and what pay can look like.
+- [What Work-From-Anywhere Jobs Pay: Our Salary Data, Analysed](https://getremotejobsnow.com/posts/what-work-from-anywhere-jobs-pay): What location-independent remote jobs pay according to our listings, why they look lower than region-locked roles, and how to read the numbers.
+- [Remote Job Interviews Across Time Zones: How to Prepare and Schedule](https://getremotejobsnow.com/posts/remote-job-interviews-across-time-zones): How to schedule and prepare for remote job interviews across time zones: confirming times, handling late-night slots, tech setup and follow-up.
+- [The Psychology of Remote Job Hunting: Why It Feels So Hard](https://getremotejobsnow.com/posts/psychology-of-remote-job-hunting): Why a remote job search can feel lonelier and more discouraging than a local one, what our listing data says about it, and habits that make it easier.
+- [How to Spot a Fake Remote Job Posting in 2026: Red-Flag Checklist](https://getremotejobsnow.com/posts/how-to-spot-fake-remote-job-postings): A practical checklist for spotting fake remote job postings: the contact, domain, pay and pressure signals that give scams away before you share anything.
+- [Ghost Jobs: How to Tell If a Remote Job Is Still Open](https://getremotejobsnow.com/posts/ghost-jobs-how-to-tell-a-role-is-still-open): Why so many remote listings are already filled or gone, with numbers from our own verification sweep, and how to check a role is still open before you apply.
+- [7 Remote Job Scams That Still Work in 2026, and How Each Makes Money](https://getremotejobsnow.com/posts/remote-job-scams-how-they-make-money): Seven remote job scams that keep working in 2026, explained by how each one extracts money, so you can recognise the mechanism and not just the script.
+- [How We Source and Verify Listings on GetRemoteJobsNow.com](https://getremotejobsnow.com/posts/how-we-source-and-verify-listings): Exactly where our remote job listings come from, how we check they're still open, how we decide what counts as work-from-anywhere, and what we remove.
+- [Why Applying on Company Career Pages Is the Safest Route](https://getremotejobsnow.com/posts/apply-directly-on-company-career-pages): Why applying on an employer's own careers page beats applying through a board, and how to find the official careers page for any company in a few minutes.
+- [What a $100K Remote Salary Really Buys: How to Compare Cities](https://getremotejobsnow.com/posts/what-a-100k-remote-salary-really-buys): A $100K remote salary means very different things in different cities. How to compare it properly, covering tax, rent and currency, with data from our board.
+- [Hourly vs Annual Remote Pay: How to Compare Offers Properly](https://getremotejobsnow.com/posts/hourly-vs-annual-remote-pay-converting-offers): How to compare hourly, annual and monthly remote pay offers, including the hours, paid leave, extra salary payments and costs that change the maths.
+- [Salary Transparency Laws in 2026: Where Pay Ranges Are Required](https://getremotejobsnow.com/posts/salary-transparency-laws-2026): Which US states, Canadian provinces and EU rules require employers to show pay ranges in job postings, and what to do when a remote role hides its salary.
+- [Remote Job Benefits by Region: Health, Pensions and Equipment](https://getremotejobsnow.com/posts/remote-benefits-decoded-by-region): What remote benefits are standard in the US, UK, Europe and Asia-Pacific, which ones are worth negotiating, and what changes if you're hired as a contractor.
+- [The 4-Hour Overlap Rule: How Much Time Zone Overlap You Need](https://getremotejobsnow.com/posts/timezone-overlap-how-much-you-need): How many hours of timezone overlap a remote team really needs, worked through with New York, London, San Francisco, Sydney and Berlin as examples.
+- [Working Across Time Zones Without Burning Out: Schedules That Work](https://getremotejobsnow.com/posts/working-across-timezones-without-burning-out): Practical scheduling patterns for remote workers across time zones: anchor hours, rotating meetings and clean handovers, without living on late-night calls.
+- [Remote Jobs in Asia-Pacific: Why 'US Hours' Filters Shut You Out](https://getremotejobsnow.com/posts/remote-jobs-in-asia-pacific-timezone-filters): Why so many remote jobs quietly exclude candidates in Asia-Pacific, what our own data shows about APAC roles, and how to find the ones genuinely open to you.
+- [Hybrid Bait: How to Spot 'Remote' Jobs That Aren't Really Remote](https://getremotejobsnow.com/posts/how-to-spot-hybrid-bait-in-remote-job-descriptions): How to spot 'remote' job descriptions that are really hybrid, office-based or country-restricted, phrase by phrase, using the same signals our filter checks.
+- [The Date-Posted Problem: Why Fresh Remote Job Listings Win](https://getremotejobsnow.com/posts/the-date-posted-problem-why-freshness-matters): What our listing-age data shows about how quickly remote roles go stale, why we show the posting age on every card, and how to build freshness into your search.
+- [A Simple Remote Job Application Tracker That Won't Burn You Out](https://getremotejobsnow.com/posts/remote-job-application-tracker-minimal-system): A simple spreadsheet for tracking remote job applications: the columns worth keeping, a clear status flow, and a follow-up routine that stays manageable.
+- [What Recruiters See When You Apply for a Remote Job](https://getremotejobsnow.com/posts/what-recruiters-see-when-you-apply-remotely): How remote applications move through hiring systems, why so many seem to vanish, and what our data shows about how different companies hire for remote roles.
+- [Work From Anywhere: What It Actually Means (and How It Differs From Remote)](https://getremotejobsnow.com/posts/work-from-anywhere-meaning): Work from anywhere means no country, region or timezone requirement — a stricter thing than remote or work from home. Here's the difference, with data.
+- [Is Remote Work Dying in 2026? What the RTO Data Actually Says](https://getremotejobsnow.com/posts/is-remote-work-dying-2026-rto-data): Return-to-office headlines say remote is over. Our data on 8,794 live listings says something else: remote didn't die in 2026 — it stratified.
+- [The Remote Job Tier List for 2026: Where Demand Is Real and Where It's Dead](https://getremotejobsnow.com/posts/remote-job-tier-list-2026): We ranked remote roles A to D using 8,794 live listings — real posting volume, competition and remote viability. One popular 'remote job' scored zero.
+- [How to Find Work-From-Anywhere Jobs (When Only 7% of Remote Roles Are Truly Location-Free)](https://getremotejobsnow.com/posts/how-to-find-work-from-anywhere-jobs): Most 'remote' jobs quietly require a country or timezone. Only 5.0% of the 8,794 listings we track are genuinely location-free. Here's how to find them.
+- [The Best Remote Jobs Without a Tech Background in 2026](https://getremotejobsnow.com/posts/best-remote-jobs-without-tech-background-2026): Non-technical roles are 48% of the remote jobs on our board against 15% for engineering. Here are the fields hiring, what they pay, and how to get in.
+- [Why Sales Just Overtook Engineering as Remote Work's Biggest Category](https://getremotejobsnow.com/posts/account-executives-beat-software-engineers-remote): Sales & Marketing now posts more remote roles than backend, frontend, full-stack and DevOps combined — 1,629 to 1,346. What changed, and what remote AEs earn.
+- [Digital Nomad Visas in 2026: Income Requirements and Tax Rules](https://getremotejobsnow.com/posts/digital-nomad-visas-2026): Income thresholds, durations and tax treatment for the main digital nomad visas in 2026, plus the 183-day rule and the employer questions nobody asks first.
+- [Remote Salaries in 2026: Why Remote Workers Earn More (and How to Negotiate the Premium)](https://getremotejobsnow.com/posts/remote-salaries-2026-negotiate-the-premium): Only 15.0% of remote listings publish a salary. Here are the real medians by category from the ones that do — and how to negotiate when there's no number.
+- [AI Is Killing These 10 Remote Jobs — Here's What to Do Instead](https://getremotejobsnow.com/posts/ai-is-killing-these-remote-jobs-what-to-do-instead): Data entry now returns zero results across 8,794 remote listings. Here are the roles AI is hollowing out — and the specific bridge path out of each one.
+- [Async-First Companies Are Hiring: How to Get Hired by the New Breed of Remote-First Employer](https://getremotejobsnow.com/posts/async-first-companies-hiring-2026): GitLab, Canonical, Supabase and Grafana post more location-free roles than anyone. Here's what async-first really means — and how to pass their hiring process.
+- [How to Get Your First Remote Job in 2026 With No Experience](https://getremotejobsnow.com/posts/first-remote-job-2026-no-experience): Only 128 of 4,534 remote roles on our board carry an entry-level title, and 8 of those are work-from-anywhere. Here is the path in that actually works.
+- [How to Find Remote Jobs in the USA (2026 Guide)](https://getremotejobsnow.com/posts/how-to-find-remote-jobs-in-the-usa): Where US remote jobs are, what they pay and how to spot the office-anchored ones, based on 3,000+ US-open listings on our board. Plus how to apply well.
+- [Remote Jobs in Europe: Where to Look and How to Apply](https://getremotejobsnow.com/posts/remote-jobs-in-europe-where-to-look): Which European countries have the most remote roles, what they pay and why most hide the salary, from 1,293 Europe-open listings on our board.
+- [Work From Home vs Work From Anywhere: What's the Difference?](https://getremotejobsnow.com/posts/work-from-home-vs-work-from-anywhere): Work from home and work from anywhere aren't the same. Only 5% of remote roles on our board are truly location-free. Here's why, and how to find them.
+
+## Free tools
+
+All run in the visitor's browser. Nothing entered into them is sent to us.
+
+### Stay safe
+
+- [Fake Job Posting Checker](https://getremotejobsnow.com/tools/fake-job-checker): Paste a job ad or recruiter message and get a red-flag report: pay-to-work requests, free email domains, chat-app interviews and more. Runs in your browser.
+- [Truly-Remote Job Description Analyzer](https://getremotejobsnow.com/tools/jd-remote-analyzer): Paste a job description to see whether it's really remote. Highlights hybrid, office, location, visa and timezone clauses using the same rules as our job filter.
+- [Strong Password Generator](https://getremotejobsnow.com/tools/password-generator): Generate strong, random, secure passwords in your browser. Choose length and character types, see the strength, and copy — nothing is stored or sent.
+
+### Pay and money
+
+- [Remote Salary Band Estimator](https://getremotejobsnow.com/tools/salary-band-estimator): See the salary range remote employers publish for your field, level and region, built from the listings on our board, with the sample size shown.
+- [Salary Purchasing-Power Calculator](https://getremotejobsnow.com/tools/salary-purchasing-power): Compare what a remote salary is worth in 70 countries, using World Bank price-level data. See the equivalent pay needed to live the same way elsewhere.
+- [Remote Job Offer Comparison Calculator](https://getremotejobsnow.com/tools/offer-comparator): Compare two remote job offers side by side: salary, bonus, benefits, contractor costs, leave and local prices, converted to what each is really worth.
+- [Remote Salary Converter](https://getremotejobsnow.com/tools/remote-salary-converter): Convert a remote salary between USD, EUR, GBP, CAD and more — with monthly and hourly equivalents. Compare offers across US and European currencies.
+- [Home Office Cost and Stipend Calculator](https://getremotejobsnow.com/tools/home-office-cost-calculator): Work out what your home office really costs each year, how far a stipend goes, and the tax relief available in the US, UK, Germany, Ireland, Australia and more.
+
+### Time zones and moving
+
+- [Timezone Overlap Finder](https://getremotejobsnow.com/tools/timezone-overlap): See how many 9-to-5 working hours you'd share with a remote team in another timezone — US, Europe, Asia and beyond. Plan async remote work.
+- [Team Timezone Overlap Matrix](https://getremotejobsnow.com/tools/team-timezone-matrix): Add up to eight teammates' cities and working hours to see every pairwise overlap and the best shared meeting window, with daylight saving handled.
+- [World Clock & Meeting Planner](https://getremotejobsnow.com/tools/world-time-buddy): Compare times across cities and timezones at a glance. Add any city, drag the timeline, and instantly see everyone's local time — perfect for planning remote meetings.
+- [Digital Nomad Visa Eligibility Checker](https://getremotejobsnow.com/tools/nomad-visa-checker): Enter your income to see which of 16 digital nomad and remote-worker visas you may qualify for, with 2026 thresholds, durations and the authority to confirm with.
+- [Tax Residency Day Counter (183-Day Tracker)](https://getremotejobsnow.com/tools/tax-residency-day-counter): Log your trips and see how many days you've spent in each country per calendar year and in any 12-month window, with a warning before you reach 183 days.
+
+### Search and apply
+
+- [Company Remote Hiring Score](https://getremotejobsnow.com/tools/company-remote-score): Look up any employer on our board to see how many roles are open worldwide, where it hires, how often it posts and whether it publishes pay.
+- [Job Application Tracker](https://getremotejobsnow.com/tools/application-tracker): A private job application tracker that lives in your browser: statuses, follow-up dates, notes and CSV export. No account, nothing uploaded.
+- [ATS Keyword Checker](https://getremotejobsnow.com/tools/ats-keyword-checker): Compare your CV with a job description: see which keywords and skills the posting leans on, which you already cover, and which are missing.
+- [Remote Job Search Link Builder](https://getremotejobsnow.com/tools/search-link-builder): Build a saved search for our job board, with keywords, category, region, pay floor and newest-first sorting, then bookmark or share the link.
+
+## Using this site as a source
+
+- Job counts, pay medians and field breakdowns come from the listings on this board on the date each guide states, not from a survey or a third-party dataset.
+- Pay figures only ever cover listings that publish a range, which is a minority, and that sample skews towards US employers. Every guide quoting pay says so.
+- If a figure here conflicts with a newer page on the site, the newer page is correct: the board changes nightly.
+
+## Policy
+
+- Training crawlers (GPTBot, ClaudeBot, CCBot, Google-Extended and others) are disallowed in /robots.txt.
+- Search and answer-engine crawlers are allowed, including Googlebot, Bingbot, OAI-SearchBot, Claude-SearchBot and PerplexityBot.
+- Please cite https://getremotejobsnow.com when quoting figures from these pages.
