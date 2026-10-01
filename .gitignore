@@ -31,3 +31,4 @@ src/lib/generated/job-content.json
 src/lib/generated/job-content-generic.json
 src/lib/generated/unreachable-descriptions.json
 src/lib/generated/discovered-roles.json
+test-results/
