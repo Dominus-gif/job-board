@@ -15,9 +15,25 @@
  * the 404 status and the original headers. Client-side navigations (RSC
  * requests) are left alone; the browser renders those itself.
  */
-import openNext from "./.open-next/worker.js";
-
-export { DOQueueHandler, DOShardedTagCache, BucketCachePurge } from "./.open-next/worker.js";
+/**
+ * Loaded on demand, never at startup.
+ *
+ * A static import is evaluated while the isolate boots, and the OpenNext bundle
+ * carries the whole job dataset, so every cold request paid to evaluate Next
+ * even when the answer was already sitting in the edge cache below. Behind a
+ * dynamic import, a cache hit wakes only this file.
+ *
+ * The Durable Object classes OpenNext exports (DOQueueHandler,
+ * DOShardedTagCache, BucketCachePurge) are deliberately not re-exported: this
+ * config binds no durable objects, and a static re-export would pull the bundle
+ * back into startup. If a future open-next.config.ts enables the queue or the
+ * sharded tag cache, export them again from here and accept the cost.
+ */
+let appPromise;
+function app() {
+  appPromise ??= import("./.open-next/worker.js").then((m) => m.default);
+  return appPromise;
+}
 
 /** A two-segment path no route matches, so Next serves its prerendered 404. */
 const FALLBACK_PATH = "/__not-found/page";
@@ -42,7 +58,7 @@ async function withRenderedNotFound(request, response, env, ctx) {
 
   try {
     const fallbackUrl = new URL(FALLBACK_PATH, request.url);
-    const fallback = await openNext.fetch(
+    const fallback = await (await app()).fetch(
       new Request(fallbackUrl, { method: "GET", headers: request.headers }),
       env,
       ctx,
@@ -114,7 +130,7 @@ function isCacheable(response) {
 
 /** Render through the app, including the not-found repair above. */
 async function render(request, env, ctx) {
-  const response = await openNext.fetch(request, env, ctx);
+  const response = await (await app()).fetch(request, env, ctx);
   return withRenderedNotFound(request, response, env, ctx);
 }
 
