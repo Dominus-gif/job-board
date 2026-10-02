@@ -22,6 +22,30 @@ export function guessDomain(name: string): string | undefined {
 const ATS_HOST = /greenhouse|grnh\.se|lever\.co|ashbyhq|workable|smartrecruiters|myworkday|workday|bamboohr|recruitee|breezy|jobvite|icims|teamtailor|personio|join\.com|gem\.com|paylocity|rippling|dover\.com|wellfound|angel\.co|notion\.so|airtable|docs\.google|forms\.gle|linkedin\.com|indeed\.com/i;
 
 /** Ordered list of logo URLs to try for a company. Last resort is the placeholder. */
+/**
+ * The pixel size to ask Google's favicon service for.
+ *
+ * Logos draw at 44-48 CSS px, so 128 is already past what a 2x screen can show
+ * and close enough on a 3x one that no one can tell. We asked for 256 before,
+ * which returns whatever the largest native icon is — often a 180px or 256px
+ * PNG — and PageSpeed costs the difference at about 5KB on a single listing,
+ * multiplied by every card on the page.
+ */
+const FAVICON_PX = 128;
+
+/**
+ * Rewrite the size on a Google favicon URL.
+ *
+ * Needed because the size is baked into company_logo in the committed job data,
+ * so changing the line above alone would only affect rows captured after the
+ * next rebuild. Doing it here catches the stored URLs too, and leaves every
+ * other logo source untouched.
+ */
+function atRequestedSize(url: string): string {
+  if (!/^https:\/\/www\.google\.com\/s2\/favicons\?/.test(url)) return url;
+  return url.replace(/([?&]sz=)\d+/, `$1${FAVICON_PX}`);
+}
+
 export function logoCandidates(opts: { domain?: string; name: string; provided?: string }): string[] {
   const { name, provided } = opts;
   const ownDomain = opts.domain && !ATS_HOST.test(opts.domain) ? opts.domain : undefined;
@@ -34,13 +58,12 @@ export function logoCandidates(opts: { domain?: string; name: string; provided?:
     // (free tier at logo.dev). Best quality; optional.
     const token = process.env.NEXT_PUBLIC_LOGO_TOKEN;
     if (token) list.push(`https://img.logo.dev/${d}?token=${token}&size=256&format=png&retina=true`);
-    // Google's favicon service at 256 returns the largest native icon a site
-    // has (often 180–256px) — the crispest keyless source.
-    list.push(`https://www.google.com/s2/favicons?domain=${d}&sz=256`);
+    // Google's favicon service, asked for the size we actually draw.
+    list.push(`https://www.google.com/s2/favicons?domain=${d}&sz=${FAVICON_PX}`);
     // unavatar aggregates logo providers/favicons; clean 404 on unknown.
     list.push(`https://unavatar.io/${d}?fallback=false`);
   }
-  return Array.from(new Set(list));
+  return Array.from(new Set(list.map(atRequestedSize)));
 }
 
 /** Primary logo URL for a company (first candidate, or the placeholder). */

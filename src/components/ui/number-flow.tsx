@@ -16,7 +16,23 @@ import { useEffect, useState } from "react";
  * figure is in the HTML for anyone without JavaScript, and for Google.
  *
  * Under prefers-reduced-motion it simply renders the number.
+ *
+ * The count-up waits for the load event and then for an idle moment before it
+ * starts. It used to begin on the next animation frame after mount, which is
+ * during hydration — the exact window in which the browser is deciding the
+ * largest contentful paint. Each frame of the animation measures the digits with
+ * getBoundingClientRect after changing them, which forces a synchronous reflow,
+ * and PageSpeed attributed about 110ms of forced reflow to it. Starting a beat
+ * later costs the viewer nothing: the numbers are in the server-rendered HTML
+ * the whole time, so what they see is the same figure, counting up from a moment
+ * later.
  */
+/** requestIdleCallback where it exists, setTimeout where it does not. */
+function cancelIdle(handle: number): void {
+  if (typeof window.cancelIdleCallback === "function") window.cancelIdleCallback(handle);
+  else window.clearTimeout(handle);
+}
+
 export function AnimatedNumber({
   value,
   className = "",
@@ -33,9 +49,35 @@ export function AnimatedNumber({
       setShown(value);
       return;
     }
-    // Next frame, so the mount at zero is committed and the change animates.
-    const id = requestAnimationFrame(() => setShown(value));
-    return () => cancelAnimationFrame(id);
+
+    let frame = 0;
+    let idle: number | undefined;
+    // One frame after the browser is idle, so the mount at zero is committed and
+    // the change animates — but not before the page has finished painting.
+    const start = () => {
+      const run = () => {
+        frame = requestAnimationFrame(() => setShown(value));
+      };
+      if (typeof window.requestIdleCallback === "function") {
+        idle = window.requestIdleCallback(run, { timeout: 1200 });
+      } else {
+        idle = window.setTimeout(run, 200); // Safari has no requestIdleCallback
+      }
+    };
+
+    if (document.readyState === "complete") {
+      start();
+      return () => {
+        cancelAnimationFrame(frame);
+        if (idle !== undefined) cancelIdle(idle);
+      };
+    }
+    window.addEventListener("load", start, { once: true });
+    return () => {
+      window.removeEventListener("load", start);
+      cancelAnimationFrame(frame);
+      if (idle !== undefined) cancelIdle(idle);
+    };
   }, [value]);
 
   if (!animate) {
