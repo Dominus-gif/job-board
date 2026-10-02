@@ -839,7 +839,8 @@ export const POSTS_2026: Post[] = [
           <tr><td>Frontend</td><td>57</td><td>8</td><td>14.0%</td><td>$200,000</td></tr>
         </tbody>
       </table>
-      <p>Two patterns are worth pulling out. First, <strong>volume and freedom point in opposite directions</strong>. Product is the biggest field on the board by a distance, and it is the least likely to be location-free: 23 of 1,454 roles. Backend and frontend engineering are small by comparison but hire worldwide at nine times that rate. Work that is judged by what it produces travels; work that depends on being in the room with one team and one market does not.</p>
+      <p>Two patterns are worth pulling out. First, <strong>volume and freedom point in opposite directions</strong>. Backend and frontend engineering hire worldwide at around nine times the rate product work does. Counting by job title rather than by the category filter, 5.9% of software engineering roles were location-free against 2.3% of product management roles — the full breakdown is in our <a href="/posts/remote-product-manager-jobs">remote product manager guide</a>. Work that is judged by what it produces travels; work that depends on being in the room with one team and one market does not.</p>
+      <p class="text-sm"><em>Correction, 2 October 2026: this section originally described product as the largest field on the board, citing 1,454 roles. That figure came from our category filter, which files any listing it cannot classify under Product, so it counted a great deal of work that is not product management. Counted by job title, product management is about 3% of the board. The engineering-versus-product pattern above is unchanged.</em></p>
       <p>Second, <strong>customer support is the outlier on pay</strong>. Its median of $107,000 is less than half what DevOps and design pay, and it is the field where the widest range of people can get in without a technical background. Our <a href="/posts/remote-customer-support-careers">remote customer support guide</a> covers what those roles actually involve.</p>
 
       <h2>Pay: most employers still say nothing</h2>
@@ -905,7 +906,149 @@ export const POSTS_2026: Post[] = [
       },
       {
         q: "Which remote fields are most likely to hire worldwide?",
-        a: "Engineering. 15.1% of backend roles and 14.0% of frontend roles were open worldwide, against 1.6% of product roles, even though product is the largest field on the board with 1,454 openings.",
+        a: "Engineering. 15.1% of backend roles and 14.0% of frontend roles were open worldwide on 29 September 2026. Product work is the least likely to be location-free: counted by job title on 2 October 2026, 2.3% of product management roles carried no location condition, against 5.9% of software engineering roles.",
+      },
+    ],
+  },
+  {
+    slug: "remote-product-manager-jobs",
+    title: "Remote Product Manager Jobs: 130 Open, and Only 3 You Can Do From Anywhere",
+    description:
+      "Every remote product manager role on our board, counted: what they pay, who is hiring, why almost none are work-from-anywhere, and why there is no junior rung.",
+    date: "2026-10-02T07:00:00.000Z",
+    author: "Bhargav",
+    tags: ["Product Management", "Remote Jobs Data", "Remote Salaries", "Work From Anywhere", "Product Manager"],
+    readMinutes: 9,
+    html: `
+      <p>This is a count of every product manager role open on getremotejobsnow.com on <strong>2 October 2026</strong>: <strong>130 roles from 93 employers</strong>, out of 4,066 remote listings in total. No survey and no estimates — just what employers were advertising on the day. The board is rebuilt nightly, so today's figures on the site will differ a little from these.</p>
+
+      <p>Three things stood out, and none of them is the thing I expected to write about.</p>
+
+      <h2>Product management is a small slice of remote hiring, not a large one</h2>
+      <p>Product manager roles are <strong>130 of 4,066 listings, or 3.2%</strong>. For comparison, 490 listings on the same board are titled as software engineering roles and 405 are sales or account roles. If you are searching for remote product work, you are fishing in a much smaller pond than the volume of "we're hiring PMs" posts on LinkedIn suggests.</p>
+      <p>One number that is easy to misread: 205 further listings have the word "product" in the title but are not product management jobs — product designers, product marketing managers, product engineers. They are worth knowing about if you are open to adjacent work, but counting them as PM roles would inflate the field by more than half again.</p>
+
+      <h2>Almost none of them are work-from-anywhere</h2>
+      <p>Of the 130 roles, <strong>3 carry no location condition at all</strong>. That is 2.3%, against 4.4% for the board as a whole — product management is roughly half as likely to be location-free as the average remote job, and the least location-free of the role families big enough to compare:</p>
+      <table>
+        <thead><tr><th>Role family (by title)</th><th>Roles</th><th>Work-from-anywhere</th><th>Share</th></tr></thead>
+        <tbody>
+          <tr><td>Software engineer</td><td>490</td><td>29</td><td>5.9%</td></tr>
+          <tr><td>Customer support / success</td><td>97</td><td>4</td><td>4.1%</td></tr>
+          <tr><td>Designer</td><td>58</td><td>2</td><td>3.4%</td></tr>
+          <tr><td>Sales / account management</td><td>405</td><td>11</td><td>2.7%</td></tr>
+          <tr><td><strong>Product manager</strong></td><td><strong>130</strong></td><td><strong>3</strong></td><td><strong>2.3%</strong></td></tr>
+        </tbody>
+      </table>
+      <p>All three of the location-free roles come from two companies: <strong>Supabase</strong> (a Product Lead for Infrastructure, and a Product Manager for Strategic Partner Integrations advertising a $235,000 midpoint) and <strong>Going</strong> (a Senior Technical Product Manager). Both are companies that already hire worldwide across their other openings. If you want work-from-anywhere product work, the practical move is to follow the handful of employers that work that way rather than to search for the role and hope.</p>
+
+      <h3>Why so few? A reasonable explanation, not a finding</h3>
+      <p>Our data shows the pattern; it does not explain it. The explanation below is my reading, and you should treat it as that.</p>
+      <p>Product management is the job most tightly coupled to other people's calendars. A PM's week is largely spent in conversation — with engineers, designers, sales, support and customers — and that is the kind of work that degrades fastest across a twelve-hour gap. Engineering work can be written down, reviewed asynchronously and judged by what it produces; a prioritisation argument usually cannot. Add to that the fact that product decisions are made against a specific market, and a company selling mainly to US buyers has a real reason to want its PMs on US hours.</p>
+      <p>None of that makes a location-free PM role impossible — three of them exist on this board today. It does mean they cluster at companies that have made asynchronous work an explicit discipline rather than a perk. We have written separately about <a href="/posts/async-first-companies-hiring-2026">how async-first employers hire</a>.</p>
+
+      <h2>They pay well, and they say so more often</h2>
+      <p>Of the 130 roles, <strong>46 publish a salary range (35.4%)</strong>. That is close to double the board-wide rate of 18.2%, and it is the most useful thing on this page if you are negotiating. Converted to USD midpoints:</p>
+      <table>
+        <thead><tr><th></th><th>Product manager roles</th><th>Whole board</th></tr></thead>
+        <tbody>
+          <tr><td>Listings publishing pay</td><td>46 of 130 (35.4%)</td><td>740 of 4,066 (18.2%)</td></tr>
+          <tr><td>25th percentile</td><td>$200,500</td><td>—</td></tr>
+          <tr><td><strong>Median</strong></td><td><strong>$234,375</strong></td><td><strong>$195,000</strong></td></tr>
+          <tr><td>75th percentile</td><td>$274,400</td><td>—</td></tr>
+          <tr><td>Full range</td><td>$146,500 – $311,000</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <p>Two warnings before you anchor on $234,375. First, it is a median of 46 listings, not of the market. Second, and more important, the sample is dominated by US employers, and US employers are the ones legally obliged to publish a range in several states — so the listings that disclose pay are not a random sample of the listings that exist. The number is best read as "what US-weighted, transparency-law-covered product roles were advertising", not "what remote PMs earn". Our guide to <a href="/posts/salary-transparency-laws-2026">where pay ranges are required</a> covers which rules bite where.</p>
+
+      <h3>By seniority, with the sample sizes attached</h3>
+      <table>
+        <thead><tr><th>Level (read from the title)</th><th>Roles</th><th>With pay published</th><th>Median</th></tr></thead>
+        <tbody>
+          <tr><td>Chief product officer, VP, Head, Director</td><td>11</td><td>6</td><td>$274,700</td></tr>
+          <tr><td>Group / Principal / Staff / Lead</td><td>41</td><td>13</td><td>$259,000</td></tr>
+          <tr><td>Senior product manager</td><td>30</td><td>11</td><td>$187,200</td></tr>
+          <tr><td>Product manager, no level stated</td><td>48</td><td>16</td><td>$237,500</td></tr>
+          <tr><td>Associate or junior product manager</td><td>0</td><td>0</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <p>The oddity in that table is real and I am not going to smooth it over: "Senior product manager" shows a lower median than unlevelled "Product manager". With 11 and 16 disclosed salaries respectively, that is almost certainly sample noise rather than a fact about the market — a single $300,000 unlevelled role at a US company moves the second number more than it should. Do not plan a career around it. The levels with enough listings to trust, at the top of the table, behave exactly as you would expect.</p>
+
+      <h2>There is no bottom rung</h2>
+      <p>Across all 130 roles, the number titled associate product manager, junior product manager or APM is <strong>zero</strong>.</p>
+      <p>This matches what we found when we looked at <a href="/posts/first-remote-job-2026-no-experience">entry-level remote work generally</a>, but it is starker here. Remote product management, as advertised today, is not a job you can enter — it is a job you move into once someone has already decided you can do it. If you are trying to break in, the realistic routes are the ones that put you next to the product function first: support, implementation, solutions engineering, business analysis or data analysis at a company that promotes internally, and then a sideways move once you are inside.</p>
+      <p>The adjacent-title count from earlier is useful here too. Those 205 product-adjacent listings — product designer, product marketing, product engineer — are a far larger surface than the 130 PM roles, and several of them are genuine on-ramps.</p>
+
+      <h2>Who is hiring</h2>
+      <p>93 employers for 130 roles, so the field is spread thin: most companies are hiring exactly one product manager. The exceptions:</p>
+      <ul>
+        <li><strong>Grafana Labs</strong> — 7 roles</li>
+        <li><strong>GitLab</strong> — 5 roles</li>
+        <li><strong>Assured</strong> — 4 roles</li>
+        <li><strong>Vanta, Confluent, HIMS &amp; Hers, Chronograph, Render, Supabase, Pragmatike</strong> — 3 roles each</li>
+      </ul>
+      <p>Grafana Labs and GitLab at the top is not a coincidence: both are long-standing distributed companies with public handbooks about how they work. You can check any employer's record on our <a href="/tools/company-remote-score">company remote hiring score</a> tool, which shows how widely a company hires and whether it publishes pay.</p>
+
+      <h2>Where the roles actually are</h2>
+      <p>Resolving each listing's location to a country:</p>
+      <table>
+        <thead><tr><th>Open to</th><th>Roles</th><th>Share</th></tr></thead>
+        <tbody>
+          <tr><td>United States</td><td>87</td><td>66.9%</td></tr>
+          <tr><td>Canada</td><td>12</td><td>9.2%</td></tr>
+          <tr><td>India</td><td>4</td><td>3.1%</td></tr>
+          <tr><td>Germany</td><td>4</td><td>3.1%</td></tr>
+          <tr><td>United Kingdom</td><td>3</td><td>2.3%</td></tr>
+          <tr><td>Everywhere else (one or two roles each)</td><td>11</td><td>8.5%</td></tr>
+          <tr><td>No country named (includes the 3 worldwide roles)</td><td>16</td><td>12.3%</td></tr>
+        </tbody>
+      </table>
+      <p>Two thirds of remote product management on this board is American. A listing can be open to more than one country, so the column adds to more than 130. If you are outside the US and Canada, the honest summary is that roughly one in five of these roles is plausibly open to you, and you should be filtering by region from the first search rather than reading 130 descriptions.</p>
+
+      <h2>How to search for these roles without wasting your evenings</h2>
+      <ol>
+        <li><strong>Search the title, not the category.</strong> <a href="/jobs?q=product%20manager">Search "product manager"</a> and you get the roles; browsing a broad product category gets you a lot of things that merely touch product.</li>
+        <li><strong>Set the scope filter before anything else.</strong> If you need location-free work, <a href="/work-from-anywhere-jobs">start from the work-from-anywhere board</a> — there were 3 PM roles on it today, and reading 3 listings properly beats skimming 130.</li>
+        <li><strong>Filter by your region early.</strong> Two thirds of these roles are US-only; finding that out from a filter is cheaper than finding it out in paragraph nine of a job description.</li>
+        <li><strong>Sort by newest and check back often.</strong> The median role on this list was posted 22 days ago, and 25 of the 130 were posted within the last 7 days. Product roles do not sit open forever.</li>
+        <li><strong>Follow employers, not postings.</strong> With 93 employers for 130 roles, the companies that hire PMs remotely more than once are a much shorter list than the roles themselves — and they are the ones likely to be hiring again next quarter.</li>
+      </ol>
+
+      <h2>How we counted, and what this cannot tell you</h2>
+      <p>Figures are from the live board on <strong>2 October 2026</strong>, covering 4,066 published listings.</p>
+      <ul>
+        <li><strong>Roles are identified by job title</strong>, not by the category filter on the site. A listing counts if its title contains product manager, product owner, product lead, head of product, director or VP of product, chief product officer, or product management. Titles containing product designer, product marketing, product engineer, product analyst, product support, product specialist or product operations are excluded — they share the word, not the job. Six listings matched both and were excluded.</li>
+        <li><strong>Pay figures cover only the 46 listings that publish a range</strong>, converted to a USD midpoint. Listings that publish no pay are not counted as low — they are not counted at all. That sample skews towards US employers covered by pay-transparency laws.</li>
+        <li><strong>Seniority is read from the title.</strong> A company's internal level for a role titled "Product Manager" is not visible to us.</li>
+        <li><strong>This is one board, not the market.</strong> We read employers' own career pages and hiring systems nightly; we do not see roles that are never advertised publicly, filled internally, or posted only on a platform we do not read. Our <a href="/posts/how-we-source-and-verify-listings">sourcing and verification method</a> sets out exactly what is in and what is out.</li>
+        <li><strong>Counts change nightly.</strong> If a figure here disagrees with the live board, the board is right.</li>
+      </ul>
+      <p>If you want the whole-board version of this analysis rather than the product slice, the <a href="/posts/remote-hiring-report-september-2026">September 2026 hiring report</a> covers every field.</p>
+    `,
+    faq: [
+      {
+        q: "How many remote product manager jobs are there?",
+        a: "On our board on 2 October 2026 there were 130 open remote product manager roles from 93 employers, out of 4,066 remote listings in total — about 3.2% of the board. A further 205 listings had 'product' in the title but were product design, product marketing or product engineering roles rather than product management.",
+      },
+      {
+        q: "Can you work as a product manager from anywhere in the world?",
+        a: "Rarely. Of 130 remote product manager roles on our board on 2 October 2026, only 3 carried no country, region or timezone condition — 2.3%, against 4.4% across the whole board. All three came from two employers, Supabase and Going. Product management is the least location-free of the major remote role families, most likely because the job is built around other people's calendars.",
+      },
+      {
+        q: "What do remote product managers earn?",
+        a: "Among the 46 of 130 roles that published a salary range on 2 October 2026, the median USD midpoint was $234,375, with a 25th-to-75th percentile band of $200,500 to $274,400 and a full range of $146,500 to $311,000. The board-wide median across all fields was $195,000. That sample is weighted towards US employers covered by pay-transparency laws, so it is not a global average.",
+      },
+      {
+        q: "Are there entry-level or associate remote product manager jobs?",
+        a: "Not on our board. Of 130 remote product manager roles open on 2 October 2026, zero were titled associate product manager, junior product manager or APM. Remote product management is advertised almost entirely at senior level and above, so the realistic entry route is a role adjacent to product — support, implementation, solutions engineering or analysis — at a company that promotes internally.",
+      },
+      {
+        q: "Which companies hire remote product managers?",
+        a: "On 2 October 2026 the most active were Grafana Labs with 7 roles, GitLab with 5 and Assured with 4, followed by Vanta, Confluent, HIMS & Hers, Chronograph, Render, Supabase and Pragmatike with 3 each. The field is spread thin overall: 93 employers advertised 130 roles, so most companies were hiring a single product manager.",
+      },
+      {
+        q: "Do remote product manager jobs publish salaries more often than other roles?",
+        a: "Yes. 35.4% of remote product manager listings on our board published a salary range on 2 October 2026, against 18.2% across all fields. The most likely reason is where the roles are: two thirds are open to the United States, where several states require a pay range in the posting.",
       },
     ],
   },

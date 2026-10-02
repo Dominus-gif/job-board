@@ -45,7 +45,7 @@ export const POSTS: Post[] = [
       <p>At the time of writing, our board carries 5,707 remote roles from 1,045 employers. Of the 5,405 that are limited to particular regions, 3,072 are open to people in the United States, which is 57% of every region-locked role we list. Most of those (2,914) are open to the US and nowhere else. No other region comes close: Europe and the UK together account for about 1,300.</p>
       <p>By field, the US-open roles break down like this:</p>
       <ul>
-        <li><strong>Product:</strong> 1,022 roles, the largest group by far. Browse them on the <a href="/remote-product-jobs">remote product jobs</a> page.</li>
+        <li><strong>Product and roles we could not classify:</strong> 1,022 listings, the largest group. This category doubles as the catch-all for listings our classifier cannot place, so it is broader than product management — counted by job title, product management itself is a far smaller field, which our <a href="/posts/remote-product-manager-jobs">remote product manager guide</a> sets out. Browse the category on the <a href="/remote-product-jobs">remote product jobs</a> page.</li>
         <li><strong>Management and finance:</strong> 788 roles, from payroll and accounting to operations. See <a href="/remote-management-finance-jobs">management and finance</a>.</li>
         <li><strong>Sales and marketing:</strong> 631 roles, see <a href="/remote-sales-marketing-jobs">sales and marketing</a>.</li>
         <li><strong>DevOps and infrastructure:</strong> 216 roles on <a href="/remote-devops-jobs">DevOps</a>.</li>
