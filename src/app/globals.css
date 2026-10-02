@@ -739,23 +739,46 @@ select { accent-color: #2383e2; }
      buys the middle of the band MORE of the picture (0.72 rather than 0.76),
      which is where the mountain and treeline are. The part being hidden is the
      shoreline, the least interesting part of the frame. */
-  background-image:
-    linear-gradient(
-      to bottom,
-      rgb(43, 42, 38) 0%,
-      rgba(43, 42, 38, 0.86) 22%,
-      rgba(43, 42, 38, 0.66) 52%,
-      rgba(43, 42, 38, 0.955) calc(100% - 150px),
-      rgba(43, 42, 38, 0.99) calc(100% - 70px),
-      rgba(43, 42, 38, 0.995) 100%
-    ),
-    url("/footer-landscape.jpg");
+  --footer-scrim: linear-gradient(
+    to bottom,
+    rgb(43, 42, 38) 0%,
+    rgba(43, 42, 38, 0.86) 22%,
+    rgba(43, 42, 38, 0.66) 52%,
+    rgba(43, 42, 38, 0.955) calc(100% - 150px),
+    rgba(43, 42, 38, 0.99) calc(100% - 70px),
+    rgba(43, 42, 38, 0.995) 100%
+  );
+  background-image: var(--footer-scrim), url("/footer-landscape-1000.webp");
   background-repeat: no-repeat, no-repeat;
   background-position: bottom center, bottom center;
   background-size: cover, cover;
   /* Pulled back from full colour so it reads as depth behind the type rather
      than as a photograph competing with it. */
   filter: saturate(0.8);
+}
+
+/* The wide copy, for anything past phone width.
+
+   WebP rather than the original JPEG: the browserslist floor is Safari 15.4 and
+   WebP has been supported since Safari 14. At quality 62 the wide file is 161KB
+   against the JPEG's 222KB with nothing visible in the difference — the picture
+   sits under a scrim running from 0.66 to 0.995 opacity, desaturated on top of
+   that.
+
+   Phones get the 1000px copy above instead, 54KB. The band is never wider than
+   the viewport, so 1000px still covers a 390px screen at better than 2x, and
+   this was the largest asset on the page: 222KB fetched on first load for a
+   decoration below the fold.
+
+   The URL is written out in both rules rather than swapped through a custom
+   property. That was the first attempt and it is a trap: a url() inside a custom
+   property is fetched even when the rule that would use it does not match, so
+   desktop downloaded both files. Only the scrim — which fetches nothing — is a
+   variable. */
+@media (min-width: 769px) {
+  .footer-landscape {
+    background-image: var(--footer-scrim), url("/footer-landscape.webp");
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────

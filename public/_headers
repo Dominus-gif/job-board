@@ -19,7 +19,9 @@
   Cache-Control: public, max-age=2592000
 /apple-icon.png
   Cache-Control: public, max-age=2592000
-/footer-landscape.jpg
+/footer-landscape.webp
+  Cache-Control: public, max-age=2592000
+/footer-landscape-1000.webp
   Cache-Control: public, max-age=2592000
 
 # Regenerated every build (scripts/build-llms-txt.ts) and read by agents rather
