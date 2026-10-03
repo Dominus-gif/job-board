@@ -10,6 +10,7 @@ import { jobPostingJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
 import { jobIsIndexable, robotsFor } from "@/lib/seo/indexing";
 import { cityHubForLocation, hubPath } from "@/lib/seo/locations";
 import { categoryToSlug } from "@/lib/taxonomy";
+import { skillSlug } from "@/lib/landing";
 import { JobList } from "@/components/JobList";
 import { ScamNotice, ReferralNudge } from "@/components/ScamNotice";
 import { LivenessProvider, ApplyButton, InactiveBanner } from "@/components/JobLiveness";
@@ -268,8 +269,13 @@ export default async function JobPage(props: { params: Promise<{ slug: string }>
                 <div className="mt-5 border-t border-ink-100 pt-5">
                   <h3 className="field-label">Skills</h3>
                   <div className="mt-2.5 flex flex-wrap gap-1.5">
+                    {/* skillSlug, not a local replace: it folds every character
+                        outside [a-z0-9-], which is what "ui/ux" and "c#" need.
+                        A hand-rolled version here only replaced dots, so the
+                        "ui/ux" chip linked to /remote-ui/ux-jobs and 404'd, and
+                        "ci_cd" linked to a non-canonical duplicate of its hub. */}
                     {job.skills.map((s) => (
-                      <Link key={s} href={`/remote-${s.replace(/[.]/g, "-")}-jobs`}
+                      <Link key={s} href={`/${skillSlug(s)}`}
                         className="chip font-mono lowercase hover:text-brand-700 hover:ring-brand-200">
                         {s}
                       </Link>

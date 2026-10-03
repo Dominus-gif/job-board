@@ -20,6 +20,13 @@
   }
   h1, h2, h3, h4 {
     @apply font-display tracking-[-0.011em] text-ink-900;
+    /* Our own name is a 20-character unbreakable token, and it appears in
+       headings all over the site. At 320px the About page's h1 needed 347px for
+       "getremotejobsnow.com", could not wrap, and pushed the document to 363px
+       wide — body's overflow-x: clip hid the scrollbar but the layout was still
+       overflowing, which is worse than seeing it. break-word only engages when
+       a word genuinely cannot fit, so nothing else changes. */
+    overflow-wrap: break-word;
   }
   /* Notion's soft blue text selection. */
   ::selection {
