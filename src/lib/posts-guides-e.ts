@@ -218,7 +218,7 @@ export const POSTS_CLUSTER_E: Post[] = [
 
       <h2>What the published numbers show</h2>
       <p>Published sales pay needs careful reading, because many postings show OTE rather than base without saying so clearly. With that caveat, the account executive roles on our board with US-dollar ranges have a median midpoint of <strong>$210,000</strong> across 71 listings. Sales and solutions engineers sit close behind at <strong>$204,500</strong> across 35. Only nine SDR listings publish pay, with a median of <strong>$95,000</strong>, which is too small a sample to lean on.</p>
-      <p>Most of those figures come from US listings, where pay transparency laws apply. We compared remote account executive pay with engineering in <a href="/posts/account-executives-beat-software-engineers-remote">why sales overtook engineering as a remote category</a>. If an offer is quoted monthly or hourly, our guide to <a href="/posts/hourly-vs-annual-remote-pay-converting-offers">comparing pay offers</a> shows how to convert it.</p>
+      <p>Most of those figures come from US listings, where pay transparency laws apply. We compared remote account executive pay with engineering in <a href="/posts/account-executives-beat-software-engineers-remote">how remote sales pay compares with engineering</a>. If an offer is quoted monthly or hourly, our guide to <a href="/posts/hourly-vs-annual-remote-pay-converting-offers">comparing pay offers</a> shows how to convert it.</p>
 
       <h2>Questions to ask before you accept</h2>
       <ol>

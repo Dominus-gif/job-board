@@ -85,8 +85,8 @@ export const POSTS_2026: Post[] = [
       The clearest Tier A in the dataset. These roles are remote-viable by nature (the work is code, models and documents), demand is rising rather than eroding, and they're the least exposed to being automated by the thing they build. If you can credibly move toward data engineering, ML or applied AI, that's the strongest bet on this list.</p>
       <p><strong>DevOps / Platform / Infrastructure — 531 postings</strong><br/>
       Median disclosed salary in our data: <strong>$201,000</strong>. Infrastructure work is inherently location-independent and painfully hard to fake, which keeps competition down relative to volume. Consistently one of the best-paid categories we track.</p>
-      <p><strong>Sales — Account Executive &amp; revenue roles — 627 AE postings, 1,629 across Sales &amp; Marketing</strong><br/>
-      The surprise entry. Sales is remote-native (the customer was always on a screen), performance is objectively measurable, and in the <em>work-from-anywhere</em> tier it out-posts engineering. Median disclosed comp: <strong>$179,500</strong>.</p>
+      <p><strong>Sales — Account Executive &amp; revenue roles — 323 AE postings, 485 across all sales titles</strong><br/>
+      Sales is remote-native (the customer was always on a screen) and performance is objectively measurable, which is why the volume is here. What it is not is portable: only 1.5% of account executive listings carry no location condition, against 6.3% of engineering ones, because selling into a market is a reason to hire someone who lives in it. Median disclosed pay: <strong>$188,750</strong> from 50 listings, with the widest quartile spread of any role we track. Full comparison in <a href="/posts/account-executives-beat-software-engineers-remote">remote sales versus remote engineering</a>.</p>
 
       <h2>Tier B — Strong, but crowded or conditional</h2>
       <p><strong>Management &amp; Finance — 2,163 postings</strong><br/>
@@ -257,48 +257,99 @@ export const POSTS_2026: Post[] = [
   },
   {
     slug: "account-executives-beat-software-engineers-remote",
-    title: "Why Sales Just Overtook Engineering as Remote Work's Biggest Category",
+    title: "Remote Sales vs Remote Engineering: Which One Actually Travels",
     description:
-      "Sales & Marketing now posts more remote roles than backend, frontend, full-stack and DevOps combined — 1,629 to 1,346. What changed, and what remote AEs earn.",
+      "323 account executive roles against 511 engineering roles on our board. Engineering is four times more likely to be location-free, and its pay is a band where sales pay is a lottery.",
     date: "2026-09-02T09:00:00.000Z",
+    updated: "2026-10-04T07:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Sales Jobs", "Account Executive", "Remote Job Market", "Tech Sales", "Remote Salaries"],
-    readMinutes: 7,
+    readMinutes: 8,
     html: `
-      <p>For a decade, "remote job" was basically shorthand for "software engineer." That's no longer what the data shows.</p>
-      <p>Across our board of <strong>8,794 remote listings</strong>, <strong>Sales &amp; Marketing posts 1,629 roles. Backend, frontend, full-stack and DevOps combined post 1,346.</strong> The commercial side of the org now out-hires the entire engineering function for remote work.</p>
-      <p>One honest clarification, because the distinction matters. Compare <em>individual job titles</em> and software engineering still wins comfortably: 1,324 postings mention software engineer or developer, against 627 for account executive. Engineering is a deeper single role; sales is a broader category. Both things are true, and the category-level flip is the one that changed.</p>
+      <p>Counted on <strong>4 October 2026</strong>, across 4,024 remote listings from 899 employers. Figures come from the board itself and change nightly.</p>
 
-      <h2>Why sales went global before engineering did</h2>
-      <p>Three things converged.</p>
-      <p><strong>1. The job was always remote.</strong> B2B software sales stopped being a room-and-handshake business years ago. Discovery calls, demos, procurement, and closing all happen over video and email. Once the office stopped being where the customer was, it stopped being where the seller needed to be.</p>
-      <p><strong>2. Output is unambiguous.</strong> The core anxiety behind return-to-office mandates is measurement — managers who can't see work assume it isn't happening. Sales is immune to that argument. Quota attainment is a number. You either hit it or you didn't, and it's visible from any timezone.</p>
-      <p><strong>3. Global coverage is a feature, not a compromise.</strong> A company selling into EMEA and APAC actively <em>wants</em> sellers living in those markets. For engineering, distributed teams are a cost to be managed; for sales, they're a growth strategy. That asymmetry is why sales roles are more likely to be posted without location gates.</p>
+      <p class="text-sm"><em>Correction, 4 October 2026: this piece previously argued that sales had overtaken engineering as remote work's biggest category, and that sales was the shorter path to geographic freedom. Both claims have been removed. The first rested on our category filter, which files any listing it cannot classify under "Product" and so understates engineering; counted by job title, engineering is the larger field. The second is the reverse of what the board now shows. The original figures are kept below where they still stand, and the rest has been rewritten.</em></p>
 
-      <h2>What remote AEs actually earn</h2>
-      <p>Sales compensation is split between guaranteed base and variable commission, quoted together as OTE (on-target earnings).</p>
+      <h2>The headline count, done honestly</h2>
+      <p>Counting by job title rather than by our category filter, which is the only way to compare two fields without a classification artefact deciding the answer:</p>
+      <table>
+        <thead><tr><th>Counted by title</th><th>Roles</th><th>Work-from-anywhere</th><th>Publish pay</th><th>Median</th></tr></thead>
+        <tbody>
+          <tr><td>Software engineering</td><td><strong>511</strong></td><td>32 (6.3%)</td><td>165 (32.3%)</td><td><strong>$210,000</strong></td></tr>
+          <tr><td>Account executive</td><td><strong>323</strong></td><td>5 (1.5%)</td><td>50 (15.5%)</td><td><strong>$188,750</strong></td></tr>
+          <tr><td>All sales titles</td><td>485</td><td>19 (3.9%)</td><td>73 (15.1%)</td><td>$170,000</td></tr>
+        </tbody>
+      </table>
+      <p>Engineering is the bigger field, pays more at the median, and is four times more likely to be open to someone anywhere in the world. Sales is close on volume and nowhere near on freedom.</p>
+      <p>Why the earlier version got this wrong is worth a sentence, because it is a trap anyone analysing a job board can fall into. Our category filter has a fallback: a listing whose title and description match no keyword is filed under "Product". That bucket holds 1,270 listings, and the most common word in its titles is "engineer". Comparing the "Sales &amp; Marketing" category against the four engineering categories therefore compares a real category against four leaky ones. Titles do not have that problem.</p>
+
+      <h2>The real difference is the shape of the pay, not the size of it</h2>
+      <p>The medians are close enough to argue about. The spread is not:</p>
+      <table>
+        <thead><tr><th>Counted by title</th><th>25th percentile</th><th>Median</th><th>75th percentile</th><th>Spread</th></tr></thead>
+        <tbody>
+          <tr><td>Software engineering</td><td>$185,000</td><td>$210,000</td><td>$243,500</td><td><strong>$58,500</strong></td></tr>
+          <tr><td>Account executive</td><td>$143,500</td><td>$188,750</td><td>$256,250</td><td><strong>$112,750</strong></td></tr>
+        </tbody>
+      </table>
+      <p>An engineering offer lands in a band. A sales offer lands somewhere in a range nearly twice as wide: the top quartile of advertised AE pay beats the top quartile of engineering pay, and the bottom quartile sits $41,500 below engineering's. That is before commission risk, which these figures cannot see at all — a published OTE is a target, not an outcome.</p>
+      <p>So the practical difference is not "which pays more". It is that engineering pay is mostly decided by the market before you walk in, and sales pay is mostly decided by where you land in that spread and whether the number is real.</p>
+      <blockquote>Read the split, not the headline. A $220K OTE on a quota nobody on the team has ever hit is worth less than a $160K OTE that reps actually clear. Ask what percentage of the team hit quota last year — a good sales org answers immediately, with a number.</blockquote>
+
+      <h2>Sales publishes pay half as often</h2>
+      <p>50 of 323 account executive listings publish a range (15.5%), against 165 of 511 engineering listings (32.3%). Both sit against a board-wide rate of 18.3%.</p>
+      <p>That gap compounds the spread problem. The field where the advertised number varies most is also the field that shows you a number least often, so you are negotiating with less information in exactly the situation where information is worth most. Our guide to <a href="/posts/salary-transparency-laws-2026">where pay ranges are legally required</a> is the fastest way to work out whether a given role should have shown you one.</p>
+
+      <h2>Why sales still went remote early</h2>
+      <p>None of the above contradicts the thing sales genuinely got right. Three reasons it works remotely, which still hold:</p>
+      <p><strong>1. The job was already mediated.</strong> B2B software sales stopped being a room-and-handshake business years ago. Discovery calls, demos, procurement and closing happen over video and email. Once the office stopped being where the customer was, it stopped being where the seller needed to be.</p>
+      <p><strong>2. Output is unambiguous.</strong> The anxiety behind return-to-office mandates is measurement — managers who cannot see work assume it is not happening. Quota attainment is a number, visible from any timezone.</p>
+      <p><strong>3. Coverage is the point.</strong> A company selling into EMEA or APAC wants sellers living in those markets.</p>
+      <p>But notice what the third reason actually produces: sellers hired <em>into named markets</em>. That is a region-locked job. It explains why sales roles are widely remote and rarely location-free — 1.5% of AE listings carry no location condition at all. The thing that makes sales remote-friendly is the same thing that ties it to a place.</p>
+
+      <h2>What this means if you are choosing between them</h2>
       <ul>
-        <li><strong>Base:</strong> commonly $80,000–$120,000 for mid-market and enterprise AE roles.</li>
-        <li><strong>OTE:</strong> commonly $160,000–$197,500, typically a 50/50 base-to-variable split.</li>
-        <li><strong>Our disclosed median across Sales &amp; Marketing:</strong> <strong>$179,500</strong> (from 236 listings that published a range) — squarely inside that OTE band.</li>
+        <li><strong>If geographic freedom is the priority</strong>, engineering is the better bet on this board — 6.3% against 1.5%, and the location-free engineering roles come from employers that hire worldwide across the board rather than as an exception.</li>
+        <li><strong>If earning ceiling is the priority</strong>, sales has the higher top quartile, with the variance and the commission risk that implies.</li>
+        <li><strong>If predictability is the priority</strong>, engineering, by a wide margin. The $58,500 interquartile band is the whole argument.</li>
+        <li><strong>The hybrid worth knowing about</strong> is solutions engineering and sales engineering, where technical depth is the product and you sit on the revenue team. Those roles inherit sales' remote-friendliness and engineering's floor.</li>
       </ul>
-      <blockquote>Read the split, not the headline. A $220K OTE on a quota nobody on the team has ever hit is worth less than a $160K OTE that reps actually clear. Ask what percentage of the team hit quota last year — a good sales org answers immediately.</blockquote>
 
-      <h2>What this means if you're an engineer</h2>
-      <p>Not that you should abandon engineering. Backend still shows a <strong>$193,500</strong> median in our data and DevOps <strong>$201,000</strong> — both above the sales median. The signal isn't "sales pays more." It's that <strong>if geographic freedom is your priority, sales is currently the shorter path to it.</strong></p>
-      <p>There's also a hybrid worth knowing about: <strong>solutions engineering</strong> and <strong>sales engineering</strong>, where technical depth is the product and you sit on the revenue team. Those roles inherit sales' remote-friendliness and engineering's pay.</p>
-
-      <h2>What this means if you want in</h2>
+      <h2>If you want into sales anyway</h2>
       <ol>
-        <li><strong>Start as an SDR/BDR.</strong> Booking meetings is the standard entry point, hiring bars are lower, and remote SDR roles are plentiful. Expect 12–24 months before moving to a closing seat.</li>
-        <li><strong>Pick a product you can explain.</strong> Remote selling is asynchronous and written as much as spoken. Domain fluency beats charisma when you're doing it over email across nine timezones.</li>
-        <li><strong>Bring proof of process, not just personality.</strong> Pipeline discipline, CRM hygiene and written follow-up are what distributed sales managers actually screen for.</li>
-        <li><strong>Target companies that sell globally.</strong> The pattern from our data is consistent: the companies posting location-free sales roles are the ones with customers on every continent.</li>
+        <li><strong>Start as an SDR or BDR.</strong> Booking meetings is the standard entry point and the hiring bar is lower. Expect 12 to 24 months before moving to a closing seat.</li>
+        <li><strong>Ask for quota attainment data before you ask about OTE.</strong> The percentage of the team that hit quota last year tells you what the OTE is worth; the OTE alone tells you nothing.</li>
+        <li><strong>Check which market you are being hired into.</strong> "Remote" in a sales listing usually means "remote within this country", and that is the single most common reason an application goes nowhere.</li>
+        <li><strong>Browse the live lists</strong>: <a href="/jobs?q=account%20executive">account executive roles</a>, <a href="/remote-sales-marketing-jobs">remote sales and marketing jobs</a>, or the <a href="/work-from-anywhere-jobs">work-from-anywhere board</a> if location freedom is what you are after.</li>
       </ol>
 
-      <h2>See the roles</h2>
-      <p>Browse <a href="/remote-sales-marketing-jobs">remote sales &amp; marketing jobs</a>, or check the <a href="/trending-remote-jobs">roles posted this week</a> to see what's moving right now.</p>
+      <h2>How we counted</h2>
+      <ul>
+        <li>Figures are from the live board on <strong>4 October 2026</strong>: 4,024 published listings from 899 employers.</li>
+        <li><strong>Fields are counted by job title</strong>, not by the site's category filter, for the reason given above. "Software engineering" matches software engineer, software developer, backend, frontend, full-stack and platform engineer titles; "account executive" matches account executive, enterprise AE and sales executive.</li>
+        <li><strong>Pay covers only listings that publish a range</strong>, converted to a USD midpoint. A listing with no number is not counted as low; it is not counted. That sample leans towards US employers covered by pay-transparency laws.</li>
+        <li>Published sales figures are on-target earnings where the employer says so. We cannot see what was actually earned.</li>
+        <li>Counts change nightly. If a figure here disagrees with the board, the board is right.</li>
+      </ul>
     `,
+    faq: [
+      {
+        q: "Are there more remote sales jobs or more remote engineering jobs?",
+        a: "Counted by job title on our board on 4 October 2026, engineering is larger: 511 software engineering roles against 485 sales roles, of which 323 are account executive positions. Category-level counts can suggest the opposite, but our category filter files unclassifiable listings under 'Product', which understates engineering.",
+      },
+      {
+        q: "Do remote account executives earn more than remote software engineers?",
+        a: "At the median, no. Among listings publishing a range on 4 October 2026, account executives showed a median of $188,750 against $210,000 for software engineering. Sales has the higher ceiling — a 75th percentile of $256,250 against $243,500 — but also a far lower floor, and its advertised figures are usually on-target earnings rather than guaranteed pay.",
+      },
+      {
+        q: "Which remote roles are most likely to let you work from anywhere?",
+        a: "Engineering, by a wide margin over sales. On 4 October 2026, 6.3% of software engineering listings carried no country, region or timezone condition, against 1.5% of account executive listings. Sales roles are widely remote but usually tied to a named market, because selling into a region is a reason to hire someone who lives there.",
+      },
+      {
+        q: "Why do so few sales jobs show a salary?",
+        a: "Only 15.5% of account executive listings on our board published a pay range on 4 October 2026, against 32.3% of engineering listings and 18.3% board-wide. Sales pay is also the most variable, so the field that shows a number least often is the one where the number matters most.",
+      },
+    ],
   },
   {
     slug: "digital-nomad-visas-2026",
@@ -395,47 +446,54 @@ export const POSTS_2026: Post[] = [
   },
   {
     slug: "remote-salaries-2026-negotiate-the-premium",
-    title: "Remote Salaries in 2026: Why Remote Workers Earn More (and How to Negotiate the Premium)",
+    title: "Remote Salaries in 2026: What the Published Ranges Actually Say",
     description:
-      "Only 15.0% of remote listings publish a salary. Here are the real medians by category from the ones that do — and how to negotiate when there's no number.",
+      "Only 18.3% of remote listings publish a salary. Here are the medians by role from the ones that do, why the usual explanations for a remote premium do not hold, and how to negotiate without a number.",
     date: "2026-08-31T09:00:00.000Z",
+    updated: "2026-10-04T07:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Salaries", "Salary Negotiation", "Remote Work Pay", "Compensation 2026", "Pay Transparency"],
     readMinutes: 9,
     html: `
-      <p>Let's start with the number that shapes every remote salary negotiation: of the <strong>8,794 remote roles</strong> we track, only <strong>1,319 — 15.0% — publish a salary range at all</strong>.</p>
-      <p>Nearly nine in ten remote listings ask you to name a number first, into an information vacuum. That asymmetry is the single biggest reason people leave money on the table.</p>
-      <p>So here are the real medians from the listings that <em>do</em> disclose, and a method for the ones that don't.</p>
+      <p>Counted on <strong>4 October 2026</strong>, across 4,024 remote listings from 899 employers. Figures come from the board itself and change nightly.</p>
 
-      <h2>Median disclosed salary by category</h2>
-      <p>Midpoint of the published range, in USD, from our live dataset:</p>
+      <p class="text-sm"><em>Correction, 4 October 2026: this piece was published under the title "Why Remote Workers Earn More" and reported a $80,000 median for frontend engineering, which it used to argue that frontend work had been commoditised. Both are gone. We have no non-remote salaries to compare against, so we were never in a position to say remote workers earn more than anyone; and the frontend figure came from a sample too small to carry the claim — the same cut today reads far higher. The pay table, the counts and the premium section have been rewritten. The negotiation advice is unchanged.</em></p>
+
+      <p>Here is the number that shapes every remote salary negotiation: of the <strong>4,024 remote roles</strong> on our board, only <strong>735 — 18.3% — publish a salary range at all</strong>.</p>
+      <p>More than four in five listings ask you to name a figure first, into an information vacuum. That asymmetry is the single biggest reason people leave money on the table.</p>
+      <p>So here is what the disclosing minority actually says, and a method for the rest.</p>
+
+      <h2>Median disclosed pay by role</h2>
+      <p>Midpoint of the published range, in USD, counted <strong>by job title</strong> rather than by our category filter. That matters: the filter files any listing it cannot classify under "Product", so category medians mix fields together. Titles do not.</p>
       <table>
-        <thead><tr><th>Category</th><th>Median</th><th>Listings with a range</th></tr></thead>
+        <thead><tr><th>Role (by title)</th><th>25th pct</th><th>Median</th><th>75th pct</th><th>Listings with a range</th></tr></thead>
         <tbody>
-          <tr><td>Design</td><td>$197,500</td><td>50</td></tr>
-          <tr><td>Full-stack Engineering</td><td>$215,000</td><td>33</td></tr>
-          <tr><td>DevOps / Platform</td><td>$201,000</td><td>105</td></tr>
-          <tr><td>Product</td><td>$195,000</td><td>426</td></tr>
-          <tr><td>Backend Engineering</td><td>$193,500</td><td>56</td></tr>
-          <tr><td>Sales &amp; Marketing</td><td>$179,500</td><td>241</td></tr>
-          <tr><td>Management &amp; Finance</td><td>$162,500</td><td>333</td></tr>
-          <tr><td>Customer Support</td><td>$123,500</td><td>20</td></tr>
-          <tr><td>Frontend Engineering</td><td>$80,000</td><td>56</td></tr>
+          <tr><td>Designer</td><td>$220,000</td><td><strong>$238,500</strong></td><td>$260,500</td><td>10</td></tr>
+          <tr><td>Product manager</td><td>$192,488</td><td>$225,900</td><td>$260,000</td><td>40</td></tr>
+          <tr><td>DevOps / SRE</td><td>$145,230</td><td>$215,500</td><td>$247,500</td><td>19</td></tr>
+          <tr><td>Software engineering</td><td>$185,000</td><td>$210,000</td><td>$243,500</td><td>165</td></tr>
+          <tr><td>Backend engineer</td><td>$175,000</td><td>$192,485</td><td>$206,000</td><td>18</td></tr>
+          <tr><td>Account executive</td><td>$143,500</td><td>$188,750</td><td>$256,250</td><td>50</td></tr>
+          <tr><td>Data</td><td>$145,066</td><td>$187,000</td><td>$280,000</td><td>15</td></tr>
+          <tr><td>Sales (all titles)</td><td>$132,080</td><td>$170,000</td><td>$225,425</td><td>73</td></tr>
+          <tr><td>Marketing</td><td>$110,000</td><td>$147,813</td><td>$175,000</td><td>22</td></tr>
+          <tr><td>Customer support</td><td>$89,700</td><td>$115,525</td><td>$150,000</td><td>20</td></tr>
         </tbody>
       </table>
-      <p>Two things jump out.</p>
-      <p><strong>Frontend is the outlier.</strong> At $80,000 it sits at well under half of backend or DevOps. Generic frontend work has been commoditised harder than any other engineering discipline — a pattern worth taking seriously if that's your specialism.</p>
-      <p><strong>Design pays best where it exists.</strong> The highest median on the board, from a relatively small pool of 350 roles. Scarce and well paid, but competitive to enter.</p>
-      <blockquote>Read these as directional, not gospel. They come only from employers willing to publish a range — and those employers skew larger, better funded and more transparent than average.</blockquote>
+      <p>The right-hand column is the one that decides how much weight a row can carry. A median of 10 designer salaries tells you roughly where designers sit; it does not tell you what designers earn. Only software engineering, with 165, has a sample worth treating as a market signal, and the board-wide median across all 735 disclosing listings is <strong>$195,000</strong>.</p>
+      <p>What the percentile columns show is more useful than the medians anyway. <strong>Customer support is the only row that sits clearly below the rest</strong>, and it is also the field with the widest open door for people without a technical background. <strong>Account executive has the widest spread</strong> — $112,750 between the quartiles, nearly twice software engineering's $58,500 — which is what commission-heavy pay looks like in a table. We take that comparison apart in <a href="/posts/account-executives-beat-software-engineers-remote">remote sales versus remote engineering</a>.</p>
+      <blockquote>Read all of this as directional. It comes only from employers willing to publish a range, and those employers skew larger, better funded, and disproportionately American — several US states require a range in the posting, so the sample is partly a map of pay-transparency law. See <a href="/posts/salary-transparency-laws-2026">which rules apply where</a>.</blockquote>
 
-      <h2>Why remote roles often pay a premium</h2>
-      <p>It's counterintuitive — surely a company hiring globally pays less? Sometimes. But there are real forces pushing the other way:</p>
+      <h2>Is there a remote premium? Not one we can see</h2>
+      <p>The honest answer is that this board cannot tell you. Every listing on it is remote, so there is no office-based control group to compare against. Anyone quoting a precise remote-versus-office premium from a job board is quoting something they did not measure, and this guide used to be guilty of that.</p>
+      <p>What the data does show is that the usual explanation is not the one people reach for:</p>
       <ul>
-        <li><strong>The talent pool cuts both ways.</strong> A company hiring worldwide is competing against every other company hiring worldwide. Under-pay and you lose the candidate to someone who won't.</li>
-        <li><strong>Remote roles skew senior.</strong> In our data, roles with senior/staff/lead/principal titles outnumber junior ones by roughly <strong>7 to 1</strong>. Some of the "remote premium" is really a seniority premium.</li>
-        <li><strong>The employer saves real money.</strong> No desk, no office, no relocation package.</li>
-        <li><strong>Retention is cheaper than replacement.</strong> Location freedom is the single hardest perk to match once someone has it.</li>
+        <li><strong>Location freedom does not cost you money.</strong> Work-from-anywhere roles show a median of $194,965 against $195,000 for region-locked ones — a difference of $35, which is nothing. The common fear that going fully location-independent means accepting less is not visible here. (The worldwide sample is small, 8 disclosing listings, so treat it as "no evidence of a penalty" rather than proof of none.)</li>
+        <li><strong>Remote hiring skews heavily senior, and that is where the money is.</strong> Titles containing senior, staff, lead, principal, head, director or VP outnumber junior, graduate, associate and intern titles by <strong>9.8 to 1</strong> (1,460 against 149). Senior-titled roles that publish pay show a median of <strong>$205,005</strong>; junior-titled ones show <strong>$100,000</strong>. If remote work looks well paid in aggregate, a large part of that is simply which jobs get offered remotely at all.</li>
+        <li><strong>The talent pool cuts both ways.</strong> A company hiring worldwide competes against every other company hiring worldwide. That is a real pressure, but it is an argument, not a measurement.</li>
+        <li><strong>The employer does save money</strong> on desks, offices and relocation. Also an argument, and a usable one at the table.</li>
       </ul>
+      <p>The practical version: do not walk into a negotiation claiming a remote premium exists. Walk in knowing that the role you are applying for is probably a senior one, that senior roles on this board cluster around $205,000 when they publish, and that going location-free does not appear to cost anything.</p>
 
       <h2>Geographic pay adjustment: the fight you need to be ready for</h2>
       <p>Many companies apply a location multiplier — the same role paying less in Lisbon than San Francisco. Increasingly this is automated, applied from your address before a human is involved.</p>
@@ -447,17 +505,26 @@ export const POSTS_2026: Post[] = [
         <li><strong>Ask about the policy explicitly.</strong> "Do you apply geographic pay adjustment, and what's the band for this level?" A company with a clean answer is one you can plan around.</li>
       </ol>
 
-      <h2>How to negotiate when 87% of listings show no number</h2>
+      <h2>How to negotiate when four in five listings show no number</h2>
       <ol>
         <li><strong>Make them go first.</strong> "I'd rather understand the band for the role before I anchor — what range is budgeted?" is a completely normal thing to say, and most recruiters will answer.</li>
-        <li><strong>If forced, give a researched range,</strong> anchored to the medians above for your category and level, and say it's based on market data for the role.</li>
+        <li><strong>If forced, give a researched range,</strong> anchored to the medians above for your role and level — and say which sample size it rests on, because "the median of 165 published engineering ranges" is a far harder number to wave away than "market rate".</li>
         <li><strong>Negotiate the whole package.</strong> Equity, home-office budget, learning budget, extra leave and a written work-from-anywhere clause are all real compensation — and often easier to move than base.</li>
         <li><strong>Get location freedom in writing.</strong> If you plan to relocate, an explicit clause is worth more than a verbal "sure, we're remote-friendly."</li>
         <li><strong>Use disclosure as a filter.</strong> Employers who publish ranges tend to have defined levels and fewer arbitrary decisions. You can find them fast on our board — filter for <a href="/jobs?disc=1">roles with a published salary</a>.</li>
       </ol>
 
       <h2>Check the market before your next conversation</h2>
-      <p>Browse by category to see live ranges: <a href="/remote-devops-jobs">DevOps</a>, <a href="/remote-backend-jobs">backend</a>, <a href="/remote-design-jobs">design</a>, <a href="/remote-sales-marketing-jobs">sales &amp; marketing</a> or <a href="/remote-management-finance-jobs">management &amp; finance</a>.</p>
+      <p>Browse by category to see live ranges: <a href="/remote-devops-jobs">DevOps</a>, <a href="/remote-backend-jobs">backend</a>, <a href="/remote-design-jobs">design</a>, <a href="/remote-sales-marketing-jobs">sales &amp; marketing</a> or <a href="/remote-management-finance-jobs">management &amp; finance</a>. The <a href="/tools/salary-band-estimator">salary band estimator</a> gives the same figures filtered to your field, level and region, with the sample size shown next to every number.</p>
+
+      <h2>How we counted</h2>
+      <ul>
+        <li>Figures are from the live board on <strong>4 October 2026</strong>: 4,024 published listings from 899 employers, of which 735 publish a salary range.</li>
+        <li><strong>Roles are counted by job title</strong>, not by the site's category filter, because that filter files unclassifiable listings under "Product" and so mixes fields together.</li>
+        <li>Published ranges are converted to a <strong>USD midpoint</strong>. A listing with no number is not counted as low — it is not counted at all.</li>
+        <li>Sales figures are usually on-target earnings, which is a target rather than an outcome.</li>
+        <li>Counts change nightly. If a figure here disagrees with the board, the board is right.</li>
+      </ul>
     `,
   },
   {
@@ -515,16 +582,61 @@ export const POSTS_2026: Post[] = [
   },
   {
     slug: "async-first-companies-hiring-2026",
-    title: "Async-First Companies Are Hiring: How to Get Hired by the New Breed of Remote-First Employer",
+    title: "Async-First Companies Are Hiring — But Async-First Does Not Mean Hire-From-Anywhere",
     description:
-      "GitLab, Canonical, Supabase and Grafana post more location-free roles than anyone. Here's what async-first really means — and how to pass their hiring process.",
+      "GitLab has 127 open roles and not one is location-free. The companies that genuinely hire from anywhere are a different, much shorter list — and they hire differently.",
     date: "2026-08-29T09:00:00.000Z",
+    updated: "2026-10-04T07:00:00.000Z",
     author: "Bhargav",
     tags: ["Async Work", "Remote First Companies", "GitLab", "Remote Hiring", "Distributed Teams"],
     readMinutes: 9,
     html: `
-      <p>Look at which employers actually post work-from-anywhere roles and a clear pattern emerges. From our current dataset, the biggest posters are <strong>GitLab (222)</strong>, <strong>Canonical (164)</strong>, <strong>ElevenLabs (159)</strong>, <strong>Grafana Labs (122)</strong>, <strong>Remote (82)</strong>, <strong>Supabase (79)</strong> and <strong>Vanta (76)</strong>.</p>
-      <p>These aren't companies that allow remote work. They're companies <em>designed</em> around it — and they hire differently as a result. If you apply to them the way you'd apply to a hybrid employer, you will lose to people who understood the difference.</p>
+      <p>Counted on <strong>4 October 2026</strong>, across 4,024 remote listings from 899 employers. Figures come from the board itself and change nightly.</p>
+
+      <p class="text-sm"><em>Correction, 4 October 2026: this piece previously opened by naming GitLab, ElevenLabs, Grafana Labs and Vanta as the biggest posters of work-from-anywhere roles, with counts in the hundreds. Those figures are long out of date and the ranking was wrong in substance, not just in scale — three of those four currently post no location-free roles at all. The advice in the second half still stands and is unchanged; the data and the thesis above it have been rewritten.</em></p>
+
+      <h2>The thing almost everyone gets wrong</h2>
+      <p>GitLab is the most-cited async-first company in the world. It has a public handbook, it runs on written decisions, and it is all-remote with no offices. On our board today it has <strong>127 open roles, of which zero are work-from-anywhere</strong>.</p>
+      <p>That is not a contradiction. It is the distinction the whole thing turns on: <strong>async-first describes how a company works. It says nothing about where that company is willing to employ you.</strong></p>
+      <p>Look at what those listings actually say. GitLab's 127 roles carry 34 different location strings, and the most common are "Remote, United States" (23 roles), "Remote, Canada · Remote, United States" (23) and "Remote, United Kingdom" (10). Grafana Labs: 59 roles, every one country-scoped, led by "United States (Remote)" (21) and "Canada (Remote)" (8). Vanta: 33 roles, 30 of them "Remote U.S.".</p>
+      <p>All three are genuinely remote companies. None of them will hire you wherever you happen to live, because hiring across a border means a legal entity or an employer of record in that country, and that is an expensive, country-by-country decision that has nothing to do with how you run a standup.</p>
+
+      <h2>Who actually hires from anywhere</h2>
+      <p>176 of the 4,024 roles on the board carry no country, region or timezone condition — 4.4%. They come from just <strong>23 employers</strong>, and four of them hold 76% of the total:</p>
+      <table>
+        <thead><tr><th>Employer</th><th>Work-from-anywhere roles</th><th>Of its total</th><th>Share of its own hiring</th></tr></thead>
+        <tbody>
+          <tr><td>Canonical</td><td><strong>99</strong></td><td>148</td><td>66.9%</td></tr>
+          <tr><td>Supabase</td><td>18</td><td>37</td><td>48.6%</td></tr>
+          <tr><td>Camunda</td><td>11</td><td>20</td><td>55.0%</td></tr>
+          <tr><td>Metabase</td><td>6</td><td>11</td><td>54.5%</td></tr>
+          <tr><td>Goodstack</td><td>6</td><td>7</td><td>85.7%</td></tr>
+          <tr><td>ElevenLabs</td><td>5</td><td>42</td><td>11.9%</td></tr>
+          <tr><td>InBeat Agency</td><td>4</td><td>6</td><td>66.7%</td></tr>
+          <tr><td>Mattermost</td><td>3</td><td>7</td><td>42.9%</td></tr>
+          <tr><td>Remote</td><td>3</td><td>5</td><td>60.0%</td></tr>
+          <tr><td>Linear</td><td>3</td><td>14</td><td>21.4%</td></tr>
+        </tbody>
+      </table>
+      <p>The right-hand column is the one to read. An employer that posts 99 location-free roles out of 148 has made a structural decision; an employer posting 5 out of 42 has made an exception for five roles. If you are job hunting for location freedom, the first kind is worth following and the second kind is worth a job alert, not a strategy.</p>
+      <p>Canonical is the clearest case on the board: 99 of its 148 listings say "Anywhere in the World" outright, and most of the rest say "Home based" with a broad region attached. That is a company that has built the legal and operational machinery to employ people almost anywhere, and it is rarer than the discourse suggests.</p>
+
+      <h2>Why so few, and why that will not change quickly</h2>
+      <p>Two structural reasons, and only one of them is about culture.</p>
+      <p><strong>The legal one.</strong> Employing someone in a country means an entity there, or an employer of record charging a monthly fee per head, plus local payroll, benefits, notice periods and termination rules. Companies solve this country by country, which is why "Remote, United States · Remote, Canada" is such a common listing shape — it is a list of the places where the paperwork already exists.</p>
+      <p><strong>The operational one.</strong> A company that needs four hours of overlap has a location requirement whether or not it calls it one. Async-first is what removes that requirement, which is why the genuinely global employers are usually async-first — but the reverse does not follow, as GitLab demonstrates. Async-first is necessary and nowhere near sufficient.</p>
+      <p>We cover the overlap question in detail in <a href="/posts/timezone-overlap-how-much-you-need">how much timezone overlap you actually need</a>, and the vocabulary problem in <a href="/posts/work-from-anywhere-meaning">what work from anywhere really means</a>.</p>
+
+      <h2>What "async-first" actually means in practice</h2>
+      <p>Worth knowing regardless of where a company will employ you, because it changes how you are assessed:</p>
+      <ul>
+        <li><strong>Writing is the primary interface.</strong> Decisions are made in documents and issues, not meetings. If it wasn't written down, it didn't happen.</li>
+        <li><strong>Meetings are the exception and are expensive.</strong> A meeting means several people couldn't be served by a document, which is treated as a small failure.</li>
+        <li><strong>Defaults are public.</strong> GitLab's handbook is famously public and enormous. Internal transparency isn't a value statement; it's the mechanism that lets people in twelve timezones act without asking permission.</li>
+        <li><strong>Progress is asynchronous by design.</strong> Work is structured so nobody is blocked waiting for someone else to wake up.</li>
+        <li><strong>Output is judged, not hours.</strong> There's no presence to perform.</li>
+      </ul>
+      <blockquote>The uncomfortable implication: in an async-first company, being charming in a meeting is worth almost nothing. Being clear in writing is worth almost everything.</blockquote>
 
       <h2>What "async-first" actually means in practice</h2>
       <p>Async-first isn't "remote with flexible hours." It's a specific operating model with real consequences:</p>
@@ -536,10 +648,6 @@ export const POSTS_2026: Post[] = [
         <li><strong>Output is judged, not hours.</strong> There's no presence to perform, which is exactly why these companies can hire globally without anxiety.</li>
       </ul>
       <blockquote>The uncomfortable implication: in an async-first company, being charming in a meeting is worth almost nothing. Being clear in writing is worth almost everything.</blockquote>
-
-      <h2>Why they can hire anywhere (and most companies can't)</h2>
-      <p>Two structural reasons. First, they've solved the legal side — usually via an employer-of-record or established entities. Second, and more importantly, <strong>they don't need timezone overlap</strong>, because the work doesn't depend on synchronous availability. Most "remote" companies still require 4-hour overlap windows, which is a location requirement in disguise.</p>
-      <p>That's why only <strong>5.0%</strong> of the roles we track are genuinely location-free — and why so many of them come from this small set of employers.</p>
 
       <h2>How to pass an async-first hiring process</h2>
       <p>There's no office culture to signal for, no hallway rapport, no "great energy in the room." Here's what replaces it.</p>
