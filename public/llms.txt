@@ -26,6 +26,7 @@ Roles that ask for office days, a hybrid schedule or commuting distance are remo
 
 Written from the board's own listings, with sample sizes and stated limits. Figures are dated in each piece.
 
+- [Contractor, Employee or Employer of Record? How Remote Workers Abroad Actually Get Paid](https://getremotejobsnow.com/posts/contractor-employee-or-employer-of-record): The three ways a company abroad can pay you, what each one really costs you, and the arithmetic for turning a contractor rate into a number you can compare with a salary.
 - [Remote Product Manager Jobs: 130 Open, and Only 3 You Can Do From Anywhere](https://getremotejobsnow.com/posts/remote-product-manager-jobs): Every remote product manager role on our board, counted: what they pay, who is hiring, why almost none are work-from-anywhere, and why there is no junior rung.
 - [Remote Hiring Report, September 2026: 4,581 Jobs Analysed](https://getremotejobsnow.com/posts/remote-hiring-report-september-2026): Every open role on our board, counted: where the jobs are, what they pay, which fields hire worldwide, and the 24 employers behind the location-free roles.
 - [Remote Jobs at AI Labs and Space Companies: Who Really Hires Remotely](https://getremotejobsnow.com/posts/remote-jobs-at-ai-labs-and-space-companies): How AI labs and space companies really hire: office policies, export rules, and why only 4 of 464 AI roles on our board are open worldwide. Plus where to look.

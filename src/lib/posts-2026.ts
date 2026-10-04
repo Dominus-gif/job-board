@@ -1160,4 +1160,161 @@ export const POSTS_2026: Post[] = [
       },
     ],
   },
+  {
+    slug: "contractor-employee-or-employer-of-record",
+    title: "Contractor, Employee or Employer of Record? How Remote Workers Abroad Actually Get Paid",
+    description:
+      "The three ways a company abroad can pay you, what each one really costs you, and the arithmetic for turning a contractor rate into a number you can compare with a salary.",
+    date: "2026-10-04T07:00:00.000Z",
+    author: "Bhargav",
+    tags: ["Employer of Record", "Remote Contracts", "Contractor vs Employee", "Remote Work Abroad", "Remote Pay"],
+    readMinutes: 11,
+    html: `
+      <p>You have an offer from a company in another country. Before the salary number means anything, you need to know something the offer letter often answers in one ambiguous line: <strong>who is actually employing you?</strong></p>
+      <p>There are three answers, they are not interchangeable, and the difference between them is worth more than most of the salary negotiations people have.</p>
+
+      <p class="text-sm"><em>This is a practical explainer, not legal or tax advice. Employment and tax rules are national, they change, and the consequences of getting them wrong land on you rather than on a job board. Treat everything below as the questions to ask, and confirm the answers for your own country with an accountant or employment lawyer before you sign.</em></p>
+
+      <h2>What the job listing will not tell you</h2>
+      <p>On our board on <strong>4 October 2026</strong>, of 4,013 remote listings:</p>
+      <table>
+        <thead><tr><th>Advertised as</th><th>Listings</th><th>Share</th></tr></thead>
+        <tbody>
+          <tr><td>Full-time</td><td>3,967</td><td><strong>98.9%</strong></td></tr>
+          <tr><td>Part-time</td><td>27</td><td>0.7%</td></tr>
+          <tr><td>Contract</td><td>19</td><td>0.5%</td></tr>
+        </tbody>
+      </table>
+      <p>That table is less useful than it looks, and it is worth being precise about why. <strong>"Full-time" describes the hours, not the legal arrangement.</strong> A listing advertised as full-time can still turn out to be an employer-of-record placement, or a contractor engagement where you invoice monthly. The structured field every job board publishes answers "how many hours", and almost no listing answers "under what legal relationship" anywhere a filter can reach.</p>
+      <p>We cannot put a number on how often employers do spell it out, and it would be easy to pretend otherwise: the descriptions we store are short company blurbs, a few hundred characters each, so searching them for "employer of record" measures our own pipeline rather than the market. What we can say is that the question is not answerable from the listing in the overwhelming majority of cases. <strong>You will have to ask.</strong></p>
+
+      <h2>The three arrangements</h2>
+
+      <h3>1. Direct employee of a local entity</h3>
+      <p>The company has a registered legal entity in your country and puts you on its payroll there.</p>
+      <p>This is the arrangement everything else is measured against. Your employer handles payroll tax and social contributions, you get the statutory package where you live — paid leave, sick pay, notice period, redundancy rules, parental leave, whatever your country mandates — and your relationship with the tax authority is the ordinary one.</p>
+      <p>It is also the rarest of the three for a job in another country, for an unglamorous reason: a company cannot employ you in France unless it has set something up in France. Entities cost money to open and maintain, so companies open them where they already have several people. That is why so many "remote" listings name a country — our guide on <a href="/posts/async-first-companies-hiring-2026">async-first companies</a> found employers with over a hundred open roles and not one of them location-free, and the listings are country-scoped precisely because that is where the paperwork already exists.</p>
+
+      <h3>2. Employer of record (EOR)</h3>
+      <p>A third-party company that already has an entity in your country employs you on paper, and the company you actually work for pays that third party a fee.</p>
+      <p>You are a real employee with a real local contract. You get local statutory entitlements, payroll tax is withheld, and you have the protections your country gives employees. On paper your employer is a company whose name you may never otherwise hear.</p>
+      <p>What to understand about it:</p>
+      <ul>
+        <li><strong>Your statutory rights come from the EOR's contract</strong>, under your country's law. They are real, and they are the local minimum plus whatever the hiring company chose to buy.</li>
+        <li><strong>Benefits are a menu, not a given.</strong> Health cover, pension contributions above the statutory minimum and equity are decisions the hiring company makes and pays for separately. Ask which ones were bought.</li>
+        <li><strong>The fee is the company's cost, not yours</strong> — but it is real money, usually billed monthly per person, and it is the reason a company may offer a lower salary through an EOR than it would through its own entity. It is a legitimate thing to raise in a negotiation.</li>
+        <li><strong>Equity is the common casualty.</strong> Share schemes are often written around direct employees of the parent company. If equity matters to you, ask specifically whether an EOR employee is eligible, in writing.</li>
+        <li><strong>You can usually be released faster than a direct employee</strong>, within the limits of local notice law, because ending the EOR arrangement is a commercial decision between two companies.</li>
+      </ul>
+
+      <h3>3. Independent contractor</h3>
+      <p>You invoice the company. There is no employment relationship at all.</p>
+      <p>You are running a small business: registering it where required, charging and remitting any sales tax, paying your own income tax and social contributions, and funding everything an employer would otherwise provide. Nothing is withheld for you, which feels like more money every month and is not.</p>
+      <p>It is the fastest arrangement to set up and the one most likely to be offered for work outside the company's existing countries, short engagements, and anything the company treats as a trial.</p>
+
+      <h2>The comparison that actually matters</h2>
+      <p>A contractor rate and a salary are not the same unit, and comparing them directly is the single most expensive mistake in this whole area. Here is everything that sits between the two numbers:</p>
+      <table>
+        <thead><tr><th>Who pays for it</th><th>Employee (direct or EOR)</th><th>Contractor</th></tr></thead>
+        <tbody>
+          <tr><td>Income tax</td><td>Withheld for you</td><td>You, usually in instalments you must plan for</td></tr>
+          <tr><td>Social contributions / payroll taxes</td><td>Split, employer pays its share</td><td>You pay both sides in most countries</td></tr>
+          <tr><td>Paid annual leave</td><td>Paid</td><td>Unpaid — every day off is a day unbilled</td></tr>
+          <tr><td>Public holidays</td><td>Paid</td><td>Unpaid</td></tr>
+          <tr><td>Sick days</td><td>Statutory, often topped up</td><td>Unpaid, and uncapped as a risk</td></tr>
+          <tr><td>Pension / retirement</td><td>Employer contributes</td><td>Entirely yours to fund</td></tr>
+          <tr><td>Health insurance</td><td>Statutory or provided</td><td>Yours to buy</td></tr>
+          <tr><td>Notice period</td><td>Statutory, often months</td><td>Often days, sometimes none</td></tr>
+          <tr><td>Severance / redundancy</td><td>Statutory in most countries</td><td>None</td></tr>
+          <tr><td>Parental leave</td><td>Statutory</td><td>Depends entirely on your own country's self-employed scheme</td></tr>
+          <tr><td>Accountant, registration, invoicing admin</td><td>None</td><td>Yours, in money and in hours</td></tr>
+          <tr><td>Equipment</td><td>Usually provided or expensed</td><td>Yours</td></tr>
+          <tr><td>Late payment and currency conversion</td><td>Not your problem</td><td>Your cash-flow problem</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Doing the arithmetic</h3>
+      <p>The method, in the order that keeps it honest:</p>
+      <ol>
+        <li><strong>Start from what you would actually bill.</strong> Not the day rate times 365. Take your working days, subtract the leave you intend to take, the public holidays where you live, and a realistic allowance for sick days. Many people discover the billable year is nearer 220 days than 260.</li>
+        <li><strong>Subtract the contributions you now pay on both sides.</strong> This is the biggest single line and it is entirely country-specific — it is the number to get from an accountant rather than from an article.</li>
+        <li><strong>Subtract what you must now buy:</strong> health cover, pension contributions at whatever rate you would have received as an employee, insurance, accountancy fees, equipment.</li>
+        <li><strong>Price the risk you are absorbing.</strong> No notice period and no severance has a value. If the engagement can end on seven days' notice, some of that rate is compensation for carrying a risk an employee does not carry.</li>
+        <li><strong>Only then compare</strong> the remaining figure with the salary, and compare both against what they buy where you live rather than in the company's currency.</li>
+      </ol>
+      <p>Our <a href="/tools/offer-comparator">offer comparison calculator</a> runs exactly this. Set one offer to <em>Employee</em> and the other to <em>Contractor</em>, and it swaps "paid leave days" for "days off (unpaid)", applies a percentage for the costs you would cover, and converts both totals into purchasing power in the country you would be living in. Everything stays in your browser.</p>
+      <blockquote>The tool defaults the contractor cost line to 20%. That is a placeholder to make the form usable, not a rule of thumb — the real figure ranges widely by country and by how much pension and insurance you choose to replace. Replace it with your own number before you trust the output.</blockquote>
+
+      <h2>The risk nobody mentions in the interview: misclassification</h2>
+      <p>Most countries decide whether you are an employee by looking at the substance of the relationship rather than at what the contract calls it. Broadly, the more the arrangement looks like employment, the more likely an authority is to treat it as employment, whatever the paperwork says.</p>
+      <p>The signals that tend to matter are familiar across a lot of jurisdictions, even though the tests differ in the details: fixed hours set by the company, working only for that one client, using their equipment and systems, being managed day to day rather than delivering an agreed outcome, having no right to send a substitute, and open-ended duration.</p>
+      <p>Why you should care, even though the company usually carries the larger penalty:</p>
+      <ul>
+        <li>A reclassification can land you with back contributions, and the bill arrives years later.</li>
+        <li>It is usually triggered by something ordinary — a tax audit, or your own claim for unemployment or sick pay that prompts a question about why you were never an employee.</li>
+        <li>A company that structures a long-term, full-time, closely-managed role as a contract is making a choice about who carries that risk, and the answer is you.</li>
+      </ul>
+      <p>If the role is indefinite, full-time and managed like a job, a contractor arrangement is worth questioning rather than assuming is normal.</p>
+
+      <h2>What to ask before you sign</h2>
+      <ol>
+        <li><strong>Which of the three is this?</strong> If the answer is vague, that is itself information.</li>
+        <li><strong>If EOR: which provider, and which benefits did you buy?</strong> Statutory minimum and "a good package" are very different purchases.</li>
+        <li><strong>Am I eligible for equity, and under what document?</strong> Get it in writing before you accept, not after.</li>
+        <li><strong>What is the notice period, both ways?</strong> For contractors this is often the single most important clause in the agreement.</li>
+        <li><strong>Which currency am I paid in, on what date, and who absorbs the conversion?</strong> A rate quoted in a currency you do not spend is a rate with a variable attached.</li>
+        <li><strong>If contractor: what happens if I am ill for a month?</strong> The answer is usually "nothing", and it is better to know that in advance.</li>
+        <li><strong>Does this change if I move countries?</strong> Relevant before you plan anything — our guide on <a href="/posts/remote-work-taxes-living-abroad">tax when you work abroad</a> covers the residency side, and the <a href="/tools/tax-residency-day-counter">183-day counter</a> tracks the thing that usually triggers it.</li>
+      </ol>
+
+      <h2>So which is best?</h2>
+      <p>There is no general answer, but there are reliable patterns.</p>
+      <ul>
+        <li><strong>Direct employment</strong> is the strongest position if the company already has an entity where you live. Ask whether it does before assuming it does not.</li>
+        <li><strong>EOR</strong> is usually the best realistic outcome when it does not. You keep employee protections and the company absorbs the fee and the complexity. The things to watch are equity eligibility and which optional benefits were actually purchased.</li>
+        <li><strong>Contractor</strong> is genuinely better for some people — several clients, real control over your schedule, a rate that reflects the risk, and a country where self-employment is well served. It is a bad deal when it is a full-time job wearing a different hat, priced as though it were a salary.</li>
+      </ul>
+      <p>The test that cuts through it: <strong>if you converted this contractor rate into an employee-equivalent using the steps above, would you still take it over a salaried offer?</strong> If yes, it is a good contract. If you have never done that sum, you do not yet know what you have been offered.</p>
+
+      <h2>Related reading</h2>
+      <ul>
+        <li><a href="/tools/offer-comparator">Offer comparison calculator</a> — the arithmetic above, with your own numbers</li>
+        <li><a href="/posts/hourly-vs-annual-remote-pay-converting-offers">Hourly vs annual remote pay</a> — converting between the units offers arrive in</li>
+        <li><a href="/posts/remote-benefits-decoded-by-region">Remote benefits by region</a> — what is standard where, and what changes as a contractor</li>
+        <li><a href="/posts/remote-work-taxes-living-abroad">Working remotely from abroad and your taxes</a> — residency, the 183-day rule and your employer's exposure</li>
+        <li><a href="/posts/cost-of-living-arbitrage-remote-salary">Cost-of-living arbitrage</a> — what does and does not get cheaper when you move</li>
+        <li><a href="/tools/salary-purchasing-power">Salary purchasing-power calculator</a> — what a figure is worth where you would live</li>
+      </ul>
+
+      <h2>How we counted</h2>
+      <ul>
+        <li>Listing figures are from the live board on <strong>4 October 2026</strong>: 4,013 published remote listings. Counts change nightly; if a figure here disagrees with the board, the board is right.</li>
+        <li>The employment-type split comes from the structured field employers publish, which encodes <strong>hours, not legal status</strong>. We do not claim it tells you how a given role is engaged, because it does not.</li>
+        <li>We deliberately do not report how many listings mention employer-of-record or contractor terms in their text. The descriptions we store are short company summaries, so that search would measure our own pipeline rather than employer behaviour. Our <a href="/posts/how-we-source-and-verify-listings">sourcing method</a> explains what we do and do not capture.</li>
+        <li>Everything about tax, contributions and employment rights is general explanation, not country-specific advice, and no figures are asserted for any particular jurisdiction.</li>
+      </ul>
+    `,
+    faq: [
+      {
+        q: "What is an employer of record?",
+        a: "An employer of record is a third-party company that already has a legal entity in your country and employs you on paper, while you work for the company that hired you. That company pays the EOR a fee, usually monthly per person. You get a local employment contract and your country's statutory entitlements; the main things to check are whether you are eligible for equity and which optional benefits, such as private health cover or above-minimum pension contributions, the hiring company actually paid for.",
+      },
+      {
+        q: "Is it better to be a contractor or an employee for a remote job abroad?",
+        a: "It depends on the rate and on your country, but the comparison is not between the two headline numbers. As a contractor you fund your own leave, public holidays, sick days, pension, health cover, accountancy and equipment, you usually pay both sides of social contributions, and you typically have little or no notice period. Convert the contractor rate into an employee-equivalent first — billable days rather than calendar days, minus contributions and the benefits you must now buy — and only then compare.",
+      },
+      {
+        q: "How much should I add to a contractor rate to match a salary?",
+        a: "There is no single percentage, and anyone quoting one is guessing at your country's contribution rates. The honest method is to build it: start from the days you will actually bill after leave, public holidays and sick days, subtract the social contributions you now pay on both sides, subtract the cost of the pension, insurance and health cover you must replace, and price the lack of notice and severance. Our offer comparison calculator runs that arithmetic with your own figures.",
+      },
+      {
+        q: "Does a job listing say whether a role is contractor or employee?",
+        a: "Rarely in any way you can filter on. The employment type published with a listing describes the hours — on our board on 4 October 2026, 98.9% of 4,013 listings were advertised as full-time — and a full-time listing can still be an employer-of-record placement or a contractor engagement. You have to ask directly, and a vague answer is itself informative.",
+      },
+      {
+        q: "What is worker misclassification and why does it matter to me?",
+        a: "Most countries judge whether you are an employee by the substance of the working relationship rather than by what the contract is called. Fixed hours, a single client, the company's equipment, day-to-day management and open-ended duration all point towards employment. If an authority reclassifies the arrangement, back contributions can be owed and the question often surfaces years later, frequently triggered by an audit or by your own claim for sick pay or unemployment support. If a role is indefinite, full-time and closely managed, a contractor structure is worth questioning.",
+      },
+    ],
+  },
 ];
