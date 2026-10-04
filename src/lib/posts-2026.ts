@@ -14,7 +14,7 @@ export const POSTS_2026: Post[] = [
     slug: "is-remote-work-dying-2026-rto-data",
     title: "Is Remote Work Dying in 2026? What the RTO Data Actually Says",
     description:
-      "Return-to-office headlines say remote is over. Our data on 8,794 live listings says something else: remote didn't die in 2026 — it stratified.",
+      "Return-to-office headlines say remote is over. Our data on 3,998 live listings says something else: remote didn't die in 2026 — it stratified, and the top tier is now one employer plus a long tail.",
     date: "2026-09-06T09:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Work Trends", "Return to Office", "RTO 2026", "Future of Work", "Remote Work Statistics"],
@@ -22,7 +22,7 @@ export const POSTS_2026: Post[] = [
     html: `
       <p>Every few months a new headline declares remote work dead. A bank orders everyone back five days a week, a tech CEO says collaboration only happens in person, and the story writes itself: <em>the experiment is over</em>.</p>
       <p>Then you look at the actual listings, and the story falls apart.</p>
-      <p>We track this for a living. At the time of writing our board holds <strong>8,794 published remote roles</strong>. That is not the footprint of a dying category. But it isn't a victory lap either — because of those 8,794 roles, only <strong>443 are genuinely work-from-anywhere</strong>. That's <strong>5.0%</strong>.</p>
+      <p>We track this for a living. On <strong>4 October 2026</strong> our board held <strong>3,998 published remote roles</strong>. That is not the footprint of a dying category. But it isn't a victory lap either — because of those 3,998 roles, only <strong>173 are genuinely work-from-anywhere</strong>. That's <strong>4.3%</strong>.</p>
       <p>That single ratio explains the entire debate.</p>
 
       <h2>Remote didn't die. It stratified.</h2>
@@ -33,8 +33,8 @@ export const POSTS_2026: Post[] = [
       </ul>
       <p>Both are true at once. What changed isn't the existence of remote work — it's the <strong>distribution</strong>. Remote split into tiers:</p>
       <ol>
-        <li><strong>Tier 1 — Work-from-anywhere (5.0% of our board).</strong> No country, no timezone, no work-authorization gate. Genuinely rare, genuinely competitive.</li>
-        <li><strong>Tier 2 — Region-locked remote (95.0%).</strong> "Remote, US only." "Remote, EU." Fully remote in practice, but you must live in a named place. This is where the volume is now.</li>
+        <li><strong>Tier 1 — Work-from-anywhere (4.3% of our board).</strong> No country, no timezone, no work-authorization gate. Genuinely rare, genuinely competitive.</li>
+        <li><strong>Tier 2 — Region-locked remote (95.7%).</strong> "Remote, US only." "Remote, EU." Fully remote in practice, but you must live in a named place. This is where the volume is now.</li>
         <li><strong>Tier 3 — Hybrid dressed as remote.</strong> The listings that say remote and mean "three days in the office."</li>
       </ol>
       <blockquote>Remote work in 2026 isn't shrinking. It's hardening into a class system — and the top tier is small enough that most people never see it.</blockquote>
@@ -44,12 +44,12 @@ export const POSTS_2026: Post[] = [
       <p>So the mandates removed a category of jobs that were mostly never truly location-free to begin with. The headline reads "remote collapses." The reality is closer to "the pretenders left."</p>
 
       <h2>Where the remaining opportunity actually is</h2>
-      <p>Here's the part the doom coverage misses. Within that 443-role work-from-anywhere tier, the mix is nothing like what you'd guess:</p>
+      <p>Here's the part the doom coverage misses. Within that 173-role work-from-anywhere tier, the mix is nothing like what you'd guess. Counted by job title, and these overlap (an engineering manager counts in two rows), so they do not sum to 173:</p>
       <ul>
-        <li><strong>Management &amp; Finance — 140 roles.</strong> The single largest work-from-anywhere category, by a wide margin.</li>
-        <li><strong>Sales &amp; Marketing — 95 roles.</strong> Effectively level with all of engineering put together.</li>
-        <li><strong>Engineering (backend, frontend, full-stack, DevOps) — 102 roles.</strong></li>
-        <li><strong>Product — 60.</strong> <strong>Design — 26.</strong> <strong>Customer Support — 20.</strong></li>
+        <li><strong>Engineering — 98 of the 173 roles (56.6%).</strong> More than half of everything on the work-from-anywhere board carries an engineering title. If you want a job with no location condition, this is overwhelmingly where they are.</li>
+        <li><strong>Management and leadership — 65 roles (37.6%).</strong> Titles containing manager, director, head of or lead. Many are engineering leadership, which is why this row overlaps so heavily with the one above.</li>
+        <li><strong>Sales — 23 roles (13.3%).</strong> Far smaller in the location-free tier than its volume on the wider board would suggest.</li>
+        <li><strong>Customer support — 9 roles (5.2%).</strong> Small in absolute terms, but the one field here that regularly hires without a technical background.</li>
       </ul>
       <p>If your mental model of remote work is "it's for developers," that model is four years out of date. In the truly location-independent tier, <strong>commercial and finance roles outnumber engineering roles more than two to one</strong> — and finance alone beats every engineering discipline combined.</p>
 
@@ -63,67 +63,109 @@ export const POSTS_2026: Post[] = [
 
       <h2>The honest conclusion</h2>
       <p>Remote work in 2026 is not dying. It is smaller at the top, much larger in the middle, and considerably harder to navigate than it was in 2021, because the word "remote" now covers three very different products.</p>
+      <p>One number is worth carrying away. The work-from-anywhere tier is not just small, it is <strong>concentrated</strong>: those 173 roles come from 23 employers, and one of them, Canonical, accounts for 99 of them. Take that single company out and the genuinely location-free market on this board is <strong>74 roles from 22 employers</strong>. The top tier is less a market than a short list.</p>
+      <p class="text-sm"><em>Correction, 4 October 2026: the tier mix above was previously reported from our category filter, which files any listing it cannot classify under "Product" and so cannot be used to size a field: it named Management &amp; Finance as the largest work-from-anywhere category with 140 roles. Counted by title, engineering is the largest by a wide margin. The board totals in this piece were also months out of date and have been refreshed.</em></p>
       <p>The people who struggle are the ones still searching as if it's one market. The people who do well are the ones who pick a tier and search it deliberately.</p>
       <p><a href="/find-remote-jobs">Start with a filtered search →</a></p>
     `,
   },
   {
     slug: "remote-job-tier-list-2026",
-    title: "The Remote Job Tier List for 2026: Where Demand Is Real and Where It's Dead",
+    title: "The Remote Job Tier List: Ranked by Volume, Pay and Whether the Job Travels",
     description:
-      "We ranked remote roles A to D using 8,794 live listings — real posting volume, competition and remote viability. One popular 'remote job' scored zero.",
+      "Remote roles ranked from 3,998 live listings on three axes: how many exist, what they pay, and how likely they are to be open to someone anywhere. One popular 'remote job' still scores zero.",
     date: "2026-09-05T09:00:00.000Z",
+    updated: "2026-10-04T07:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Jobs 2026", "Tier List", "Career Advice", "Job Market Data", "Best Remote Jobs"],
-    readMinutes: 9,
+    readMinutes: 10,
     html: `
-      <p>Tier lists are usually vibes. This one isn't — it's built from <strong>8,794 live remote listings</strong> on our board, scored on three things that actually matter: how many roles exist, how remote-viable the work is, and how brutal the competition looks.</p>
-      <p>One role that appears in every "best remote jobs" listicle scored <strong>literally zero postings</strong>. We'll get to it.</p>
+      <p>Counted on <strong>4 October 2026</strong> from <strong>3,998 live remote listings</strong>. Figures come from the board itself and change nightly.</p>
 
-      <h2>Tier A — Real demand, durable, remote-native</h2>
-      <p><strong>AI, Data &amp; Machine Learning — 883 postings</strong><br/>
-      The clearest Tier A in the dataset. These roles are remote-viable by nature (the work is code, models and documents), demand is rising rather than eroding, and they're the least exposed to being automated by the thing they build. If you can credibly move toward data engineering, ML or applied AI, that's the strongest bet on this list.</p>
-      <p><strong>DevOps / Platform / Infrastructure — 531 postings</strong><br/>
-      Median disclosed salary in our data: <strong>$201,000</strong>. Infrastructure work is inherently location-independent and painfully hard to fake, which keeps competition down relative to volume. Consistently one of the best-paid categories we track.</p>
-      <p><strong>Sales — Account Executive &amp; revenue roles — 323 AE postings, 485 across all sales titles</strong><br/>
-      Sales is remote-native (the customer was always on a screen) and performance is objectively measurable, which is why the volume is here. What it is not is portable: only 1.5% of account executive listings carry no location condition, against 6.3% of engineering ones, because selling into a market is a reason to hire someone who lives in it. Median disclosed pay: <strong>$188,750</strong> from 50 listings, with the widest quartile spread of any role we track. Full comparison in <a href="/posts/account-executives-beat-software-engineers-remote">remote sales versus remote engineering</a>.</p>
+      <p class="text-sm"><em>Correction, 4 October 2026: this list was previously built from our category filter, which files any listing it cannot classify under "Product". That inflated some fields, invented others, and produced a $80,000 frontend median we have since retracted elsewhere. Everything below is counted by job title instead, and the tiers have been re-derived from scratch. Two rankings changed materially: AI and machine learning dropped out of the top tier, and DevOps moved into it.</em></p>
 
-      <h2>Tier B — Strong, but crowded or conditional</h2>
-      <p><strong>Management &amp; Finance — 2,163 postings</strong><br/>
-      The biggest work-from-anywhere category we have (341 of 443 truly location-free roles). Volume is excellent. It lands in B rather than A only because seniority requirements are steep — this is not where you break in.</p>
-      <p><strong>Backend Engineering — 405 postings, $193,500 median</strong><br/>
-      Still healthy, still well paid, still fully remote-viable. Down from A purely on competition: it's the default destination for every career-changer, so applicant pools are deep.</p>
-      <p><strong>Product Management — 3,100 postings</strong><br/>
-      Enormous raw volume and a $195,000 median. Held at B because "product" is a broad bucket and the roles skew senior — and because PM work is the most meeting-dependent on this list, which makes it fragile in async-first companies.</p>
+      <p>Tier lists are usually vibes. This one is built on three things that can be counted: <strong>how many roles exist</strong>, <strong>what the ones that publish pay actually pay</strong>, and — the axis most tier lists ignore — <strong>how likely the work is to be open to someone living anywhere</strong>.</p>
+      <p>That third axis does most of the work here. Only 4.3% of the board carries no country, region or timezone condition, and that scarcity is distributed very unevenly between fields. A role can have excellent volume and still be a bad bet if you need it to travel.</p>
 
-      <h2>Tier C — Viable, but you need an angle</h2>
-      <p><strong>Generic frontend / web development — 235 postings, $80,000 median</strong><br/>
-      Note that median. Frontend has the <em>lowest</em> disclosed median of every engineering category we track — less than half of backend or DevOps. Generic "I build websites in React" positioning is heavily commoditised. Frontend specialists who pair it with something scarce (accessibility, design systems, performance, data visualisation) still do fine; generalists get buried.</p>
-      <p><strong>Customer Support — 224 postings, $123,500 median</strong><br/>
-      Perfectly remote-viable and a genuine entry point into tech. But it's the front line of AI deflection: tier-one ticket work is being automated fastest. Support roles involving technical troubleshooting or account ownership are safe; scripted queue-clearing is not.</p>
-      <p><strong>Design — 332 postings, $197,500 median</strong><br/>
-      That median is the highest in our dataset, which looks like an A. It's a C on <em>volume plus competition</em>: 350 roles against one of the largest applicant pools in remote work. The pay is real if you get in. Getting in is the hard part.</p>
+      <h2>The whole table first</h2>
+      <p>Counted by title. The pay column is the median of the listings in that family that publish a range, and the count beside it is how many that is — a median of 5 is an anecdote, not a market.</p>
+      <table>
+        <thead><tr><th>Field (by title)</th><th>Roles</th><th>Work-from-anywhere</th><th>Median pay</th><th>Pay sample</th></tr></thead>
+        <tbody>
+          <tr><td>Software engineering (all)</td><td>504</td><td>6.3%</td><td>$212,000</td><td>163</td></tr>
+          <tr><td>Sales (all titles)</td><td>478</td><td>4.0%</td><td>$170,000</td><td>73</td></tr>
+          <tr><td>Account executive</td><td>316</td><td>1.6%</td><td>$188,750</td><td>50</td></tr>
+          <tr><td>Customer support / success</td><td>125</td><td>5.6%</td><td>$115,525</td><td>20</td></tr>
+          <tr><td>Product management</td><td>121</td><td>3.3%</td><td>$225,900</td><td>40</td></tr>
+          <tr><td>AI / ML / applied AI</td><td>93</td><td>1.1%</td><td>$209,750</td><td>21</td></tr>
+          <tr><td>Marketing</td><td>90</td><td>0.0%</td><td>$147,813</td><td>22</td></tr>
+          <tr><td>Data (eng / science / analytics)</td><td>89</td><td>1.1%</td><td>$187,000</td><td>15</td></tr>
+          <tr><td>DevOps / SRE / platform</td><td>84</td><td><strong>10.7%</strong></td><td>$215,500</td><td>19</td></tr>
+          <tr><td>Backend engineer</td><td>68</td><td>0.0%</td><td>$192,485</td><td>17</td></tr>
+          <tr><td>Design</td><td>64</td><td>1.6%</td><td>$233,500</td><td>12</td></tr>
+          <tr><td>Security</td><td>43</td><td>4.7%</td><td>$222,000</td><td>9</td></tr>
+          <tr><td>Full-stack engineer</td><td>41</td><td>2.4%</td><td>$185,000</td><td>11</td></tr>
+          <tr><td>Project / programme management</td><td>26</td><td>3.8%</td><td>$218,306</td><td>10</td></tr>
+          <tr><td>Content writing</td><td>16</td><td>6.3%</td><td>—</td><td>1</td></tr>
+          <tr><td>QA / test</td><td>14</td><td>0.0%</td><td>$144,735</td><td>3</td></tr>
+          <tr><td>Frontend / web development</td><td>12</td><td>0.0%</td><td>$130,000</td><td>5</td></tr>
+          <tr><td>Virtual / executive assistant</td><td>11</td><td>0.0%</td><td>—</td><td>1</td></tr>
+          <tr><td><strong>Data entry</strong></td><td><strong>0</strong></td><td>—</td><td>—</td><td>0</td></tr>
+        </tbody>
+      </table>
 
-      <h2>Tier D — Don't build a plan around these</h2>
-      <p><strong>Data entry — 0 postings</strong><br/>
-      Not "few." Zero, out of 8,794 live remote listings. This is among the most-searched "remote job" phrases on the internet and it does not meaningfully exist as a legitimate remote career any more. It was the first thing automated, and much of the search demand that remains is serviced by scams. If a listing offers well-paid remote data entry with no experience required, treat it as fraud until proven otherwise.</p>
-      <p><strong>Generic content writing — 66 postings</strong><br/>
-      Sixty-seven, against 1,324 software engineering roles. Undifferentiated "content writer" work has been hit harder than almost any category. Writers who moved into technical content, developer relations, or subject-matter-expert positioning are still in demand — the generalist blog-post mill is gone.</p>
+      <h2>Tier A — volume, pay and portability all hold up</h2>
+      <p><strong>DevOps, SRE and platform engineering — 84 roles, $215,500 median, 10.7% work-from-anywhere</strong><br/>
+      The highest portability of any field on the board, by a distance — more than two and a half times the board average. Infrastructure work is judged by whether the system stays up, which is the easiest kind of output to assess across twelve timezones, and it is the hardest to fake. Smaller in raw volume than engineering overall, but if you want a job that will follow you to another country, this is the strongest position on the list.</p>
+      <p><strong>Software engineering generally — 504 roles, $212,000 median from 163 published ranges, 6.3% work-from-anywhere</strong><br/>
+      The largest field by title, the best pay sample on the board by a wide margin, and above-average portability. It is Tier A on every axis at once, which nothing else manages.</p>
 
-      <h2>How to use this list</h2>
-      <p>A tier list is a map of the market, not a verdict on your career. Two rules for reading it:</p>
-      <ol>
-        <li><strong>Tier isn't destiny — it's difficulty.</strong> A Tier C role you're genuinely excellent at beats a Tier A role you're faking.</li>
-        <li><strong>Move adjacent, not across.</strong> Support → technical support → solutions engineering is a real path. Data entry → machine learning engineer is not, at least not in one jump.</li>
-      </ol>
-      <p>Browse the categories that matter: <a href="/remote-devops-jobs">DevOps</a>, <a href="/remote-backend-jobs">backend</a>, <a href="/remote-sales-marketing-jobs">sales &amp; marketing</a>, <a href="/remote-management-finance-jobs">management &amp; finance</a>, or see <a href="/remote-jobs-categories">every category ranked by live volume</a>.</p>
+      <h2>Tier B — strong, with a condition attached</h2>
+      <p><strong>Product management — 121 roles, $225,900 median, 3.3% work-from-anywhere</strong><br/>
+      Pay near the top of the table and a decent sample behind it. Held at B because the work is the most calendar-coupled on this list and the portability shows it, and because there is no entry rung at all — we found zero roles titled associate or junior product manager. Full breakdown in our <a href="/posts/remote-product-manager-jobs">remote product manager guide</a>.</p>
+      <p><strong>Security — 43 roles, $222,000 median, 4.7% work-from-anywhere</strong><br/>
+      Small but healthy on every axis, with above-average portability. B rather than A purely on volume: 43 roles is a thin market to run a job search against.</p>
+      <p><strong>Sales — 478 roles across all sales titles, 316 of them account executive</strong><br/>
+      Enormous volume, genuinely remote-native work, and the widest pay spread of anything we track — a 25th-to-75th range of $143,500 to $256,250 for AEs. What it is not is portable: 1.6% of AE listings carry no location condition, because selling into a market is a reason to hire someone who lives in it. Take it for the ceiling, not for the freedom. We compare it with engineering in <a href="/posts/account-executives-beat-software-engineers-remote">remote sales versus remote engineering</a>.</p>
+
+      <h2>Tier C — real work, but know what you are signing up for</h2>
+      <p><strong>AI, machine learning and applied AI — 93 roles, $209,750 median, 1.1% work-from-anywhere</strong><br/>
+      This moved down, and the reason is the whole point of this list. The pay is excellent and the demand is real. But 1 role in 93 is open to someone anywhere, which is a quarter of the board average — these jobs cluster at well-funded companies hiring into specific countries. If you are moving into AI expecting it to make you location-independent, the data does not support that.</p>
+      <p><strong>Data engineering, science and analytics — 89 roles, $187,000 median, 1.1% work-from-anywhere</strong><br/>
+      Same shape as AI, a little less pay. Solid career, poor portability.</p>
+      <p><strong>Customer support and success — 125 roles, $115,525 median, 5.6% work-from-anywhere</strong><br/>
+      The lowest median in the table, and also the widest open door: it remains the most realistic entry point into remote work without a technical background, and its portability is above average. The caveat is durability rather than pay — scripted first-line queue work is the most exposed to automation on this list, while troubleshooting and account ownership are not.</p>
+      <p><strong>Design — 64 roles, $233,500 median, 1.6% work-from-anywhere</strong><br/>
+      The highest median in the table, from only 12 published ranges, so treat the figure as indicative. C on volume and competition: a small market against one of the largest applicant pools in remote work.</p>
+
+      <h2>Tier D — do not build a plan around these</h2>
+      <p><strong>Data entry — 0 roles</strong><br/>
+      Not "few". Zero, out of 3,998 live remote listings, which is the same answer we got when the board was more than twice this size. It is among the most-searched remote job phrases on the internet and it does not meaningfully exist as a legitimate remote career. It was the first thing automated, and a great deal of the search demand that remains is serviced by fraud. <strong>If a listing offers well-paid remote data entry with no experience required, treat it as a scam until proven otherwise</strong> — our <a href="/tools/fake-job-checker">fake job posting checker</a> covers the signals, and <a href="/posts/remote-job-scams-how-they-make-money">how remote job scams actually make money</a> explains the mechanisms.</p>
+      <p><strong>Virtual and executive assistant — 11 roles</strong><br/>
+      A legitimate job that barely exists on boards like this one, because it is hired through agencies and personal networks rather than advertised. Low volume here is a statement about where the hiring happens, not about whether the work exists.</p>
+      <p><strong>Generic frontend and web development — 12 roles by title</strong><br/>
+      A note on why this number is so small, because the previous version of this page got it badly wrong. Counting by title, almost nobody advertises for a "frontend engineer" as such any more; the work is folded into full-stack and general software engineering postings, which is where the 504 figure comes from. We previously reported a $80,000 median here and built an argument about commoditisation on it. That figure came from a sample too thin to carry the claim, and we have retracted it. The honest statement is narrower: <strong>the job title is disappearing into broader ones, which is not the same as the work being devalued.</strong></p>
+
+      <h2>The thing the tiers do not show: there is barely a bottom rung</h2>
+      <p>Across the whole board, <strong>149 of 3,998 listings carry a junior, entry-level, graduate, associate or internship title — 3.7%</strong>. On the work-from-anywhere board it is 8 roles out of 173, and seven of those eight are at a single employer.</p>
+      <p>No tier on this list is realistically enterable without existing experience. If you are starting out, the fields with any entry-level presence at all are support, sales development and general software engineering, and our guide to <a href="/posts/first-remote-job-2026-no-experience">getting a first remote job</a> deals with that directly.</p>
+
+      <h2>How we counted</h2>
+      <ul>
+        <li>Figures are from the live board on <strong>4 October 2026</strong>: 3,998 published listings, 173 of them work-from-anywhere, 732 publishing a salary range.</li>
+        <li><strong>Fields are counted by job title</strong>, not by the site's category filter. The filter files unclassifiable listings under "Product", so it cannot be used to size a field. This is the change that re-derived the whole list.</li>
+        <li>Families are matched by title pattern and <strong>can overlap</strong> — a platform engineer counts in both software engineering and DevOps — so the rows do not sum to the board.</li>
+        <li>Pay is the median USD midpoint of the listings in that family that publish a range. The sample column is how many that is, and small samples are flagged rather than smoothed.</li>
+        <li>"Work-from-anywhere" means no country, region, timezone or local work-authorisation requirement of any kind. Our <a href="/posts/how-we-source-and-verify-listings">sourcing method</a> sets out what qualifies.</li>
+        <li>Counts change nightly. If a figure here disagrees with the board, the board is right.</li>
+      </ul>
     `,
   },
   {
     slug: "how-to-find-work-from-anywhere-jobs",
     title: "How to Find Work-From-Anywhere Jobs (When Only 7% of Remote Roles Are Truly Location-Free)",
     description:
-      "Most 'remote' jobs quietly require a country or timezone. Only 5.0% of the 8,794 listings we track are genuinely location-free. Here's how to find them.",
+      "Most 'remote' jobs quietly require a country or timezone. Only 4.3% of the 3,998 listings we track are location-free, they come from 23 employers, and one of them is 57% of the market. Here is how to find them.",
     date: "2026-09-04T09:00:00.000Z",
     author: "Bhargav",
     tags: ["Work From Anywhere", "Location Independent Jobs", "Remote Job Search", "Digital Nomad Jobs", "WFA Jobs"],
@@ -131,7 +173,7 @@ export const POSTS_2026: Post[] = [
     html: `
       <p>You search "remote jobs." You find thousands. You apply to forty. You hear back from none — and then you notice the line you skipped: <em>Remote (US only).</em> Or <em>Must overlap 9am–1pm ET.</em> Or <em>Must be authorised to work in the EU.</em></p>
       <p>You weren't unlucky. You were applying to the wrong tier.</p>
-      <p>Of the <strong>8,794 remote roles</strong> we currently track, only <strong>443 — 5.0% — are genuinely work-from-anywhere</strong>. Everything else names a country, a region, or a timezone you have to live in.</p>
+      <p>Of the <strong>3,998 remote roles</strong> we tracked on <strong>4 October 2026</strong>, only <strong>173 — 4.3% — are genuinely work-from-anywhere</strong>. Everything else names a country, a region, or a timezone you have to live in.</p>
 
       <h2>Remote vs work-from-anywhere: the distinction that costs people months</h2>
       <p>These are different products wearing the same word.</p>
@@ -139,15 +181,28 @@ export const POSTS_2026: Post[] = [
         <li><strong>Remote</strong> means you don't come to an office. It says nothing about <em>where you may live</em>. "Remote, US only" is a remote job.</li>
         <li><strong>Work-from-anywhere (WFA)</strong> means no country requirement, no region requirement, no timezone-overlap requirement, and no local work-authorization gate. You could move to a different continent and nothing about your employment changes.</li>
       </ul>
-      <blockquote>If a listing names a place you must be, it's remote. If it names nowhere, it's work-from-anywhere. That one test filters out 95.0% of the market.</blockquote>
+      <blockquote>If a listing names a place you must be, it's remote. If it names nowhere, it's work-from-anywhere. That one test filters out 95.7% of the market.</blockquote>
 
       <h2>Why real WFA roles are so rare</h2>
       <p>It isn't reluctance — it's payroll, tax and employment law. To hire someone in a country, a company generally needs a legal entity there or an employer-of-record service, and it takes on that country's tax and compliance exposure. Every additional country is real cost and real risk.</p>
       <p>So companies that hire genuinely globally have usually made a deliberate structural decision: they run on an employer-of-record, they hire contractors, or they were built distributed from day one. That's why WFA roles cluster so heavily in a specific set of employers rather than spreading evenly across the market.</p>
 
       <h2>Which companies actually post work-from-anywhere roles</h2>
-      <p>From our current dataset, the employers posting the most genuinely remote roles include <strong>GitLab</strong> (222 listings), <strong>Canonical</strong> (164), <strong>ElevenLabs</strong> (159), <strong>Grafana Labs</strong> (122), <strong>Remote</strong> (82), <strong>Supabase</strong> (79) and <strong>Vanta</strong> (76).</p>
-      <p>Notice the pattern: these are companies whose product, culture or business model is itself distributed. Canonical and GitLab have been all-remote for over a decade. Remote and Deel literally sell the infrastructure that makes global hiring possible — of course they use it. That pattern is your search heuristic: <strong>look for companies that would be embarrassed not to hire globally.</strong></p>
+      <p>Those 173 roles come from just <strong>23 employers</strong>, and they are nothing like evenly spread:</p>
+      <table>
+        <thead><tr><th>Employer</th><th>Location-free roles</th><th>Share of its own hiring</th></tr></thead>
+        <tbody>
+          <tr><td>Canonical</td><td><strong>99</strong></td><td>99 of 148 (66.9%)</td></tr>
+          <tr><td>Supabase</td><td>17</td><td>17 of 36 (47.2%)</td></tr>
+          <tr><td>Camunda</td><td>11</td><td>11 of 20 (55.0%)</td></tr>
+          <tr><td>Metabase</td><td>6</td><td>6 of 11 (54.5%)</td></tr>
+          <tr><td>Goodstack</td><td>6</td><td>6 of 7 (85.7%)</td></tr>
+          <tr><td>ElevenLabs</td><td>5</td><td>5 of 42 (11.9%)</td></tr>
+        </tbody>
+      </table>
+      <p><strong>The top four employers hold 133 of the 173 roles — 76.9%</strong>, and ten of the 23 are posting exactly one. The practical consequence is the most useful thing on this page: there are not enough location-free roles, spread widely enough, for keyword search to be the right tool. <strong>Following a dozen employers is.</strong> The right-hand column is how you pick them — an employer posting 99 of its 148 roles location-free has made a structural decision; one posting 5 of 42 has made an exception five times.</p>
+      <p class="text-sm"><em>Correction, 4 October 2026: this page previously named GitLab, ElevenLabs, Grafana Labs and Vanta among the biggest posters of location-free roles, with counts in the hundreds. Those figures were badly out of date and wrong in substance: GitLab currently has 127 open roles and none are location-free, and the same is true of Grafana Labs and Vanta. All three are genuinely remote companies that hire only where they hold a legal entity, which is a different thing. See <a href="/posts/async-first-companies-hiring-2026">async-first does not mean hire-from-anywhere</a>.</em></p>
+      <p>Notice what they have in common. Every one of them has built the legal and operational machinery to employ people in many countries — entities or an employer of record, plus a way of working that does not depend on everyone being awake at once. That is expensive and deliberate, which is exactly why only 23 employers on a 3,998-role board do it. What it is <em>not</em> is the same as being a well-known remote company: several of the most famous all-remote employers hire in a fixed list of countries and appear nowhere on this table.</p>
 
       <h2>Five filters that actually work</h2>
       <ol>
@@ -164,7 +219,7 @@ export const POSTS_2026: Post[] = [
         <li><strong>Volume applying doesn't work here.</strong> Twenty tailored applications will beat two hundred generic ones, because you're being compared against a worldwide field.</li>
         <li><strong>Async proof is the differentiator.</strong> These companies can't assess you in a hallway. Clear written communication is the single most transferable signal you can show — in your CV, your cover note, and your first reply.</li>
       </ul>
-      <p>And be realistic about entry level: of those 443 work-from-anywhere roles, only 8 carry a junior, entry-level or graduate title. That's roughly <strong>1%</strong>. WFA is largely a mid-to-senior market — worth knowing before you spend three months applying.</p>
+      <p>And be realistic about entry level: of those 173 work-from-anywhere roles, only <strong>8</strong> carry a junior, entry-level or graduate title — <strong>4.6%</strong> — and <strong>seven of the eight are at Canonical</strong>. The entry-level work-from-anywhere market is very nearly one company's graduate scheme. Beyond it, WFA is a mid-to-senior market — worth knowing before you spend three months applying.</p>
 
       <h2>Start here</h2>
       <p>Browse <a href="/page/1">every work-from-anywhere role we track</a>, or narrow by function — <a href="/remote-management-finance-jobs">management &amp; finance</a> (our largest WFA category), <a href="/remote-sales-marketing-jobs">sales &amp; marketing</a>, <a href="/remote-backend-jobs">backend</a>, or <a href="/remote-devops-jobs">DevOps</a>.</p>
