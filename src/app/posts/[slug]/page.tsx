@@ -23,6 +23,10 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     alternates: { canonical: url },
     openGraph: {
       type: "article",
+      // Named explicitly: a page that sets its own openGraph block does not
+      // inherit siteName from the layout, and without it Discord and others
+      // render the card with no publisher line above the title.
+      siteName: SITE.name,
       title: post.title,
       description: post.description,
       url,
