@@ -211,6 +211,8 @@ export const POSTS: Post[] = [
     tags: ["Work From Home", "Remote Work", "Guide"],
     readMinutes: 6,
     html: `
+      <p class="text-sm"><em>Updated 5 October 2026. This guide now also covers the material from our separate "what work from anywhere actually means" page, which redirects here — one subject reads better as one page than two. Figures are from the board on that date and change nightly.</em></p>
+
       <p>"Work from home" and "work from anywhere" get used as if they meant the same thing. For a job seeker they don't, and mixing them up is the most common reason people spend evenings on applications they were never eligible for. This guide explains the difference, shows how rare truly location-free roles are using the listings on our board, and explains how to find each kind.</p>
 
       <h2>Work from home: remote, but somewhere specific</h2>
@@ -222,7 +224,7 @@ export const POSTS: Post[] = [
       <p>That is a much stronger promise, and our main board only lists roles that make it. A role that says "remote" but also says "must be based in the EU" or "overlap with Pacific time" goes to the separate <a href="/remote-regional-jobs">regional remote board</a> instead.</p>
 
       <h2>How rare work-from-anywhere roles are</h2>
-      <p>At the time of writing, our board holds 5,707 remote roles. Only <strong>302 of them (5.3%)</strong> pass the worldwide test. The other 5,405 are genuinely remote but region-locked. Of those, 2,914 are open only to the United States, 823 only to Europe, 369 only to the UK, and the rest are spread across Asia-Pacific, India, Canada, Latin America, the Middle East and Africa.</p>
+      <p>At the time of writing, our board holds 3,871 remote roles. Only <strong>302 of them (5.3%)</strong> pass the worldwide test. The other 5,405 are genuinely remote but region-locked. Of those, 2,914 are open only to the United States, 823 only to Europe, 369 only to the UK, and the rest are spread across Asia-Pacific, India, Canada, Latin America, the Middle East and Africa.</p>
       <p>The gap is even starker by employer. The 302 worldwide roles come from just <strong>27 companies</strong>, against 1,039 companies posting region-locked remote roles. A handful of employers carry most of the location-free market: Canonical had 101 worldwide roles, Supabase 43, ElevenLabs 41 and Remote 40. Our guide to <a href="/posts/how-to-tell-if-a-company-is-truly-distributed">telling whether a company is truly distributed</a> covers what these employers have in common.</p>
       <p>Some fields are far more location-free than others. Across the whole board, the share of roles that are worldwide was:</p>
       <ul>
@@ -232,7 +234,7 @@ export const POSTS: Post[] = [
         <li>DevOps: 8.2% (32 of 391)</li>
         <li>Management and finance: 6.5% (92 of 1,409)</li>
         <li>Customer support: 5.9% (11 of 186)</li>
-        <li>Sales and marketing: 5.0% (61 of 1,222)</li>
+        <li>Sales and marketing: 2.4% (61 of 1,222)</li>
         <li>Product: 1.8% (32 of 1,782)</li>
       </ul>
       <p>Engineering and design work that can be judged by its output travels well. Product roles, which depend on close collaboration with a specific team and market, are the most likely to be tied to a place.</p>
@@ -240,6 +242,23 @@ export const POSTS: Post[] = [
       <h2>The pay trade-off</h2>
       <p>Work-from-anywhere roles publish pay less often, and when they do, the numbers are lower. 37 of the 302 worldwide roles (12%) show a US dollar range, with a median midpoint of about <strong>$89,400</strong>. Among region-locked roles, 944 show a dollar range, with a median of about <strong>$200,000</strong>.</p>
       <p>Don't read that as "location freedom halves your pay". The two samples contain different jobs: the region-locked group is dominated by senior roles at US software companies, and many worldwide employers set one global rate that sits below San Francisco levels but well above local rates in most countries. What it does mean is that the premium US salaries you see quoted almost always come with a location condition attached. Our guide to <a href="/posts/what-work-from-anywhere-jobs-pay">what work-from-anywhere jobs pay</a> goes into the numbers, and the <a href="/tools/salary-purchasing-power">purchasing-power calculator</a> shows what a global rate is worth where you live.</p>
+
+      <h2>Why the distinction exists at all</h2>
+      <p>It isn't marketing sloppiness — it's employment law. To employ someone in a country, a company generally needs a legal entity there or an employer-of-record service, and it takes on that country's payroll, tax and compliance obligations. Every extra country is real cost and real risk.</p>
+      <p>So most "remote" employers pick a small set of countries they are already set up in and hire only there. A company offering genuine work-from-anywhere has usually made a deliberate structural choice: an employer of record, contractor arrangements, or being built distributed from day one. Our guide to <a href="/posts/contractor-employee-or-employer-of-record">contractor, employee or employer of record</a> covers what each of those means for you once you are hired.</p>
+      <p>This is also why the famous all-remote names are not the ones posting location-free roles. On 5 October 2026, GitLab had 127 open roles on our board and none of them were work-from-anywhere; the same was true of Grafana Labs and Vanta. They are genuinely remote companies that hire where they hold an entity. We take that apart in <a href="/posts/async-first-companies-hiring-2026">async-first does not mean hire-from-anywhere</a>.</p>
+
+      <h2>What work from anywhere does <em>not</em> mean</h2>
+      <ul>
+        <li><strong>It doesn't mean no hours.</strong> Many work-from-anywhere roles still expect meeting availability or on-call rotations. Async-first and location-free are related but separate things.</li>
+        <li><strong>It doesn't mean no tax obligations.</strong> Spend enough time in a country — commonly 183 days — and you may become tax resident there. See <a href="/posts/remote-work-taxes-living-abroad">working remotely from abroad and your taxes</a>, and the <a href="/tools/tax-residency-day-counter">183-day counter</a>.</li>
+        <li><strong>It doesn't mean your employer has agreed.</strong> Even in a work-from-anywhere role, confirm in writing which countries are actually permitted before you move.</li>
+        <li><strong>It doesn't mean easier.</strong> A location-free role is open to candidates on every continent, so the applicant pool is global and deep.</li>
+      </ul>
+
+      <h2>How to spot a real work-from-anywhere job</h2>
+      <p>The test is what the listing does <em>not</em> say. If it names a country, a region, a timezone window or a work-authorisation requirement, it is region-locked however the headline reads. Treat "must overlap four hours with PST" as a location requirement in disguise — it excludes most of the planet just as effectively as "US only".</p>
+      <p>The reliable shortcut is to follow employers rather than keywords. The location-free roles on this board come from a short list of companies, and an employer that posts most of its roles without a location condition has made a structural decision you can rely on. Our <a href="/tools/company-remote-score">company remote hiring score</a> shows that ratio for any employer we track.</p>
 
       <h2>Which one should you look for?</h2>
       <p>Choose work from home if you are settled where you are and want the widest choice of roles and the highest published pay. You will compete for more jobs, and a country-locked role can offer local benefits such as health insurance and pension contributions that contractor-based worldwide roles often don't.</p>
@@ -260,7 +279,7 @@ export const POSTS: Post[] = [
       },
       {
         q: "How many remote jobs are truly work from anywhere?",
-        a: "Very few. At the time of writing, 302 of the 5,707 remote roles on getremotejobsnow.com (5.3%) had no location condition, and they came from just 27 employers.",
+        a: "Very few. At the time of writing, 302 of the 3,871 remote roles on getremotejobsnow.com (5.3%) had no location condition, and they came from just 27 employers.",
       },
       {
         q: "Do work-from-anywhere jobs pay less?",

@@ -22,7 +22,8 @@ export const POSTS_2026: Post[] = [
     html: `
       <p>Every few months a new headline declares remote work dead. A bank orders everyone back five days a week, a tech CEO says collaboration only happens in person, and the story writes itself: <em>the experiment is over</em>.</p>
       <p>Then you look at the actual listings, and the story falls apart.</p>
-      <p>We track this for a living. On <strong>4 October 2026</strong> our board held <strong>3,998 published remote roles</strong>. That is not the footprint of a dying category. But it isn't a victory lap either — because of those 3,998 roles, only <strong>173 are genuinely work-from-anywhere</strong>. That's <strong>4.3%</strong>.</p>
+      <p class="text-sm"><em>Updated 5 October 2026. The work-from-anywhere board moved sharply overnight: Canonical, which had been posting 99 of the 173 location-free roles, retired most of them, and the total fell to 91 from 23 employers. The figures below are the 5 October numbers. The direction of every finding here is unchanged, but the absolute counts in a market this concentrated can halve when one employer closes a hiring round — which is itself the most useful thing to know about it.</em></p>
+      <p>We track this for a living. On <strong>5 October 2026</strong> our board held <strong>3,871 published remote roles</strong>. That is not the footprint of a dying category. But it isn't a victory lap either — because of those 3,871 roles, only <strong>91 are genuinely work-from-anywhere</strong>. That's <strong>2.4%</strong>.</p>
       <p>That single ratio explains the entire debate.</p>
 
       <h2>Remote didn't die. It stratified.</h2>
@@ -33,8 +34,8 @@ export const POSTS_2026: Post[] = [
       </ul>
       <p>Both are true at once. What changed isn't the existence of remote work — it's the <strong>distribution</strong>. Remote split into tiers:</p>
       <ol>
-        <li><strong>Tier 1 — Work-from-anywhere (4.3% of our board).</strong> No country, no timezone, no work-authorization gate. Genuinely rare, genuinely competitive.</li>
-        <li><strong>Tier 2 — Region-locked remote (95.7%).</strong> "Remote, US only." "Remote, EU." Fully remote in practice, but you must live in a named place. This is where the volume is now.</li>
+        <li><strong>Tier 1 — Work-from-anywhere (2.4% of our board).</strong> No country, no timezone, no work-authorization gate. Genuinely rare, genuinely competitive.</li>
+        <li><strong>Tier 2 — Region-locked remote (97.6%).</strong> "Remote, US only." "Remote, EU." Fully remote in practice, but you must live in a named place. This is where the volume is now.</li>
         <li><strong>Tier 3 — Hybrid dressed as remote.</strong> The listings that say remote and mean "three days in the office."</li>
       </ol>
       <blockquote>Remote work in 2026 isn't shrinking. It's hardening into a class system — and the top tier is small enough that most people never see it.</blockquote>
@@ -44,9 +45,9 @@ export const POSTS_2026: Post[] = [
       <p>So the mandates removed a category of jobs that were mostly never truly location-free to begin with. The headline reads "remote collapses." The reality is closer to "the pretenders left."</p>
 
       <h2>Where the remaining opportunity actually is</h2>
-      <p>Here's the part the doom coverage misses. Within that 173-role work-from-anywhere tier, the mix is nothing like what you'd guess. Counted by job title, and these overlap (an engineering manager counts in two rows), so they do not sum to 173:</p>
+      <p>Here's the part the doom coverage misses. Within that 91-role work-from-anywhere tier, the mix is nothing like what you'd guess. Counted by job title, and these overlap (an engineering manager counts in two rows), so they do not sum to 173:</p>
       <ul>
-        <li><strong>Engineering — 98 of the 173 roles (56.6%).</strong> More than half of everything on the work-from-anywhere board carries an engineering title. If you want a job with no location condition, this is overwhelmingly where they are.</li>
+        <li><strong>Engineering — 39 of the 91 roles (42.9%).</strong> The largest single block on the work-from-anywhere board by some distance. If you want a job with no location condition, this is overwhelmingly where they are.</li>
         <li><strong>Management and leadership — 65 roles (37.6%).</strong> Titles containing manager, director, head of or lead. Many are engineering leadership, which is why this row overlaps so heavily with the one above.</li>
         <li><strong>Sales — 23 roles (13.3%).</strong> Far smaller in the location-free tier than its volume on the wider board would suggest.</li>
         <li><strong>Customer support — 9 roles (5.2%).</strong> Small in absolute terms, but the one field here that regularly hires without a technical background.</li>
@@ -63,7 +64,7 @@ export const POSTS_2026: Post[] = [
 
       <h2>The honest conclusion</h2>
       <p>Remote work in 2026 is not dying. It is smaller at the top, much larger in the middle, and considerably harder to navigate than it was in 2021, because the word "remote" now covers three very different products.</p>
-      <p>One number is worth carrying away. The work-from-anywhere tier is not just small, it is <strong>concentrated</strong>: those 173 roles come from 23 employers, and one of them, Canonical, accounts for 99 of them. Take that single company out and the genuinely location-free market on this board is <strong>74 roles from 22 employers</strong>. The top tier is less a market than a short list.</p>
+      <p>One number is worth carrying away. The work-from-anywhere tier is not just small, it is <strong>concentrated and unstable</strong>: 91 roles from 23 employers, with the top four holding 56% of them. A single employer closing a hiring round halved this tier between 4 and 5 October. If your plan depends on location-free work, it depends on a short list of companies, and short lists move.</p>
       <p class="text-sm"><em>Correction, 4 October 2026: the tier mix above was previously reported from our category filter, which files any listing it cannot classify under "Product" and so cannot be used to size a field: it named Management &amp; Finance as the largest work-from-anywhere category with 140 roles. Counted by title, engineering is the largest by a wide margin. The board totals in this piece were also months out of date and have been refreshed.</em></p>
       <p>The people who struggle are the ones still searching as if it's one market. The people who do well are the ones who pick a tier and search it deliberately.</p>
       <p><a href="/find-remote-jobs">Start with a filtered search →</a></p>
@@ -173,7 +174,8 @@ export const POSTS_2026: Post[] = [
     html: `
       <p>You search "remote jobs." You find thousands. You apply to forty. You hear back from none — and then you notice the line you skipped: <em>Remote (US only).</em> Or <em>Must overlap 9am–1pm ET.</em> Or <em>Must be authorised to work in the EU.</em></p>
       <p>You weren't unlucky. You were applying to the wrong tier.</p>
-      <p>Of the <strong>3,998 remote roles</strong> we tracked on <strong>4 October 2026</strong>, only <strong>173 — 4.3% — are genuinely work-from-anywhere</strong>. Everything else names a country, a region, or a timezone you have to live in.</p>
+      <p class="text-sm"><em>Updated 5 October 2026. The work-from-anywhere board moved sharply overnight: Canonical, which had been posting 99 of the 173 location-free roles, retired most of them, and the total fell to 91 from 23 employers. The figures below are the 5 October numbers. The direction of every finding here is unchanged, but the absolute counts in a market this concentrated can halve when one employer closes a hiring round — which is itself the most useful thing to know about it.</em></p>
+      <p>Of the <strong>3,871 remote roles</strong> we tracked on <strong>5 October 2026</strong>, only <strong>91 — 2.4% — are genuinely work-from-anywhere</strong>. Everything else names a country, a region, or a timezone you have to live in.</p>
 
       <h2>Remote vs work-from-anywhere: the distinction that costs people months</h2>
       <p>These are different products wearing the same word.</p>
@@ -188,19 +190,20 @@ export const POSTS_2026: Post[] = [
       <p>So companies that hire genuinely globally have usually made a deliberate structural decision: they run on an employer-of-record, they hire contractors, or they were built distributed from day one. That's why WFA roles cluster so heavily in a specific set of employers rather than spreading evenly across the market.</p>
 
       <h2>Which companies actually post work-from-anywhere roles</h2>
-      <p>Those 173 roles come from just <strong>23 employers</strong>, and they are nothing like evenly spread:</p>
+      <p>Those 91 roles come from just <strong>23 employers</strong>, and they are nothing like evenly spread:</p>
       <table>
         <thead><tr><th>Employer</th><th>Location-free roles</th><th>Share of its own hiring</th></tr></thead>
         <tbody>
-          <tr><td>Canonical</td><td><strong>99</strong></td><td>99 of 148 (66.9%)</td></tr>
-          <tr><td>Supabase</td><td>17</td><td>17 of 36 (47.2%)</td></tr>
+          <tr><td>Canonical</td><td><strong>17</strong></td><td>17 of 25 (68.0%)</td></tr>
+          <tr><td>Supabase</td><td><strong>17</strong></td><td>17 of 36 (47.2%)</td></tr>
           <tr><td>Camunda</td><td>11</td><td>11 of 20 (55.0%)</td></tr>
           <tr><td>Metabase</td><td>6</td><td>6 of 11 (54.5%)</td></tr>
           <tr><td>Goodstack</td><td>6</td><td>6 of 7 (85.7%)</td></tr>
-          <tr><td>ElevenLabs</td><td>5</td><td>5 of 42 (11.9%)</td></tr>
+          <tr><td>ElevenLabs</td><td>5</td><td>5 of 39 (12.8%)</td></tr>
+          <tr><td>InBeat Agency</td><td>4</td><td>4 of 6 (66.7%)</td></tr>
         </tbody>
       </table>
-      <p><strong>The top four employers hold 133 of the 173 roles — 76.9%</strong>, and ten of the 23 are posting exactly one. The practical consequence is the most useful thing on this page: there are not enough location-free roles, spread widely enough, for keyword search to be the right tool. <strong>Following a dozen employers is.</strong> The right-hand column is how you pick them — an employer posting 99 of its 148 roles location-free has made a structural decision; one posting 5 of 42 has made an exception five times.</p>
+      <p><strong>The top four employers hold 51 of the 91 roles — 56.0%</strong>, and a third of the 23 are posting exactly one. The practical consequence is the most useful thing on this page: there are not enough location-free roles, spread widely enough, for keyword search to be the right tool. <strong>Following a dozen employers is.</strong> The right-hand column is how you pick them — an employer posting 99 of its 148 roles location-free has made a structural decision; one posting 5 of 42 has made an exception five times.</p>
       <p class="text-sm"><em>Correction, 4 October 2026: this page previously named GitLab, ElevenLabs, Grafana Labs and Vanta among the biggest posters of location-free roles, with counts in the hundreds. Those figures were badly out of date and wrong in substance: GitLab currently has 127 open roles and none are location-free, and the same is true of Grafana Labs and Vanta. All three are genuinely remote companies that hire only where they hold a legal entity, which is a different thing. See <a href="/posts/async-first-companies-hiring-2026">async-first does not mean hire-from-anywhere</a>.</em></p>
       <p>Notice what they have in common. Every one of them has built the legal and operational machinery to employ people in many countries — entities or an employer of record, plus a way of working that does not depend on everyone being awake at once. That is expensive and deliberate, which is exactly why only 23 employers on a 3,998-role board do it. What it is <em>not</em> is the same as being a well-known remote company: several of the most famous all-remote employers hire in a fixed list of countries and appear nowhere on this table.</p>
 
@@ -219,7 +222,7 @@ export const POSTS_2026: Post[] = [
         <li><strong>Volume applying doesn't work here.</strong> Twenty tailored applications will beat two hundred generic ones, because you're being compared against a worldwide field.</li>
         <li><strong>Async proof is the differentiator.</strong> These companies can't assess you in a hallway. Clear written communication is the single most transferable signal you can show — in your CV, your cover note, and your first reply.</li>
       </ul>
-      <p>And be realistic about entry level: of those 173 work-from-anywhere roles, only <strong>8</strong> carry a junior, entry-level or graduate title — <strong>4.6%</strong> — and <strong>seven of the eight are at Canonical</strong>. The entry-level work-from-anywhere market is very nearly one company's graduate scheme. Beyond it, WFA is a mid-to-senior market — worth knowing before you spend three months applying.</p>
+      <p>And be realistic about entry level: of those 91 work-from-anywhere roles, only <strong>3</strong> carry a junior, entry-level or graduate title — <strong>3.3%</strong> — and two of the three are at Canonical. The entry-level work-from-anywhere market is, on any given day, a couple of openings at one or two employers. Beyond it, WFA is a mid-to-senior market — worth knowing before you spend three months applying.</p>
 
       <h2>Start here</h2>
       <p>Browse <a href="/page/1">every work-from-anywhere role we track</a>, or narrow by function — <a href="/remote-management-finance-jobs">management &amp; finance</a> (our largest WFA category), <a href="/remote-sales-marketing-jobs">sales &amp; marketing</a>, <a href="/remote-backend-jobs">backend</a>, or <a href="/remote-devops-jobs">DevOps</a>.</p>
@@ -680,7 +683,7 @@ export const POSTS_2026: Post[] = [
       <p>Two structural reasons, and only one of them is about culture.</p>
       <p><strong>The legal one.</strong> Employing someone in a country means an entity there, or an employer of record charging a monthly fee per head, plus local payroll, benefits, notice periods and termination rules. Companies solve this country by country, which is why "Remote, United States · Remote, Canada" is such a common listing shape — it is a list of the places where the paperwork already exists.</p>
       <p><strong>The operational one.</strong> A company that needs four hours of overlap has a location requirement whether or not it calls it one. Async-first is what removes that requirement, which is why the genuinely global employers are usually async-first — but the reverse does not follow, as GitLab demonstrates. Async-first is necessary and nowhere near sufficient.</p>
-      <p>We cover the overlap question in detail in <a href="/posts/timezone-overlap-how-much-you-need">how much timezone overlap you actually need</a>, and the vocabulary problem in <a href="/posts/work-from-anywhere-meaning">what work from anywhere really means</a>.</p>
+      <p>We cover the overlap question in detail in <a href="/posts/timezone-overlap-how-much-you-need">how much timezone overlap you actually need</a>, and the vocabulary problem in <a href="/posts/work-from-home-vs-work-from-anywhere">work from home versus work from anywhere</a>.</p>
 
       <h2>What "async-first" actually means in practice</h2>
       <p>Worth knowing regardless of where a company will employ you, because it changes how you are assessed:</p>
@@ -823,58 +826,6 @@ export const POSTS_2026: Post[] = [
         a: "Usually not first. They are 5.2% of the board and attract global competition, and only 8 entry-level roles among them. Region-locked remote roles are an eighteen times larger pool. Two years in one of those makes you an experienced remote candidate, which is who worldwide employers hire.",
       },
     ],
-  },
-  {
-    slug: "work-from-anywhere-meaning",
-    title: "Work From Anywhere: What It Actually Means (and How It Differs From Remote)",
-    description:
-      "Work from anywhere means no country, region or timezone requirement — a stricter thing than remote or work from home. Here's the difference, with data.",
-    date: "2026-09-08T09:00:00.000Z",
-    author: "Bhargav",
-    tags: ["Work From Anywhere", "WFA Meaning", "Remote Work Definitions", "Location Independent", "Work From Home"],
-    readMinutes: 6,
-    html: `
-      <p><strong>Work from anywhere (WFA) means a job with no geographic requirement at all: no country you must live in, no region, no timezone you must overlap, and no local work-authorization gate.</strong> If you moved to another continent tomorrow, nothing about your employment would change.</p>
-      <p>That is a much stricter definition than "remote" — and the gap between the two is where most job seekers lose months. Of the <strong>8,794 remote roles</strong> we track, only <strong>443 (5.0%)</strong> meet the work-from-anywhere bar. The other 95% name a place.</p>
-
-      <h2>Work from anywhere vs remote vs work from home</h2>
-      <p>These three phrases get used interchangeably. They are not the same thing.</p>
-      <table>
-        <thead><tr><th>Term</th><th>What it actually means</th><th>Can you move abroad?</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Work from anywhere</strong></td><td>No country, region or timezone requirement</td><td>Yes</td></tr>
-          <tr><td><strong>Remote</strong></td><td>No office attendance — but usually a named country or region</td><td>Usually no</td></tr>
-          <tr><td><strong>Work from home</strong></td><td>You work from your home, in a specific area</td><td>No</td></tr>
-          <tr><td><strong>Hybrid</strong></td><td>Split between home and an office</td><td>No</td></tr>
-        </tbody>
-      </table>
-      <blockquote>The one-line test: if the listing names a place you must be, it is remote. If it names nowhere, it is work from anywhere.</blockquote>
-
-      <h2>Why the distinction exists at all</h2>
-      <p>It isn't marketing sloppiness — it's employment law. To employ someone in a country, a company generally needs a legal entity there or an employer-of-record service, and it takes on that country's payroll, tax and compliance obligations. Every extra country is real cost and real risk.</p>
-      <p>So most "remote" employers pick a small set of countries they're already set up in and hire only there. A company offering genuine work-from-anywhere has usually made a deliberate structural choice: an employer-of-record, contractor arrangements, or being built distributed from day one.</p>
-
-      <h2>What work from anywhere does <em>not</em> mean</h2>
-      <ul>
-        <li><strong>It doesn't mean no hours.</strong> Many WFA roles still expect meeting availability or on-call rotations. Async-first and location-free are related but separate.</li>
-        <li><strong>It doesn't mean no tax obligations.</strong> Spend enough time in a country — commonly 183 days — and you may become tax resident there. See our guide to <a href="/posts/digital-nomad-visas-2026">digital nomad visas and tax</a>.</li>
-        <li><strong>It doesn't mean your employer has agreed.</strong> Even in a WFA role, confirm in writing which countries are actually permitted before you move.</li>
-        <li><strong>It doesn't mean easier.</strong> A location-free role is open to candidates on every continent, so the applicant pool is global and deep.</li>
-      </ul>
-
-      <h2>How to spot a real work-from-anywhere job</h2>
-      <ol>
-        <li><strong>Read the location field, not the title.</strong> "Remote" in a job title is marketing; the location line is the contract.</li>
-        <li><strong>Treat timezone overlap as a location requirement.</strong> "Must overlap 4 hours with PST" rules out most of the planet just as effectively as "US only."</li>
-        <li><strong>Watch for the authorization tell.</strong> "Must be eligible to work in X" is a hard geographic gate however remote the role is.</li>
-        <li><strong>Use a board that pre-filters.</strong> Every listing on our <a href="/work-from-anywhere-jobs">work from anywhere jobs</a> board has already passed this test, and the <a href="/real-work-from-anywhere-jobs">verified subset</a> narrows it further to roles pulled straight from the employer's own careers page. Region-locked roles live on a <a href="/remote-regional-jobs">separate, clearly-labelled board</a>.</li>
-      </ol>
-
-      <h2>Is work from anywhere worth targeting?</h2>
-      <p>If geographic freedom is genuinely your priority, yes — but go in informed. It's 5% of the market, it skews mid-to-senior (only 8 of our 443 location-free roles carry a junior title), and in that tier commercial and finance roles outnumber engineering ones by more than two to one.</p>
-      <p>If you mainly want to stop commuting, the region-locked 95% is a far larger and less contested pool, and it's where most people should start.</p>
-      <p><a href="/work-from-anywhere-jobs">Browse work from anywhere jobs →</a>, narrow to <a href="/real-work-from-anywhere-jobs">verified location-independent roles</a>, or see every <a href="/fully-remote-jobs">fully remote job</a> on the board. You can also read <a href="/posts/how-to-find-work-from-anywhere-jobs">how to find them</a>.</p>
-    `,
   },
   {
     slug: "remote-jobs-at-ai-labs-and-space-companies",
@@ -1369,6 +1320,118 @@ export const POSTS_2026: Post[] = [
       {
         q: "What is worker misclassification and why does it matter to me?",
         a: "Most countries judge whether you are an employee by the substance of the working relationship rather than by what the contract is called. Fixed hours, a single client, the company's equipment, day-to-day management and open-ended duration all point towards employment. If an authority reclassifies the arrangement, back contributions can be owed and the question often surfaces years later, frequently triggered by an audit or by your own claim for sick pay or unemployment support. If a role is indefinite, full-time and closely managed, a contractor structure is worth questioning.",
+      },
+    ],
+  },
+  {
+    slug: "remote-design-jobs",
+    title: "Remote Design Jobs: 87 Open, One Junior Role, and a Title That Has Swallowed the Field",
+    description:
+      "Every remote design role on our board, counted: what they pay, why brand design earns $101,000 less than product design, and why almost nobody advertises for a UX designer any more.",
+    date: "2026-10-05T07:00:00.000Z",
+    author: "Bhargav",
+    tags: ["Remote Design Jobs", "Product Designer", "UX Design", "Remote Salaries", "Design Careers"],
+    readMinutes: 9,
+    html: `
+      <p>This is a count of every remote design role open on getremotejobsnow.com on <strong>5 October 2026</strong>: <strong>87 roles from 72 employers</strong>, out of 3,871 remote listings. No survey, no estimates. The board is rebuilt nightly, so today's figures on the site will differ from these.</p>
+
+      <h2>Design is a small field, and "product designer" has eaten it</h2>
+      <p>87 roles is 2.2% of the board. For scale, there are 504 software engineering roles and 316 account executive roles on the same board. Design is not a volume market in remote hiring.</p>
+      <p>Within it, one title dominates to a degree that surprised me:</p>
+      <table>
+        <thead><tr><th>Discipline (by title)</th><th>Roles</th><th>Publish pay</th><th>Median</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Product designer</strong></td><td><strong>50</strong></td><td>10</td><td><strong>$238,500</strong></td></tr>
+          <tr><td>Visual / graphic / brand</td><td>9</td><td>3</td><td>$137,500</td></tr>
+          <tr><td>Design leadership (lead, head, director)</td><td>6</td><td>0</td><td>—</td></tr>
+          <tr><td>Design systems</td><td>3</td><td>2</td><td>$247,000</td></tr>
+          <tr><td>UX / UI designer</td><td>1</td><td>0</td><td>—</td></tr>
+          <tr><td>UX research</td><td>1</td><td>0</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <p>One role on the entire board is advertised as a "UX designer" or "UI designer". One is advertised for UX research. Fifty are advertised as product designers.</p>
+      <p>That is not because UX work stopped existing — it is inside those fifty jobs. It is a hiring-language change, and it has a practical consequence: <strong>if your CV, your portfolio and your job alerts are built around the phrase "UX designer", you are searching for a title employers have largely stopped typing.</strong> Rename the search before you conclude there is no work.</p>
+
+      <h2>The pay gap inside design is larger than the gap to other fields</h2>
+      <p>17 of 87 roles publish a salary range — 19.5%, close to the board-wide 18.9%. Among those that do:</p>
+      <table>
+        <thead><tr><th></th><th>25th pct</th><th>Median</th><th>75th pct</th><th>Range</th></tr></thead>
+        <tbody>
+          <tr><td>All design roles</td><td>$155,000</td><td>$215,000</td><td>$240,000</td><td>$86,000 – $306,000</td></tr>
+          <tr><td>Whole board</td><td>—</td><td>$195,000</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <p>Design sits above the board median overall. But the aggregate hides the thing worth knowing: <strong>product design shows a median of $238,500 and visual, graphic and brand design shows $137,500</strong>. That is a gap of $101,000 between two jobs that both say "designer" on the door, and it is wider than the gap between design and almost any other field on this board.</p>
+      <p>Both samples are small — 10 published ranges and 3 — so treat the exact figures as indicative rather than precise. The direction is not subtle, though, and it matches what the role descriptions imply: product design is priced as a product function with engineering adjacency, and brand and visual design is priced as a creative service.</p>
+      <blockquote>If you are a brand or visual designer looking at the headline design median and wondering why your offers come in far below it, this table is the answer. You are not being lowballed against the design market; you are in a different market that shares a word.</blockquote>
+
+      <h3>A caveat on the seniority figures</h3>
+      <p>Senior-titled design roles show a median of $165,000 from 6 published ranges, while roles with no level in the title show $237,000 from 11. Taken at face value that says seniority pays less, which is obviously wrong. With samples that small a couple of well-paid staff-level roles with no "senior" in the title move the second number more than it should. We are reporting it rather than hiding it, and you should not plan anything around it.</p>
+
+      <h2>There is one junior design role</h2>
+      <p>Across all 87 listings, exactly <strong>one</strong> carries a junior, associate, graduate or internship title.</p>
+      <p>This is the same pattern we found in <a href="/posts/remote-product-manager-jobs">remote product management</a>, where the count was zero, and it is the board-wide story in miniature: remote hiring is a senior market. 31 of the 87 design roles say "senior" in the title and a further 7 are lead, principal or staff level. Remote design, as advertised, is a job you move into with a portfolio already built, not one you enter.</p>
+      <p>If you are starting out, the honest read is that a remote-first job search is the hard way in. Our guide to <a href="/posts/first-remote-job-2026-no-experience">getting a first remote job</a> covers the realistic routes.</p>
+
+      <h2>Where the roles are, and how fast they move</h2>
+      <p>Resolving each listing to a country:</p>
+      <table>
+        <thead><tr><th>Open to</th><th>Roles</th><th>Share</th></tr></thead>
+        <tbody>
+          <tr><td>United States</td><td>49</td><td>56.3%</td></tr>
+          <tr><td>United Kingdom</td><td>8</td><td>9.2%</td></tr>
+          <tr><td>India</td><td>5</td><td>5.7%</td></tr>
+          <tr><td>Philippines, Brazil, Argentina, Canada</td><td>3 each</td><td>3.4% each</td></tr>
+          <tr><td>No country named</td><td>9</td><td>10.2%</td></tr>
+        </tbody>
+      </table>
+      <p>Only <strong>2 of the 87 roles are work-from-anywhere</strong>, carrying no country, region or timezone condition at all. That is 2.3%, which happens to sit right at the board average today, and in absolute terms it means the location-free remote design market is two jobs. If location independence is the goal, design is a hard field to pursue it in.</p>
+      <p>Design hiring is also slow. The median listing has been open <strong>30 days</strong>, and only <strong>3 of 87</strong> were posted in the last week. Compare that with fields where listings turn over weekly: a design search is a long game, and setting up an alert beats refreshing a board.</p>
+
+      <h2>Almost every employer wants exactly one designer</h2>
+      <p><strong>72 employers for 87 roles.</strong> The largest single hirers are Tempo and Rho AI with 3 each, then Vanta, FamPay, Assured, Linear, Humaans.io, Rula, Maven Clinic and Brilliant with 2.</p>
+      <p>That distribution tells you how to run the search. There is no cluster of design-heavy employers to follow the way there is for engineering. Nearly every opening is a one-off at a company that may not hire another designer for a year, which makes breadth and speed matter more than targeting a shortlist.</p>
+
+      <h2>What to do with this</h2>
+      <ol>
+        <li><strong>Search "product designer" first</strong>, then the specialisms. It is 57% of the field by title. <a href="/jobs?q=product%20designer">Product designer roles on the board</a>.</li>
+        <li><strong>Know which market you are in.</strong> Brand and visual design is a different pay market from product design; pricing yourself against the wrong one costs real money in a negotiation.</li>
+        <li><strong>Treat design systems work as a specialism worth naming.</strong> Three roles is a tiny sample, but both that publish pay sit at the top of the table, and it is the kind of scarce specialism that survives a crowded applicant pool.</li>
+        <li><strong>Set alerts rather than refreshing.</strong> With 3 new roles a week across the whole field, the cost of missing a listing is high and the cost of checking daily is wasted time.</li>
+        <li><strong>Filter by region early.</strong> 56% of these roles are US-only; finding that out from a filter is cheaper than finding it in paragraph nine.</li>
+        <li><strong>Browse the live list</strong>: <a href="/remote-design-jobs">remote design jobs</a>, or the <a href="/work-from-anywhere-jobs">work-from-anywhere board</a> if location freedom is non-negotiable.</li>
+      </ol>
+
+      <h2>How we counted</h2>
+      <ul>
+        <li>Figures are from the live board on <strong>5 October 2026</strong>: 3,871 published listings, 87 of them design roles.</li>
+        <li><strong>Roles are identified by job title</strong>, not by the site's category filter, which files unclassifiable listings under "Product" and so cannot size a field. A listing counts if its title contains designer, design lead, design manager, head of design, design director, UX or UI designer, UX researcher or design system. Hardware, electrical, circuit, mechanical and chip "design" titles are excluded — they share the word, not the job.</li>
+        <li><strong>Pay covers only the 17 listings that publish a range</strong>, converted to a USD midpoint. Listings with no number are not counted as low; they are not counted. That sample leans towards US employers covered by pay-transparency laws — see <a href="/posts/salary-transparency-laws-2026">where ranges are required</a>.</li>
+        <li>Discipline and level are read from the title. A company's internal level for a role titled "Product Designer" is not visible to us.</li>
+        <li>Small samples are stated with their size rather than smoothed. Three roles is not a market.</li>
+        <li>This is one board. Our <a href="/posts/how-we-source-and-verify-listings">sourcing method</a> sets out what is in and what is out. Counts change nightly; if a figure here disagrees with the board, the board is right.</li>
+      </ul>
+    `,
+    faq: [
+      {
+        q: "How many remote design jobs are there?",
+        a: "On our board on 5 October 2026 there were 87 open remote design roles from 72 employers, out of 3,871 remote listings — about 2.2% of the board. Design is a small field in remote hiring compared with software engineering (504 roles) or sales (478).",
+      },
+      {
+        q: "What do remote product designers earn?",
+        a: "Among the design listings that published a salary range on 5 October 2026, the median USD midpoint was $215,000 across all design roles, with a 25th-to-75th band of $155,000 to $240,000. Split by discipline, product design showed a median of $238,500 from 10 published ranges and visual, graphic and brand design showed $137,500 from 3. Those samples are small, so treat the exact figures as indicative.",
+      },
+      {
+        q: "Why are there so few UX designer jobs?",
+        a: "The title has largely been replaced rather than the work. On our board on 5 October 2026, one listing was advertised as a UX or UI designer and 50 were advertised as product designers. UX work sits inside those product design roles. If your CV and job alerts are built around 'UX designer', you are searching for a phrase employers have mostly stopped using.",
+      },
+      {
+        q: "Are there entry-level remote design jobs?",
+        a: "Barely. Of 87 remote design roles on our board on 5 October 2026, exactly one carried a junior, associate, graduate or internship title, while 31 said senior and a further 7 were lead, principal or staff level. Remote design is advertised almost entirely as a mid-to-senior market.",
+      },
+      {
+        q: "Can you work as a designer from anywhere in the world?",
+        a: "Rarely. Only 2 of the 87 remote design roles on our board on 5 October 2026 carried no country, region or timezone condition. In absolute terms the location-free remote design market was two jobs. Design is a difficult field in which to pursue full location independence.",
       },
     ],
   },

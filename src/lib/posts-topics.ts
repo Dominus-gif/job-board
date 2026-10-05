@@ -23,7 +23,6 @@ export const POST_TOPICS: PostTopic[] = [
     title: "Start here",
     blurb: "What the words mean, and how to tell a real work-from-anywhere role from a remote one.",
     slugs: [
-      "work-from-anywhere-meaning",
       "work-from-home-vs-work-from-anywhere",
       "how-to-find-work-from-anywhere-jobs",
     ],

@@ -77,6 +77,10 @@ const nextConfig = {
       },
       // Sponsor is merged into the Advertise page.
       { source: "/sponsor", destination: "/advertise", permanent: true },
+      // "What work from anywhere means" merged into the longer comparison
+      // guide (2026-10-05): one subject, one page, and the shorter one was a
+      // subset of the longer. Permanent so the ranking consolidates.
+      { source: "/posts/work-from-anywhere-meaning", destination: "/posts/work-from-home-vs-work-from-anywhere", permanent: true },
       // Two company-name posts merged into one broader guide (2026-09-27).
       { source: "/posts/does-spacex-have-remote-jobs", destination: "/posts/remote-jobs-at-ai-labs-and-space-companies", permanent: true },
       { source: "/posts/safe-superintelligence-and-ai-lab-careers", destination: "/posts/remote-jobs-at-ai-labs-and-space-companies", permanent: true },

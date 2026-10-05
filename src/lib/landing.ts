@@ -714,7 +714,6 @@ interface WfaConfig {
   faq: FaqItem[];
 }
 
-const WFA_MEANING_LINK = { href: "/posts/work-from-anywhere-meaning", label: "What work from anywhere means" };
 const WFA_VS_WFH_LINK = { href: "/posts/work-from-home-vs-work-from-anywhere", label: "Work from home vs work from anywhere" };
 
 const UPDATE_FAQ: FaqItem = {
@@ -735,12 +734,12 @@ const WFA_HUBS: Record<string, WfaConfig> = {
       {
         q: "What does work from anywhere mean?",
         a: "A work-from-anywhere job has no geographic requirement at all: no country you must live in, no region or city, no timezone you must overlap with, and no local work-authorization gate. It is a stricter bar than 'remote' — most remote roles still name a place.",
-        links: [WFA_MEANING_LINK],
+        links: [WFA_VS_WFH_LINK],
       },
       {
         q: "Is it different from remote or work from home?",
         a: "Yes, and the gap is where most job searches stall. 'Remote' usually means no office but a named country or region. 'Work from home' means your home, in a specific area. Only work from anywhere removes the location requirement entirely.",
-        links: [WFA_VS_WFH_LINK, WFA_MEANING_LINK],
+        links: [WFA_VS_WFH_LINK],
       },
       UPDATE_FAQ,
       ...BASE_FAQ.slice(1),
@@ -762,7 +761,7 @@ const WFA_HUBS: Record<string, WfaConfig> = {
       {
         q: "Do I need to be in a specific timezone?",
         a: "No. Any role asking for overlap with a named timezone — 'must overlap EST', 'CET core hours' — is rejected by our filter before it reaches this page. These roles run asynchronously, or on hours you agree with the team.",
-        links: [WFA_MEANING_LINK],
+        links: [WFA_VS_WFH_LINK],
       },
       UPDATE_FAQ,
       ...BASE_FAQ.slice(1),
@@ -781,7 +780,7 @@ const WFA_HUBS: Record<string, WfaConfig> = {
       {
         q: "What makes a job a real work-from-anywhere job?",
         a: "Two things. The listing comes from the employer's own careers page or hiring system, so the terms are the company's own words rather than a re-post. And it names no country, region, city, timezone or work-authorization requirement anywhere in the ad.",
-        links: [WFA_MEANING_LINK],
+        links: [WFA_VS_WFH_LINK],
       },
       {
         q: "How do you spot a hybrid role dressed up as remote?",
