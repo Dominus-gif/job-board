@@ -50,6 +50,8 @@ export const POST_TOPICS: PostTopic[] = [
       "account-executives-beat-software-engineers-remote",
       "ai-is-killing-these-remote-jobs-what-to-do-instead",
       "async-first-companies-hiring-2026",
+      "remote-product-manager-jobs",
+      "remote-design-jobs",
     ],
   },
   {
@@ -116,6 +118,7 @@ export const POST_TOPICS: PostTopic[] = [
       "cost-of-living-arbitrage-remote-salary",
       "remote-work-taxes-living-abroad",
       "cost-of-working-from-home-by-country",
+      "contractor-employee-or-employer-of-record",
     ],
   },
   {

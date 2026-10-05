@@ -2,26 +2,56 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { abs } from "@/lib/site";
 import { getAllPosts } from "@/lib/posts";
-import { topicOf } from "@/lib/posts-topics";
+import { POST_TOPICS, topicOf } from "@/lib/posts-topics";
 import { formatDate } from "@/lib/format";
+import { PostSortSelect } from "@/components/PostSortSelect";
+import {
+  filterPostsByTopic,
+  parsePostFilters,
+  postsHref,
+  sortPosts,
+  type PostFilters,
+} from "@/lib/posts-sort";
 
-export const metadata: Metadata = {
-  title: "Remote Work Blog — Guides & Tips",
-  description:
-    "Guides and tips on finding remote jobs you can do from anywhere — how to search, apply, and stand out for work-from-anywhere roles in the US, Europe and beyond.",
-  alternates: { canonical: "/posts" },
-};
+type SP = Record<string, string | string[] | undefined>;
 
-export default function PostsPage() {
-  const posts = getAllPosts();
-  const [lead, ...rest] = posts;
+/** Topic titles, in the order the topic list defines them. */
+const TOPIC_TITLES = POST_TOPICS.map((t) => t.title);
+
+export async function generateMetadata(props: { searchParams: Promise<SP> }): Promise<Metadata> {
+  const f = parsePostFilters(await props.searchParams, TOPIC_TITLES);
+  const scoped = f.topic ? `${f.topic} — Remote Work Guides` : "Remote Work Blog — Guides & Tips";
+  return {
+    title: scoped,
+    description:
+      "Guides and tips on finding remote jobs you can do from anywhere — how to search, apply, and stand out for work-from-anywhere roles in the US, Europe and beyond.",
+    // Every sorted or filtered view is the same library in a different order,
+    // so they all canonicalise to the plain index rather than competing with it.
+    alternates: { canonical: "/posts" },
+    ...(f.sort || f.topic ? { robots: { index: false, follow: true } } : {}),
+  };
+}
+
+export default async function PostsPage(props: { searchParams: Promise<SP> }) {
+  const all = getAllPosts();
+  const f: PostFilters = parsePostFilters(await props.searchParams, TOPIC_TITLES);
+  const posts = sortPosts(filterPostsByTopic(all, f.topic), f.sort);
+  const isDefaultView = !f.sort && !f.topic;
+  // The lead slot is the newest guide, and only makes sense on the unfiltered
+  // index. Under a sort or a topic it would either repeat the first row or
+  // contradict the order the reader just chose.
+  const [lead, ...rest] = isDefaultView ? posts : [];
+  // Topic counts come from the whole library, so a topic never looks empty
+  // just because another topic is currently selected.
+  const topicCounts = new Map<string, number>();
+  for (const p of all) topicCounts.set(topicOf(p.slug), (topicCounts.get(topicOf(p.slug)) ?? 0) + 1);
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
     name: "getremotejobsnow.com — Remote Work Blog",
     url: abs("/posts"),
-    blogPost: posts.map((p) => ({
+    blogPost: all.map((p) => ({
       "@type": "BlogPosting",
       headline: p.title,
       description: p.description,
@@ -47,8 +77,44 @@ export default function PostsPage() {
           Europe, and worldwide.
         </p>
         <p className="mt-4 font-mono text-xs uppercase tracking-[0.14em] text-ink-400">
-          {posts.length} guides · updated {formatDate(posts[0]?.date ?? new Date().toISOString())}
+          {f.topic ? `${posts.length} of ${all.length} guides` : `${all.length} guides`} · updated{" "}
+          {formatDate(all[0]?.date ?? new Date().toISOString())}
         </p>
+
+        {/* Topic filter. Plain links rather than a control, so each topic is
+            crawlable, works without JavaScript, and can be shared. */}
+        <nav aria-label="Filter guides by topic" className="mt-6 flex flex-wrap gap-2">
+          <Link
+            href={postsHref(f, { topic: "" })}
+            aria-current={f.topic ? undefined : "page"}
+            className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${
+              f.topic
+                ? "bg-ink-50 text-ink-600 ring-1 ring-inset ring-ink-100 hover:text-ink-900 hover:ring-ink-200"
+                : "pill-on"
+            }`}
+          >
+            All guides
+          </Link>
+          {POST_TOPICS.map((t) => {
+            const n = topicCounts.get(t.title) ?? 0;
+            if (!n) return null;
+            const active = f.topic === t.title;
+            return (
+              <Link
+                key={t.id}
+                href={postsHref(f, { topic: active ? "" : t.title })}
+                aria-current={active ? "page" : undefined}
+                className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${
+                  active
+                    ? "pill-on"
+                    : "bg-ink-50 text-ink-600 ring-1 ring-inset ring-ink-100 hover:text-ink-900 hover:ring-ink-200"
+                }`}
+              >
+                {t.title} <span className="tabular-nums opacity-60">{n}</span>
+              </Link>
+            );
+          })}
+        </nav>
       </header>
 
       {/* Lead article — the newest piece, given the room it deserves. */}
@@ -81,9 +147,16 @@ export default function PostsPage() {
           jump between blocks to see what exists. The columns line up down the
           page, which is what makes a long list scannable. */}
       <section className="mt-14">
-        <div className="flex items-baseline justify-between gap-4 border-b border-ink-200 pb-3">
-          <h2 className="font-display text-xl font-bold tracking-tight text-ink-900">All guides</h2>
-          <span className="font-mono text-xs uppercase tracking-[0.14em] text-ink-400">Newest first</span>
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-b border-ink-200 pb-3">
+          <h2 className="font-display text-xl font-bold tracking-tight text-ink-900">
+            {f.topic || "All guides"}
+          </h2>
+          <div className="flex items-center gap-2">
+            <span className="hidden font-mono text-xs uppercase tracking-[0.14em] text-ink-400 sm:inline">
+              {posts.length} {posts.length === 1 ? "guide" : "guides"}
+            </span>
+            <PostSortSelect sort={f.sort} topic={f.topic} />
+          </div>
         </div>
 
         {/* Column headers, on wide screens only — they name what the right-hand
@@ -138,6 +211,16 @@ export default function PostsPage() {
           ))}
         </ol>
       </section>
+
+      {posts.length === 0 && (
+        <p className="mt-8 rounded-xl border border-ink-100 bg-ink-50 p-6 text-sm text-ink-600">
+          No guides under this topic yet.{" "}
+          <Link href="/posts" className="font-semibold text-brand-700 underline-offset-2 hover:underline">
+            Show every guide
+          </Link>
+          .
+        </p>
+      )}
 
       <p className="mt-8 text-sm text-ink-500">
         Looking for roles rather than reading?{" "}

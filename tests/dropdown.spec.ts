@@ -22,6 +22,9 @@ const PAGES = [
   ["job search", "/jobs"],
   ["companies", "/companies"],
   ["a tool", "/tools/salary-band-estimator"],
+  // The guides index grew a sort control; it shares the Select component, so it
+  // shares the clipping and stacking failure modes.
+  ["guides", "/posts"],
 ];
 
 const SIZES = [
