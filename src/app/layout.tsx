@@ -64,13 +64,13 @@ export const metadata: Metadata = {
     title: "Remote Jobs From Around the World | getremotejobsnow.com",
     description: SITE.description,
     url: SITE.url,
-    images: [{ url: "/api/og", width: 1200, height: 630, alt: "getremotejobsnow.com — remote jobs you can do from anywhere" }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "getremotejobsnow.com — remote jobs you can do from anywhere" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Remote Jobs From Around the World | getremotejobsnow.com",
     description: SITE.description,
-    images: ["/api/og"],
+    images: ["/og.png"],
   },
   alternates: {
     types: { "application/rss+xml": `${SITE.url}/rss.xml` },

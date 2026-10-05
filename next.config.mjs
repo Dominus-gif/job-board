@@ -77,6 +77,10 @@ const nextConfig = {
       },
       // Sponsor is merged into the Advertise page.
       { source: "/sponsor", destination: "/advertise", permanent: true },
+      // The Open Graph image used to be rendered on demand at /api/og. It is
+      // a committed file now (see scripts/build-og-image.ts); this keeps any
+      // card a platform already cached under the old URL resolving.
+      { source: "/api/og", destination: "/og.png", permanent: true },
       // "What work from anywhere means" merged into the longer comparison
       // guide (2026-10-05): one subject, one page, and the shorter one was a
       // subset of the longer. Permanent so the ranking consolidates.

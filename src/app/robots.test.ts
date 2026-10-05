@@ -5,7 +5,7 @@ import robots from "./robots";
  * Link preview cards broke once and nothing noticed, because nothing here is
  * wired up to notice.
  *
- * The Open Graph image is served from /api/og, and robots.txt carried
+ * The Open Graph image was served from /api/og, and robots.txt carried
  * `Disallow: /api/` under the `*` group to keep crawlers out of the JSON
  * endpoints. Twitter, Slack, LinkedIn and the rest read robots.txt before
  * fetching an image, so they declined to request a file the server was happily
@@ -53,7 +53,11 @@ const PREVIEW_BOTS = ["Twitterbot", "facebookexternalhit", "LinkedInBot", "Slack
 describe("robots.txt", () => {
   it("lets every link-preview crawler fetch the Open Graph image", () => {
     for (const bot of PREVIEW_BOTS) {
-      expect(allowed(bot, "/api/og"), `${bot} must be able to fetch /api/og or shared links show no card`).toBe(true);
+      for (const path of ["/og.png", "/api/og"]) {
+        // /og.png is where the image lives now; /api/og still redirects to it
+        // for cards a platform cached before the move.
+        expect(allowed(bot, path), `${bot} must be able to fetch ${path} or shared links show no card`).toBe(true);
+      }
     }
   });
 

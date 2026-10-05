@@ -31,3 +31,8 @@
 /llms.txt
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
   Content-Type: text/plain; charset=utf-8
+
+# The social card image. A fixed file that changes only when someone reruns
+# scripts/build-og-image.ts, fetched by crawlers rather than browsers.
+/og.png
+  Cache-Control: public, max-age=2592000
