@@ -1439,62 +1439,64 @@ export const POSTS_2026: Post[] = [
     slug: "remote-jobs-bay-area",
     title: "Remote Jobs in the Bay Area: The Biggest Single Market on Our Board",
     description:
-      "663 remote roles name the Bay Area — 17.7% of everything we list. What they pay, who is hiring, and why a third of them publish a salary when most of the board does not.",
+      "838 remote roles name the Bay Area — 17.7% of everything we list. What they pay, who is hiring, and why a third of them publish a salary when most of the board does not.",
     date: "2026-10-06T07:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Jobs Bay Area", "San Francisco Remote Jobs", "Remote Salaries", "Tech Jobs", "Remote Job Market"],
     readMinutes: 8,
     html: `
-      <p>Counted on <strong>6 October 2026</strong> across 3,749 remote listings. Figures come from the board itself and change nightly.</p>
+      <p>Counted on <strong>6 October 2026</strong> across 4,730 remote listings. Figures come from the board itself and change nightly.</p>
 
-      <p><strong>663 listings name the Bay Area</strong> — San Francisco, Palo Alto, Mountain View, San Jose, Oakland, Berkeley and the rest of the peninsula. That is <strong>17.7% of our entire board</strong>, and it makes the Bay Area comfortably the largest single place in remote hiring that we track. The next biggest, London and the wider UK, has 274.</p>
+      <p class="text-sm"><em>Figures refreshed 6 October 2026. The board grew from 3,749 to 4,730 listings earlier the same day, when we added 135 further employer career boards as sources, so the counts below are higher than the ones first published here. Every finding is unchanged.</em></p>
+
+      <p><strong>838 listings name the Bay Area</strong> — San Francisco, Palo Alto, Mountain View, San Jose, Oakland, Berkeley and the rest of the peninsula. That is <strong>17.7% of our entire board</strong>, and it makes the Bay Area comfortably the largest single place in remote hiring that we track. The next biggest, London and the wider UK, has 356.</p>
 
       <h2>The pay is high, and unusually visible</h2>
-      <p><strong>238 of the 663 publish a salary range — 35.9%</strong>, against 19.0% across the whole board. California's pay-transparency law is the obvious reason, and it makes this the best-documented local market we have.</p>
+      <p><strong>293 of the 838 publish a salary range — 35.0%</strong>, against 18.5% across the whole board. California's pay-transparency law is the obvious reason, and it makes this the best-documented local market we have.</p>
       <table>
         <thead><tr><th></th><th>25th pct</th><th>Median</th><th>75th pct</th><th>Sample</th></tr></thead>
         <tbody>
-          <tr><td><strong>Bay Area</strong></td><td>$185,000</td><td><strong>$225,000</strong></td><td>$275,000</td><td>238</td></tr>
-          <tr><td>Whole board</td><td>—</td><td>$195,250</td><td>—</td><td>714</td></tr>
+          <tr><td><strong>Bay Area</strong></td><td>$185,000</td><td><strong>$223,500</strong></td><td>$275,000</td><td>293</td></tr>
+          <tr><td>Whole board</td><td>—</td><td>$192,494</td><td>—</td><td>874</td></tr>
         </tbody>
       </table>
-      <p>A $225,000 median against $195,250 is a real premium, and the sample behind it is large enough to lean on. Read it as "what Bay Area employers advertise" rather than "what people earn" — the listings that publish a range skew to larger, better-funded companies even within one market.</p>
+      <p>A $223,500 median against $192,494 is a real premium, and the sample behind it is large enough to lean on. Read it as "what Bay Area employers advertise" rather than "what people earn" — the listings that publish a range skew to larger, better-funded companies even within one market.</p>
 
       <h3>By field</h3>
       <table>
         <thead><tr><th>Field (by title)</th><th>Roles</th><th>Share</th><th>Median</th><th>Sample</th></tr></thead>
         <tbody>
-          <tr><td>Software engineering</td><td>113</td><td>17.0%</td><td>$231,898</td><td>67</td></tr>
-          <tr><td>Sales</td><td>66</td><td>10.0%</td><td>$210,000</td><td>28</td></tr>
-          <tr><td>Data / AI</td><td>27</td><td>4.1%</td><td><strong>$275,000</strong></td><td>9</td></tr>
-          <tr><td>Finance, legal, HR</td><td>27</td><td>4.1%</td><td>$197,500</td><td>8</td></tr>
-          <tr><td>Marketing</td><td>24</td><td>3.6%</td><td>$185,000</td><td>7</td></tr>
-          <tr><td>Product</td><td>22</td><td>3.3%</td><td>$233,400</td><td>16</td></tr>
-          <tr><td>Design</td><td>14</td><td>2.1%</td><td>$217,500</td><td>4</td></tr>
-          <tr><td>Customer support</td><td>10</td><td>1.5%</td><td>$120,000</td><td>3</td></tr>
+          <tr><td>Software engineering</td><td>131</td><td>15.6%</td><td>$225,000</td><td>77</td></tr>
+          <tr><td>Sales</td><td>83</td><td>9.9%</td><td>$210,000</td><td>29</td></tr>
+          <tr><td>Product</td><td>35</td><td>4.2%</td><td><strong>$251,750</strong></td><td>24</td></tr>
+          <tr><td>Data / AI</td><td>35</td><td>4.2%</td><td>$250,000</td><td>11</td></tr>
+          <tr><td>Finance, legal, HR</td><td>36</td><td>4.3%</td><td>$190,000</td><td>10</td></tr>
+          <tr><td>Marketing</td><td>36</td><td>4.3%</td><td>$177,500</td><td>10</td></tr>
+          <tr><td>Design</td><td>16</td><td>1.9%</td><td>$220,000</td><td>5</td></tr>
+          <tr><td>Customer support</td><td>13</td><td>1.6%</td><td>$142,500</td><td>2</td></tr>
         </tbody>
       </table>
-      <p>Data and AI tops the table at $275,000, from 9 published ranges — a small sample, so treat it as a signal rather than a figure. Customer support sits at $120,000, roughly half the engineering median, which is the same gap we see board-wide.</p>
+      <p>Product tops the table at $251,750 from 24 published ranges, with data and AI just behind at $250,000 from 11 — the smaller of those two is a signal rather than a figure. Customer support sits at $142,500 from only 2 ranges, far too few to read as a field salary.</p>
 
       <h2>Who is hiring</h2>
-      <p><strong>150 employers</strong> share the 663 roles, so this is a broad market rather than a handful of big names. The most active: Pragmatike (18), Mercor (17), Baseten (15), Wealthfront (14), Character.AI (13) and Windsurf/Codeium (12).</p>
+      <p><strong>170 employers</strong> share the 838 roles, so this is a broad market rather than a handful of big names. The most active: Pragmatike (28), Mercor (17), Wealthfront (15), Baseten (14), Character.AI (13) and Codeium/Exa (12).</p>
       <p>That list skews heavily towards AI companies, which matches the Data/AI pay figure above. If you are watching where Bay Area money is going, it is going there.</p>
 
       <h2>It moves fast</h2>
-      <p>The median Bay Area listing has been open <strong>25 days</strong>, and <strong>73 were posted in the last week</strong>. That is more new roles per week than most entire countries on this board produce, and it is the main practical argument for checking weekly rather than monthly.</p>
+      <p>The median Bay Area listing has been open <strong>23 days</strong>, and <strong>117 were posted in the last week</strong>. That is more new roles per week than most entire countries on this board produce, and it is the main practical argument for checking weekly rather than monthly.</p>
 
       <h2>The thing to understand before you apply</h2>
-      <p>None of these 663 roles is work-from-anywhere. A listing that names the Bay Area is, by definition, telling you where it expects you to be — usually "remote, but in the US", sometimes "remote, but able to come in". That is not a complaint about the market, it is what the location field means.</p>
+      <p>None of these 838 roles is work-from-anywhere. A listing that names the Bay Area is, by definition, telling you where it expects you to be — usually "remote, but in the US", sometimes "remote, but able to come in". That is not a complaint about the market, it is what the location field means.</p>
       <p>So there are two different searches here, and conflating them wastes weeks:</p>
       <ul>
-        <li><strong>If you live in the Bay Area</strong>, these 663 roles are your local market, and the <a href="/remote-jobs-in-the-bay-area">Bay Area job list</a> is the place to work through them. It also carries every work-from-anywhere role on the board, since those are open to you too.</li>
+        <li><strong>If you live in the Bay Area</strong>, these 838 roles are your local market, and the <a href="/remote-jobs-in-the-bay-area">Bay Area job list</a> is the place to work through them. It also carries every work-from-anywhere role on the board, since those are open to you too.</li>
         <li><strong>If you do not</strong>, most of this market is closed to you regardless of how remote the role is, and the <a href="/work-from-anywhere-jobs">work-from-anywhere board</a> is the honest starting point. Our guide to <a href="/posts/how-to-find-work-from-anywhere-jobs">finding location-free roles</a> explains why that list is so much shorter.</li>
       </ul>
       <p>Either way, filter by region before reading job descriptions. It is the single cheapest thing you can do.</p>
 
       <h2>How we counted</h2>
       <ul>
-        <li>Figures are from the live board on <strong>6 October 2026</strong>: 3,749 published remote listings, 714 of which publish a salary range.</li>
+        <li>Figures are from the live board on <strong>6 October 2026</strong>: 4,730 published remote listings, 874 of which publish a salary range.</li>
         <li><strong>A listing counts for a place if its own location text names it</strong>, using the same pattern the matching job page uses, so the guide and the list cannot disagree.</li>
         <li>These counts cover <strong>region-locked</strong> listings only. The matching job page also shows every work-from-anywhere role on the board, because those are open to you here as well — they are just not <em>about</em> this place, so counting them would flatter the local figure.</li>
         <li><strong>Pay covers only listings that publish a range</strong>, converted to a USD midpoint. A listing with no number is not counted as low; it is not counted. Sample sizes are printed next to every median, and small ones are flagged rather than smoothed.</li>
@@ -1505,15 +1507,15 @@ export const POSTS_2026: Post[] = [
     faq: [
       {
         q: "How many remote jobs are there in the Bay Area?",
-        a: "On our board on 6 October 2026 there were 663 remote listings naming the Bay Area — San Francisco, Palo Alto, Mountain View, San Jose, Oakland and the surrounding area — from 150 employers. That is 17.7% of the whole board, making it the largest single location we track.",
+        a: "On our board on 6 October 2026 there were 838 remote listings naming the Bay Area — San Francisco, Palo Alto, Mountain View, San Jose, Oakland and the surrounding area — from 170 employers. That is 17.7% of the whole board, making it the largest single location we track.",
       },
       {
         q: "What do remote Bay Area jobs pay?",
-        a: "Among the 238 of 663 Bay Area listings that published a salary range on 6 October 2026, the median USD midpoint was $225,000, with a 25th-to-75th band of $185,000 to $275,000. The board-wide median was $195,250. Software engineering showed $231,898 from 67 ranges and data and AI roles showed $275,000 from 9.",
+        a: "Among the 293 of 838 Bay Area listings that published a salary range on 6 October 2026, the median USD midpoint was $223,500, with a 25th-to-75th band of $185,000 to $275,000. The board-wide median was $192,494. Software engineering showed $225,000 from 77 ranges and product roles showed $251,750 from 24.",
       },
       {
         q: "Why do so many Bay Area listings show a salary?",
-        a: "35.9% of Bay Area listings publish a pay range against 19.0% board-wide, and California's pay-transparency law is the most likely reason. It makes the Bay Area the best-documented local market on our board.",
+        a: "35.0% of Bay Area listings publish a pay range against 18.5% board-wide, and California's pay-transparency law is the most likely reason. It makes the Bay Area the best-documented local market on our board.",
       },
       {
         q: "Can I apply to Bay Area remote jobs from another country?",
@@ -1525,60 +1527,62 @@ export const POSTS_2026: Post[] = [
     slug: "remote-jobs-seattle",
     title: "Remote Jobs in Seattle: A Small Market That Pays Like a Big One",
     description:
-      "Only 56 remote roles name Seattle, but their median advertised pay is $275,000 — the highest of any place on our board. What is behind that, and who is hiring.",
+      "Only 71 remote roles name Seattle, but every published quartile lands on $275,000 — the highest of any place on our board. What is behind that, and who is hiring.",
     date: "2026-10-06T08:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Jobs Seattle", "Seattle Tech Jobs", "Remote Salaries", "Remote Job Market"],
     readMinutes: 7,
     html: `
-      <p>Counted on <strong>6 October 2026</strong> across 3,749 remote listings. Figures come from the board itself and change nightly.</p>
+      <p>Counted on <strong>6 October 2026</strong> across 4,730 remote listings. Figures come from the board itself and change nightly.</p>
 
-      <p><strong>56 listings name Seattle</strong> or its tech suburbs — Bellevue, Redmond, Kirkland. That is 1.5% of the board, which makes it a small market by volume. It is also, by some distance, the <strong>best-paid</strong> place we track.</p>
+      <p class="text-sm"><em>Figures refreshed 6 October 2026. The board grew from 3,749 to 4,730 listings earlier the same day, when we added 135 further employer career boards as sources, so the counts below are higher than the ones first published here. Every finding is unchanged.</em></p>
+
+      <p><strong>71 listings name Seattle</strong> or its tech suburbs — Bellevue, Redmond, Kirkland. That is 1.5% of the board, which makes it a small market by volume. It is also, by some distance, the <strong>best-paid</strong> place we track.</p>
 
       <h2>The headline number, and why it needs a caveat first</h2>
       <table>
         <thead><tr><th></th><th>25th pct</th><th>Median</th><th>75th pct</th><th>Published ranges</th></tr></thead>
         <tbody>
-          <tr><td><strong>Seattle</strong></td><td>$255,000</td><td><strong>$275,000</strong></td><td>$275,000</td><td>22 of 56</td></tr>
-          <tr><td>Bay Area</td><td>$185,000</td><td>$225,000</td><td>$275,000</td><td>238 of 663</td></tr>
-          <tr><td>Whole board</td><td>—</td><td>$195,250</td><td>—</td><td>714 of 3,749</td></tr>
+          <tr><td><strong>Seattle</strong></td><td>$275,000</td><td><strong>$275,000</strong></td><td>$275,000</td><td>33 of 71</td></tr>
+          <tr><td>Bay Area</td><td>$185,000</td><td>$223,500</td><td>$275,000</td><td>293 of 838</td></tr>
+          <tr><td>Whole board</td><td>—</td><td>$192,494</td><td>—</td><td>874 of 4,730</td></tr>
         </tbody>
       </table>
-      <p>Look at the shape of that Seattle row before the size of it. The 25th percentile, the median and the 75th are $255,000, $275,000 and $275,000 — a band about $20,000 wide, from 22 published ranges. That is not what a market looks like. That is what a handful of employers advertising similar senior roles looks like.</p>
-      <p>Washington State's pay-transparency law is why 39.3% of Seattle listings publish a range at all, the highest rate of any place here. But 22 ranges clustered that tightly says the sample is dominated by a few companies hiring at one level, not that Seattle pays everyone $275,000.</p>
-      <blockquote>The honest version: senior remote roles advertised in Seattle are advertised at very high numbers. That is a real and useful fact. It is not the same as "the median Seattle remote job pays $275,000", and anyone quoting it that way is over-reading 22 listings.</blockquote>
+      <p>Look at the shape of that Seattle row before the size of it. The 25th percentile, the median and the 75th are all <strong>$275,000</strong> — not a band at all, from 33 published ranges. That is not what a market looks like. That is what a handful of employers advertising similar senior roles looks like, and the refreshed figures made it starker rather than softer.</p>
+      <p>Washington State's pay-transparency law is why 46.5% of Seattle listings publish a range at all, the highest rate of any place here. But 33 ranges landing on a single number says the sample is dominated by a few companies hiring at one level, not that Seattle pays everyone $275,000.</p>
+      <blockquote>The honest version: senior remote roles advertised in Seattle are advertised at very high numbers. That is a real and useful fact. It is not the same as "the median Seattle remote job pays $275,000", and anyone quoting it that way is over-reading 33 listings.</blockquote>
 
       <h2>Who is hiring</h2>
-      <p>Just <strong>18 employers</strong> for 56 roles — the most concentrated market on our board. Pragmatike leads with 14, then OpenAI (7), Truveta (6), HackerOne (5), Docker (4) and Ashby (4).</p>
-      <p>With a list that short, the practical move is obvious: follow those companies directly rather than running searches. Eighteen employers is a list you can check by hand.</p>
+      <p>Just <strong>20 employers</strong> for 71 roles — the most concentrated market on our board. Pragmatike leads with 24, then OpenAI (8), HackerOne (5), Ashby (5), Truveta (5) and Docker (4).</p>
+      <p>With a list that short, the practical move is obvious: follow those companies directly rather than running searches. Twenty employers is a list you can check by hand.</p>
 
       <h3>By field</h3>
       <table>
         <thead><tr><th>Field (by title)</th><th>Roles</th><th>Share</th><th>Median</th><th>Sample</th></tr></thead>
         <tbody>
-          <tr><td>Software engineering</td><td>14</td><td>25.0%</td><td>$210,000</td><td>7</td></tr>
-          <tr><td>Sales</td><td>8</td><td>14.3%</td><td>—</td><td>0</td></tr>
-          <tr><td>Data / AI</td><td>4</td><td>7.1%</td><td>$210,000</td><td>3</td></tr>
-          <tr><td>Product</td><td>3</td><td>5.4%</td><td>$275,000</td><td>3</td></tr>
-          <tr><td>Design</td><td>2</td><td>3.6%</td><td>—</td><td>0</td></tr>
+          <tr><td>Software engineering</td><td>16</td><td>22.5%</td><td>$226,875</td><td>8</td></tr>
+          <tr><td>Sales</td><td>9</td><td>12.7%</td><td>—</td><td>0</td></tr>
+          <tr><td>Product</td><td>5</td><td>7.0%</td><td>$275,000</td><td>5</td></tr>
+          <tr><td>Data / AI</td><td>4</td><td>5.6%</td><td>$210,000</td><td>3</td></tr>
+          <tr><td>Design</td><td>2</td><td>2.8%</td><td>—</td><td>0</td></tr>
         </tbody>
       </table>
-      <p>A quarter of the market is software engineering, which is the highest engineering concentration of any place we track. Several fields have no published pay at all, which is what a 56-role market looks like once you split it.</p>
+      <p>Software engineering is 22.5% of the market, the highest engineering concentration of any place we track. Several fields have no published pay at all, which is what a 71-role market looks like once you split it.</p>
 
       <h2>It is fresher than its size suggests</h2>
-      <p>The median Seattle listing has been open <strong>19 days</strong> and <strong>15 of the 56 were posted in the last week</strong>. For a market this small that is a lot of turnover — more than a quarter of it is new within a week. Worth an alert rather than a monthly check.</p>
+      <p>The median Seattle listing has been open <strong>16 days</strong> and <strong>20 of the 71 were posted in the last week</strong>. For a market this small that is a lot of turnover — more than a quarter of it is new within a week. Worth an alert rather than a monthly check.</p>
 
       <h2>What to do with this</h2>
       <ol>
-        <li><strong>If you are in the Seattle area</strong>, work the <a href="/remote-jobs-in-seattle">Seattle job list</a> and follow the 18 employers directly. The list also carries every work-from-anywhere role on the board, since those are open to you as well.</li>
+        <li><strong>If you are in the Seattle area</strong>, work the <a href="/remote-jobs-in-seattle">Seattle job list</a> and follow the 20 employers directly. The list also carries every work-from-anywhere role on the board, since those are open to you as well.</li>
         <li><strong>Do not anchor your expectations to $275,000.</strong> Anchor to the field table, and to what the specific company is advertising. Our <a href="/posts/remote-salaries-2026-negotiate-the-premium">guide to published remote ranges</a> covers how to use these numbers in a negotiation without over-claiming.</li>
         <li><strong>If you are not in the US</strong>, this market is almost entirely closed to you — a listing naming Seattle is telling you where it expects you to be. The <a href="/work-from-anywhere-jobs">work-from-anywhere board</a> is the honest alternative.</li>
-        <li><strong>Compare with the Bay Area.</strong> It is ten times the size at a lower median, which is a genuine trade between choice and price. Our <a href="/posts/remote-jobs-bay-area">Bay Area guide</a> has the other half of that picture.</li>
+        <li><strong>Compare with the Bay Area.</strong> It is nearly twelve times the size at a lower median, which is a genuine trade between choice and price. Our <a href="/posts/remote-jobs-bay-area">Bay Area guide</a> has the other half of that picture.</li>
       </ol>
 
       <h2>How we counted</h2>
       <ul>
-        <li>Figures are from the live board on <strong>6 October 2026</strong>: 3,749 published remote listings, 714 of which publish a salary range.</li>
+        <li>Figures are from the live board on <strong>6 October 2026</strong>: 4,730 published remote listings, 874 of which publish a salary range.</li>
         <li><strong>A listing counts for a place if its own location text names it</strong>, using the same pattern the matching job page uses, so the guide and the list cannot disagree.</li>
         <li>These counts cover <strong>region-locked</strong> listings only. The matching job page also shows every work-from-anywhere role on the board, because those are open to you here as well — they are just not <em>about</em> this place, so counting them would flatter the local figure.</li>
         <li><strong>Pay covers only listings that publish a range</strong>, converted to a USD midpoint. A listing with no number is not counted as low; it is not counted. Sample sizes are printed next to every median, and small ones are flagged rather than smoothed.</li>
@@ -1589,15 +1593,15 @@ export const POSTS_2026: Post[] = [
     faq: [
       {
         q: "How many remote jobs are there in Seattle?",
-        a: "On our board on 6 October 2026 there were 56 remote listings naming Seattle, Bellevue, Redmond or Kirkland, from just 18 employers. That is 1.5% of the board, making it a small but highly concentrated market.",
+        a: "On our board on 6 October 2026 there were 71 remote listings naming Seattle, Bellevue, Redmond or Kirkland, from just 20 employers. That is 1.5% of the board, making it a small but highly concentrated market.",
       },
       {
         q: "What do remote Seattle jobs pay?",
-        a: "Among the 22 of 56 Seattle listings that published a range on 6 October 2026, the median USD midpoint was $275,000, with a 25th-to-75th band of only $255,000 to $275,000. That band is narrow because the sample is small and dominated by a few employers hiring at senior level — it is not evidence that the typical Seattle remote job pays $275,000.",
+        a: "Among the 33 of 71 Seattle listings that published a range on 6 October 2026, the 25th percentile, median and 75th percentile were all $275,000. There is no band at all, because the sample is small and dominated by a few employers hiring at senior level — it is not evidence that the typical Seattle remote job pays $275,000.",
       },
       {
         q: "Which companies hire remotely in Seattle?",
-        a: "On 6 October 2026 the most active were Pragmatike with 14 roles, OpenAI with 7, Truveta with 6, HackerOne with 5, and Docker and Ashby with 4 each. With only 18 employers in the market, following them directly is more effective than running searches.",
+        a: "On 6 October 2026 the most active were Pragmatike with 24 roles, OpenAI with 8, then HackerOne, Ashby and Truveta with 5 each and Docker with 4. With only 20 employers in the market, following them directly is more effective than running searches.",
       },
     ],
   },
@@ -1605,49 +1609,51 @@ export const POSTS_2026: Post[] = [
     slug: "remote-jobs-london",
     title: "Remote Jobs in London and the UK: Big Market, Quiet About Pay",
     description:
-      "274 remote roles name London or the UK. Sales out-hires engineering, only one in seven publishes a salary, and the advertised median is far below the US markets. The numbers, and what they mean for a search.",
+      "356 remote roles name London or the UK. Sales out-hires engineering, only one in seven publishes a salary, and the advertised median is far below the US markets. The numbers, and what they mean for a search.",
     date: "2026-10-06T09:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Jobs London", "Remote Jobs UK", "Remote Salaries", "Remote Job Market"],
     readMinutes: 8,
     html: `
-      <p>Counted on <strong>6 October 2026</strong> across 3,749 remote listings. Figures come from the board itself and change nightly.</p>
+      <p>Counted on <strong>6 October 2026</strong> across 4,730 remote listings. Figures come from the board itself and change nightly.</p>
 
-      <p><strong>274 listings name London or the wider UK</strong> — 7.3% of the board, the second largest place we track after the Bay Area.</p>
+      <p class="text-sm"><em>Figures refreshed 6 October 2026. The board grew from 3,749 to 4,730 listings earlier the same day, when we added 135 further employer career boards as sources, so the counts below are higher than the ones first published here. Every finding is unchanged.</em></p>
+
+      <p><strong>356 listings name London or the wider UK</strong> — 7.5% of the board, the second largest place we track after the Bay Area.</p>
       <p>One clarification first, because it changes how you should read everything below. Our London matching catches listings that say London <em>and</em> listings that say England, the UK or United Kingdom, because that is how employers actually write these roles — "Remote, UK" is far more common than "Remote, London". So this is a UK picture with a London centre of gravity, not a London-only one, and the matching <a href="/remote-jobs-in-london">job list</a> works the same way.</p>
 
       <h2>Sales out-hires engineering here</h2>
       <table>
         <thead><tr><th>Field (by title)</th><th>Roles</th><th>Share</th><th>Median</th><th>Sample</th></tr></thead>
         <tbody>
-          <tr><td><strong>Sales</strong></td><td><strong>48</strong></td><td>17.5%</td><td>$178,753</td><td>4</td></tr>
-          <tr><td>Software engineering</td><td>42</td><td>15.3%</td><td>$145,230</td><td>11</td></tr>
-          <tr><td>Marketing</td><td>18</td><td>6.6%</td><td>—</td><td>4</td></tr>
-          <tr><td>Data / AI</td><td>13</td><td>4.7%</td><td>$145,066</td><td>3</td></tr>
-          <tr><td>Design</td><td>7</td><td>2.6%</td><td>—</td><td>0</td></tr>
-          <tr><td>Customer support</td><td>6</td><td>2.2%</td><td>—</td><td>0</td></tr>
-          <tr><td>Finance, legal, HR</td><td>4</td><td>1.5%</td><td>—</td><td>0</td></tr>
-          <tr><td>Product</td><td>3</td><td>1.1%</td><td>—</td><td>1</td></tr>
+          <tr><td><strong>Sales</strong></td><td><strong>66</strong></td><td>18.5%</td><td>$132,080</td><td>5</td></tr>
+          <tr><td>Software engineering</td><td>53</td><td>14.9%</td><td>$145,230</td><td>11</td></tr>
+          <tr><td>Marketing</td><td>20</td><td>5.6%</td><td>—</td><td>5</td></tr>
+          <tr><td>Data / AI</td><td>16</td><td>4.5%</td><td>$145,066</td><td>3</td></tr>
+          <tr><td>Design</td><td>10</td><td>2.8%</td><td>—</td><td>1</td></tr>
+          <tr><td>Customer support</td><td>10</td><td>2.8%</td><td>—</td><td>0</td></tr>
+          <tr><td>Finance, legal, HR</td><td>6</td><td>1.7%</td><td>—</td><td>0</td></tr>
+          <tr><td>Product</td><td>5</td><td>1.4%</td><td>—</td><td>1</td></tr>
         </tbody>
       </table>
-      <p>Sales leading engineering is unusual — board-wide it is the other way round. It fits what the UK is for a lot of US software companies: the first office outside the US, opened to sell into Europe. A sales hire there covers a timezone and a market; an engineering hire mostly just costs more than one elsewhere.</p>
-      <p>The medians in that table mostly rest on three or four published ranges, which is not enough to quote as a field salary. They are in the table because leaving them out would be hiding the sample size rather than the number.</p>
+      <p>Sales leading engineering by 66 to 53 is unusual — board-wide it is the other way round. It fits what the UK is for a lot of US software companies: the first office outside the US, opened to sell into Europe. A sales hire there covers a timezone and a market; an engineering hire mostly just costs more than one elsewhere.</p>
+      <p>The medians in that table mostly rest on three to five published ranges, which is not enough to quote as a field salary. They are in the table because leaving them out would be hiding the sample size rather than the number.</p>
 
       <h2>The real finding is how little pay is published</h2>
-      <p><strong>40 of 274 listings publish a range — 14.6%</strong>, against 19.0% board-wide and 35.9% in the Bay Area. The UK has no pay-transparency law requiring a range in the advert, and it shows.</p>
+      <p><strong>49 of 356 listings publish a range — 13.8%</strong>, against 18.5% board-wide and 35.0% in the Bay Area. The UK has no pay-transparency law requiring a range in the advert, and it shows.</p>
       <table>
         <thead><tr><th></th><th>Publishes pay</th><th>25th pct</th><th>Median</th><th>75th pct</th></tr></thead>
         <tbody>
-          <tr><td><strong>London / UK</strong></td><td>14.6%</td><td>$78,486</td><td><strong>$127,953</strong></td><td>$184,150</td></tr>
-          <tr><td>Bay Area</td><td>35.9%</td><td>$185,000</td><td>$225,000</td><td>$275,000</td></tr>
-          <tr><td>Whole board</td><td>19.0%</td><td>—</td><td>$195,250</td><td>—</td></tr>
+          <tr><td><strong>London / UK</strong></td><td>13.8%</td><td>$74,930</td><td><strong>$123,825</strong></td><td>$158,750</td></tr>
+          <tr><td>Bay Area</td><td>35.0%</td><td>$185,000</td><td>$223,500</td><td>$275,000</td></tr>
+          <tr><td>Whole board</td><td>18.5%</td><td>—</td><td>$192,494</td><td>—</td></tr>
         </tbody>
       </table>
-      <p>A $127,953 median against the Bay Area's $225,000 is a very large gap, and it is partly real and partly an artefact. Real: UK salaries for the same role genuinely sit below US ones, and the figures here are converted from pounds. Artefact: with only 40 ranges, and a 25th percentile at $78,486, this sample spans junior and senior roles in a way the much larger US samples do not.</p>
-      <p>The practical consequence matters more than the number. In a market where 85% of listings show nothing, you will usually be asked for your expectations first, with no anchor to work from. Our <a href="/posts/remote-salaries-2026-negotiate-the-premium">guide to negotiating without a published range</a> is written for exactly that situation, and <a href="/posts/salary-transparency-laws-2026">where pay ranges are legally required</a> explains why the UK is not on that list.</p>
+      <p>A $123,825 median against the Bay Area's $223,500 is a very large gap, and it is partly real and partly an artefact. Real: UK salaries for the same role genuinely sit below US ones, and the figures here are converted from pounds. Artefact: with only 49 ranges, and a 25th percentile at $74,930, this sample spans junior and senior roles in a way the much larger US samples do not.</p>
+      <p>The practical consequence matters more than the number. In a market where 86% of listings show nothing, you will usually be asked for your expectations first, with no anchor to work from. Our <a href="/posts/remote-salaries-2026-negotiate-the-premium">guide to negotiating without a published range</a> is written for exactly that situation, and <a href="/posts/salary-transparency-laws-2026">where pay ranges are legally required</a> explains why the UK is not on that list.</p>
 
       <h2>Who is hiring</h2>
-      <p><strong>123 employers</strong> for 274 roles — a broad market. The most active: GitLab (22), ElevenLabs (10), Reedsy (10), Humaans.io (8), Ashby (8) and Marshmallow (6).</p>
+      <p><strong>153 employers</strong> for 356 roles — a broad market. The most active: GitLab (25), Reedsy (10), Ashby (10), ElevenLabs (9), Humaans.io (9) and Cohere (7).</p>
       <p>GitLab at the top is worth noting: it is an all-remote company that hires into named countries, and the UK is one of them. That is the common shape here — US or global companies with a UK hiring entity, rather than UK-headquartered employers.</p>
 
       <h2>How to run this search</h2>
@@ -1661,7 +1667,7 @@ export const POSTS_2026: Post[] = [
 
       <h2>How we counted</h2>
       <ul>
-        <li>Figures are from the live board on <strong>6 October 2026</strong>: 3,749 published remote listings, 714 of which publish a salary range.</li>
+        <li>Figures are from the live board on <strong>6 October 2026</strong>: 4,730 published remote listings, 874 of which publish a salary range.</li>
         <li><strong>A listing counts for a place if its own location text names it</strong>, using the same pattern the matching job page uses, so the guide and the list cannot disagree.</li>
         <li>These counts cover <strong>region-locked</strong> listings only. The matching job page also shows every work-from-anywhere role on the board, because those are open to you here as well — they are just not <em>about</em> this place, so counting them would flatter the local figure.</li>
         <li><strong>Pay covers only listings that publish a range</strong>, converted to a USD midpoint. A listing with no number is not counted as low; it is not counted. Sample sizes are printed next to every median, and small ones are flagged rather than smoothed.</li>
@@ -1672,50 +1678,52 @@ export const POSTS_2026: Post[] = [
     faq: [
       {
         q: "How many remote jobs are there in London?",
-        a: "On our board on 6 October 2026 there were 274 remote listings naming London or the wider UK, from 123 employers — 7.3% of the board and the second largest location we track. The count includes listings that say 'Remote, UK' as well as those naming London, because that is how most employers write these roles.",
+        a: "On our board on 6 October 2026 there were 356 remote listings naming London or the wider UK, from 153 employers — 7.5% of the board and the second largest location we track. The count includes listings that say 'Remote, UK' as well as those naming London, because that is how most employers write these roles.",
       },
       {
         q: "What do remote jobs in London pay?",
-        a: "Only 40 of 274 London and UK listings published a salary range on 6 October 2026 — 14.6%, against 19.0% board-wide. Among those that did, the median USD-converted midpoint was $127,953, with a 25th-to-75th band of $78,486 to $184,150. That sample is small and spans junior to senior roles, so treat it as indicative rather than a market rate.",
+        a: "Only 49 of 356 London and UK listings published a salary range on 6 October 2026 — 13.8%, against 18.5% board-wide. Among those that did, the median USD-converted midpoint was $123,825, with a 25th-to-75th band of $74,930 to $158,750. That sample is small and spans junior to senior roles, so treat it as indicative rather than a market rate.",
       },
       {
         q: "Why do so few UK job listings show a salary?",
-        a: "The UK has no law requiring a pay range in a job advert, unlike several US states. On our board on 6 October 2026, 14.6% of UK listings published a range against 35.9% in the Bay Area, where California's transparency law applies. In practice it means you will usually be asked for your expectations first.",
+        a: "The UK has no law requiring a pay range in a job advert, unlike several US states. On our board on 6 October 2026, 13.8% of UK listings published a range against 35.0% in the Bay Area, where California's transparency law applies. In practice it means you will usually be asked for your expectations first.",
       },
       {
         q: "What kind of remote roles does the UK hire for most?",
-        a: "Sales, which is unusual. On 6 October 2026 there were 48 sales-titled roles against 42 software engineering roles among UK listings, reversing the board-wide pattern. It fits the UK's common role as the first non-US office for American software companies selling into Europe.",
+        a: "Sales, which is unusual. On 6 October 2026 there were 66 sales-titled roles against 53 software engineering roles among UK listings, reversing the board-wide pattern. It fits the UK's common role as the first non-US office for American software companies selling into Europe.",
       },
     ],
   },
   {
     slug: "remote-jobs-germany",
-    title: "Remote Jobs in Germany: 275 Roles, and Almost None of Them Will Tell You the Salary",
+    title: "Remote Jobs in Germany: 300 Roles, and Almost None of Them Will Tell You the Salary",
     description:
-      "Germany is one of the biggest remote markets on our board and the most secretive about pay — 7 of 275 listings publish a range. Marketing out-hires engineering two to one. The numbers.",
+      "Germany is one of the biggest remote markets on our board and the most secretive about pay — 10 of 300 listings publish a range. Marketing out-hires engineering two to one. The numbers.",
     date: "2026-10-06T10:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Jobs Germany", "Remote Jobs Europe", "Remote Salaries", "Pay Transparency"],
     readMinutes: 8,
     html: `
-      <p>Counted on <strong>6 October 2026</strong> across 3,749 remote listings. Figures come from the board itself and change nightly.</p>
+      <p>Counted on <strong>6 October 2026</strong> across 4,730 remote listings. Figures come from the board itself and change nightly.</p>
 
-      <p><strong>275 listings name Germany</strong> or a German city — Berlin, Munich, Hamburg, Frankfurt, Cologne, Stuttgart, Düsseldorf. That is 7.3% of the board, level with the UK and behind only the Bay Area.</p>
+      <p class="text-sm"><em>Figures refreshed 6 October 2026. The board grew from 3,749 to 4,730 listings earlier the same day, when we added 135 further employer career boards as sources, so the counts below are higher than the ones first published here. Every finding is unchanged.</em></p>
+
+      <p><strong>300 listings name Germany</strong> or a German city — Berlin, Munich, Hamburg, Frankfurt, Cologne, Stuttgart, Düsseldorf. That is 6.3% of the board, behind the Bay Area and London.</p>
       <p>It is also the most opaque market we track, by a distance.</p>
 
       <h2>Seven listings out of 275 publish a salary</h2>
       <table>
         <thead><tr><th></th><th>Listings</th><th>Publish a range</th><th>Rate</th></tr></thead>
         <tbody>
-          <tr><td><strong>Germany</strong></td><td>275</td><td><strong>7</strong></td><td><strong>2.5%</strong></td></tr>
-          <tr><td>London / UK</td><td>274</td><td>40</td><td>14.6%</td></tr>
-          <tr><td>Canada</td><td>191</td><td>44</td><td>23.0%</td></tr>
-          <tr><td>Bay Area</td><td>663</td><td>238</td><td>35.9%</td></tr>
-          <tr><td>Whole board</td><td>3,749</td><td>714</td><td>19.0%</td></tr>
+          <tr><td><strong>Germany</strong></td><td>300</td><td><strong>10</strong></td><td><strong>3.3%</strong></td></tr>
+          <tr><td>London / UK</td><td>356</td><td>49</td><td>13.8%</td></tr>
+          <tr><td>Canada</td><td>222</td><td>48</td><td>21.6%</td></tr>
+          <tr><td>Bay Area</td><td>838</td><td>293</td><td>35.0%</td></tr>
+          <tr><td>Whole board</td><td>4,730</td><td>874</td><td>18.5%</td></tr>
         </tbody>
       </table>
-      <p>Two markets of almost identical size — Germany at 275 listings, the UK at 274 — and one publishes pay nearly six times as often as the other. Against the Bay Area it is fourteen times.</p>
-      <p>We are not going to quote a German median off 7 ranges. It would be a number with no claim to represent anything, and the point of this page is the 2.5%, not the figure hiding behind it.</p>
+      <p>Germany at 300 listings and the UK at 356 are comparable markets, and one publishes pay four times as often as the other. Against the Bay Area it is more than ten times.</p>
+      <p>We are not going to quote a German median off 10 ranges. It would be a number with no claim to represent anything, and the point of this page is the 3.3%, not the figure hiding behind it.</p>
       <blockquote>The practical reading: in Germany you should assume you will be asked for your expectations first, every time, with nothing published to anchor against. That is a negotiating position you have to prepare for rather than discover on the call.</blockquote>
       <p>The EU Pay Transparency Directive is due to change this — member states have to have it in national law by June 2026, and it requires employers to give pay information to applicants. Our guide to <a href="/posts/salary-transparency-laws-2026">where pay ranges are required</a> tracks what applies where. What our board shows is what German listings look like today, which is: silent.</p>
 
@@ -1723,23 +1731,23 @@ export const POSTS_2026: Post[] = [
       <table>
         <thead><tr><th>Field (by title)</th><th>Roles</th><th>Share of German listings</th></tr></thead>
         <tbody>
-          <tr><td><strong>Marketing</strong></td><td><strong>59</strong></td><td>21.5%</td></tr>
-          <tr><td>Sales</td><td>42</td><td>15.3%</td></tr>
-          <tr><td>Software engineering</td><td>25</td><td>9.1%</td></tr>
-          <tr><td>Finance, legal, HR</td><td>6</td><td>2.2%</td></tr>
-          <tr><td>Customer support</td><td>6</td><td>2.2%</td></tr>
-          <tr><td>Data / AI</td><td>5</td><td>1.8%</td></tr>
-          <tr><td>Product</td><td>4</td><td>1.5%</td></tr>
+          <tr><td><strong>Marketing</strong></td><td><strong>64</strong></td><td>21.3%</td></tr>
+          <tr><td>Sales</td><td>43</td><td>14.3%</td></tr>
+          <tr><td>Software engineering</td><td>29</td><td>9.7%</td></tr>
+          <tr><td>Customer support</td><td>7</td><td>2.3%</td></tr>
+          <tr><td>Finance, legal, HR</td><td>5</td><td>1.7%</td></tr>
+          <tr><td>Data / AI</td><td>5</td><td>1.7%</td></tr>
+          <tr><td>Product</td><td>4</td><td>1.3%</td></tr>
           <tr><td>Design</td><td>2</td><td>0.7%</td></tr>
         </tbody>
       </table>
-      <p>Marketing at 21.5% is the highest concentration of any field in any market on this board. Nowhere else does marketing lead, and in most places engineering does. Sales and marketing together are 37% of German remote listings against 9% for engineering.</p>
-      <p>That is a commercial market, not a technical one. If you are a German-speaking marketer it is the best market here by some way. If you are an engineer, 25 roles is thin for a country this size, and the European picture is more useful than the national one — our <a href="/posts/remote-jobs-in-europe-where-to-look">guide to remote jobs in Europe</a> covers the wider continent.</p>
+      <p>Marketing at 21.3% is the highest concentration of any field in any market on this board. Nowhere else does marketing lead, and in most places engineering does. Sales and marketing together are 36% of German remote listings against 10% for engineering.</p>
+      <p>That is a commercial market, not a technical one. If you are a German-speaking marketer it is the best market here by some way. If you are an engineer, 29 roles is thin for a country this size, and the European picture is more useful than the national one — our <a href="/posts/remote-jobs-in-europe-where-to-look">guide to remote jobs in Europe</a> covers the wider continent.</p>
 
       <h2>Nobody is hiring at scale</h2>
-      <p><strong>173 employers</strong> share 275 roles. That is 1.6 roles per employer, the most fragmented market on the board — the Bay Area runs 4.4, Canada 2.8.</p>
-      <p>The most active are DataGuard (10), Ashby (8), GitLab (7), EGYM (7), Scalable Capital (7) and Studyflix (5). There is no cluster of large remote employers to follow here the way there is in North America; almost every opening is a one-off.</p>
-      <p>Practically, that means breadth beats targeting. A shortlist of employers works in Seattle, where 18 companies hold the whole market. It does not work in Germany, where you would need to watch 173.</p>
+      <p><strong>182 employers</strong> share 300 roles. That is 1.6 roles per employer, the most fragmented market on the board — the Bay Area runs 4.9, Canada 3.0.</p>
+      <p>The most active are Scalable Capital (10), DataGuard (10), Ashby (9), GitLab (7), EGYM (7) and Studyflix (5). There is no cluster of large remote employers to follow here the way there is in North America; almost every opening is a one-off.</p>
+      <p>Practically, that means breadth beats targeting. A shortlist of employers works in Seattle, where 18 companies hold the whole market. It does not work in Germany, where you would need to watch 182.</p>
 
       <h2>Language is the filter nobody mentions</h2>
       <p>One thing our data cannot measure and you should check on every listing: German-language requirements. A meaningful share of these roles, particularly in marketing, sales and support, are advertised in German or expect business German, and the location field says nothing about it. We can tell you a role is open to someone in Germany; we cannot tell you it is open to someone who does not speak German.</p>
@@ -1747,15 +1755,15 @@ export const POSTS_2026: Post[] = [
 
       <h2>How to run this search</h2>
       <ol>
-        <li><strong>Prepare a number before the first conversation.</strong> With 2.5% disclosure you will be asked, and "what are your expectations?" with no published anchor is where money is lost.</li>
-        <li><strong>Search broadly rather than by employer.</strong> 173 employers for 275 roles means no shortlist will cover it.</li>
+        <li><strong>Prepare a number before the first conversation.</strong> With 3.3% disclosure you will be asked, and "what are your expectations?" with no published anchor is where money is lost.</li>
+        <li><strong>Search broadly rather than by employer.</strong> 182 employers for 300 roles means no shortlist will cover it.</li>
         <li><strong>Check the language requirement in the body of every listing.</strong></li>
         <li><strong>Work the <a href="/remote-jobs-in-germany">Germany job list</a></strong>, which also carries every work-from-anywhere role, since those are open to you too. For roles with no country condition at all, the <a href="/work-from-anywhere-jobs">work-from-anywhere board</a> is the place to start.</li>
       </ol>
 
       <h2>How we counted</h2>
       <ul>
-        <li>Figures are from the live board on <strong>6 October 2026</strong>: 3,749 published remote listings, 714 of which publish a salary range.</li>
+        <li>Figures are from the live board on <strong>6 October 2026</strong>: 4,730 published remote listings, 874 of which publish a salary range.</li>
         <li><strong>A listing counts for a place if its own location text names it</strong>, using the same pattern the matching job page uses, so the guide and the list cannot disagree.</li>
         <li>These counts cover <strong>region-locked</strong> listings only. The matching job page also shows every work-from-anywhere role on the board, because those are open to you here too — they are just not <em>about</em> this place.</li>
         <li><strong>Pay covers only listings that publish a range</strong>, converted to a USD midpoint. A listing with no number is not counted as low; it is not counted. Sample sizes are printed next to every median.</li>
@@ -1766,15 +1774,15 @@ export const POSTS_2026: Post[] = [
     faq: [
       {
         q: "How many remote jobs are there in Germany?",
-        a: "On our board on 6 October 2026 there were 275 remote listings naming Germany or a German city, from 173 employers — 7.3% of the board, level with the UK and second only to the Bay Area.",
+        a: "On our board on 6 October 2026 there were 300 remote listings naming Germany or a German city, from 182 employers — 6.3% of the board, behind the Bay Area and London.",
       },
       {
         q: "Why do German job listings not show salaries?",
-        a: "Germany currently has no requirement to publish a pay range in an advert, and the effect is stark: only 7 of 275 German listings on our board published one on 6 October 2026 — 2.5%, against 14.6% in the UK and 35.9% in the Bay Area. The EU Pay Transparency Directive is due to change this as member states bring it into national law.",
+        a: "Germany currently has no requirement to publish a pay range in an advert, and the effect is stark: only 10 of 300 German listings on our board published one on 6 October 2026 — 3.3%, against 13.8% in the UK and 35.0% in the Bay Area. The EU Pay Transparency Directive is due to change this as member states bring it into national law.",
       },
       {
         q: "What kind of remote work does Germany hire for?",
-        a: "Commercial roles, more than technical ones. On 6 October 2026, marketing was the largest field at 59 of 275 listings (21.5%) and sales second at 42 (15.3%), against 25 software engineering roles (9.1%). Marketing leads in no other market we track.",
+        a: "Commercial roles, more than technical ones. On 6 October 2026, marketing was the largest field at 64 of 300 listings (21.3%) and sales second at 43 (14.3%), against 29 software engineering roles (9.7%). Marketing leads in no other market we track.",
       },
       {
         q: "Do I need to speak German for remote jobs in Germany?",
@@ -1786,46 +1794,48 @@ export const POSTS_2026: Post[] = [
     slug: "remote-jobs-canada-latin-america",
     title: "Remote Jobs in Canada and Latin America: One Mature Market, One Barely Started",
     description:
-      "Canada has 191 remote roles, publishes pay on a quarter of them and is the freshest market on our board. Latin America has 62 and three published salaries. Why the gap, and how to search each.",
+      "Canada has 222 remote roles, publishes pay on a fifth of them and is the freshest market on our board. Latin America has 76 and four published salaries. Why the gap, and how to search each.",
     date: "2026-10-06T11:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Jobs Canada", "Remote Jobs Latin America", "Remote Job Market", "Remote Salaries"],
     readMinutes: 9,
     html: `
-      <p>Counted on <strong>6 October 2026</strong> across 3,749 remote listings. Figures come from the board itself and change nightly.</p>
+      <p>Counted on <strong>6 October 2026</strong> across 4,730 remote listings. Figures come from the board itself and change nightly.</p>
+
+      <p class="text-sm"><em>Figures refreshed 6 October 2026. The board grew from 3,749 to 4,730 listings earlier the same day, when we added 135 further employer career boards as sources, so the counts below are higher than the ones first published here. Every finding is unchanged.</em></p>
 
       <p>These two regions get mentioned in the same breath as "the Americas outside the US", and on this board they could hardly be less alike.</p>
       <table>
         <thead><tr><th></th><th>Listings</th><th>Employers</th><th>Publish pay</th><th>Median</th><th>Posted this week</th></tr></thead>
         <tbody>
-          <tr><td><strong>Canada</strong></td><td>191</td><td>69</td><td>44 (23.0%)</td><td>$179,868</td><td>58</td></tr>
-          <tr><td><strong>Latin America</strong></td><td>62</td><td>36</td><td>3 (4.8%)</td><td>too few to quote</td><td>10</td></tr>
+          <tr><td><strong>Canada</strong></td><td>222</td><td>74</td><td>48 (21.6%)</td><td>$179,868</td><td>75</td></tr>
+          <tr><td><strong>Latin America</strong></td><td>76</td><td>46</td><td>4 (5.3%)</td><td>too few to quote</td><td>17</td></tr>
         </tbody>
       </table>
 
       <h2>Canada: small, mature, and moving faster than anywhere else</h2>
-      <p>191 listings is 5.1% of the board — a mid-sized market. What stands out is not the size but the churn: <strong>58 of the 191 were posted in the last week</strong>, and the median listing is only <strong>18 days old</strong>. Both are the best figures of any place we track. Compare the Bay Area, four times the size, where the median listing has been open 25 days.</p>
+      <p>222 listings is 4.7% of the board — a mid-sized market. What stands out is not the size but the churn: <strong>75 of the 222 were posted in the last week</strong>, and the median listing is only <strong>15 days old</strong>. Both are the best figures of any place we track. Compare the Bay Area, nearly four times the size, where the median listing has been open 23 days.</p>
       <p>A market this fresh rewards frequency. Checking weekly in Canada surfaces roughly a third of the market as new; checking monthly means competing on listings that have already been open a month.</p>
       <h3>Pay</h3>
-      <p>44 of 191 publish a range — 23.0%, above the board's 19.0%, helped by pay-transparency rules in British Columbia and Ontario. Among those that do: a median of <strong>$179,868</strong>, with a 25th-to-75th band of $154,800 to $203,000.</p>
-      <p>That sits below the US markets, as expected, and the band is notably tight — about $48,000 between the quartiles, against $90,000 in the Bay Area. Canadian remote pay, as advertised, is more predictable than American remote pay.</p>
+      <p>48 of 222 publish a range — 21.6%, above the board's 18.5%, helped by pay-transparency rules in British Columbia and Ontario. Among those that do: a median of <strong>$179,868</strong>, with a 25th-to-75th band of $154,800 to $205,005.</p>
+      <p>That sits below the US markets, as expected, and the band is notably tight — about $50,000 between the quartiles, against $90,000 in the Bay Area. Canadian remote pay, as advertised, is more predictable than American remote pay.</p>
       <h3>Who is hiring</h3>
-      <p>69 employers, and the distribution is lopsided: <strong>GitLab alone has 39 of the 191 roles</strong> — one in five. Then Ashby (21), Grafana Labs (7), Docker (6), Cohere (5) and 1Password (5).</p>
+      <p>74 employers, and the distribution is lopsided: <strong>GitLab alone has 44 of the 222 roles</strong> — one in five. Then Ashby (26), Mercury (7), Float (7), Grafana Labs (6) and Elation Health (6).</p>
       <p>That concentration is worth planning around. Two employers account for nearly a third of Canadian remote hiring on this board, and both are companies that hire into named countries rather than from anywhere. Following them directly is a legitimate strategy here.</p>
       <h3>By field</h3>
-      <p>Software engineering leads at 36 roles (18.8%, median $187,200 from 16 ranges), then sales at 18, marketing at 12, support at 10 (median $116,450) and product at 9. It is a conventional technical market, unlike Germany's commercial one.</p>
+      <p>Software engineering leads at 38 roles (17.1%, median $187,200 from 15 ranges), then sales at 20, product at 15, marketing at 14 and support at 13 (median $120,725). It is a conventional technical market, unlike Germany's commercial one.</p>
 
       <h2>Latin America: a market that has not really started</h2>
-      <p>62 listings, 1.7% of the board, from 36 employers. The most active are VTEX (5), Tempo (5), Webflow (4), TilthQ (3), Pragmatike (3) and Glia (3) — nobody hiring at scale.</p>
-      <p><strong>Three listings publish a salary range.</strong> Three, out of 62. We are not going to compute a regional median from that, and you should be sceptical of anyone who does.</p>
-      <p>The field breakdown is similarly thin: 8 software engineering roles, 6 sales, 3 support, 3 design, 2 data. Those are not fields, they are handfuls.</p>
+      <p>76 listings, 1.6% of the board, from 46 employers. The most active are Webflow (5), Nortal (5), VTEX (5), Tempo (5), TilthQ (3) and Pragmatike (3) — nobody hiring at scale.</p>
+      <p><strong>Four listings publish a salary range.</strong> Four, out of 76. We are not going to compute a regional median from that, and you should be sceptical of anyone who does.</p>
+      <p>The field breakdown is similarly thin: 12 software engineering roles, 9 sales, 4 marketing, 3 support, 3 design, 3 data. Those are not fields, they are handfuls.</p>
       <h3>Why it looks like this, and why that is not the whole story</h3>
       <p>This is the part to read carefully, because the obvious conclusion is wrong.</p>
       <p>A listing lands in this count only if its location text names Latin America or a country in it. Plenty of work genuinely done from the region never says so: it is hired as "Remote — Americas", as a contractor arrangement with no location in the advert, or through local job boards and networks that we do not read. Our board reads employers' own career pages, which skews towards companies large enough to run a formal hiring system and to name a region when they do.</p>
       <p>So the honest claim is narrow: <strong>few companies advertise Latin America as a hiring region on their own career pages.</strong> That is not the same as "there is little remote work in Latin America", and we cannot support the second from this data.</p>
       <p>What it does mean practically is that searching by region will underserve you here, and two other routes matter more:</p>
       <ul>
-        <li><strong>Work-from-anywhere roles</strong>, which are open to you by definition. There are few of them — 88 on the whole board today — but they are the ones with no country gate at all. Start from the <a href="/work-from-anywhere-jobs">work-from-anywhere board</a>.</li>
+        <li><strong>Work-from-anywhere roles</strong>, which are open to you by definition. There are few of them — 105 on the whole board today — but they are the ones with no country gate at all. Start from the <a href="/work-from-anywhere-jobs">work-from-anywhere board</a>.</li>
         <li><strong>"Americas" roles</strong>, which often include Latin America without naming a country. Several employers write timezone-based postings this way.</li>
       </ul>
 
@@ -1842,7 +1852,7 @@ export const POSTS_2026: Post[] = [
 
       <h2>How we counted</h2>
       <ul>
-        <li>Figures are from the live board on <strong>6 October 2026</strong>: 3,749 published remote listings, 714 of which publish a salary range.</li>
+        <li>Figures are from the live board on <strong>6 October 2026</strong>: 4,730 published remote listings, 874 of which publish a salary range.</li>
         <li><strong>A listing counts for a place if its own location text names it</strong>, using the same pattern the matching job page uses, so the guide and the list cannot disagree.</li>
         <li>These counts cover <strong>region-locked</strong> listings only. The matching job page also shows every work-from-anywhere role on the board, because those are open to you here too — they are just not <em>about</em> this place.</li>
         <li><strong>Pay covers only listings that publish a range</strong>, converted to a USD midpoint. A listing with no number is not counted as low; it is not counted. Sample sizes are printed next to every median.</li>
@@ -1853,19 +1863,19 @@ export const POSTS_2026: Post[] = [
     faq: [
       {
         q: "How many remote jobs are there in Canada?",
-        a: "On our board on 6 October 2026 there were 191 remote listings naming Canada or a Canadian city, from 69 employers — 5.1% of the board. It is also the freshest market we track: 58 of the 191 were posted within the previous week and the median listing was 18 days old.",
+        a: "On our board on 6 October 2026 there were 222 remote listings naming Canada or a Canadian city, from 74 employers — 4.7% of the board. It is also the freshest market we track: 75 of the 222 were posted within the previous week and the median listing was 15 days old.",
       },
       {
         q: "What do remote jobs in Canada pay?",
-        a: "Among the 44 of 191 Canadian listings that published a range on 6 October 2026, the median USD-converted midpoint was $179,868, with a 25th-to-75th band of $154,800 to $203,000. That is below the US markets but notably more consistent — about $48,000 between the quartiles, against $90,000 in the Bay Area.",
+        a: "Among the 48 of 222 Canadian listings that published a range on 6 October 2026, the median USD-converted midpoint was $179,868, with a 25th-to-75th band of $154,800 to $205,005. That is below the US markets but notably more consistent — about $50,000 between the quartiles, against $90,000 in the Bay Area.",
       },
       {
         q: "Which companies hire remotely in Canada?",
-        a: "Hiring is concentrated. On 6 October 2026, GitLab alone accounted for 39 of the 191 Canadian listings — about one in five — followed by Ashby with 21, then Grafana Labs, Docker, Cohere and 1Password. Two employers covered nearly a third of the market.",
+        a: "Hiring is concentrated. On 6 October 2026, GitLab alone accounted for 44 of the 222 Canadian listings — about one in five — followed by Ashby with 26, then Mercury, Float, Grafana Labs and Elation Health. Two employers covered nearly a third of the market.",
       },
       {
         q: "Are there many remote jobs in Latin America?",
-        a: "Few are advertised as such. On 6 October 2026 our board carried 62 listings naming Latin America or a country in it, from 36 employers, with only 3 publishing a salary. That reflects how little work is advertised with the region named on a company career page, which is what we read — it is not evidence that little remote work is done from the region. Work-from-anywhere roles and postings written as 'Americas' are the more productive search.",
+        a: "Few are advertised as such. On 6 October 2026 our board carried 76 listings naming Latin America or a country in it, from 46 employers, with only 4 publishing a salary. That reflects how little work is advertised with the region named on a company career page, which is what we read — it is not evidence that little remote work is done from the region. Work-from-anywhere roles and postings written as 'Americas' are the more productive search.",
       },
       {
         q: "Will I be hired as an employee or a contractor in Latin America?",
@@ -1877,22 +1887,24 @@ export const POSTS_2026: Post[] = [
     slug: "online-jobs-what-they-actually-are",
     title: "\"Online Jobs\": What That Search Actually Returns on a Real Job Board",
     description:
-      "Data entry: 1 role. Transcription: 0. Typing: 0. Surveys: 0. We counted the jobs people search for under \"online jobs\" across 3,749 listings — and what to search instead.",
+      "Data entry: 1 role. Transcription: 0. Typing: 0. Surveys: 0. We counted the jobs people search for under \"online jobs\" across 4,730 listings — and what to search instead.",
     date: "2026-10-06T12:00:00.000Z",
     author: "Bhargav",
     tags: ["Online Jobs", "Work From Home", "Remote Job Scams", "Entry Level Remote"],
     readMinutes: 8,
     html: `
-      <p>Counted on <strong>6 October 2026</strong> across 3,749 remote listings from 898 employers. Figures come from the board itself and change nightly.</p>
+      <p>Counted on <strong>6 October 2026</strong> across 4,730 remote listings from 964 employers. Figures come from the board itself and change nightly.</p>
+
+      <p class="text-sm"><em>Figures refreshed 6 October 2026. The board grew from 3,749 to 4,730 listings earlier the same day, when we added 135 further employer career boards as sources, so the counts below are higher than the ones first published here. Every finding is unchanged.</em></p>
 
       <p>"Online jobs" is one of the most-searched job phrases on the internet. It is also one of the least useful, because the roles people have in mind when they type it are, on a board of real employer listings, almost entirely absent.</p>
-      <p>Here is the count. Every row is a title search across all 3,749 listings:</p>
+      <p>Here is the count. Every row is a title search across all 4,730 listings:</p>
       <table>
         <thead><tr><th>What people search for</th><th>Roles on our board</th><th>Publish pay</th><th>Median</th></tr></thead>
         <tbody>
-          <tr><td>Customer service / support</td><td><strong>24</strong></td><td>6</td><td>$86,500</td></tr>
-          <tr><td>Online tutor / teacher</td><td><strong>15</strong></td><td>0</td><td>—</td></tr>
-          <tr><td>Writer / copywriter</td><td><strong>12</strong></td><td>2</td><td>$100,500</td></tr>
+          <tr><td>Customer service / support</td><td><strong>29</strong></td><td>7</td><td>$107,000</td></tr>
+          <tr><td>Online tutor / teacher</td><td><strong>16</strong></td><td>0</td><td>—</td></tr>
+          <tr><td>Writer / copywriter</td><td><strong>13</strong></td><td>3</td><td>$110,000</td></tr>
           <tr><td>Data annotation / AI training</td><td>3</td><td>0</td><td>—</td></tr>
           <tr><td>Data entry</td><td><strong>1</strong></td><td>0</td><td>—</td></tr>
           <tr><td>Virtual assistant</td><td><strong>1</strong></td><td>0</td><td>—</td></tr>
@@ -1902,7 +1914,7 @@ export const POSTS_2026: Post[] = [
           <tr><td>Content moderation</td><td><strong>0</strong></td><td>—</td><td>—</td></tr>
         </tbody>
       </table>
-      <p>Four of those categories return nothing at all. Data entry — among the most-searched remote job phrases there is — returns one listing out of 3,749.</p>
+      <p>Four of those categories return nothing at all. Data entry — among the most-searched remote job phrases there is — returns one listing out of 4,730.</p>
 
       <h2>The caveat that makes this honest</h2>
       <p>Before drawing the obvious conclusion, here is what this board does and does not see, because it changes what the zeros mean.</p>
@@ -1928,23 +1940,23 @@ export const POSTS_2026: Post[] = [
 
       <h2>What actually exists, and what to search instead</h2>
       <p>The top three rows of that table are real work with real employers, and they are the honest answer to what most people mean by "online jobs".</p>
-      <p><strong>Customer support — 24 roles.</strong> The widest open door in remote work for someone without a technical background, and the field with the lowest barrier on this board. Median advertised pay of $86,500 from 6 published ranges, so treat the figure as indicative. Search <a href="/jobs?q=customer%20support">customer support</a> rather than "online jobs".</p>
-      <p><strong>Tutoring and teaching — 15 roles.</strong> Genuinely remote, genuinely hiring, and usually requiring a subject you can demonstrate rather than a particular degree.</p>
-      <p><strong>Writing — 12 roles</strong>, three of which are work-from-anywhere, which is a better ratio than most fields manage.</p>
-      <p>Be realistic about the entry level, though. Across the whole board, <strong>139 of 3,749 listings carry a junior, entry-level, graduate or internship title — 3.7%</strong>. Remote hiring in general is a senior market, and no search phrase changes that. Our guide to <a href="/posts/first-remote-job-2026-no-experience">getting a first remote job with no experience</a> deals with the realistic routes in.</p>
+      <p><strong>Customer support — 29 roles.</strong> The widest open door in remote work for someone without a technical background, and the field with the lowest barrier on this board. Median advertised pay of $107,000 from 7 published ranges, so treat the figure as indicative. Search <a href="/jobs?q=customer%20support">customer support</a> rather than "online jobs".</p>
+      <p><strong>Tutoring and teaching — 16 roles.</strong> Genuinely remote, genuinely hiring, and usually requiring a subject you can demonstrate rather than a particular degree.</p>
+      <p><strong>Writing — 13 roles</strong>, three of which are work-from-anywhere, which is a better ratio than most fields manage.</p>
+      <p>Be realistic about the entry level, though. Across the whole board, <strong>190 of 4,730 listings carry a junior, entry-level, graduate or internship title — 4.0%</strong>. Remote hiring in general is a senior market, and no search phrase changes that. Our guide to <a href="/posts/first-remote-job-2026-no-experience">getting a first remote job with no experience</a> deals with the realistic routes in.</p>
 
       <h2>Better searches than "online jobs"</h2>
       <ol>
         <li><strong>Search the job, not the medium.</strong> "Online" describes where the work happens, which is true of nearly every listing here. Search the role: customer support, bookkeeping, tutor, writer, scheduler.</li>
         <li><strong>Search a skill you can evidence.</strong> Employers hire for things they can check. "Online jobs" is not a skill; Excel, Zendesk, Spanish, QuickBooks and Shopify are.</li>
         <li><strong>Filter by region first.</strong> Most remote roles still name a country. Doing this before you read descriptions saves more time than any other single habit.</li>
-        <li><strong>Use the work-from-anywhere board if you are outside the usual hiring countries.</strong> It is short — 88 roles today — but every role on it is open to you without a country gate. <a href="/work-from-anywhere-jobs">Browse it here</a>.</li>
+        <li><strong>Use the work-from-anywhere board if you are outside the usual hiring countries.</strong> It is short — 105 roles today — but every role on it is open to you without a country gate. <a href="/work-from-anywhere-jobs">Browse it here</a>.</li>
         <li><strong>Check anything that looks too good.</strong> That is what the <a href="/tools/fake-job-checker">fake job checker</a> is for.</li>
       </ol>
 
       <h2>How we counted</h2>
       <ul>
-        <li>Figures are from the live board on <strong>6 October 2026</strong>: 3,749 published remote listings from 898 employers, 714 of which publish a salary range.</li>
+        <li>Figures are from the live board on <strong>6 October 2026</strong>: 4,730 published remote listings from 964 employers, 874 of which publish a salary range.</li>
         <li>Each row is a <strong>job-title search</strong> across every listing, region-locked and work-from-anywhere alike.</li>
         <li><strong>We read employers' own career pages and hiring systems.</strong> Freelance marketplaces, gig platforms and agency rosters are not in scope, which is why marketplace work shows as zero here. That is a statement about how the work is sold, not about whether it exists. Our <a href="/posts/how-we-source-and-verify-listings">sourcing method</a> sets out exactly what we capture.</li>
         <li>Pay covers only listings publishing a range, converted to a USD midpoint, with the sample size shown. Several rows have too few to quote and are left blank rather than filled in.</li>
@@ -1954,7 +1966,7 @@ export const POSTS_2026: Post[] = [
     faq: [
       {
         q: "Are online data entry jobs real?",
-        a: "Almost none are advertised by real employers. On our board on 6 October 2026, one listing out of 3,749 had a data entry title, and transcription, typing, surveys and content moderation returned zero. The work was largely automated by OCR and speech-to-text, while search demand stayed high — and that gap is heavily targeted by fraud. Treat well-paid remote data entry requiring no experience as a scam until proven otherwise.",
+        a: "Almost none are advertised by real employers. On our board on 6 October 2026, one listing out of 4,730 had a data entry title, and transcription, typing, surveys and content moderation returned zero. The work was largely automated by OCR and speech-to-text, while search demand stayed high — and that gap is heavily targeted by fraud. Treat well-paid remote data entry requiring no experience as a scam until proven otherwise.",
       },
       {
         q: "Why does this board show no transcription or virtual assistant jobs?",
@@ -1962,7 +1974,7 @@ export const POSTS_2026: Post[] = [
       },
       {
         q: "What online jobs actually exist for beginners?",
-        a: "On 6 October 2026 the real categories were customer support (24 roles, median advertised pay $86,500 from 6 published ranges), online tutoring and teaching (15 roles) and writing (12 roles, 3 of them work-from-anywhere). Be realistic about level, though: only 139 of 3,749 listings board-wide carried a junior, entry-level or graduate title — 3.7%.",
+        a: "On 6 October 2026 the real categories were customer support (29 roles, median advertised pay $107,000 from 7 published ranges), online tutoring and teaching (16 roles) and writing (13 roles, 3 of them work-from-anywhere). Be realistic about level, though: only 190 of 4,730 listings board-wide carried a junior, entry-level or graduate title — 4.0%.",
       },
       {
         q: "What should I search instead of \"online jobs\"?",
