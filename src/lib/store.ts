@@ -287,6 +287,48 @@ const dropOnsite = (jobs: Job[]): Job[] =>
  * The listing keeps its page; it moves board and stops being offered to Google
  * as work-from-anywhere.
  */
+/**
+ * Strip other people's tracking parameters off an apply link.
+ *
+ * We publish that every listing links to the employer's own application page,
+ * and these do — but 280 of them arrived carrying utm_source=Remote+Jobs and a
+ * utm_id, from imports and feeds that had been through an aggregator. The
+ * destination was always the real ATS; the attribution was somebody else's.
+ * Passing that on means our readers' applications are credited to a third party
+ * and that the link is not quite the first-party link we describe.
+ *
+ * Only known tracking keys are removed. ATS links carry real parameters too —
+ * Greenhouse's embed form needs `for` and `token`, Lever uses `lever-source` —
+ * and stripping the query wholesale would break the apply page.
+ */
+const TRACKING_PARAMS = /^(utm_[a-z_]+|gh_src|gclid|fbclid|msclkid|mc_cid|mc_eid|ref|referrer|source|src)$/i;
+
+export function cleanApplyUrl(raw: string): string {
+  if (!raw || !/^https?:\/\//i.test(raw)) return raw;
+  try {
+    const url = new URL(raw);
+    let touched = false;
+    for (const key of [...url.searchParams.keys()]) {
+      if (TRACKING_PARAMS.test(key)) {
+        url.searchParams.delete(key);
+        touched = true;
+      }
+    }
+    if (!touched) return raw;
+    // Keep the trailing "?" off a URL whose only params were tracking ones.
+    const qs = url.searchParams.toString();
+    return `${url.origin}${url.pathname}${qs ? "?" + qs : ""}${url.hash}`;
+  } catch {
+    return raw; // an unparseable URL is left exactly as it came in
+  }
+}
+
+const untrackApplyUrls = (jobs: Job[]): Job[] =>
+  jobs.map((j) => {
+    const cleaned = cleanApplyUrl(j.apply_url);
+    return cleaned === j.apply_url ? j : { ...j, apply_url: cleaned };
+  });
+
 const regionaliseByTitle = (jobs: Job[]): Job[] =>
   jobs.map((j) => {
     if (j.scope !== "worldwide") return j;
@@ -296,13 +338,13 @@ const regionaliseByTitle = (jobs: Job[]): Job[] =>
 
 export async function loadJobs(): Promise<Job[]> {
   try {
-    return regionaliseByTitle(dropOnsite(dropRetired(serve(await loadRealJobs()))));
+    return untrackApplyUrls(regionaliseByTitle(dropOnsite(dropRetired(serve(await loadRealJobs())))));
   } catch (err) {
     console.warn("[store] loadJobs failed — serving baseline:", (err as Error)?.message);
     try {
-      return regionaliseByTitle(dropOnsite(dropRetired(serve(baseline))));
+      return untrackApplyUrls(regionaliseByTitle(dropOnsite(dropRetired(serve(baseline)))));
     } catch {
-      return regionaliseByTitle(dropOnsite(dropRetired(baseline)));
+      return untrackApplyUrls(regionaliseByTitle(dropOnsite(dropRetired(baseline))));
     }
   }
 }
