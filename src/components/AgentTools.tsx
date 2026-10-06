@@ -125,7 +125,7 @@ export const AGENT_TOOLS: ToolSpec[] = [
     name: "check_remote_job_still_open",
     title: "Check whether a job is still open",
     description:
-      "Check whether one listing is still live by asking the employer's own hiring system, the same check the job page runs. Returns whether the role is still accepting applications. Many remote listings are filled before they disappear from boards, so this is worth running before recommending a role.",
+      "Check whether one listing is still on the board. A sweep re-checks every listing's apply link against the employer's site on a schedule and retires the ones that 404, so a role missing here has been withdrawn or filled. This does not re-query the employer at call time, so treat a positive answer as 'not known to be gone' rather than as a guarantee the role is open.",
     inputSchema: {
       type: "object",
       properties: {
