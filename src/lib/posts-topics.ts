@@ -37,7 +37,8 @@ export const POST_TOPICS: PostTopic[] = [
       "remote-job-scams-how-they-make-money",
       "how-we-source-and-verify-listings",
       "apply-directly-on-company-career-pages",
-    ],
+          "online-jobs-what-they-actually-are",
+],
   },
   {
     id: "market",
@@ -132,7 +133,12 @@ export const POST_TOPICS: PostTopic[] = [
       "getting-hired-remotely-from-outside-the-us",
       "how-to-tell-if-a-company-is-truly-distributed",
       "most-remote-friendly-companies-hiring-worldwide",
-    ],
+          "remote-jobs-bay-area",
+      "remote-jobs-seattle",
+      "remote-jobs-london",
+      "remote-jobs-germany",
+      "remote-jobs-canada-latin-america",
+],
   },
 ];
 
