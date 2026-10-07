@@ -1982,4 +1982,339 @@ export const POSTS_2026: Post[] = [
       },
     ],
   },
+  {
+    slug: "linkedin-for-remote-jobs",
+    title: "LinkedIn for Remote Jobs: Use the Words Employers Actually Type",
+    description:
+      "Nobody advertises for a UX designer any more — 62 listings say product designer and zero say UX designer. What our board shows about the titles, locations and seniority words that decide whether your profile is found.",
+    date: "2026-10-07T07:00:00.000Z",
+    author: "Bhargav",
+    tags: ["LinkedIn", "Remote Job Search", "Job Search Strategy", "Personal Branding"],
+    readMinutes: 9,
+    html: `
+      <p>Most LinkedIn advice is about you: your headline, your story, your brand. This one is about <strong>the words on the other side of the search box</strong>, because that is what decides whether a recruiter filtering for a role ever sees your profile at all.</p>
+      <p>We can answer that part with evidence. Counted on <strong>7 October 2026</strong> across 4,722 remote listings on our board, here is the language employers are actually using.</p>
+
+      <h2>The title gap, which is bigger than anyone expects</h2>
+      <p>Job titles drift, and profiles do not drift with them. Counting job titles on the board:</p>
+      <table>
+        <thead><tr><th>What employers write</th><th>Listings</th><th>What people still put on profiles</th><th>Listings</th></tr></thead>
+        <tbody>
+          <tr><td>Product designer</td><td><strong>62</strong></td><td>UX designer</td><td><strong>0</strong></td></tr>
+          <tr><td>Account executive</td><td><strong>369</strong></td><td>Salesperson</td><td><strong>0</strong></td></tr>
+          <tr><td>Software engineer</td><td><strong>409</strong></td><td>Programmer</td><td>5</td></tr>
+          <tr><td>Engineering manager</td><td><strong>98</strong></td><td>Tech lead</td><td>6</td></tr>
+          <tr><td>Customer success</td><td><strong>79</strong></td><td>Customer service</td><td>8</td></tr>
+          <tr><td>Data scientist</td><td>39</td><td>Data analyst</td><td>18</td></tr>
+        </tbody>
+      </table>
+      <p>Zero listings on a 4,722-role board are advertised for a "UX designer". Sixty-two are advertised for a product designer, and the UX work is inside those jobs. If your headline says UX designer, you are optimised for a phrase that employers have stopped typing — we take that apart in the <a href="/posts/remote-design-jobs">remote design jobs guide</a>.</p>
+      <p>The fix is not to abandon the words you identify with. It is to put the employer's word where the search looks and yours where a human reads:</p>
+      <ul>
+        <li><strong>Headline:</strong> the title employers advertise. "Product Designer" beats "UX Designer" on current evidence; "Account Executive" beats "Sales Professional".</li>
+        <li><strong>About section:</strong> your own framing, in full sentences, where nuance costs you nothing.</li>
+        <li><strong>Experience titles:</strong> if your official job title was unusual, add the standard one in brackets. "Growth Ninja (Marketing Manager)" is findable; "Growth Ninja" is not.</li>
+      </ul>
+
+      <h2>Your location field is doing more work than your headline</h2>
+      <p>This is the single most consequential setting on a remote job seeker's profile, and it is usually set carelessly.</p>
+      <p>On our board, <strong>4,617 of 4,722 listings — 97.8% — name a country or region</strong>. Only 105 carry no location condition at all. Remote hiring is overwhelmingly hiring into specific places, for the ordinary reason that employing someone in a country needs a legal entity or an employer of record there. Our guide to <a href="/posts/contractor-employee-or-employer-of-record">contractor, employee or employer of record</a> explains the mechanics.</p>
+      <p>What that means in practice:</p>
+      <ul>
+        <li><strong>Put your real country in the location field.</strong> Recruiters filter on it before they read anything. A profile showing a city the employer cannot hire in is filtered out before your experience is seen, and a profile showing nothing is often filtered out too.</li>
+        <li><strong>Do not set your location to a place you are not legally able to work in</strong> to catch more searches. It wastes the recruiter's time and yours, and it is found out at the first screening question.</li>
+        <li><strong>Use the About section for nuance</strong> the location field cannot hold: existing work authorisation, a company entity you can be employed through, willingness to overlap specific hours.</li>
+        <li><strong>If you want genuinely location-free work</strong>, understand that you are fishing in the 2.2%. Our <a href="/posts/how-to-find-work-from-anywhere-jobs">guide to finding work-from-anywhere roles</a> covers why following a short list of employers beats searching.</li>
+      </ul>
+
+      <h2>Seniority words are priced, and they are visible</h2>
+      <p>Counting the words that appear in job titles, with the median advertised pay of the listings that publish a range:</p>
+      <table>
+        <thead><tr><th>Word in the title</th><th>Listings</th><th>Share of board</th><th>Median advertised pay</th><th>Sample</th></tr></thead>
+        <tbody>
+          <tr><td>Principal</td><td>106</td><td>2.2%</td><td><strong>$274,400</strong></td><td>28</td></tr>
+          <tr><td>Head of</td><td>75</td><td>1.6%</td><td>$269,250</td><td>8</td></tr>
+          <tr><td>Staff</td><td>301</td><td>6.4%</td><td>$233,750</td><td>105</td></tr>
+          <tr><td>Director</td><td>258</td><td>5.5%</td><td>$217,500</td><td>41</td></tr>
+          <tr><td>Lead</td><td>228</td><td>4.8%</td><td>$191,250</td><td>36</td></tr>
+          <tr><td>Senior</td><td>799</td><td>16.9%</td><td>$180,940</td><td>201</td></tr>
+          <tr><td>Junior, graduate, entry-level</td><td>189</td><td>4.0%</td><td>$95,850</td><td>22</td></tr>
+        </tbody>
+      </table>
+      <p>Two things to take from that. First, "staff" and "principal" are <em>separate</em> rungs above senior and they are paid like it — a $53,000 gap between the senior and staff medians, on samples of 201 and 105. If you are operating at that level and your profile says "Senior", you are filtered into a lower band before anyone speaks to you.</p>
+      <p>Second, this is a senior market: 16.9% of listings say senior and only 4.0% say junior, graduate or entry-level. Claiming a level you have not reached is a bad trade, but failing to claim one you have reached is a common and expensive mistake.</p>
+
+      <h2>What to do, in order</h2>
+      <ol>
+        <li><strong>Search the board for your own job title first.</strong> If it returns little, you have the wrong word. <a href="/jobs">Search the live board</a> and compare what comes back with what your profile says.</li>
+        <li><strong>Rewrite the headline as a title, not a slogan.</strong> "Product Designer · Design systems · Fintech" is findable. "Designing delightful experiences ✨" is not.</li>
+        <li><strong>Set the location field honestly and specifically</strong>, and put the work-authorisation detail in About.</li>
+        <li><strong>Name your level accurately</strong>, including staff or principal if that is where you operate.</li>
+        <li><strong>Mirror the employer's own words from real listings</strong>, not from a keyword tool. Open five live postings for the role you want and write down the nouns they repeat. Our <a href="/tools/ats-keyword-checker">ATS keyword checker</a> does the same comparison between your CV and one job description.</li>
+        <li><strong>Turn on "open to work" with the recruiter-only setting</strong>, and list the job titles you want using the employer's words from step 1.</li>
+      </ol>
+
+      <h2>What this data cannot tell you</h2>
+      <ul>
+        <li><strong>Nothing here is measured on LinkedIn.</strong> We read employers' own career pages and hiring systems, so this is evidence about the language of job postings, which is what recruiters write their searches from. How LinkedIn ranks profiles internally is not something we or anyone outside LinkedIn can measure.</li>
+        <li><strong>Pay figures cover only the listings that publish a range</strong> — 874 of 4,722 — converted to a USD midpoint, with the sample size beside each one. They skew towards US employers covered by pay-transparency laws. See <a href="/posts/salary-transparency-laws-2026">where ranges are required</a>.</li>
+        <li><strong>Title counts are a snapshot.</strong> The board is rebuilt nightly, and "zero UX designer roles" means zero today, not zero forever. If a figure here disagrees with the board, the board is right.</li>
+      </ul>
+    `,
+    faq: [
+      {
+        q: "What should my LinkedIn headline say for remote jobs?",
+        a: "The job title employers actually advertise, not the one you identify with. On our board on 7 October 2026 there were 62 listings for a product designer and zero for a UX designer, and 369 for an account executive against zero for a salesperson. Put the employer's word in the headline, where searches look, and your own framing in the About section, where a human reads.",
+      },
+      {
+        q: "Does my LinkedIn location matter for remote jobs?",
+        a: "More than almost anything else on the profile. 4,617 of 4,722 remote listings on our board — 97.8% — name a country or region, because employing someone somewhere requires a legal entity or an employer of record there. Recruiters filter on location before reading your experience, so set it to your real country and put work-authorisation detail in the About section.",
+      },
+      {
+        q: "Should I put 'senior' in my LinkedIn title?",
+        a: "Only if it is accurate, but do not under-claim either. On our board, listings with 'staff' in the title showed a median advertised salary of $233,750 from 105 published ranges against $180,940 for 'senior' from 201 — a $53,000 gap between two adjacent rungs. If you operate at staff or principal level and your profile says senior, you are being filtered into a lower band before anyone speaks to you.",
+      },
+      {
+        q: "How do I find the right keywords for my profile?",
+        a: "Read five live job postings for the role you want and write down the nouns they repeat, rather than relying on a keyword tool. Those postings are what recruiters build their searches from. Our ATS keyword checker does the same comparison between a CV and a single job description, in your browser.",
+      },
+    ],
+  },
+  {
+    slug: "upskilling-for-remote-work",
+    title: "Upskilling for Remote Work: What Listings Reward, and What They Barely Mention",
+    description:
+      "Certifications appear in almost no remote job titles — 3 of 4,722 say 'certified' and none say PMP or CPA. What the pay ladder actually rewards, and how to think about courses given that.",
+    date: "2026-10-07T08:00:00.000Z",
+    author: "Bhargav",
+    tags: ["Upskilling", "Remote Career", "Certifications", "Career Advancement"],
+    readMinutes: 8,
+    html: `
+      <p>"Which course should I take to earn more remotely?" is the most common career question there is, and most answers to it are written by people selling courses.</p>
+      <p>We cannot tell you which course to buy — we have no data on course outcomes and no business having an opinion on vendors. What we can do is read 4,722 remote job listings and tell you what employers are asking for in them. Counted on <strong>7 October 2026</strong>.</p>
+
+      <h2>Certifications barely appear</h2>
+      <p>Searching every job title on the board:</p>
+      <table>
+        <thead><tr><th>Appears in the job title</th><th>Listings</th></tr></thead>
+        <tbody>
+          <tr><td>Salesforce</td><td>10</td></tr>
+          <tr><td>AWS</td><td>8</td></tr>
+          <tr><td>"Certified" (any certification)</td><td>3</td></tr>
+          <tr><td>Kubernetes</td><td>2</td></tr>
+          <tr><td>Security clearance</td><td>2</td></tr>
+          <tr><td>PMP</td><td><strong>0</strong></td></tr>
+          <tr><td>CPA</td><td><strong>0</strong></td></tr>
+        </tbody>
+      </table>
+      <p>Out of 4,722 listings, three say "certified" anywhere in the title. PMP and CPA — two of the most heavily marketed professional certifications — appear in none.</p>
+      <p>Be careful about what that does and does not prove. It is a statement about <strong>titles</strong>, not about requirements: a CPA may well be demanded in the body of an accounting listing without appearing in its title, and we cannot measure that reliably because most of the descriptions we store are short company summaries rather than full postings. What it does show is that certifications are not the thing employers lead with, which is worth knowing before you spend six months and a few thousand on one expecting it to be the headline.</p>
+      <blockquote>The honest framing: a certification is a credential that passes a filter in some regulated fields. It is rarely the thing that gets a remote job offer, because remote hiring is unusually evidence-driven — nobody can see you working, so they look at what you have produced.</blockquote>
+
+      <h2>What the pay ladder actually rewards</h2>
+      <p>This is the clearest signal on our board, and it is about <em>scope</em> rather than credentials. Median advertised pay for listings whose title carries each word:</p>
+      <table>
+        <thead><tr><th>Level in the title</th><th>Listings</th><th>Median advertised pay</th><th>Sample</th></tr></thead>
+        <tbody>
+          <tr><td>Principal</td><td>106</td><td><strong>$274,400</strong></td><td>28</td></tr>
+          <tr><td>Head of</td><td>75</td><td>$269,250</td><td>8</td></tr>
+          <tr><td>Staff</td><td>301</td><td>$233,750</td><td>105</td></tr>
+          <tr><td>Director</td><td>258</td><td>$217,500</td><td>41</td></tr>
+          <tr><td>Lead</td><td>228</td><td>$191,250</td><td>36</td></tr>
+          <tr><td>Senior</td><td>799</td><td>$180,940</td><td>201</td></tr>
+          <tr><td>Junior, graduate, entry-level</td><td>189</td><td>$95,850</td><td>22</td></tr>
+        </tbody>
+      </table>
+      <p>The distance from junior to senior is about $85,000 at the median; from senior to staff, another $53,000. Those two steps are worth more than any certification on the market, and neither is bought.</p>
+      <p>The skills that move someone from senior to staff are consistently the unglamorous ones: writing a design document other teams can act on, breaking an ambiguous problem into shippable pieces, and making a decision with incomplete information and then defending it. In an async company those are doubly valuable, because they are precisely the skills that survive being written down — see our guide to <a href="/posts/async-first-companies-hiring-2026">how async-first companies hire</a>.</p>
+
+      <h2>Where the money is by field, which should inform what you learn</h2>
+      <p>If you are choosing a direction rather than a course, the field matters more than the credential. From our <a href="/posts/remote-job-tier-list-2026">remote job tier list</a>, which ranks fields on volume, pay and portability:</p>
+      <ul>
+        <li><strong>DevOps, SRE and platform engineering</strong> has the highest work-from-anywhere share of any field we track, and a strong median. If location independence is the goal, this is the best-evidenced direction on the board.</li>
+        <li><strong>Software engineering generally</strong> is the largest field by title and has the best pay sample on the board by a distance.</li>
+        <li><strong>AI and machine learning</strong> pays very well and is <em>not</em> portable — about 1 role in 93 carries no location condition. Worth knowing if you are moving into it expecting to work from anywhere.</li>
+        <li><strong>Customer support</strong> is the widest open door without a technical background, and the honest entry route for many people. Our guide to <a href="/posts/best-remote-jobs-without-tech-background-2026">remote jobs without a tech background</a> covers it.</li>
+      </ul>
+
+      <h2>A sensible way to choose, given all that</h2>
+      <ol>
+        <li><strong>Start from live listings, not a syllabus.</strong> Open ten postings for the job you want in two years and list what they repeat. That is your curriculum, and it is free to produce.</li>
+        <li><strong>Prefer evidence you can show over credentials you can claim.</strong> Remote hiring cannot watch you work, so a thing you built, shipped or wrote is worth more than a certificate attesting that you could.</li>
+        <li><strong>Take the certification when it is a gate, not a boost.</strong> Regulated and compliance-heavy fields genuinely require specific credentials. Outside those, treat a certification as a tiebreaker.</li>
+        <li><strong>Invest in the scope skills.</strong> The senior-to-staff step is the best-paid move in the table above and it is earned by taking on ambiguity, not by completing a course.</li>
+        <li><strong>Check the market before committing.</strong> The <a href="/tools/salary-band-estimator">salary band estimator</a> shows what employers publish for a field, level and region, with the sample size next to every figure.</li>
+      </ol>
+
+      <h2>How we counted, and what we deliberately did not use</h2>
+      <ul>
+        <li>Figures are from the live board on <strong>7 October 2026</strong>: 4,722 published remote listings, 874 of which publish a salary range.</li>
+        <li>Certification and level counts are <strong>job-title searches</strong>. A requirement stated only in the body of a posting is not counted.</li>
+        <li><strong>We did not use our own skills data, and that is deliberate.</strong> The board extracts skill tags from listing descriptions, but most of the descriptions we store are short company summaries, so those tags measure our own capture rather than employer demand. Reporting "the most in-demand remote skill" from them would be reporting an artefact. We would rather leave the question unanswered than answer it wrongly.</li>
+        <li>Pay is the median USD midpoint of listings publishing a range, with sample sizes shown. It skews towards US employers covered by pay-transparency laws.</li>
+        <li>Counts change nightly. If a figure here disagrees with the board, the board is right.</li>
+      </ul>
+    `,
+    faq: [
+      {
+        q: "Are certifications worth it for remote jobs?",
+        a: "Rarely as a headline. Of 4,722 remote listings on our board on 7 October 2026, three mentioned 'certified' anywhere in the title, and PMP and CPA appeared in none. That is a measure of titles rather than of every stated requirement, but it shows certifications are not what employers lead with. They matter most as a gate in regulated fields, and least as a general boost.",
+      },
+      {
+        q: "What skills increase remote salary the most?",
+        a: "Scope, more than any specific tool. On our board, median advertised pay ran from $95,850 for junior and graduate titles to $180,940 for senior, $233,750 for staff and $274,400 for principal. The junior-to-senior and senior-to-staff steps are each worth more than any certification on the market, and both are earned by taking on ambiguity and responsibility rather than by completing a course.",
+      },
+      {
+        q: "Which remote field should I move into?",
+        a: "It depends on whether you are optimising for pay, volume or location freedom. DevOps, SRE and platform engineering has the highest work-from-anywhere share of any field we track; software engineering is the largest by title; AI and machine learning pays very well but only about 1 role in 93 is location-free; and customer support remains the widest entry point without a technical background.",
+      },
+      {
+        q: "What is the most in-demand skill in remote jobs?",
+        a: "We will not answer that from our data, because we cannot answer it honestly. Our skill tags are extracted from listing descriptions, and most of the descriptions we store are short company summaries rather than full postings, so the tags measure our own capture rather than employer demand. Reading ten live postings for the role you want is a better guide than any single ranked list.",
+      },
+    ],
+  },
+  {
+    slug: "assessing-remote-fit-when-hiring",
+    title: "Hiring for Distribution: How to Assess Remote Fit Without Guessing",
+    description:
+      "97.8% of remote listings name a country, and most interviews still test for an office job. A practical guide to writing the posting, running the process, and the signals that actually predict remote performance.",
+    date: "2026-10-07T09:00:00.000Z",
+    author: "Bhargav",
+    tags: ["Remote Hiring", "Interviewing", "Distributed Teams", "Employers"],
+    readMinutes: 9,
+    html: `
+      <p>This one is for the other side of the table. We run a job board, so we read a great many postings — 4,722 live on <strong>7 October 2026</strong> — and the same avoidable mistakes show up over and over.</p>
+
+      <h2>Start with the posting, because most of the damage happens there</h2>
+      <p><strong>Say where you can actually employ someone, in the first line.</strong> 4,617 of our 4,722 listings — 97.8% — name a country or region, which is honest, because employing someone somewhere needs an entity or an employer of record there. The problem is where it is said. A role headlined "Remote" that reveals "must be US-based" in paragraph nine wastes everyone's time and earns you a reputation among candidates who track this. We built a <a href="/tools/jd-remote-analyzer">job description analyser</a> that flags exactly these clauses, and it is worth running your own posting through it.</p>
+      <p><strong>Decide whether you mean remote or distributed, and write the one you mean.</strong> Those are different products. Our filter rejects a large share of listings as office or hybrid roles wearing the word remote, and candidates have learned to assume the worst — see <a href="/posts/how-to-spot-hybrid-bait-in-remote-job-descriptions">how to spot hybrid bait</a> for the phrasing they are scanning for.</p>
+      <p><strong>Publish a salary range if you can.</strong> Only 18.5% of listings on our board do. The ones that do get better-calibrated applicants and shorter processes, and in several US states and increasingly across the EU it is becoming a legal requirement anyway — see <a href="/posts/salary-transparency-laws-2026">where ranges are required</a>. Where it is optional it is still a filter that works in your favour.</p>
+      <p><strong>Name the timezone expectation as a number.</strong> "Must overlap four hours with Pacific" is a location requirement in disguise, and candidates would rather know. Our <a href="/posts/timezone-overlap-how-much-you-need">guide to how much overlap a team really needs</a> has the arithmetic if you are deciding what to ask for.</p>
+
+      <h2>What actually predicts remote performance</h2>
+      <p>The uncomfortable part: most interview processes test for an office job and then hire for a remote one. The things that differ are specific and testable.</p>
+      <h3>1. Written clarity, assessed from real artefacts</h3>
+      <p>In a distributed team, most decisions are made in writing and most context is read rather than overheard. Someone who writes clearly is cheaper to work with every single day, and someone who does not will quietly consume other people's time forever.</p>
+      <p>Assess it from things that already exist: the application itself, a short written response to a real problem, a document from previous work. Do not run a timed essay — you are testing thinking under a constraint that does not resemble the job.</p>
+      <h3>2. Working without a prompt</h3>
+      <p>Office work is full of ambient correction: someone notices you are stuck. Remote work is not. The signal to look for is a candidate describing a time they noticed something was wrong, decided what to do, and said so — rather than waiting to be asked.</p>
+      <p>A useful question: "Tell me about something you shipped that nobody asked you for." The answer separates people who need direction from people who need context.</p>
+      <h3>3. Asking rather than stalling</h3>
+      <p>The counterweight to independence. The failure mode of remote hires is not laziness, it is being stuck for three days without telling anyone. Ask candidates how they handle being blocked, and listen for a specific threshold — "if I have not moved in an hour I write it up and post it" is a real answer; "I just push through" is a warning.</p>
+      <h3>4. Handover quality</h3>
+      <p>Across timezones, work is passed rather than discussed. Ask what they leave behind at the end of a day for someone who will pick it up while they sleep. People who have genuinely worked distributed have a concrete answer.</p>
+
+      <h2>Run the process the way the job runs</h2>
+      <ul>
+        <li><strong>Make at least one stage asynchronous.</strong> If the job is mostly written, a process that is entirely live calls tests the wrong thing — and favours people who are good at meetings over people who are good at the work.</li>
+        <li><strong>Pay for substantial take-home work</strong>, and keep it under a few hours. An unpaid multi-day exercise selects for people who can afford to do it, which is not the trait you are hiring for.</li>
+        <li><strong>Interview across the timezone gap you will actually have.</strong> If the role overlaps you by three hours, run a conversation inside that window and see how it feels for both sides.</li>
+        <li><strong>Tell them the arrangement before the offer.</strong> Employee of a local entity, employer of record, or contractor — these are materially different deals and a candidate who finds out at the offer stage may walk. Our guide to <a href="/posts/contractor-employee-or-employer-of-record">contractor, employee or employer of record</a> sets out what each means for them.</li>
+        <li><strong>Keep the process short.</strong> The median listing on our board has been open several weeks; strong remote candidates are usually in several processes at once, and length is the cheapest reason to lose one.</li>
+      </ul>
+
+      <h2>Two things not to screen on</h2>
+      <p><strong>Previous remote experience, as a hard filter.</strong> It correlates with having had the opportunity, which correlates with things you should not be selecting on. Assess the behaviours directly; they are visible in people who have never worked remotely.</p>
+      <p><strong>Responsiveness during the process.</strong> A candidate replying within minutes is demonstrating that they are job hunting, not that they will be a good colleague — and treating it as a signal selects for exactly the always-on behaviour that causes remote burnout later.</p>
+
+      <h2>How we counted</h2>
+      <ul>
+        <li>Figures are from the live board on <strong>7 October 2026</strong>: 4,722 published remote listings from 964 employers, 874 of which publish a salary range.</li>
+        <li>The 97.8% is listings whose location text names a country or region rather than carrying no location condition at all.</li>
+        <li>Everything in the assessment sections is practice rather than measurement, and is presented as such. We can count what postings say; we cannot measure which interview questions predict performance, and we are not going to pretend otherwise.</li>
+        <li>Counts change nightly. If a figure here disagrees with the board, the board is right. Our <a href="/posts/how-we-source-and-verify-listings">sourcing method</a> sets out what we capture.</li>
+      </ul>
+    `,
+    faq: [
+      {
+        q: "How do you assess whether someone will work well remotely?",
+        a: "Assess four behaviours directly rather than screening for previous remote experience: written clarity judged from real artefacts, acting without being prompted, raising blockers quickly rather than stalling silently, and the quality of what they hand over at the end of a day. Previous remote experience mostly measures who has had the opportunity.",
+      },
+      {
+        q: "Should a remote job posting say which country you hire in?",
+        a: "Yes, in the first line. 97.8% of remote listings on our board name a country or region, because employing someone requires a legal entity or an employer of record there — the honest ones say so up front. Burying 'must be US-based' in paragraph nine wastes candidates' time and damages your reputation with the people who track it.",
+      },
+      {
+        q: "Should we publish a salary range in a remote job ad?",
+        a: "If you can. Only 18.5% of listings on our board do, so it is a genuine differentiator, it produces better-calibrated applicants and shorter processes, and it is becoming a legal requirement in several US states and across the EU.",
+      },
+      {
+        q: "How long should a remote hiring process be?",
+        a: "Short, and with at least one asynchronous stage if the job is mostly written work. A process made entirely of live calls tests how good someone is at meetings rather than at the job, and length is the cheapest way to lose strong candidates who are usually in several processes at once.",
+      },
+    ],
+  },
+  {
+    slug: "setting-expectations-distributed-teams",
+    title: "Setting Expectations in a Distributed Team: What to Write Down Before It Breaks",
+    description:
+      "Most remote management problems are unwritten-expectation problems. The specific things to agree in writing — availability, response times, decision rights and what 'done' means — and why presence is the wrong measure.",
+    date: "2026-10-07T10:00:00.000Z",
+    author: "Bhargav",
+    tags: ["Remote Management", "Distributed Teams", "Employers", "Async Work"],
+    readMinutes: 8,
+    html: `
+      <p>A distributed team does not fail because people are at home. It fails because expectations that were obvious in an office were never made explicit, and nobody noticed until they had already been broken.</p>
+      <p>This is a practical list of what to write down. It is drawn from how distributed companies describe their own working practices rather than from our listing data — we can count what employers advertise, not what works inside them, and we say so in the method note at the end.</p>
+
+      <h2>Presence is the wrong measure, and measuring it is expensive</h2>
+      <p>The instinct when you cannot see people is to measure whether they are there: green dots, activity monitoring, cameras on. It is worth being blunt about why this fails.</p>
+      <p>Presence measures availability, not output. Someone can be online for nine hours and produce nothing, and the measure cannot tell. Worse, it is trivially gameable, so you end up selecting for the gaming rather than the work — and the people most willing to perform availability are rarely your strongest contributors.</p>
+      <p>It also actively damages the thing that makes distributed work valuable. The reason a company can hire across twelve timezones is that work does not depend on everyone being awake together. A presence metric reinstates that dependency through the back door and gives up the advantage.</p>
+      <blockquote>The replacement is not "trust everyone and hope". It is agreeing what finished work looks like, and reviewing the work.</blockquote>
+
+      <h2>The six things to agree in writing</h2>
+      <h3>1. Core hours, as an actual number</h3>
+      <p>Not "be reasonably available". A specific window — "10:00 to 14:00 UTC, Monday to Thursday" — and what it is for. Everything outside it is the person's own to arrange. Our <a href="/posts/timezone-overlap-how-much-you-need">guide to how much overlap a team needs</a> works through what is realistic across common timezone pairs.</p>
+      <h3>2. Response-time expectations, by channel</h3>
+      <p>The most common source of low-grade stress on a distributed team is not knowing how fast you are supposed to reply. Write it down: chat within the working day, email within two, an explicit escalation route for things that genuinely cannot wait. Then hold the line on it — the expectation is worthless if managers reply at 23:00 and everyone infers that they should too.</p>
+      <h3>3. What "done" means</h3>
+      <p>In an office, "done" is negotiated in passing. Distributed, it has to be stated: what the deliverable is, what quality bar it meets, who reviews it, and by when. Most perceived performance problems are actually two people holding different definitions of done for the same task.</p>
+      <h3>4. Who decides what</h3>
+      <p>Ambiguous decision rights are expensive everywhere and ruinous across timezones, because the cost of checking is a day. Say which decisions a person makes alone, which need one other named person, and which go to a group. Write it where people can find it rather than explaining it per case.</p>
+      <h3>5. How work gets handed over</h3>
+      <p>If people finish at different times, work is passed rather than discussed. Agree what a handover contains — current state, next step, where things are, what is blocked — and have people write it as a matter of routine rather than when they remember.</p>
+      <h3>6. What is written down versus said</h3>
+      <p>The rule distributed companies converge on is that decisions live in documents and the meeting is where a document is discussed. If it was only said, it did not happen, because the person asleep at the time has no way to find it. Our guide to <a href="/posts/async-first-companies-hiring-2026">async-first companies</a> covers what that looks like in practice, and the distinction it rests on: async-first is how a company works, which is separate from where it is willing to employ you.</p>
+
+      <h2>Reviewing performance without watching people</h2>
+      <ul>
+        <li><strong>Review artefacts, not activity.</strong> The work exists — documents, shipped changes, resolved tickets, closed deals. Read it.</li>
+        <li><strong>Set expectations per cycle, not per day.</strong> What should exist in two weeks, agreed up front, is both fairer and easier to assess than whether someone looked busy on Tuesday.</li>
+        <li><strong>Make one-to-ones about blockers and direction.</strong> Status belongs in writing where everyone can read it; the live time is worth more spent on what is stuck.</li>
+        <li><strong>Watch for the quiet failure mode.</strong> Remote underperformance usually presents as silence, not as visible struggle. A person who has gone quiet for a week is a signal, and the response is a conversation, not a monitoring tool.</li>
+        <li><strong>Be explicit about promotion criteria.</strong> Distributed teams lose people to ambiguity about advancement more than to pay, because there is no corridor in which to pick up signals about how you are doing.</li>
+      </ul>
+
+      <h2>Protect against the failure that costs you people</h2>
+      <p>The risk in a distributed team is not slacking — it is the opposite. Without the physical boundary of leaving a building, work expands, and the people most committed to the job are the ones most exposed. Burnout costs more than any amount of underperformance you are worried about.</p>
+      <p>Concretely: do not reward out-of-hours replies, publicly or implicitly. Make leave genuinely taken rather than accrued. If you are in the timezone everyone else bends around, notice who is taking the 22:00 call every week, and rotate it. Our guide to <a href="/posts/working-across-timezones-without-burning-out">working across timezones without burning out</a> covers the patterns from the other side of the relationship, and it is worth reading as a manager.</p>
+
+      <h2>How we counted</h2>
+      <ul>
+        <li><strong>This guide is practice, not measurement.</strong> Our board can tell you what employers advertise — on 7 October 2026 it carried 4,722 listings from 964 employers — but it cannot tell you which management practices work inside those companies. Nothing here is presented as a finding from our data.</li>
+        <li>Where a figure does appear, it comes from the live board and is dated. Counts change nightly; if one disagrees with the board, the board is right.</li>
+        <li>Our <a href="/posts/how-we-source-and-verify-listings">sourcing method</a> sets out what we capture and what we do not.</li>
+      </ul>
+    `,
+    faq: [
+      {
+        q: "How do you measure performance in a remote team?",
+        a: "By reviewing the work rather than the activity. Distributed work produces artefacts — documents, shipped changes, resolved tickets, closed deals — and those are what to assess, against expectations agreed per cycle rather than per day. Presence metrics measure availability, are trivially gamed, and give up the asynchrony that makes distributed hiring possible in the first place.",
+      },
+      {
+        q: "What should a remote team agree in writing?",
+        a: "Six things: core hours as a specific window, response-time expectations by channel, what 'done' means for a piece of work, who decides what, what a handover contains, and the rule that decisions live in documents rather than in meetings. Most perceived performance problems turn out to be two people holding different unwritten definitions of one of these.",
+      },
+      {
+        q: "Should we monitor remote employees' activity?",
+        a: "It measures the wrong thing and costs you more than it returns. Activity monitoring tracks availability rather than output, is easy to game, and selects for people willing to perform presence over people doing the best work. Agreeing what finished work looks like and then reviewing the work is both cheaper and more accurate.",
+      },
+      {
+        q: "What is the biggest risk when managing a distributed team?",
+        a: "Burnout, not slacking. Without the boundary of leaving a building, work expands, and the people most committed to the job are the most exposed. Practically: do not reward out-of-hours replies, make leave genuinely taken, and rotate the unsociable calls rather than letting the same timezone absorb them every week.",
+      },
+    ],
+  },
 ];

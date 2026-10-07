@@ -64,7 +64,8 @@ export const POST_TOPICS: PostTopic[] = [
       "best-remote-jobs-without-tech-background-2026",
       "remote-career-change-guide",
       "remote-jobs-for-people-with-disabilities",
-    ],
+          "upskilling-for-remote-work",
+],
   },
   {
     id: "non-tech-careers",
@@ -92,7 +93,8 @@ export const POST_TOPICS: PostTopic[] = [
       "30-minute-remote-job-search-routine",
       "remote-job-interviews-across-time-zones",
       "psychology-of-remote-job-hunting",
-    ],
+          "linkedin-for-remote-jobs",
+],
   },
   {
     id: "time-zones",
@@ -120,6 +122,15 @@ export const POST_TOPICS: PostTopic[] = [
       "remote-work-taxes-living-abroad",
       "cost-of-working-from-home-by-country",
       "contractor-employee-or-employer-of-record",
+    ],
+  },
+  {
+    id: "for-employers",
+    title: "For employers",
+    blurb: "Writing a remote job post people trust, assessing remote fit, and running a distributed team.",
+    slugs: [
+      "assessing-remote-fit-when-hiring",
+      "setting-expectations-distributed-teams",
     ],
   },
   {
