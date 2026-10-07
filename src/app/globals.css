@@ -149,6 +149,13 @@
 .prose-post em { @apply italic; }
 .prose-post blockquote { @apply my-5 border-l-2 border-ink-200 pl-4 text-ink-600 italic; }
 
+/* A link whose visible text is a bare URL has no spaces to wrap at, so on a
+   narrow screen it pushes the page sideways. /privacy did exactly that at
+   320px with "policies.google.com/technologies/partner-sites". `anywhere`
+   rather than `break-word` because it also lowers the element's min-content
+   width, which is what a flex or grid ancestor sizes itself from. */
+:where(.prose-legal, .prose-job, .prose-post) a { overflow-wrap: anywhere; }
+
 /* Post tables (salary + visa comparisons). The table scrolls inside its OWN
    container so the page never scrolls horizontally on mobile — guarded by
    tests/mobile-overflow.spec.ts. */

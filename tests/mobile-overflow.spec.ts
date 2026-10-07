@@ -30,6 +30,11 @@ const ROUTES = [
   // Widest table in the post set (four columns). `.prose-post table` is meant to
   // scroll inside its own box rather than push the page; this is the guard.
   "/posts/contractor-employee-or-employer-of-record",
+  // Both overflowed at 320px in the 8 Oct audit: the category cards would not
+  // shrink below their longest job title, and /privacy carries a bare URL as
+  // link text with nothing to wrap at.
+  "/remote-jobs-categories",
+  "/privacy",
 ];
 
 const WIDTHS = [

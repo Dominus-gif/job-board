@@ -52,6 +52,10 @@ export default async function CategoriesHubPage() {
       <div className="mx-auto max-w-6xl space-y-12 px-4 py-12">
         <AnywhereVsRegional />
 
+        {/* min-w-0 all the way down: each card is a flex column whose list items
+            are `truncate` (white-space: nowrap), and a flex item defaults to
+            min-width:auto, so the card refused to shrink below the longest job
+            title. At 320px that made the document 557px wide. */}
         <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {cats.map(({ category, jobs: list }) => {
             const examples = list.slice(0, 3);
@@ -59,15 +63,15 @@ export default async function CategoriesHubPage() {
               <Link
                 key={category}
                 href={categoryHref(category)}
-                className="group flex flex-col rounded-2xl border border-ink-100 bg-white p-5 transition hover:border-brand-300 hover:shadow-card"
+                className="group flex min-w-0 flex-col rounded-2xl border border-ink-100 bg-white p-5 transition hover:border-brand-300 hover:shadow-card"
               >
                 <div className="flex items-baseline justify-between gap-2">
-                  <h2 className="font-display text-lg font-bold text-ink-900 group-hover:text-brand-700">{category}</h2>
+                  <h2 className="min-w-0 font-display text-lg font-bold text-ink-900 group-hover:text-brand-700">{category}</h2>
                   <span className="font-mono text-xs font-semibold text-ink-400">
                     {list.length} {list.length === 1 ? "job" : "jobs"}
                   </span>
                 </div>
-                <ul className="mt-3 flex-1 space-y-1.5 text-sm text-ink-600">
+                <ul className="mt-3 min-w-0 flex-1 space-y-1.5 text-sm text-ink-600">
                   {examples.map((j) => (
                     <li key={j.slug} className="truncate">· {j.title}</li>
                   ))}
