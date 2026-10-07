@@ -27,6 +27,9 @@ const ROUTES = [
   "/faq",
   "/posts",
   "/posts/remote-product-manager-jobs",
+  // Widest table in the post set (four columns). `.prose-post table` is meant to
+  // scroll inside its own box rather than push the page; this is the guard.
+  "/posts/contractor-employee-or-employer-of-record",
 ];
 
 const WIDTHS = [

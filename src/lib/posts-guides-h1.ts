@@ -18,9 +18,10 @@ export const POSTS_CLUSTER_H1: Post[] = [
     description:
       "What paid remote job boards actually sell, a 20-minute test you can run on any board, and how our own board scores on the same checks.",
     date: "2026-09-16T12:45:00.000Z",
+    updated: "2026-10-07T09:00:00.000Z",
     author: AUTHOR,
     tags: ["Remote Job Boards", "Paid Job Boards", "Job Search Strategy", "Job Search Tools"],
-    readMinutes: 5,
+    readMinutes: 6,
     html: `
       <p>At some point in a long remote job search, a paid job board starts to look tempting. The pitch is usually a mix of hand-checked listings, better filters, no ads and no scams. Some of that can be worth paying for. Some of it describes things a good free board already does. The only way to find out is to test, so here's a test you can run on any board, paid or free, in about 20 minutes.</p>
       <p>We run the same checks on our own board, and we share the results below, including where we fall short.</p>
@@ -69,6 +70,19 @@ export const POSTS_CLUSTER_H1: Post[] = [
         <li><strong>Complete description:</strong> we only publish listings where we can show the employer's full description, and nearly every current listing meets that bar.</li>
       </ul>
       <p>We're free for job seekers, and we explain our method in <a href="/posts/how-we-source-and-verify-listings">how we source and verify listings</a>. Run the test on us too. If we fail it for your field, you'll know.</p>
+
+      <h2>Beyond job boards entirely</h2>
+      <p>Boards — ours included — only ever show you roles that someone chose to advertise publicly. A real share of remote hiring never gets that far, and the routes to it are not secret so much as unevenly used.</p>
+      <ul>
+        <li><strong>Company career pages, directly.</strong> The most reliable and the most overlooked. Every board is downstream of these, which means a career page is always fresher than any aggregator reading it — including us. If a dozen employers would suit you, check them weekly and skip the middle layer entirely. Our guide to <a href="/posts/apply-directly-on-company-career-pages">applying directly</a> covers finding the real page.</li>
+        <li><strong>Professional Slack and Discord communities.</strong> Many fields have one or two that matter, usually with a jobs channel where hiring managers post before or instead of advertising. The entry cost is participating for a while before you need anything, which is also why the channels stay useful.</li>
+        <li><strong>Industry newsletters and their job sections.</strong> Niche newsletters often carry listings from employers who will not pay for a big board, and the audience is small enough that applications are not in the hundreds.</li>
+        <li><strong>Open-source projects and public communities</strong> in technical fields. Contributing is slow, but it is the one route where your work is assessed before you apply, which inverts the usual problem.</li>
+        <li><strong>Alumni and former-colleague networks.</strong> Unglamorous and consistently the highest-yield channel there is. A single message to someone who has seen you work outperforms fifty cold applications.</li>
+        <li><strong>Specialist boards for your field or situation</strong> — a niche board with 40 roles that all fit beats a general board with 40,000 that mostly do not.</li>
+      </ul>
+      <p>Two cautions. Communities built <em>around</em> job hunting are usually worth less than communities built around the work, because the first is full of candidates and the second is full of people who hire. And a channel where every post is a recruiter is an advertising surface, not a network.</p>
+      <p>The honest framing for all of this: these routes have better odds per application and far worse throughput. They work best alongside a board habit, not instead of one. If you want to see how much a given board is actually worth to you, the 20-minute test above applies to niche boards too.</p>
 
       <h2>If you decide to pay</h2>
       <ul>
@@ -181,9 +195,10 @@ export const POSTS_CLUSTER_H1: Post[] = [
     description:
       "A realistic daily and weekly remote job search routine: what to check, how many applications to send and when to follow up, in about 30 minutes a day.",
     date: "2026-09-16T12:25:00.000Z",
+    updated: "2026-10-07T09:00:00.000Z",
     author: AUTHOR,
     tags: ["Job Search Routine", "Remote Job Search", "Productivity", "Job Applications"],
-    readMinutes: 5,
+    readMinutes: 6,
     html: `
       <p>Job searching expands to fill whatever time you give it. Without a routine, it becomes either a guilty background task or an all-day scroll that leaves you tired and no closer to an offer. A short, fixed routine works better for most people. Here's one built around 30 minutes a day, plus a longer weekly session.</p>
       <p>The timings are a guide. The structure is what matters.</p>
@@ -216,6 +231,23 @@ export const POSTS_CLUSTER_H1: Post[] = [
 
       <h2>How many applications?</h2>
       <p>There's no magic number. Volume only helps while the applications stay relevant and well made. As a rough guide, the daily routine above produces five to ten considered applications a week. If you're getting interviews, keep going. If a few weeks pass with nothing, the problem is usually your targeting or the first lines of your CV, not the number you send.</p>
+
+      <h2>The whole sequence, from first search to signed offer</h2>
+      <p>The routine above is the daily habit. This is the arc it sits inside, so you can see where you are and what the next step is rather than doing the same thing indefinitely.</p>
+      <table>
+        <thead><tr><th>Stage</th><th>What you are actually doing</th><th>Done when</th></tr></thead>
+        <tbody>
+          <tr><td>1. Decide the target</td><td>Pick the role title employers use and the regions you can legally work in. Both are filters you will apply hundreds of times.</td><td>You can state your target in one sentence with a country in it.</td></tr>
+          <tr><td>2. Fix the assets</td><td>CV, profile and portfolio, using the posting's own vocabulary.</td><td>They would pass a stranger's ten-second scan.</td></tr>
+          <tr><td>3. Build the sources</td><td>Set up alerts and a short list of employers who hire the way you need. Following employers beats searching when the thing you want is scarce.</td><td>New roles arrive to you without you looking.</td></tr>
+          <tr><td>4. Apply, in volume but not blindly</td><td>The daily routine above. Each application matched to the posting rather than mass-sent.</td><td>You are applying consistently, not in bursts.</td></tr>
+          <tr><td>5. Screening call</td><td>Location, eligibility, overlap, salary expectation. Mostly logistics.</td><td>You have a number prepared and a clear availability window.</td></tr>
+          <tr><td>6. Interviews and a take-home</td><td>Demonstrating the work. For remote roles, often partly written.</td><td>—</td></tr>
+          <tr><td>7. Offer and arrangement</td><td>Not just the salary: employee, employer of record or contractor, and what that is worth.</td><td>You have converted the offer into a comparable figure.</td></tr>
+        </tbody>
+      </table>
+      <p>Two stages people skip, and both are expensive. <strong>Stage 1</strong>, because applying without a region filter means most of what you read was never open to you. And <strong>stage 7</strong>, because a contractor rate and a salary are not the same unit — our guide to <a href="/posts/contractor-employee-or-employer-of-record">contractor, employee or employer of record</a> has the arithmetic, and the <a href="/tools/offer-comparator">offer comparison calculator</a> runs it with your numbers.</p>
+      <p>How long it takes is genuinely variable, and anyone quoting you an average is guessing. What is predictable is that stages 1 to 3 are a few hours of work that make stages 4 to 6 several times more efficient, and almost everyone starts at stage 4.</p>
 
       <h2>What to leave out</h2>
       <p>A short routine only works if you protect it from the tasks that feel productive but aren't:</p>

@@ -303,9 +303,10 @@ export const POSTS_CLUSTER_D: Post[] = [
     description:
       "How remote applications move through hiring systems, why so many seem to vanish, and what our data shows about how different companies hire for remote roles.",
     date: "2026-09-16T04:00:00.000Z",
+    updated: "2026-10-07T09:00:00.000Z",
     author: AUTHOR,
     tags: ["Applicant Tracking Systems", "Recruiting", "Remote Job Applications", "Hiring Process"],
-    readMinutes: 5,
+    readMinutes: 7,
     html: `
       <p>You submit an application and it disappears. No confirmation beyond an automated email, no rejection, nothing. It's easy to imagine it vanishing into a void. In reality it usually went somewhere quite specific, and knowing where helps explain the silence.</p>
 
@@ -344,6 +345,38 @@ export const POSTS_CLUSTER_D: Post[] = [
       </ol>
 
       <p>To check how closely your CV matches a posting's wording, paste both into the <a href="/tools/ats-keyword-checker">ATS keyword checker</a>.</p>
+
+      <h2>What to actually send: the cover note, the keywords and the portfolio</h2>
+      <p>Everything above is about how your application is stored and read. This is about what you put in it.</p>
+
+      <h3>The cover note, which is shorter than you think</h3>
+      <p>A remote cover letter has one job the in-person version does not: it has to answer the questions a distributed employer is going to ask anyway, before they have to ask. Four short paragraphs is plenty.</p>
+      <ol>
+        <li><strong>Where you are and what you are eligible for.</strong> Put it in the first two lines. 97.8% of the 4,722 listings on our board on 7 October 2026 name a country or region, so this is the first thing that gets checked, and burying it wastes a reader's goodwill. "I am based in Portugal and hold EU work authorisation" removes an entire round of email.</li>
+        <li><strong>The overlap you can offer, as hours.</strong> "I can reliably cover 14:00 to 18:00 UTC" is a fact someone can plan around. "Flexible with hours" is not.</li>
+        <li><strong>One specific thing you did that matches one specific thing they asked for.</strong> Not a summary of your career — a single matched pair, with a number in it if you have one.</li>
+        <li><strong>Why this company, in one sentence that could not be copied to another application.</strong> If it could be, delete it; a generic line is worse than no line.</li>
+      </ol>
+      <p>What to leave out: your life story, the phrase "I am passionate about", and any claim about being a self-starter. Everyone writes that. The way to demonstrate it is the specific example in point three.</p>
+      <blockquote>A remote cover note is itself a work sample. At a company that runs on writing, a rambling note has already answered the question of what your internal communication will look like.</blockquote>
+
+      <h3>Keywords: take them from the posting, not from a tool</h3>
+      <p>Most applicant tracking systems do not auto-reject on a keyword score — a human usually sets filters, and the filters are built from the posting's own language. So the posting is the keyword list.</p>
+      <p>The practical method: open the job description, write down the nouns it repeats — tools, methods, responsibilities, the job title itself — and make sure the ones you genuinely have appear in your CV in the same words. "Customer success" and "customer service" are not the same string to a filter, and neither are "K8s" and "Kubernetes". Use both forms once if both are true.</p>
+      <p>Two rules worth holding to. Do not claim a tool you have not used, because the screening call will find it and the cost is the whole application. And do not stuff keywords into white text or a hidden block — ATS parsers extract text regardless of colour, so a human reads it, and it looks exactly like what it is.</p>
+      <p>Our <a href="/tools/ats-keyword-checker">ATS keyword checker</a> does this comparison for you: paste a CV and a job description and it shows which terms the posting leans on, which you already cover and which are missing. It runs in your browser and nothing is uploaded.</p>
+      <p>The same principle applies to job titles generally, and the gap is larger than most people expect — on 7 October 2026 no listing on our board advertised for a "UX designer" while 62 advertised for a product designer. We go through that in <a href="/posts/linkedin-for-remote-jobs">using the words employers actually type</a>.</p>
+
+      <h3>The portfolio: fewer pieces, more context</h3>
+      <p>For remote roles a portfolio does disproportionate work, because it is the only evidence of your working style that arrives before you do.</p>
+      <ul>
+        <li><strong>Three to five pieces, not twenty.</strong> A reviewer gives a portfolio a couple of minutes. Twenty pieces guarantee they see the weakest ones.</li>
+        <li><strong>Lead with the problem, not the artefact.</strong> Two sentences on what was wrong, what you did, and what changed. Screenshots without that are decoration.</li>
+        <li><strong>Say what was yours.</strong> On team work, name your part explicitly. Reviewers assume the worst when it is ambiguous, and honesty here reads as confidence.</li>
+        <li><strong>Include something written.</strong> A document, a post-mortem, a specification — anything that shows you can make a case in prose. For a distributed team this is often the most informative item in the whole portfolio.</li>
+        <li><strong>Make it openable in one click, with no login.</strong> A PDF that downloads, a plain URL. Every barrier costs you reviewers.</li>
+        <li><strong>If your work cannot be shown</strong> — it is confidential, internal, or under NDA — write a short anonymised case study instead. Describe the shape of the problem and your reasoning without naming anything. That is still evidence.</li>
+      </ul>
 
       <h2>Researching a company before you apply</h2>
       <p>Our <a href="/companies">company directory</a> shows the roles we currently list for each employer, which gives you a quick sense of whether a company is hiring broadly or filling one position. For roles open regardless of location, start with the <a href="/work-from-anywhere-jobs">work-from-anywhere board</a>, and for everything else, the <a href="/remote-regional-jobs">regional remote board</a>.</p>

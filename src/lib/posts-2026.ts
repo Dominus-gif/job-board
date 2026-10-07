@@ -14,16 +14,17 @@ export const POSTS_2026: Post[] = [
     slug: "is-remote-work-dying-2026-rto-data",
     title: "Is Remote Work Dying in 2026? What the RTO Data Actually Says",
     description:
-      "Return-to-office headlines say remote is over. Our data on 3,998 live listings says something else: remote didn't die in 2026 — it stratified, and the top tier is now one employer plus a long tail.",
+      "Return-to-office headlines say remote is over. Our 4,657 live listings say otherwise: remote stratified, and only 2.2% is truly work-from-anywhere.",
     date: "2026-09-06T09:00:00.000Z",
+    updated: "2026-10-07T09:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Work Trends", "Return to Office", "RTO 2026", "Future of Work", "Remote Work Statistics"],
     readMinutes: 8,
     html: `
       <p>Every few months a new headline declares remote work dead. A bank orders everyone back five days a week, a tech CEO says collaboration only happens in person, and the story writes itself: <em>the experiment is over</em>.</p>
       <p>Then you look at the actual listings, and the story falls apart.</p>
-      <p class="text-sm"><em>Updated 5 October 2026. The work-from-anywhere board moved sharply overnight: Canonical, which had been posting 99 of the 173 location-free roles, retired most of them, and the total fell to 91 from 23 employers. The figures below are the 5 October numbers. The direction of every finding here is unchanged, but the absolute counts in a market this concentrated can halve when one employer closes a hiring round — which is itself the most useful thing to know about it.</em></p>
-      <p>We track this for a living. On <strong>5 October 2026</strong> our board held <strong>3,871 published remote roles</strong>. That is not the footprint of a dying category. But it isn't a victory lap either — because of those 3,871 roles, only <strong>91 are genuinely work-from-anywhere</strong>. That's <strong>2.4%</strong>.</p>
+      <p class="text-sm"><em>Updated 7 October 2026 with a fresh count of the whole board. The work-from-anywhere tier has moved twice in a week: Canonical, which had been posting 99 of 173 location-free roles, retired most of them on 5 October and the total fell to 91; it now stands at 103, and the largest single employer in it is Supabase rather than Canonical. The direction of every finding here is unchanged. The absolute counts in a market this concentrated can halve when one employer closes a hiring round, which is itself the most useful thing to know about it.</em></p>
+      <p>We track this for a living. On <strong>7 October 2026</strong> our board held <strong>4,657 published remote roles</strong>. That is not the footprint of a dying category. But it isn't a victory lap either — because of those 4,657 roles, only <strong>103 are genuinely work-from-anywhere</strong>. That's <strong>2.2%</strong>.</p>
       <p>That single ratio explains the entire debate.</p>
 
       <h2>Remote didn't die. It stratified.</h2>
@@ -34,8 +35,8 @@ export const POSTS_2026: Post[] = [
       </ul>
       <p>Both are true at once. What changed isn't the existence of remote work — it's the <strong>distribution</strong>. Remote split into tiers:</p>
       <ol>
-        <li><strong>Tier 1 — Work-from-anywhere (2.4% of our board).</strong> No country, no timezone, no work-authorization gate. Genuinely rare, genuinely competitive.</li>
-        <li><strong>Tier 2 — Region-locked remote (97.6%).</strong> "Remote, US only." "Remote, EU." Fully remote in practice, but you must live in a named place. This is where the volume is now.</li>
+        <li><strong>Tier 1 — Work-from-anywhere (2.2% of our board).</strong> No country, no timezone, no work-authorization gate. Genuinely rare, genuinely competitive.</li>
+        <li><strong>Tier 2 — Region-locked remote (97.8%).</strong> "Remote, US only." "Remote, EU." Fully remote in practice, but you must live in a named place. This is where the volume is now.</li>
         <li><strong>Tier 3 — Hybrid dressed as remote.</strong> The listings that say remote and mean "three days in the office."</li>
       </ol>
       <blockquote>Remote work in 2026 isn't shrinking. It's hardening into a class system — and the top tier is small enough that most people never see it.</blockquote>
@@ -45,14 +46,15 @@ export const POSTS_2026: Post[] = [
       <p>So the mandates removed a category of jobs that were mostly never truly location-free to begin with. The headline reads "remote collapses." The reality is closer to "the pretenders left."</p>
 
       <h2>Where the remaining opportunity actually is</h2>
-      <p>Here's the part the doom coverage misses. Within that 91-role work-from-anywhere tier, the mix is nothing like what you'd guess. Counted by job title, and these overlap (an engineering manager counts in two rows), so they do not sum to 173:</p>
+      <p>Here's the part the doom coverage misses. Within that 103-role work-from-anywhere tier, the mix is nothing like what you'd guess. Counted by job title out of 103, and the rows overlap — an engineering manager counts in two of them — so they do not sum to 103:</p>
       <ul>
-        <li><strong>Engineering — 39 of the 91 roles (42.9%).</strong> The largest single block on the work-from-anywhere board by some distance. If you want a job with no location condition, this is overwhelmingly where they are.</li>
-        <li><strong>Management and leadership — 65 roles (37.6%).</strong> Titles containing manager, director, head of or lead. Many are engineering leadership, which is why this row overlaps so heavily with the one above.</li>
-        <li><strong>Sales — 23 roles (13.3%).</strong> Far smaller in the location-free tier than its volume on the wider board would suggest.</li>
-        <li><strong>Customer support — 9 roles (5.2%).</strong> Small in absolute terms, but the one field here that regularly hires without a technical background.</li>
+        <li><strong>Engineer in the title — 44 of 103 (42.7%).</strong> The largest single block on the work-from-anywhere board by some distance. If you want a job with no location condition at all, this is overwhelmingly where they are.</li>
+        <li><strong>Management and leadership — 34 of 103 (33.0%).</strong> Titles containing manager, director, head of, lead, VP or chief. Many are engineering leadership, which is why this row overlaps heavily with the one above.</li>
+        <li><strong>Sales — 12 of 103 (11.7%).</strong> Far smaller in the location-free tier than its volume on the wider board would suggest: 556 sales-titled roles board-wide, 11 of them work-from-anywhere.</li>
+        <li><strong>Support and customer success — 4 of 103 (3.9%).</strong> Small in absolute terms, and the only field here that regularly hires without a technical background.</li>
       </ul>
-      <p>If your mental model of remote work is "it's for developers," that model is four years out of date. In the truly location-independent tier, <strong>commercial and finance roles outnumber engineering roles more than two to one</strong> — and finance alone beats every engineering discipline combined.</p>
+      <p>The useful way to read this is as a rate rather than a count, because it tells you how portable a field is. Board-wide, <strong>6.7% of DevOps and platform roles are work-from-anywhere</strong> (6 of 90) and <strong>5.3% of design roles</strong> (4 of 76) — the two highest rates on the board. At the other end, <strong>marketing, finance, HR and project management have none at all</strong>: 0 of 104, 0 of 41, 0 of 55 and 0 of 39 respectively. Sales is 2.0% (11 of 556). So "it's for developers" is not quite right either — it is for the roles whose output does not depend on being in a particular legal or commercial jurisdiction, and that happens to be mostly infrastructure, product and design.</p>
+      <p>One number worth knowing before you plan around this tier: <strong>3 of the 103 roles have an entry-level title</strong>, from three different employers. Location-free hiring is almost entirely experienced hiring.</p>
 
       <h2>What this means for your job search</h2>
       <p>Stop asking whether remote work is dying. Start asking which tier you're searching in — because the tactics are completely different.</p>
@@ -62,10 +64,23 @@ export const POSTS_2026: Post[] = [
         <li><strong>Read the location line, not the word "remote."</strong> If a listing names a country, a state, or a timezone overlap, it belongs to tier two. That's fine — just know what you're applying to.</li>
       </ol>
 
+      <h2>What is actually changing, and what is just forecasting</h2>
+      <p>The RTO argument is the loud one, but it is not the only thing being claimed about the next few years. It is worth separating what a job board can see from what nobody can.</p>
+      <p><strong>What we can see in the listings.</strong> Three things, and all three are about composition rather than volume.</p>
+      <ul>
+        <li><strong>The location line is doing more work than it used to.</strong> 97.8% of our listings name a country or region. That is not a pullback from remote, it is a consequence of employment law — paying someone in a country needs an entity or an employer of record there — and it is the mechanism behind the whole tiering above.</li>
+        <li><strong>The top of the market is concentrated and volatile.</strong> 103 roles from 22 employers, with the top four holding 56% of them. Any claim about a trend in this tier is a claim about two dozen companies' hiring plans, which is why it nearly halved in a single day at the start of this month.</li>
+        <li><strong>Almost nothing being advertised is junior.</strong> 188 of 4,657 listings — 4.0% — carry a junior, entry-level, graduate, associate or intern title, and 3 of those are work-from-anywhere. We cannot show you a trend from one snapshot, so treat that as a level rather than a direction: remote hiring as it is advertised today is overwhelmingly experienced hiring.</li>
+      </ul>
+      <p><strong>What we cannot see, and nor can anyone selling you a forecast.</strong> Whether a job that exists today will exist in five years. Our own <a href="/posts/ai-is-killing-these-remote-jobs-what-to-do-instead">guide to which remote jobs AI is taking</a> is about demand that has already moved, not demand that might. The honest version of that argument is narrow: where the output of a task has one verifiable correct answer, the task is a candidate for automation; where it requires deciding what the right answer is and being accountable for it, it is not. That tells you something about what to learn. It does not give you a date, and anyone who gives you a date is guessing.</p>
+      <p>Two predictions that get repeated and that our data does not support. First, that remote work is becoming a developers-only category — the rates above show the opposite pattern, with design and infrastructure leading and engineering in the middle. Second, that AI has already hollowed out remote hiring: the field with the single largest posting volume on our board is still ordinary software engineering at 546 roles, and roles with an AI or machine-learning title are 116. We cannot speak to the direction of either from a single snapshot — our own board total has changed this year mostly because we added employers to it, which is a fact about us and not about the market.</p>
+      <p>The defensible conclusion is unexciting. The composition of remote hiring is changing faster than its size, and the composition is the thing you can actually plan around.</p>
+
       <h2>The honest conclusion</h2>
       <p>Remote work in 2026 is not dying. It is smaller at the top, much larger in the middle, and considerably harder to navigate than it was in 2021, because the word "remote" now covers three very different products.</p>
-      <p>One number is worth carrying away. The work-from-anywhere tier is not just small, it is <strong>concentrated and unstable</strong>: 91 roles from 23 employers, with the top four holding 56% of them. A single employer closing a hiring round halved this tier between 4 and 5 October. If your plan depends on location-free work, it depends on a short list of companies, and short lists move.</p>
+      <p>One number is worth carrying away. The work-from-anywhere tier is not just small, it is <strong>concentrated and unstable</strong>: 103 roles from 22 employers, with the top four holding 56.3% of them. A single employer closing a hiring round halved this tier between 4 and 5 October, and it has since recovered to 103 under a different lead employer. If your plan depends on location-free work, it depends on a short list of companies, and short lists move.</p>
       <p class="text-sm"><em>Correction, 4 October 2026: the tier mix above was previously reported from our category filter, which files any listing it cannot classify under "Product" and so cannot be used to size a field: it named Management &amp; Finance as the largest work-from-anywhere category with 140 roles. Counted by title, engineering is the largest by a wide margin. The board totals in this piece were also months out of date and have been refreshed.</em></p>
+      <p class="text-sm"><em>Correction, 7 October 2026: the four tier-mix figures above had been left on mixed denominators after the 5 October refresh — one was a share of 91 roles and three were shares of 173 — and the paragraph following them claimed that commercial and finance roles outnumbered engineering in the location-free tier. That claim came from the same category-filter error described above and was wrong: counted by title there are currently no finance or marketing roles in this tier at all. All five figures have been recounted against the 7 October board and the paragraph has been replaced with the per-field rates.</em></p>
       <p>The people who struggle are the ones still searching as if it's one market. The people who do well are the ones who pick a tier and search it deliberately.</p>
       <p><a href="/find-remote-jobs">Start with a filtered search →</a></p>
     `,
@@ -591,9 +606,10 @@ export const POSTS_2026: Post[] = [
     description:
       "Data entry now returns zero results across 8,794 remote listings. Here are the roles AI is hollowing out — and the specific bridge path out of each one.",
     date: "2026-08-30T09:00:00.000Z",
+    updated: "2026-10-07T09:00:00.000Z",
     author: "Bhargav",
     tags: ["AI and Jobs", "Career Change", "Future of Work", "Remote Jobs 2026", "Reskilling"],
-    readMinutes: 10,
+    readMinutes: 7,
     html: `
       <p>Here's a statistic that stopped us mid-analysis. We searched our board of <strong>8,794 live remote listings</strong> for "data entry."</p>
       <p><strong>Zero results.</strong> Not a handful. None.</p>
@@ -634,8 +650,31 @@ export const POSTS_2026: Post[] = [
       <p>Every declining role shares one property: <strong>the output is verifiable without judgement.</strong> If a task has a single correct answer that can be checked mechanically, it's automatable. If it requires deciding what the right answer <em>is</em>, weighing trade-offs, or being accountable when it's wrong, it isn't — yet.</p>
       <blockquote>The move is almost never "learn a completely new field." It's "move one level up in the same field, from executing the task to owning the outcome."</blockquote>
 
+      <h2>Stacking, rather than switching</h2>
+      <p>The ten moves above all look like career changes and almost none of them are. In every case the thing that makes the new role defensible is not a single new skill, it is a <em>combination</em> — usually the domain you already have, plus one adjacent capability that lets you own an outcome rather than execute a task.</p>
+      <p>That matters because combinations are much cheaper to acquire than new careers, and much harder to replace. There are a great many competent writers and a great many people who understand infrastructure; there are far fewer who are both, and the second group writes the documentation that companies pay well for.</p>
+      <h3>How to pick the second skill</h3>
+      <ol>
+        <li><strong>Start from what you already have, not from a list of hot skills.</strong> The value is in the overlap. A bookkeeper who learns SQL is more valuable than a bookkeeper who learns Python badly, because the SQL applies to the ledgers they already understand.</li>
+        <li><strong>Pick something that lets you make a decision you currently escalate.</strong> That is the line between executing and owning, and it is the line the ten sections above all cross.</li>
+        <li><strong>Prefer one skill to real depth over three to a demo.</strong> Three shallow additions read as a list of courses. One that you have used on a real problem reads as evidence.</li>
+        <li><strong>Check that employers actually name it.</strong> Open twenty listings for the role you want and count how often the skill appears. If it appears in two, you have found a hobby rather than a stack. Our <a href="/tools/ats-keyword-checker">ATS keyword checker</a> does this comparison against a specific posting.</li>
+        <li><strong>Add the generic one that compounds.</strong> For distributed work that is almost always written communication, because on a remote team it is the medium through which every other skill becomes visible.</li>
+      </ol>
+      <h3>Stacks that show up repeatedly in remote listings</h3>
+      <ul>
+        <li><strong>Domain knowledge + SQL.</strong> The cheapest upgrade available to anyone in finance, support, operations or marketing, because it turns "I think" into "here is the number".</li>
+        <li><strong>Writing + a technical domain.</strong> Technical and B2B content, developer documentation, solutions work. Rare combination, consistently advertised.</li>
+        <li><strong>Support or success + the product's internals.</strong> The route from tier-one support into technical support and solutions engineering, and it is mostly learned on the job you already have.</li>
+        <li><strong>Any engineering discipline + infrastructure.</strong> Platform and DevOps work has the highest work-from-anywhere rate of any family on our board, at 6.7% against a board average of 2.2%.</li>
+        <li><strong>Design + front-end implementation.</strong> Design systems work, and the reason design has the second-highest location-free rate at 5.3%.</li>
+        <li><strong>A craft + using AI tools well on it.</strong> Not "prompt engineering" as a job, which is mostly not a job. The useful version is being the person in an existing role who has worked out where these tools help and where they quietly produce wrong answers, and can say which is which.</li>
+      </ul>
+      <p>The sequencing advice is dull and correct: add the second skill while you still have the first job. Our guide to <a href="/posts/upskilling-for-remote-work">upskilling for remote work</a> covers how to choose a course that is worth the time, and <a href="/posts/remote-career-change-guide">changing field without starting over</a> covers the larger move when stacking genuinely is not enough.</p>
+
       <h2>Where the demand actually is</h2>
-      <p>For reference, the strongest categories in our current data: <strong>AI/data/ML (883 postings)</strong>, <strong>DevOps (531, $201K median)</strong>, and <strong>Sales (627 AE roles)</strong>. Browse <a href="/remote-devops-jobs">DevOps</a>, <a href="/remote-backend-jobs">backend</a>, <a href="/remote-sales-marketing-jobs">sales &amp; marketing</a>, or see the <a href="/posts/remote-job-tier-list-2026">full 2026 tier list</a>.</p>
+      <p>Counted by job title on 7 October 2026, across 4,657 listings, the largest destinations for the moves above are: <strong>software engineering, 546 roles</strong> at a $212,000 median across the 179 that publish pay; <strong>sales, 556 roles</strong> of which 373 are account executives; <strong>product management, 158 roles</strong> at a $229,462 median; <strong>AI and machine learning, 116 roles</strong> at $215,000; <strong>data engineering, science and analytics, 106 roles</strong>; and <strong>DevOps, SRE and platform, 90 roles</strong> at $210,000. Browse <a href="/remote-devops-jobs">DevOps</a>, <a href="/remote-backend-jobs">backend</a>, <a href="/remote-sales-marketing-jobs">sales &amp; marketing</a>, or see the <a href="/posts/remote-job-tier-list-2026">full 2026 tier list</a>.</p>
+      <p class="text-sm"><em>Updated 7 October 2026. The field sizes in this section were previously taken from our category filter, which files any listing it cannot classify under a catch-all and therefore cannot be used to size a field — it reported 883 AI/data/ML and 531 DevOps postings. They are now counted by job title, with the denominator and the number of listings publishing pay stated. Medians are of published midpoints only; most listings publish no salary at all.</em></p>
     `,
   },
   {
@@ -1172,9 +1211,10 @@ export const POSTS_2026: Post[] = [
     description:
       "The three ways a company abroad can pay you, what each one really costs you, and the arithmetic for turning a contractor rate into a number you can compare with a salary.",
     date: "2026-10-04T07:00:00.000Z",
+    updated: "2026-10-07T09:00:00.000Z",
     author: "Bhargav",
     tags: ["Employer of Record", "Remote Contracts", "Contractor vs Employee", "Remote Work Abroad", "Remote Pay"],
-    readMinutes: 11,
+    readMinutes: 14,
     html: `
       <p>You have an offer from a company in another country. Before the salary number means anything, you need to know something the offer letter often answers in one ambiguous line: <strong>who is actually employing you?</strong></p>
       <p>There are three answers, they are not interchangeable, and the difference between them is worth more than most of the salary negotiations people have.</p>
@@ -1281,6 +1321,35 @@ export const POSTS_2026: Post[] = [
         <li><strong>Contractor</strong> is genuinely better for some people — several clients, real control over your schedule, a rate that reflects the risk, and a country where self-employment is well served. It is a bad deal when it is a full-time job wearing a different hat, priced as though it were a salary.</li>
       </ul>
       <p>The test that cuts through it: <strong>if you converted this contractor rate into an employee-equivalent using the steps above, would you still take it over a salaried offer?</strong> If yes, it is a good contract. If you have never done that sum, you do not yet know what you have been offered.</p>
+
+      <h2>Freelancing, rather than one contract</h2>
+      <p>Everything above treats contracting as a different way of holding one job. Genuine freelancing — several clients, your own book of work — is a different proposition again, and the comparison people usually make is the wrong one.</p>
+      <p>The wrong comparison is rate against salary. The right one accounts for the fact that a freelancer sells a smaller number of billable hours.</p>
+      <table>
+        <thead><tr><th></th><th>Employee</th><th>Single long contract</th><th>Freelancing, several clients</th></tr></thead>
+        <tbody>
+          <tr><td>Who finds the work</td><td>Nobody, once you are in</td><td>You, once per contract</td><td>You, continuously — and it is unpaid time</td></tr>
+          <tr><td>Billable share of your week</td><td>Not a concept</td><td>Close to all of it</td><td>Often 50–70%; the rest is selling, invoicing, admin</td></tr>
+          <tr><td>If you stop working</td><td>Paid leave, sick pay</td><td>Usually unpaid, but predictable</td><td>No income, and the pipeline cools</td></tr>
+          <tr><td>Concentration risk</td><td>One employer</td><td>One client — the same risk, fewer rights</td><td>Spread, which is the real advantage</td></tr>
+          <tr><td>Ceiling</td><td>A band, and a yearly conversation</td><td>The rate you negotiated</td><td>Raise rates, or sell something other than hours</td></tr>
+          <tr><td>Admin</td><td>Payroll does it</td><td>Invoices, tax, maybe an accountant</td><td>All of that, plus contracts and chasing payment</td></tr>
+        </tbody>
+      </table>
+      <p>So the arithmetic that matters is <strong>rate × billable hours you can actually sell</strong>, minus the cost of your own benefits, equipment, downtime and professional insurance, then tax as a business rather than as an employee. A rate that looks like double a salary frequently is not, once a realistic billable share and four weeks of unsold time are in the model. The <a href="/tools/offer-comparator">offer comparator</a> will run that conversion for you.</p>
+      <p>Freelancing tends to win when your skill is in genuinely short supply, when the work divides naturally into projects, when you have several months of expenses saved, and when you are willing to spend real time selling. Staff employment tends to win when you want one problem to go deep on, when you need the income to be predictable — a mortgage application is noticeably easier with a contract of employment — or when the benefits you would be replacing are expensive where you live.</p>
+      <p>Two things worth saying plainly. Most people who do both report that the hardest part of freelancing is not the work, it is the selling and the irregular income, and that is exactly the part that is invisible from the outside. And it is not a one-way door: a long contract is a reasonable way to test the water with one client before you build a book of several.</p>
+
+      <h2>If you are the one hiring</h2>
+      <p>The same three arrangements look different from the employer's side, and the choice is usually made for the wrong reason — speed — and regretted for a predictable one.</p>
+      <ul>
+        <li><strong>Your own entity</strong> in the country you are hiring into. The best experience for the employee and the only option that scales past a handful of people in one place. It is also months of work and ongoing filings, so it rarely makes sense for the first hire in a country.</li>
+        <li><strong>An employer of record.</strong> Someone else's entity employs the person and invoices you. Typically a few hundred dollars per person per month on top of salary and local employer costs. It is the right answer for one to five people in a country, and it is what makes a "hire anywhere" policy actually deliverable.</li>
+        <li><strong>A contractor agreement.</strong> Fast, cheap and the one with the real tail risk. If the person works set hours, uses your equipment, reports to your manager and has no other clients, several jurisdictions will treat them as your employee regardless of what the contract says — and the bill is back-dated tax, social contributions, penalties and often accrued leave.</li>
+      </ul>
+      <p>What this costs you in practice, in rough order of magnitude: your own entity is the cheapest per head and by far the most expensive to start; an EOR is the most expensive per head and the cheapest to start; a contractor is the cheapest of all until it is not. The honest rule is that contracting is appropriate when the relationship genuinely is one of independent service — defined deliverables, the contractor's own tools and hours, their own other clients — and that misclassification is a judgement about the facts of the relationship, not about the wording of the agreement.</p>
+      <p>Three things worth getting right regardless of the route. <strong>Say the countries you can employ in, in the posting</strong> — a role headlined "Remote" that means "we can only pay people in three countries" burns candidates' time and your reputation. <strong>Decide who carries the equipment and home-office cost</strong> before the first hire rather than per negotiation; our <a href="/posts/cost-of-working-from-home-by-country">cost of working from home by country</a> has the numbers. And <strong>do not use a contractor agreement as a probation period</strong>, because converting afterwards is harder than hiring correctly once. Our guides to <a href="/posts/assessing-remote-fit-when-hiring">assessing remote fit when hiring</a> and <a href="/posts/setting-expectations-distributed-teams">setting expectations on a distributed team</a> cover the parts of this that are not contractual.</p>
+      <p class="text-sm"><em>This section describes how the three arrangements differ commercially. It is not legal or tax advice, and classification rules differ by country and change — take advice for the specific countries you are hiring in.</em></p>
 
       <h2>Related reading</h2>
       <ul>

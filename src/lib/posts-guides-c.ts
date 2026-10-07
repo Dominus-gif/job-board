@@ -17,9 +17,10 @@ export const POSTS_CLUSTER_C: Post[] = [
     description:
       "How many hours of timezone overlap a remote team really needs, worked through with New York, London, San Francisco, Sydney and Berlin as examples.",
     date: "2026-09-16T07:00:00.000Z",
+    updated: "2026-10-07T09:00:00.000Z",
     author: AUTHOR,
     tags: ["Time Zones", "Remote Collaboration", "Async Work", "Remote Teams"],
-    readMinutes: 5,
+    readMinutes: 6,
     html: `
       <p>"How many hours of overlap do we need?" is one of the first questions a distributed team argues about, and it usually gets answered by instinct. Some managers want the whole working day shared. Some teams run with almost none. Both can work, so the question worth asking is what your work needs.</p>
       <p>A common rule of thumb is <strong>four hours</strong>. It's a heuristic, not a law, but the reasoning behind it is sound, and working through it tells you when you can safely go lower.</p>
@@ -66,6 +67,20 @@ export const POSTS_CLUSTER_C: Post[] = [
         <li>Managers with reports who need frequent, quick support.</li>
       </ul>
 
+      <h2>If you are the one scheduling</h2>
+      <p>Everything above is about the overlap you need as a candidate. This is the harder version of the problem: you have a meeting to run and the people who need to be in it are spread across the map.</p>
+      <ol>
+        <li><strong>Find the intersection before you pick a time.</strong> Take each person's working hours in UTC and keep only the hours every one of them shares. On a team spread across more than about nine hours of longitude, that set is often empty, and knowing that up front changes the question from "when" to "does this need to be a meeting".</li>
+        <li><strong>Protect the morning of the earliest person and the evening of the latest.</strong> The intersection usually sits at the edge of someone's day. Landing on the first or last 30 minutes of it means they are either not awake yet or already finished, and the meeting gets their worst attention.</li>
+        <li><strong>Rotate anything that cannot be fair.</strong> If a recurring meeting is awkward for one region, rotate it on a schedule everyone can see. The resentment comes from the pattern, not from the single bad hour.</li>
+        <li><strong>Invite by role, not by habit.</strong> Every extra attendee narrows the intersection and raises the chance someone is attending at 22:00 for one line of input they could have written down.</li>
+        <li><strong>Always state times in UTC plus each person's local time</strong>, and name the date. "Tuesday 14:00 UTC (10:00 New York, 16:00 Berlin, 00:00 Sydney Wednesday)" takes one extra line and removes a whole class of mistake — including the day being different.</li>
+        <li><strong>Check both daylight saving transitions</strong> before you commit to a recurring slot. A fixed local time moves relative to the rest of the world twice a year, and the few weeks when the northern and southern shifts disagree are where recurring meetings quietly break.</li>
+        <li><strong>Record it, and write the decision down.</strong> If someone genuinely cannot be there, a recording plus a written decision is a real substitute. An unrecorded meeting makes attendance compulsory for anyone who wants to know what happened.</li>
+      </ol>
+      <p>The test that saves the most time: ask what the meeting is for. Deciding something contested, resolving something ambiguous, or meeting someone for the first time — those want synchronous time and are worth the awkward hour. Status, information sharing and most reviews are better written, and a team that has not made that split is where the 23:00 calls come from. Our guide to <a href="/posts/async-first-companies-hiring-2026">async-first companies</a> covers what the good version looks like from the inside.</p>
+      <p>Two tools here do the arithmetic rather than making you do it: the <a href="/tools/team-timezone-matrix">team timezone matrix</a> takes a list of cities and shows the hours they all share, and the <a href="/tools/timezone-overlap">overlap calculator</a> does the same for a single pair.</p>
+
       <h2>How to check a role before you apply</h2>
       <ol>
         <li><strong>Read the posting for hours.</strong> "Must overlap with US Eastern" or "core hours 10:00–14:00 CET" tells you exactly what's expected.</li>
@@ -100,9 +115,10 @@ export const POSTS_CLUSTER_C: Post[] = [
     description:
       "Practical scheduling patterns for remote workers across time zones: anchor hours, rotating meetings and clean handovers, without living on late-night calls.",
     date: "2026-09-16T06:30:00.000Z",
+    updated: "2026-10-07T09:00:00.000Z",
     author: AUTHOR,
     tags: ["Time Zones", "Burnout", "Remote Work Schedule", "Productivity"],
-    readMinutes: 5,
+    readMinutes: 8,
     html: `
       <p>Distributed work rarely falls apart over a missed deadline. It wears people down slowly, through a calendar that has one meeting at 7:00, another at 21:00, and a message pinging at midnight "just in case you're still up". Nobody decides to work a sixteen-hour day. It happens a few minutes at a time.</p>
       <p>The habits below stop that from happening. They're practical and personal, and you can put them in place yourself, whether or not your team has.</p>
@@ -145,6 +161,36 @@ export const POSTS_CLUSTER_C: Post[] = [
       </ul>
 
       <p>To build a template like this for your own team, add everyone's city and hours to the <a href="/tools/team-timezone-matrix">team timezone matrix</a>. It finds the shared window and shows who overlaps with whom.</p>
+
+      <h2>The shape of your own day</h2>
+      <p>The five patterns above are things a team agrees. These are the things only you can do, and they are what decides whether a well-run distributed team still exhausts you.</p>
+
+      <h3>Block the deep work before anyone else can book it</h3>
+      <p>The advantage of a distributed job is a long stretch of the day when nobody expects anything from you. The failure mode is spending that stretch on chat because nothing was protecting it.</p>
+      <ul>
+        <li><strong>Put two to three hours in your calendar as a real event</strong>, in the part of the day outside the anchor hours, and treat it as booked. An unmarked gap is an invitation; a titled block is a decision someone has to overrule.</li>
+        <li><strong>Match the block to your own best hours, not to the team's.</strong> This is the one scheduling freedom distributed work genuinely gives you, and most people never use it.</li>
+        <li><strong>Batch the shallow work</strong> — messages, reviews, small requests — into one or two windows instead of letting it run continuously. In a team spread across time zones nothing in chat was urgent anyway; it arrived while you were asleep and waited.</li>
+        <li><strong>Leave the half hour before anchor hours empty.</strong> That is when you read what came in overnight, so you arrive at the overlap already informed rather than reading in the meeting.</li>
+        <li><strong>Do not stack meetings against the edge of your day.</strong> A call that ends at the moment you were going to stop guarantees the work it generated spills past it.</li>
+      </ul>
+
+      <h3>Ending the day, when nothing ends it for you</h3>
+      <p>An office commute was a bad use of an hour that did one useful thing: it made the end of work unmistakable. Working from home removes the signal, not the need for one.</p>
+      <p>What works is almost embarrassingly simple, and the specific ritual matters less than having one. Write the handover note — it is the single best end-of-day marker, because it forces you to decide that today is finished. Then close the work applications rather than leaving them open behind a browser tab, put the laptop somewhere you are not sitting if you possibly can, and move your body for ten minutes so there is a physical gap between the two halves of the day.</p>
+      <p>Two things to get explicitly agreed rather than hoped for. <strong>Notifications off outside your stated hours</strong>, because a phone that buzzes at 23:00 means you never actually left, whether or not you replied. And <strong>a shared definition of urgent</strong> — on a distributed team this needs a named channel or a phone call, so that everything else can honestly wait until morning. If nothing is defined as urgent, everything is.</p>
+      <blockquote>If you find yourself checking messages at midnight "just in case", the problem is usually upstream: something was not written down clearly enough during the day for you to trust that it will hold overnight.</blockquote>
+
+      <h3>The part nobody budgets for: it can get lonely</h3>
+      <p>This is the most common reason people leave remote jobs they otherwise liked, and it is rarely about the work. In an office, contact with other people is a by-product of being there. Remotely, every bit of it has to be deliberate.</p>
+      <ul>
+        <li><strong>Count your actual human contact in a week</strong>, not your meetings. A day of six calls can still be a day where you spoke to nobody about anything other than tickets.</li>
+        <li><strong>Keep one non-work conversation per week with a colleague.</strong> Fifteen minutes, no agenda. It is also what makes the hard conversations possible later, because you will be talking to a person rather than an avatar.</li>
+        <li><strong>Get at least one social anchor outside the job</strong> — a class, a sport, a standing arrangement with a friend, a co-working day. Something that happens whether or not you remember to organise it.</li>
+        <li><strong>Leave the house on a weekday.</strong> Low effort, disproportionate effect, and the first thing to disappear in a busy week.</li>
+        <li><strong>Say it out loud at work if it is affecting you.</strong> On a well-run distributed team this is a normal thing to raise, not a confession. On a badly run one, the answer you get tells you something useful.</li>
+      </ul>
+      <p>Worth separating two things that feel alike: being isolated is about contact, and being invisible is about recognition. The second is a career problem rather than a wellbeing one, and the fix is different — write where other people can see it, and make sure your manager knows what you did without having to ask.</p>
 
       <h2>Warning signs</h2>
       <ul>

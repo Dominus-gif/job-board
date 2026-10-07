@@ -195,9 +195,10 @@ export const POSTS_CLUSTER_F: Post[] = [
     description:
       "A yearly budget for working from home, from desk to broadband, plus how the US, UK, Germany, the Netherlands, Ireland and Australia treat the costs.",
     date: "2026-09-16T13:25:00.000Z",
+    updated: "2026-10-07T09:00:00.000Z",
     author: AUTHOR,
     tags: ["Home Office", "Work From Home Costs", "Tax Relief", "Remote Benefits"],
-    readMinutes: 5,
+    readMinutes: 7,
     html: `
       <p>Working from home saves the commute, but it isn't free. Somebody pays for the desk, the chair, the broadband and the heating that stays on all day. Sometimes that's your employer. More often it's you, and whether you get any of it back depends a lot on the country you live in.</p>
       <p>Here's how to build a realistic yearly budget, and how several countries treat home-working costs.</p>
@@ -256,6 +257,37 @@ export const POSTS_CLUSTER_F: Post[] = [
       <blockquote>In many countries, the most valuable home office support is the kind your employer pays, not the kind you claim yourself.</blockquote>
 
       <p>Our <a href="/tools/home-office-cost-calculator">home office cost calculator</a> applies these rules to your own costs and shows what's left after any stipend.</p>
+
+      <h2>Auditing the setup you already have</h2>
+      <p>Most of this guide is about what a home office costs to build. This is the cheaper exercise: going through what you already have and finding the two or three things that are actually costing you something. Half an hour, once a year.</p>
+
+      <h3>The physical part</h3>
+      <p>Spend the money in this order, because this is the order in which the consequences arrive.</p>
+      <ol>
+        <li><strong>The chair.</strong> Feet flat, knees roughly level with hips, the back of the chair actually supporting your lower back. This is the item people regret skimping on most, and the regret arrives as a physiotherapy bill rather than as discomfort.</li>
+        <li><strong>Screen height.</strong> The top of the screen at about eye level, an arm's length away. A laptop on a desk is below that by 20 to 30 centimetres, which your neck pays for. A stand plus an external keyboard is the cheapest meaningful upgrade in the whole setup.</li>
+        <li><strong>Keyboard and mouse position.</strong> Elbows at roughly a right angle, wrists straight rather than bent up. If you are reaching forward for the mouse, move it.</li>
+        <li><strong>Light.</strong> Window to the side, not behind you and not in front of you. Behind you means a silhouette on every call; in front means glare all afternoon. Add a lamp for the half of the year when the daylight runs out mid-afternoon.</li>
+        <li><strong>Microphone before camera.</strong> People tolerate a mediocre picture and switch off for bad audio. A cheap headset beats laptop speakers in a room with any echo, and on a distributed team the number of hours you spend being listened to is large.</li>
+        <li><strong>Movement.</strong> No desk removes the need to stand up. Whatever reminder works for you, the point is that a day of back-to-back calls is a day of sitting completely still.</li>
+      </ol>
+      <p>If any of these is clearly wrong, that is the thing to fix, not the item with the best reviews. The <a href="/tools/home-office-cost-calculator">home office cost calculator</a> will tell you what the replacement does to your yearly running cost.</p>
+
+      <h3>Connectivity, and what happens when it fails</h3>
+      <p>Your internet connection is a work dependency that nobody else is responsible for. Two things worth settling before they matter: whether the upstream speed holds up on a call while something else is downloading, and what you do when the line goes down for a day. A phone plan with enough tethered data to get through a working day is the usual answer, and it is worth testing once rather than discovering it during an outage. If your employer reimburses broadband, this is also the version of the expense that is easiest to justify.</p>
+
+      <h3>Security, which is the part your employer will eventually ask about</h3>
+      <p>This is where home setups are weakest, and the fixes are free.</p>
+      <ul>
+        <li><strong>Full-disk encryption on, and a password or biometric lock on the machine.</strong> A laptop with company data on it, unencrypted, is a reportable incident the moment it is stolen.</li>
+        <li><strong>Automatic updates on</strong> for the operating system and the browser. Almost every real compromise is something that had a patch available.</li>
+        <li><strong>A password manager, and two-factor authentication on work accounts</strong> — an app or a hardware key rather than SMS where you have the choice.</li>
+        <li><strong>Change the router's default admin password</strong> and keep its firmware updated. It is the one piece of infrastructure in your house that is exposed to the internet by design.</li>
+        <li><strong>Separate work and personal where it is cheap to do so</strong> — a separate browser profile at minimum. It protects you as much as your employer: it is what stops a personal account problem becoming a work incident.</li>
+        <li><strong>Know who to tell, and how fast.</strong> Find the reporting route now. The difference between a contained incident and a serious one is usually hours.</li>
+        <li><strong>Treat public Wi-Fi as untrusted</strong> and use the company VPN where there is one. If you work from cafés or coworking spaces regularly, a privacy screen is a genuinely useful ten pounds.</li>
+      </ul>
+      <p>None of this is expensive, which is the point: the common failure is not an underfunded setup but an unexamined one.</p>
 
       <h2>What employers offer</h2>
       <p>Home office support varies hugely between employers, and our own listings show how uneven it is. Among the worldwide roles on our board, 72 mention an equipment budget, but 69 of those come from a single employer. Coworking stipends show up in roles from only a handful of companies. So don't assume a remote job includes this kind of support. Look for it in the listing, and ask if it isn't there.</p>
