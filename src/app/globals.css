@@ -1133,21 +1133,21 @@ select { accent-color: #2383e2; }
 }
 
 @keyframes gsx-twinkle {
-  0%, 100% { opacity: 0.25; transform: scale(0.7); }
-  50% { opacity: 1; transform: scale(1.15); }
+  0%, 100% { opacity: 0.175; transform: scale(0.7); }
+  50% { opacity: 0.7; transform: scale(1.15); }
 }
 @keyframes gsx-sweep {
   to { transform: translateX(322%); }
 }
 
 /* The global reduced-motion rule only clamps animation-duration, which would
-   freeze each star on whatever frame it happened to reach — including the 25%
+   freeze each star on whatever frame it happened to reach — including the 17.5%
    opacity trough, where they look like dirt. Park them deliberately instead,
    and drop the sweep so the underline is simply a quiet rule. */
 @media (prefers-reduced-motion: reduce) {
   .gsparkle-star {
     animation: none;
-    opacity: 0.5;
+    opacity: 0.35;
     transform: none;
   }
   .gsparkle-line::after {
