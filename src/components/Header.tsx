@@ -26,7 +26,7 @@ export function Header() {
         </Link>
 
         <nav className="hidden items-center gap-7 text-sm font-medium md:flex">
-          <NavLinks items={NAV} />
+          <NavLinks items={NAV} sparkle="/posts" />
           <BookmarksLink />
         </nav>
 

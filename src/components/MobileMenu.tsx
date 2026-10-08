@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FEATURES } from "@/lib/site";
+import { GuideSparkle } from "./GuideSparkle";
 
 const LINKS: [string, string][] = [
   ["Browse jobs", "/jobs"],
@@ -53,7 +54,7 @@ export function MobileMenu() {
                     onClick={() => setOpen(false)}
                     className="block rounded-lg px-3 py-3 text-base font-medium text-ink-800 hover:bg-ink-50"
                   >
-                    {label}
+                    {href === "/posts" ? <GuideSparkle>{label}</GuideSparkle> : label}
                   </Link>
                 </li>
               ))}

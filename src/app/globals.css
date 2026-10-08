@@ -1073,3 +1073,85 @@ select { accent-color: #2383e2; }
     background-position: 175% 0;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Guides nav label — twinkling stars and a sweeping underline.
+
+   The whole effect is drawn in one colour, `--gsx`, so it inverts with the
+   theme in a single place: near-black on paper, white on the dark canvas. The
+   underline is the same ink at low alpha with a full-strength highlight sliding
+   along it, which means the sweep reads as "brighter" in both themes rather
+   than being hard-coded white the way the usual gold-on-black version is.
+
+   Only opacity and transform are animated, so each star composites on the GPU.
+   No drop-shadow: a filter would repaint seven elements per frame in a sticky
+   header that is present on every page.
+   ───────────────────────────────────────────────────────────────────────── */
+.gsparkle {
+  position: relative;
+  display: inline-block;
+  --gsx: #141414;
+  --gsx-track: rgba(20, 20, 20, 0.2);
+}
+:root.dark .gsparkle {
+  --gsx: #ffffff;
+  --gsx-track: rgba(255, 255, 255, 0.26);
+}
+
+.gsparkle-star {
+  position: absolute;
+  width: 0.5em;
+  height: 0.5em;
+  background: var(--gsx);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 72%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  pointer-events: none;
+  animation: gsx-twinkle 2s ease-in-out infinite;
+}
+
+.gsparkle-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.36em;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--gsx-track);
+  overflow: hidden;
+  pointer-events: none;
+}
+/* 45% wide, parked one width to the left, travelling 145% of the track: that is
+   145/45 = 322% of its own width, which is what puts it fully off both ends. */
+.gsparkle-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -45%;
+  width: 45%;
+  background: linear-gradient(90deg, transparent, var(--gsx), transparent);
+  animation: gsx-sweep 2.4s linear infinite;
+}
+
+@keyframes gsx-twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.7); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+@keyframes gsx-sweep {
+  to { transform: translateX(322%); }
+}
+
+/* The global reduced-motion rule only clamps animation-duration, which would
+   freeze each star on whatever frame it happened to reach — including the 25%
+   opacity trough, where they look like dirt. Park them deliberately instead,
+   and drop the sweep so the underline is simply a quiet rule. */
+@media (prefers-reduced-motion: reduce) {
+  .gsparkle-star {
+    animation: none;
+    opacity: 0.5;
+    transform: none;
+  }
+  .gsparkle-line::after {
+    animation: none;
+    opacity: 0;
+  }
+}

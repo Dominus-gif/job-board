@@ -37,6 +37,11 @@ for (const [label, path] of PAGES) {
     test(`${label} dropdowns are usable at ${size.name} width`, async ({ page }) => {
       await page.setViewportSize({ width: size.width, height: size.height });
       await page.goto(path, { waitUntil: "domcontentloaded" });
+      // domcontentloaded fires before React hydrates, and hydration replaces
+      // these buttons. Without this wait, `isVisible()` below can read the
+      // pre-hydration node, return false, and skip every dropdown — a test that
+      // passes while checking nothing.
+      await page.waitForLoadState("load");
 
       const buttons = page.locator('button[role="combobox"]');
       const count = await buttons.count();
@@ -45,7 +50,6 @@ for (const [label, path] of PAGES) {
       for (let i = 0; i < count; i++) {
         const button = buttons.nth(i);
         if (!(await button.isVisible())) continue;
-        await button.scrollIntoViewIfNeeded();
         await button.click();
 
         const panel = page.locator('ul[role="listbox"]');
@@ -105,9 +109,12 @@ for (const [label, path] of PAGES) {
 test("the panel follows its button when the page scrolls", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/", { waitUntil: "domcontentloaded" });
+  await page.waitForLoadState("load");
 
   const button = page.locator('button[role="combobox"]').first();
-  await button.scrollIntoViewIfNeeded();
+  // click() scrolls the element into view and retries if hydration swaps the
+  // node underneath it. An explicit scrollIntoViewIfNeeded() does neither, and
+  // was the one call here that threw "Element is not attached to the DOM".
   await button.click();
   const panel = page.locator('ul[role="listbox"]');
   await expect(panel).toBeVisible();

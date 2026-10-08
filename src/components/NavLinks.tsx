@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { GuideSparkle } from "./GuideSparkle";
 
 /** True when the current path belongs to a nav destination. */
 export function navIsActive(href: string, path: string): boolean {
@@ -12,7 +13,12 @@ export function navIsActive(href: string, path: string): boolean {
   return path === href || path.startsWith(`${href}/`);
 }
 
-export function NavLinks({ items }: { items: [string, string][] }) {
+/**
+ * `sparkle` names the one href whose label gets the star treatment. Passed in
+ * rather than matched here, so this component still knows nothing about which
+ * route is special.
+ */
+export function NavLinks({ items, sparkle }: { items: [string, string][]; sparkle?: string }) {
   const path = usePathname();
   return (
     <>
@@ -25,7 +31,7 @@ export function NavLinks({ items }: { items: [string, string][] }) {
             aria-current={active ? "page" : undefined}
             className={`inline-flex items-center leading-none transition ${active ? "font-semibold text-ink-900" : "text-ink-600 hover:text-ink-900"}`}
           >
-            {label}
+            {href === sparkle ? <GuideSparkle>{label}</GuideSparkle> : label}
           </Link>
         );
       })}
