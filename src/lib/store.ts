@@ -21,6 +21,7 @@ import companiesSeed from "./seed/companies.json";
 import rawSeedJobs from "./seed/raw-jobs.json";
 import snapshotJobs from "./generated/snapshot.json";
 import { NORDHARTON_COMPANY, NORDHARTON_JOBS } from "./seed/nordharton";
+import { HFT_COMPANY, HFT_JOBS } from "./seed/hft-architecture";
 import { locationRequiresOffice, titleNamesRegion } from "./pipeline/filter";
 import officeBasedIds from "./generated/office-based.json";
 // Prebuilt at `prebuild` (scripts/build-curated.ts) and committed. Loading a
@@ -37,7 +38,7 @@ const IS_BUILD = process.env.NEXT_PHASE === "phase-production-build";
 /** IDs promoted to paid/featured placements (spec: manual). Seed-only demo. */
 const FEATURED_IDS = new Set(["seed:gitlab:1", "seed:close:8"]);
 
-export const companies: Company[] = [...(companiesSeed as Company[]), NORDHARTON_COMPANY].map((c) => ({
+export const companies: Company[] = [...(companiesSeed as Company[]), NORDHARTON_COMPANY, HFT_COMPANY].map((c) => ({
   ...c,
   logo: resolveLogo({ domain: c.domain, name: c.name }),
 }));
@@ -94,7 +95,7 @@ function hydrateCurated(rows: unknown[]): Job[] {
   }));
 }
 
-const manualJobs: Job[] = withOverrides([...NORDHARTON_JOBS, ...hydrateCurated(curatedJobs as unknown[])]);
+const manualJobs: Job[] = withOverrides([...NORDHARTON_JOBS, ...HFT_JOBS, ...hydrateCurated(curatedJobs as unknown[])]);
 
 /** Union the always-on manual jobs onto a set of real (scraped/snapshot) jobs. */
 const TRAILING_SLASH = new RegExp("/+$");
@@ -300,15 +301,31 @@ const dropOnsite = (jobs: Job[]): Job[] =>
  * Only known tracking keys are removed. ATS links carry real parameters too —
  * Greenhouse's embed form needs `for` and `token`, Lever uses `lever-source` —
  * and stripping the query wholesale would break the apply page.
+ *
+ * One exception: when the link's OWN `utm_source` is us, the utm_* family is
+ * kept. The point of the strip is that an application should not be credited to
+ * some aggregator the link passed through; an employer who deliberately tags
+ * their careers link with utm_source=getremotejobsnow is asking to credit THIS
+ * board for the referral, which is exactly the attribution we want to preserve.
+ * Non-utm trackers (gclid, fbclid…) are still removed either way.
  */
 const TRACKING_PARAMS = /^(utm_[a-z_]+|gh_src|gclid|fbclid|msclkid|mc_cid|mc_eid|ref|referrer|source|src)$/i;
+
+/** True when utm_source names this site (e.g. "getremotejobsnow"). */
+function utmSourceIsOurs(url: URL): boolean {
+  const src = url.searchParams.get("utm_source");
+  if (!src) return false;
+  return src.toLowerCase().replace(/[^a-z0-9]/g, "").startsWith("getremotejobsnow");
+}
 
 export function cleanApplyUrl(raw: string): string {
   if (!raw || !/^https?:\/\//i.test(raw)) return raw;
   try {
     const url = new URL(raw);
+    const keepUtm = utmSourceIsOurs(url);
     let touched = false;
     for (const key of [...url.searchParams.keys()]) {
+      if (keepUtm && /^utm_/i.test(key)) continue; // our own referral attribution
       if (TRACKING_PARAMS.test(key)) {
         url.searchParams.delete(key);
         touched = true;

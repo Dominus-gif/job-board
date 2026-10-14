@@ -32,6 +32,19 @@ describe("cleanApplyUrl", () => {
     expect(cleanApplyUrl("https://example.com/job/9?utm_source=x&utm_medium=y")).toBe("https://example.com/job/9");
   });
 
+  it("keeps the utm tags when the link credits THIS board for the referral", () => {
+    // An employer who tags their own careers link with utm_source=getremotejobsnow
+    // is asking to attribute the application to us — the opposite of the
+    // aggregator case above, so we pass it through intact.
+    const ours =
+      "https://hftarchitecture.com/careers/quantitative-researcher?utm_source=getremotejobsnow&utm_medium=jobboard&utm_campaign=careers-2026-10";
+    expect(cleanApplyUrl(ours)).toBe(ours);
+    // Still removes a non-utm tracker that rode along with our own utm_source.
+    expect(
+      cleanApplyUrl("https://hftarchitecture.com/careers/x?utm_source=getremotejobsnow&gclid=123"),
+    ).toBe("https://hftarchitecture.com/careers/x?utm_source=getremotejobsnow");
+  });
+
   it("leaves a clean URL untouched, including its identity", () => {
     const clean = "https://jobs.lever.co/destinationknot/74a628cf-1372-4f80-ae1d-5396c9edcf86/apply";
     expect(cleanApplyUrl(clean)).toBe(clean);
