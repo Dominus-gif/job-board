@@ -31,6 +31,24 @@ function isDecodable(path: string): boolean {
 }
 
 /**
+ * Where undecodable paths are rewritten. It must match NO route, not even a
+ * dynamic one.
+ *
+ * After a middleware rewrite, Next still runs the destination route's param
+ * matcher against the ORIGINAL path (route-module prepare()). The old target,
+ * "/__malformed-url", was one segment, so it resolved to the [landing] route; a
+ * root-level /%E9 then matched /[landing] and decodeURIComponent threw
+ * "failed to decode param". So every malformed path at the site root was a 500,
+ * while /jobs/%E9 (two segments, no match against /[landing]) 404'd.
+ *
+ * Two segments whose first one no route claims reach the static not-found,
+ * which has no params to decode. A top-level catch-all route would match this
+ * too, so don't add one without changing the target; tests/malformed-url.spec.ts
+ * guards it.
+ */
+const MALFORMED_URL_TARGET = "/__malformed-url/404";
+
+/**
  * Edge fixes applied before routing.
  *
  * 1. Path normalisation. A URL carrying raw, un-percent-encoded non-ASCII —
@@ -96,7 +114,7 @@ export function middleware(req: NextRequest) {
     const url = req.nextUrl.clone();
     // An unmatched path renders the app's own not-found with a 404 status, and
     // rewrite (not redirect) keeps the bad URL visible rather than laundering it.
-    url.pathname = "/__malformed-url";
+    url.pathname = MALFORMED_URL_TARGET;
     url.search = "";
     return NextResponse.rewrite(url);
   }
@@ -125,5 +143,10 @@ export const config = {
   // Every page request, but not build assets or files with an extension —
   // the normalisation above has to run before any dynamic route resolves,
   // which the previous "/"-only matcher never did.
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.[A-Za-z0-9]+$).*)"],
+  //
+  // The second entry sends every percent-encoded path through as well, file
+  // extension or not. Skipping extensions left /%E9.xml and /%E9/rss.xml to
+  // reach [landing] (and [landing]/rss.xml) undecoded, which 500'd for the
+  // same reason as above. Plain static files still skip the middleware.
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.[A-Za-z0-9]+$).*)", "/(.*%.*)"],
 };
