@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { describe, it, expect } from "vitest";
 import {
   applyLinkIsSpecific,
@@ -6,6 +8,8 @@ import {
   isDirectoryPointer,
   jobIsIndexable,
   landingIsIndexable,
+  MIN_COMPANY_LISTINGS,
+  MIN_LANDING_LISTINGS,
   robotsFor,
 } from "./indexing";
 
@@ -104,17 +108,24 @@ describe("applyLinkIsSpecific", () => {
   });
 });
 
-describe("thresholds", () => {
-  it("a company page needs more than a list of one", () => {
-    expect(companyIsIndexable(1)).toBe(false);
-    expect(companyIsIndexable(9)).toBe(false);
-    expect(companyIsIndexable(10)).toBe(true);
+describe("company and landing pages", () => {
+  // Off entirely since 2026-10-21 (third AdSense rejection): both page types
+  // are assembled from listings, and they were 109 of 271 sitemap URLs.
+  it("are not offered to search engines at any size", () => {
+    for (const n of [0, 1, 9, 10, 50, 500]) {
+      expect(companyIsIndexable(n)).toBe(false);
+      expect(landingIsIndexable(n)).toBe(false);
+    }
   });
 
-  it("a filtered view needs results to be a page about", () => {
-    expect(landingIsIndexable(1)).toBe(false);
-    expect(landingIsIndexable(7)).toBe(false);
-    expect(landingIsIndexable(8)).toBe(true);
+  it("would still need their old minimums if the switch were flipped back", () => {
+    // The flags gate the thresholds rather than replace them, so re-enabling
+    // restores the graded behaviour instead of indexing every thin profile.
+    const src = readFileSync(join(process.cwd(), "src/lib/seo/indexing.ts"), "utf8");
+    expect(src).toMatch(/INDEX_COMPANY_PAGES && liveListings >= MIN_COMPANY_LISTINGS/);
+    expect(src).toMatch(/INDEX_LANDING_PAGES && results >= MIN_LANDING_LISTINGS/);
+    expect(MIN_COMPANY_LISTINGS).toBe(10);
+    expect(MIN_LANDING_LISTINGS).toBe(8);
   });
 });
 

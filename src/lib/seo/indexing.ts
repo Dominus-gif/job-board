@@ -123,14 +123,46 @@ export function jobIsIndexable(
   return descriptionWords(job.description_html) >= MIN_DESCRIPTION_WORDS;
 }
 
+/**
+ * Company profiles and filtered job-list pages are not offered to search
+ * engines at all (2026-10-21, after the third AdSense "low value content"
+ * rejection).
+ *
+ * Both page types are assembled from listings: a company profile is a
+ * generated blurb plus that employer's roles, and a landing page is a filtered
+ * slice of the board with an introduction. At the time of the change they were
+ * 109 of the 271 URLs in the sitemap, and with the job pages they made up two
+ * thirds of what a reviewer could land on. They stay on the site, linked and
+ * fully usable; they just stop being submitted as search destinations, so the
+ * index leads with the guides and tools that are this site's own work.
+ *
+ * The thresholds below are kept so that flipping a flag back restores the
+ * earlier, graded behaviour rather than indexing every thin profile at once.
+ */
+export const INDEX_COMPANY_PAGES = false;
+export const INDEX_LANDING_PAGES = false;
+
+/**
+ * The job-list hubs that are their own routes rather than [landing] slugs.
+ * They follow INDEX_LANDING_PAGES, so the sitemap and each page's robots tag
+ * read the same switch.
+ */
+export const JOB_LIST_HUB_PATHS = [
+  "/remote-regional-jobs",
+  "/find-remote-jobs",
+  "/remote-jobs-categories",
+  "/remote-jobs-programming-support-design",
+  "/trending-remote-jobs",
+] as const;
+
 /** Should this company profile be offered to search engines? */
 export function companyIsIndexable(liveListings: number): boolean {
-  return liveListings >= MIN_COMPANY_LISTINGS;
+  return INDEX_COMPANY_PAGES && liveListings >= MIN_COMPANY_LISTINGS;
 }
 
 /** Should this filtered landing page be offered to search engines? */
 export function landingIsIndexable(results: number): boolean {
-  return results >= MIN_LANDING_LISTINGS;
+  return INDEX_LANDING_PAGES && results >= MIN_LANDING_LISTINGS;
 }
 
 /**

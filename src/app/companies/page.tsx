@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { getCompanies } from "@/lib/db";
 import { CompanyDirectory } from "@/components/CompanyDirectory";
+import { robotsFor, INDEX_COMPANY_PAGES } from "@/lib/seo/indexing";
 
 export const metadata: Metadata = {
   title: "Companies Hiring Remotely",
   description: "Every company with active remote roles on getremotejobsnow.com — work-from-anywhere and region-based — with ratings and reviews.",
   alternates: { canonical: "/companies" },
+  // Job-list hub: out of the index while INDEX_COMPANY_PAGES is off (seo/indexing.ts).
+  robots: robotsFor(INDEX_COMPANY_PAGES),
 };
 
 export const revalidate = 1800;

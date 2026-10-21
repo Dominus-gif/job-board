@@ -32,3 +32,6 @@ src/lib/generated/job-content-generic.json
 src/lib/generated/unreachable-descriptions.json
 src/lib/generated/discovered-roles.json
 test-results/
+
+# MailForge (separate local app with its own repo and SMTP credentials). Never commit.
+/NM/

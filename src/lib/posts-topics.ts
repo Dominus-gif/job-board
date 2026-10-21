@@ -53,6 +53,8 @@ export const POST_TOPICS: PostTopic[] = [
       "async-first-companies-hiring-2026",
       "remote-product-manager-jobs",
       "remote-design-jobs",
+      "remote-software-engineering-jobs",
+      "remote-data-and-machine-learning-jobs",
     ],
   },
   {
@@ -65,6 +67,7 @@ export const POST_TOPICS: PostTopic[] = [
       "remote-career-change-guide",
       "remote-jobs-for-people-with-disabilities",
           "upskilling-for-remote-work",
+      "first-90-days-in-a-remote-job",
 ],
   },
   {
@@ -76,6 +79,7 @@ export const POST_TOPICS: PostTopic[] = [
       "remote-finance-accounting-jobs",
       "remote-sales-jobs-sdr-vs-field-sales",
       "remote-operations-hr-admin-jobs",
+      "remote-marketing-jobs",
     ],
   },
   {
@@ -94,6 +98,7 @@ export const POST_TOPICS: PostTopic[] = [
       "remote-job-interviews-across-time-zones",
       "psychology-of-remote-job-hunting",
           "linkedin-for-remote-jobs",
+      "remote-job-interview-questions",
 ],
   },
   {

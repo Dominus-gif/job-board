@@ -178,6 +178,33 @@ export const TOOLS: ToolMeta[] = [
       "Build a saved search for our job board, with keywords, category, region, pay floor and newest-first sorting, then bookmark or share the link.",
     keywords: ["remote job search filter", "work from anywhere job search", "remote job alert link", "saved job search"],
   },
+  {
+    slug: "freelance-rate-calculator",
+    title: "Freelance Day Rate Calculator",
+    short: "Freelance rate calculator",
+    group: "Pay and money",
+    description:
+      "Turn the salary you want into the day and hourly rate you need to charge, once employer contributions, benefits, expenses and unbillable days are covered.",
+    keywords: ["freelance rate calculator", "contractor day rate calculator", "freelance hourly rate", "how much to charge as a freelancer"],
+  },
+  {
+    slug: "job-title-finder",
+    title: "Remote Job Title Finder",
+    short: "Job title finder",
+    group: "Search and apply",
+    description:
+      "Type the job you do and see the titles employers actually use for it on our board, with live counts, so your searches and CV use the words that match.",
+    keywords: ["job title finder", "what job titles to search", "alternative job titles", "ux designer vs product designer"],
+  },
+  {
+    slug: "remote-field-explorer",
+    title: "Remote Field Explorer",
+    short: "Remote field explorer",
+    group: "Search and apply",
+    description:
+      "Compare remote job fields on our board: how many roles each has, how many are open worldwide, how many are junior, where they hire and who hires most.",
+    keywords: ["remote job market by field", "most remote jobs by field", "remote jobs statistics", "which remote jobs are hiring"],
+  },
 ];
 
 export function getTool(slug: string): ToolMeta | undefined {

@@ -35,6 +35,12 @@ const ROUTES = [
   // link text with nothing to wrap at.
   "/remote-jobs-categories",
   "/privacy",
+  // Added 2026-10-20 with the third-rejection work: the explorer's comparison
+  // table and the guide's tables are the widest new elements.
+  "/tools/remote-field-explorer",
+  "/tools/job-title-finder",
+  "/tools/freelance-rate-calculator",
+  "/posts/remote-software-engineering-jobs",
 ];
 
 const WIDTHS = [

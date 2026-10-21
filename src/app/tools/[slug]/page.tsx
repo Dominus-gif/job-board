@@ -6,7 +6,7 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 import { LEGACY_TOOL_SLUGS, TOOLS, getTool } from "@/lib/tools";
 import { TOOL_GUIDES } from "@/lib/tool-guides";
 import { CATEGORIES } from "@/lib/taxonomy";
-import { companyScoreData, salaryBandData, searchCounts } from "@/lib/tool-data";
+import { companyScoreData, fieldExplorerData, salaryBandData, searchCounts, titleFinderData } from "@/lib/tool-data";
 import { Faq } from "@/components/Faq";
 import { ArrowUpRightIcon } from "@/components/icons";
 import { FakeJobChecker } from "@/components/tools/FakeJobChecker";
@@ -22,6 +22,9 @@ import { CompanyRemoteScore } from "@/components/tools/CompanyRemoteScore";
 import { ApplicationTracker } from "@/components/tools/ApplicationTracker";
 import { AtsKeywordChecker } from "@/components/tools/AtsKeywordChecker";
 import { SearchLinkBuilder } from "@/components/tools/SearchLinkBuilder";
+import { FreelanceRateCalculator } from "@/components/tools/FreelanceRateCalculator";
+import { JobTitleFinder } from "@/components/tools/JobTitleFinder";
+import { RemoteFieldExplorer } from "@/components/tools/RemoteFieldExplorer";
 
 // The data-backed tools read the board, which is rebuilt nightly.
 export const revalidate = 21600;
@@ -80,6 +83,12 @@ async function Widget({ slug }: { slug: string }) {
       return <AtsKeywordChecker />;
     case "search-link-builder":
       return <SearchLinkBuilder counts={await searchCounts()} categories={[...CATEGORIES]} />;
+    case "freelance-rate-calculator":
+      return <FreelanceRateCalculator />;
+    case "job-title-finder":
+      return <JobTitleFinder data={await titleFinderData()} />;
+    case "remote-field-explorer":
+      return <RemoteFieldExplorer data={await fieldExplorerData()} />;
     default:
       return null;
   }

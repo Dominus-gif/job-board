@@ -179,10 +179,11 @@ export const POSTS_2026: Post[] = [
   },
   {
     slug: "how-to-find-work-from-anywhere-jobs",
-    title: "How to Find Work-From-Anywhere Jobs (When Only 7% of Remote Roles Are Truly Location-Free)",
+    title: "How to Find Work-From-Anywhere Jobs When Most Remote Roles Aren't",
     description:
-      "Most 'remote' jobs quietly require a country or timezone. Only 4.3% of the 3,998 listings we track are location-free, they come from 23 employers, and one of them is 57% of the market. Here is how to find them.",
+      "Most 'remote' jobs quietly require a country or time zone. Only 2.4% of the listings we tracked on 5 October 2026 were location-free. How to find them.",
     date: "2026-09-04T09:00:00.000Z",
+    updated: "2026-10-20T09:00:00.000Z",
     author: "Bhargav",
     tags: ["Work From Anywhere", "Location Independent Jobs", "Remote Job Search", "Digital Nomad Jobs", "WFA Jobs"],
     readMinutes: 7,
@@ -190,6 +191,7 @@ export const POSTS_2026: Post[] = [
       <p>You search "remote jobs." You find thousands. You apply to forty. You hear back from none — and then you notice the line you skipped: <em>Remote (US only).</em> Or <em>Must overlap 9am–1pm ET.</em> Or <em>Must be authorised to work in the EU.</em></p>
       <p>You weren't unlucky. You were applying to the wrong tier.</p>
       <p class="text-sm"><em>Updated 5 October 2026. The work-from-anywhere board moved sharply overnight: Canonical, which had been posting 99 of the 173 location-free roles, retired most of them, and the total fell to 91 from 23 employers. The figures below are the 5 October numbers. The direction of every finding here is unchanged, but the absolute counts in a market this concentrated can halve when one employer closes a hiring round — which is itself the most useful thing to know about it.</em></p>
+      <p class="text-sm"><em>Correction, 20 October 2026: the title and summary of this page still quoted the earlier figures after the body was refreshed on 5 October (the title said 7% of remote roles were location-free, the summary 4.3% of 3,998 listings). Both now match the figures below. The title no longer carries a percentage, because this one moves with a single employer's hiring.</em></p>
       <p>Of the <strong>3,871 remote roles</strong> we tracked on <strong>5 October 2026</strong>, only <strong>91 — 2.4% — are genuinely work-from-anywhere</strong>. Everything else names a country, a region, or a timezone you have to live in.</p>
 
       <h2>Remote vs work-from-anywhere: the distinction that costs people months</h2>

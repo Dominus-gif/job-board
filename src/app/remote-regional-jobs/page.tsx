@@ -3,12 +3,15 @@ import Link from "next/link";
 import { getRegionalJobs } from "@/lib/db";
 import { JobBoard } from "@/components/JobBoard";
 import { PinIcon, GlobeIcon } from "@/components/icons";
+import { robotsFor, INDEX_LANDING_PAGES } from "@/lib/seo/indexing";
 
 export const metadata: Metadata = {
   title: "Remote — Regional Jobs (Country-Restricted Remote Roles)",
   description:
     "Fully remote jobs that are restricted to a specific country or region. For roles you can do from literally anywhere in the world, see our main board.",
   alternates: { canonical: "/remote-regional-jobs" },
+  // Job-list hub: out of the index while INDEX_LANDING_PAGES is off (seo/indexing.ts).
+  robots: robotsFor(INDEX_LANDING_PAGES),
 };
 
 export const revalidate = 1800;

@@ -7,6 +7,7 @@
 import type { FaqItem } from "./landing";
 import { GUIDES_A } from "./tool-guides-a";
 import { GUIDES_B } from "./tool-guides-b";
+import { GUIDES_C } from "./tool-guides-c";
 
 export interface ToolGuide {
   h1: string;
@@ -16,4 +17,4 @@ export interface ToolGuide {
   related: { href: string; label: string }[];
 }
 
-export const TOOL_GUIDES: Record<string, ToolGuide> = { ...GUIDES_A, ...GUIDES_B };
+export const TOOL_GUIDES: Record<string, ToolGuide> = { ...GUIDES_A, ...GUIDES_B, ...GUIDES_C };

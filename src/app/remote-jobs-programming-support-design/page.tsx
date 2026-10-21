@@ -8,6 +8,7 @@ import { JobList } from "@/components/JobList";
 import { AnywhereVsRegional } from "@/components/AnywhereVsRegional";
 import { SeoHubLinks } from "@/components/SeoHubLinks";
 import { ArrowUpRightIcon } from "@/components/icons";
+import { robotsFor, INDEX_LANDING_PAGES } from "@/lib/seo/indexing";
 
 export const revalidate = 1800;
 
@@ -45,6 +46,8 @@ export const metadata: Metadata = {
   title: { absolute: `${TITLE} | getremotejobsnow.com` },
   description: DESCRIPTION,
   alternates: { canonical: abs("/remote-jobs-programming-support-design") },
+  // Job-list hub: out of the index while INDEX_LANDING_PAGES is off (seo/indexing.ts).
+  robots: robotsFor(INDEX_LANDING_PAGES),
   openGraph: { title: TITLE, description: DESCRIPTION, url: abs("/remote-jobs-programming-support-design"), type: "website" },
   twitter: { card: "summary", title: TITLE, description: DESCRIPTION },
 };

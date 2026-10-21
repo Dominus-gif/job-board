@@ -4,7 +4,14 @@ import { allLandingSlugs, canonicalLandingSlug, resolveLanding, WFA_HUB_SLUGS } 
 import { getAllPosts } from "@/lib/posts";
 import { TOOLS } from "@/lib/tools";
 import { abs, FEATURES } from "@/lib/site";
-import { jobIsIndexable, companyIsIndexable, landingIsIndexable } from "@/lib/seo/indexing";
+import {
+  jobIsIndexable,
+  companyIsIndexable,
+  landingIsIndexable,
+  INDEX_COMPANY_PAGES,
+  INDEX_LANDING_PAGES,
+  JOB_LIST_HUB_PATHS,
+} from "@/lib/seo/indexing";
 
 export const revalidate = 1800;
 
@@ -34,9 +41,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticFreq = (path: string): "daily" | "weekly" | "monthly" =>
     DAILY.has(path) ? "daily" : WEEKLY.has(path) ? "weekly" : "monthly";
 
+  // The job-list hubs and the company directory follow the same switches as
+  // the pages themselves (see INDEX_LANDING_PAGES in seo/indexing.ts), so a hub
+  // is never submitted here while its own robots tag says noindex.
   const staticPages = [
-    "/", "/jobs", "/companies", "/hiring", "/remote-regional-jobs", "/tools", "/posts",
-    ...HUBS,
+    "/", "/jobs", "/hiring", "/tools", "/posts",
+    ...(INDEX_COMPANY_PAGES ? ["/companies"] : []),
+    ...(INDEX_LANDING_PAGES ? [...JOB_LIST_HUB_PATHS] : []),
     "/about", "/how-it-works", "/faq", "/contact", "/privacy", "/terms",
     ...(FEATURES.advertise ? ["/advertise"] : []),
     ...(FEATURES.newsletter ? ["/newsletter"] : []),

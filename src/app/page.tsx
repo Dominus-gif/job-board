@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllJobs, getCompanies, getJobsByCategory, getRegionalCount, getSubscriberCount } from "@/lib/db";
+import { getAllJobs, getCompanies, getRegionalCount, getSubscriberCount } from "@/lib/db";
 import { FEATURES, SUPABASE } from "@/lib/site";
-import { categoryToSlug } from "@/lib/taxonomy";
-import { JobList } from "@/components/JobList";
+import { CATEGORIES, categoryToSlug } from "@/lib/taxonomy";
 import { JobBoard } from "@/components/JobBoard";
 import { PopularLocations } from "@/components/PopularLocations";
 import { GradientBoldCard } from "@/components/ui/gradient-bold-card";
@@ -14,6 +13,8 @@ import { RoleSubscribeForm } from "@/components/RoleSubscribeForm";
 import { FaqSection } from "@/components/FaqSection";
 import { AdSlot } from "@/components/AdSlot";
 import { HomeGuides } from "@/components/HomeGuides";
+import { HomeInsights } from "@/components/HomeInsights";
+import { HomeTools } from "@/components/HomeTools";
 import { OwnerNote } from "@/components/OwnerNote";
 import { PinIcon, ArrowUpRightIcon, SearchIcon } from "@/components/icons";
 import { siteJsonLd, jobListJsonLd } from "@/lib/jsonld";
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 const HOME_FAQ = [
   {
     q: 'What does "truly location-independent" actually mean?',
-    a: "You can work from a beach in Bali, a coffee shop in Berlin, or your couch in Ohio. No \u201cUS only\u201d fine print, no required time zone overlaps, and no local work visa hassles. If a listing restricts where you physically sit, it doesn\u2019t make our cut.",
+    a: "You can work from a beach in Bali, a coffee shop in Berlin, or your couch in Ohio. No \u201cUS only\u201d fine print, no required time zone overlaps, and no local work visa hassles. If a listing restricts where you physically sit, it doesn\u2019t go on the work-from-anywhere board; it goes on the separate regional board, labelled with the country or region it is limited to.",
   },
   {
     q: "Where do you find these listings?",
@@ -41,9 +42,6 @@ const HOME_FAQ = [
   },
 ];
 
-// Category preview sections in the order the spec lists them.
-const PREVIEW_ORDER = ["Backend", "Frontend", "Design", "Customer Support", "Sales & Marketing", "Management & Finance"] as const;
-
 // Refresh live data periodically (ISR), matching the store's cache TTL.
 export const revalidate = 1800;
 
@@ -56,9 +54,6 @@ export default async function HomePage() {
   const subscribers = getSubscriberCount();
   const companies = await getCompanies();
   const regionalCount = await getRegionalCount();
-  const previews = await Promise.all(
-    PREVIEW_ORDER.map(async (category) => ({ category, list: (await getJobsByCategory(category)).slice(0, 4) }))
-  );
 
   const totalRoles = jobs.length + regionalCount;
   const stats = [
@@ -138,8 +133,8 @@ export default async function HomePage() {
               Remote Jobs You Can Do From Anywhere in the World
             </h1>
             <p className="mx-auto mt-4 max-w-xl leading-relaxed text-ink-500 text-[clamp(0.95rem,3.4vw,1.125rem)]">
-              Truly remote jobs with no country, region, or timezone limits — plus remote roles based in your
-              region. Pulled straight from company career pages.
+              Truly remote jobs with no country, region or timezone limits, plus remote roles based in your
+              region, pulled straight from company career pages. With guides and free tools built from the same data.
             </p>
 
             {FEATURES.newsletter && (
@@ -205,9 +200,20 @@ export default async function HomePage() {
       </section>
 
       <div className="mx-auto max-w-6xl px-4">
+        {/* The site's own work comes first: live figures from the board, the
+            guides and the tools. Everything in the job feed below is the
+            employers' words; these are ours. (Reordered 2026-10-20 after the
+            third AdSense "low value content" rejection, when the homepage
+            opened on listings and the guides were one small section.) */}
+        <HomeInsights />
+        <HomeGuides />
+        <HomeTools />
+
+        <AdSlot />
+
         {/* All Jobs feed — category / salary / type filters live in the rail.
             Search is omitted here: the hero already owns the search action. */}
-        <section className="pt-10">
+        <section className="pt-14">
           <SectionHeader eyebrow="Latest roles" title="All remote jobs" href="/jobs" linkLabel="Browse all remote jobs" />
           <JobBoard jobs={feedJobs} showSearch={false} totalAvailable={jobs.length} pageSize={24} />
         </section>
@@ -234,26 +240,25 @@ export default async function HomePage() {
           </Link>
         )}
 
-        <HomeGuides />
-
-        <AdSlot />
-
-
-        {/* Category previews */}
-        {previews.map(({ category, list }) => {
-          if (list.length === 0) return null;
-          return (
-            <section key={category} className="pt-12">
-              <SectionHeader
-                eyebrow="Category"
-                title={category}
-                href={`/remote-${categoryToSlug(category)}-jobs`}
-                linkLabel={`All remote ${category} jobs`}
-              />
-              <JobList jobs={list} />
-            </section>
-          );
-        })}
+        {/* Categories as links rather than six more lists of job cards. */}
+        <section className="pt-14" aria-labelledby="home-categories-title">
+          <span className="eyebrow">Browse</span>
+          <h2 id="home-categories-title" className="mt-2 font-display text-xl font-semibold tracking-tight text-ink-900 md:text-2xl">
+            Remote jobs by category
+          </h2>
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {CATEGORIES.map((c) => (
+              <li key={c}>
+                <Link
+                  href={`/remote-${categoryToSlug(c)}-jobs`}
+                  className="inline-flex rounded-full border border-ink-200 bg-white px-3.5 py-1.5 text-sm font-medium text-ink-800 transition hover:border-ink-300 hover:bg-ink-50"
+                >
+                  {c}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
 
         {/* Location hubs, linked by the phrase people actually search. */}
         <section className="pt-16">
