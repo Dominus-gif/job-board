@@ -7,12 +7,12 @@
     "node": ">=18.18.0"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --webpack",
     "snapshot": "tsx scripts/build-snapshot.ts",
     "prebuild": "tsx scripts/build-nordharton.ts && tsx scripts/build-curated.ts && tsx scripts/build-snapshot.ts && tsx scripts/build-office-based.ts && tsx scripts/build-llms-txt.ts",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
-    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
     "ingest": "tsx scripts/run-ingest.ts",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -33,13 +33,13 @@
   ],
   "dependencies": {
     "@number-flow/react": "^0.6.2",
-    "next": "^15.5.25",
+    "next": "^16.4.2",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "sanitize-html": "2.13.0"
   },
   "devDependencies": {
-    "@opennextjs/cloudflare": "^1.20.6",
+    "@opennextjs/cloudflare": "^1.20.12",
     "@playwright/test": "1.48.2",
     "@types/node": "20.14.10",
     "@types/react": "^19.2.18",
@@ -52,6 +52,6 @@
     "tsx": "4.16.2",
     "typescript": "5.5.3",
     "vitest": "2.0.3",
-    "wrangler": "^4.129.0"
+    "wrangler": "^4.151.3"
   }
 }

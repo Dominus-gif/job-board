@@ -77,9 +77,14 @@ export function middleware(req: NextRequest) {
   const cfScheme = req.headers.get("cf-visitor");
   const wasPlainHttp = forwardedProto === "http" || (cfScheme ? cfScheme.includes("\"scheme\":\"http\"") : false);
   if (wasPlainHttp && !isLocalHost) {
-    const url = req.nextUrl.clone();
-    url.protocol = "https:";
-    return NextResponse.redirect(url, 301);
+    // The target is built from a string so the scheme is explicit, not left to a
+    // setter on a cloned NextURL. Production does not reach this branch today
+    // (Cloudflare's edge upgrades HTTP before the worker runs), so this is the
+    // fallback if that setting is ever turned off, and an http:// Location here
+    // would loop. Verified under `next start`, which passes Host through; local
+    // `wrangler dev` rewrites Host and the Location scheme, so it cannot test it.
+    const target = new URL(`${req.nextUrl.pathname}${req.nextUrl.search}`, `https://${host}`);
+    return NextResponse.redirect(target, 301);
   }
 
   // A path whose percent-encoding does not decode to valid UTF-8 — /jobs/%E9,

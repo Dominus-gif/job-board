@@ -3,6 +3,13 @@ import path from "node:path";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+    // Next starts one static-generation worker per CPU minus one. On a
+    // 32-thread workstation that is 31 workers, each loading the whole job
+    // dataset, and a local build crashed natively (0xC0000409) on memory after
+    // the Next 16 upgrade. CI runners have 4 vCPUs and are left at the default.
+    cpus: process.env.CI ? undefined : 8,
+  },
   /**
    * Drop Next's `polyfill-module` from the client bundle.
    *
@@ -26,6 +33,13 @@ const nextConfig = {
    * If the browserslist floor is ever lowered, remove this at the same time:
    * they are one decision, and leaving this behind would quietly break the
    * browsers that floor was lowered for.
+   *
+   * Next 16 builds with Turbopack by default and refuses to build at all when a
+   * webpack() hook is present, so package.json pins `next build --webpack` (and
+   * `next dev --webpack`). That flag is what keeps this hook running. Moving to
+   * Turbopack means first finding a Turbopack way to drop this module (it is
+   * injected as a resolved absolute path, which turbopack.resolveAlias does not
+   * see), then checking the client bundle has not grown by the 11.2KB above.
    *
    * (Inlining the stylesheets was tried here too, via experimental.inlineCss,
    * and reverted. It removes a render-blocking request PageSpeed costs at about
