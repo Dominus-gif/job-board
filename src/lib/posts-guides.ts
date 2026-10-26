@@ -9,6 +9,8 @@
  *   F  Money, taxes and lifestyle    3 articles
  *   G  Companies and the ecosystem   3 articles
  *   H  Boards and search strategy    9 articles (split across two files)
+ *   I  Field guides, interviews, first 90 days   5 articles
+ *   J  Offers, job posts and time off            3 articles
  *
  * Every figure attributed to the board is measured from the live dataset at the
  * time of writing, and every internal link points at a page that exists. The
@@ -27,6 +29,7 @@ import { POSTS_CLUSTER_G } from "./posts-guides-g";
 import { POSTS_CLUSTER_H1 } from "./posts-guides-h1";
 import { POSTS_CLUSTER_H2 } from "./posts-guides-h2";
 import { POSTS_CLUSTER_I } from "./posts-guides-i";
+import { POSTS_CLUSTER_J } from "./posts-guides-j";
 
 export const POSTS_GUIDES: Post[] = [
   ...POSTS_CLUSTER_A,
@@ -39,4 +42,5 @@ export const POSTS_GUIDES: Post[] = [
   ...POSTS_CLUSTER_H1,
   ...POSTS_CLUSTER_H2,
   ...POSTS_CLUSTER_I,
+  ...POSTS_CLUSTER_J,
 ];

@@ -127,6 +127,8 @@ export const POST_TOPICS: PostTopic[] = [
       "remote-work-taxes-living-abroad",
       "cost-of-working-from-home-by-country",
       "contractor-employee-or-employer-of-record",
+      "before-you-accept-a-remote-job-offer",
+      "remote-work-time-off-and-public-holidays",
     ],
   },
   {
@@ -134,6 +136,7 @@ export const POST_TOPICS: PostTopic[] = [
     title: "For employers",
     blurb: "Writing a remote job post people trust, assessing remote fit, and running a distributed team.",
     slugs: [
+      "how-to-write-a-remote-job-post",
       "assessing-remote-fit-when-hiring",
       "setting-expectations-distributed-teams",
     ],
