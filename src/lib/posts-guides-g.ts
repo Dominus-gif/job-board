@@ -109,7 +109,7 @@ export const POSTS_CLUSTER_G: Post[] = [
         <thead><tr><th>#</th><th>Company</th><th>Worldwide roles</th><th>All roles we list</th><th>Share worldwide</th><th>Posted in last 30 days</th><th>Listings showing pay</th></tr></thead>
         <tbody>
           <tr><td>1</td><td><a href="/companies/canonical">Canonical</a></td><td>101</td><td>151</td><td>67%</td><td>14</td><td>0%</td></tr>
-          <tr><td>2</td><td><a href="/companies/remote">Remote</a></td><td>69</td><td>73</td><td>95%</td><td>73</td><td>64%</td></tr>
+          <tr><td>2</td><td>Remote</td><td>69</td><td>73</td><td>95%</td><td>73</td><td>64%</td></tr>
           <tr><td>3</td><td><a href="/companies/supabase">Supabase</a></td><td>43</td><td>57</td><td>75%</td><td>37</td><td>2%</td></tr>
           <tr><td>4</td><td><a href="/companies/elevenlabs">ElevenLabs</a></td><td>42</td><td>93</td><td>45%</td><td>40</td><td>0%</td></tr>
           <tr><td>5</td><td><a href="/companies/camunda">Camunda</a></td><td>17</td><td>24</td><td>71%</td><td>24</td><td>0%</td></tr>

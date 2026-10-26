@@ -107,6 +107,8 @@ export function NomadVisaChecker() {
       </ToolCard>
 
       <div aria-live="polite" className="space-y-3">
+        {/* The programme cards are h3s; without this the page went h1 -> h3. */}
+        <h2 className="sr-only">Programmes and how your income compares</h2>
         <p className="text-sm text-ink-600">
           On income alone, you meet the published bar for <strong className="text-ink-900">{qualifying}</strong> of {rows.length} programmes. Meeting the income test is only one condition; every programme has others.
         </p>

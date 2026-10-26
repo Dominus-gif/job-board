@@ -62,6 +62,26 @@ async function findJob(slug: string) {
   }
 }
 
+/**
+ * The meta description for a listing, within the 160 characters a search
+ * result shows.
+ *
+ * It used to name the category ("remote Product job"), but the category is the
+ * classifier's catch-all for anything it cannot place, so a grant writer was
+ * described as a product job. Long titles and multi-city locations pushed 17 of
+ * the 66 job pages in the sitemap past 160, so the call to action goes first,
+ * then the sentence is cut at a word.
+ */
+function listingDescription(job: NonNullable<Awaited<ReturnType<typeof findJob>>>): string {
+  const where = job.scope === "worldwide" ? "Work from anywhere in the world" : `Remote within ${job.location}`;
+  const pay = formatSalary(job.salary);
+  const core = `${job.title} at ${job.company_name}. ${where}, ${job.employment_type}${pay ? `, ${pay}` : ""}.`;
+  const full = `${core} Apply free on getremotejobsnow.com.`;
+  if (full.length <= 160) return full;
+  if (core.length <= 160) return core;
+  return `${core.slice(0, 159).replace(/[\s,.;:]+\S*$/, "")}…`;
+}
+
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const params = await props.params;
   const job = await findJob(params.slug);
@@ -72,10 +92,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   // region-locked ones name the region (honest + better long-tail keywords).
   const locinfo = job.scope === "worldwide" ? "Remote Worldwide" : `Remote Job (${job.location})`;
   const title = `${job.title} at ${job.company_name} — ${locinfo}`;
-  const where = job.scope === "worldwide" ? "Work from anywhere in the world" : `Remote within ${job.location}`;
-  const description = `${job.title} — remote ${job.category} job at ${job.company_name}. ${where} — ${job.employment_type}${
-    formatSalary(job.salary) ? `, ${formatSalary(job.salary)}` : ""
-  }. Apply free on getremotejobsnow.com.`;
+  const description = listingDescription(job);
   const url = abs(`/jobs/${job.slug}`);
   return {
     title,

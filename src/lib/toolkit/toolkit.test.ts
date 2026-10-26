@@ -28,6 +28,17 @@ describe("analyzeRemote", () => {
     expect(r.signals.some((s) => s.kind === "timezone" && s.phrase === "gmt")).toBe(true);
   });
 
+  // "ist" is German for "is" and "est" French. Matched case-blind, both read
+  // as time zones and every posting in those languages came back restricted.
+  it("does not read ordinary German or French words as time zones", () => {
+    const de = analyzeRemote("Seit 2021 ist Flink der führende Anbieter. Die Stelle ist vollständig remote.");
+    const fr = analyzeRemote("Ce poste est en télétravail et l'équipe est distribuée.");
+    expect(de.signals.some((s) => s.kind === "timezone")).toBe(false);
+    expect(fr.signals.some((s) => s.kind === "timezone")).toBe(false);
+    expect(analyzeRemote("Hours must overlap with IST mornings.").signals.some((s) => s.kind === "timezone" && s.phrase === "ist")).toBe(true);
+    expect(analyzeRemote("Fully remote, UTC+2 to UTC-3 only.").signals.some((s) => s.kind === "timezone" && s.phrase === "utc+2")).toBe(true);
+  });
+
   it("calls a bare 'remote' posting unclear, like the board's filter", () => {
     expect(analyzeRemote("This is a remote role on our platform team.").verdict).toBe("unclear");
     expect(analyzeRemote("Join our platform team.").verdict).toBe("not-remote");

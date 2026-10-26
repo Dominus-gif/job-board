@@ -35,9 +35,16 @@ const TIMEZONE_PHRASES = new Set([
   "+/- 3 hours", "utc-", "utc+", "within 3 hours of",
 ]);
 
-// Timezone mentions the dictionary doesn't list as phrases.
-const TZ_PATTERN =
-  /\b(?:(?:utc|gmt)\s?[+\-−]\s?\d{1,2}(?::?\d{2})?|(?:pacific|eastern|central|mountain) time|(?:pst|pdt|est|edt|cst|cdt|mst|cet|cest|bst|ist|aest|aedt|sgt|jst|gmt|utc)\b)/gi;
+// Timezone mentions the dictionary doesn't list as phrases. Offsets and
+// spelled-out zones match in any case.
+const TZ_WORDS = /\b(?:(?:utc|gmt)\s?[+\-−]\s?\d{1,2}(?::?\d{2})?|(?:pacific|eastern|central|mountain) time)/gi;
+// Abbreviations only in capitals. In lower case several are ordinary words in
+// languages employers post in: "ist" is German for "is" and "est" French, so
+// matching them case-blind read every German posting as demanding India
+// Standard Time and marked it restricted. AEDT is left out: in US postings it
+// is far more often "Automated Employment Decision Tools", from the New York
+// City notice employers append, than Australian daylight time.
+const TZ_ABBR = /\b(?:PST|PDT|EST|EDT|CST|CDT|MST|CET|CEST|BST|IST|AEST|SGT|JST|GMT|UTC)\b/g;
 
 function snippetAt(text: string, start: number, end: number): string {
   const from = Math.max(0, start - 60);
@@ -68,7 +75,7 @@ export function analyzeRemote(description: string, location = ""): RemoteAnalysi
     found,
   );
   collect(text, [...TIMEZONE_PHRASES], "timezone", found);
-  for (const m of text.matchAll(TZ_PATTERN)) {
+  for (const m of [...text.matchAll(TZ_WORDS), ...text.matchAll(TZ_ABBR)]) {
     const phrase = m[0].toLowerCase();
     const key = `timezone:${phrase}`;
     const existing = found.get(key);

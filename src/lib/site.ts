@@ -8,7 +8,7 @@ export const SITE = {
   email: "hello@getremotejobsnow.com",
   tagline: "Remote jobs sorted by where you can actually work from: anywhere in the world, or a named region.",
   description:
-    "Browse remote jobs, each labelled as work-from-anywhere or limited to a named country or region, plus free guides and tools for remote job seekers. Updated daily.",
+    "Browse remote jobs, each labelled as work-from-anywhere or limited to a named country or region, plus free guides and tools for job seekers. Updated daily.",
   get url() {
     // Explicit override wins; otherwise auto-detect the Vercel URL so canonical
     // links, sitemap, RSS and JSON-LD are correct without any manual config.

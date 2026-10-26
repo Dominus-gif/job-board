@@ -247,7 +247,7 @@ const GEO_PAGES: Record<string, GeoConfig> = {
     place: "the United States",
     short: "the US",
     title: "Remote Jobs in the USA — Work From Home Anywhere in the US",
-    metaTitle: "Remote Jobs in the USA — Work From Home (Hiring Now) | getremotejobsnow.com — Remote Jobs",
+    metaTitle: "Remote Jobs in the USA — Work From Home (Hiring Now) | getremotejobsnow.com",
     metaDescription:
       "Find remote jobs in the USA you can do from home — thousands of work-from-anywhere roles open to US candidates, plus jobs hiring specifically in the United States. Software, marketing, design, support, finance & more. Apply free.",
     intro:

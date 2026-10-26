@@ -6,8 +6,8 @@ import { ArrowUpRightIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Free Remote Work Tools",
-  description:
-    "17 free tools for remote job seekers: check a posting for scams or hidden office rules, compare salaries and offers across countries, plan across time zones and track applications.",
+  // Counted, not typed: the hard-coded "17" was three tools out of date.
+  description: `${TOOLS.length} free tools for remote job seekers: check a posting for scams or office rules, compare pay across countries, plan time zones and track applications.`,
   alternates: { canonical: "/tools" },
 };
 

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { abs, SITE } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
-import { LEGACY_TOOL_SLUGS, TOOLS, getTool } from "@/lib/tools";
+import { TOOLS, getTool } from "@/lib/tools";
 import { TOOL_GUIDES } from "@/lib/tool-guides";
 import { CATEGORIES } from "@/lib/taxonomy";
 import { companyScoreData, fieldExplorerData, salaryBandData, searchCounts, titleFinderData } from "@/lib/tool-data";
@@ -25,13 +25,24 @@ import { SearchLinkBuilder } from "@/components/tools/SearchLinkBuilder";
 import { FreelanceRateCalculator } from "@/components/tools/FreelanceRateCalculator";
 import { JobTitleFinder } from "@/components/tools/JobTitleFinder";
 import { RemoteFieldExplorer } from "@/components/tools/RemoteFieldExplorer";
+import { SalaryConverter } from "@/components/tools/SalaryConverter";
+import { TimezoneOverlap } from "@/components/tools/TimezoneOverlap";
+import { WorldTimeBuddy } from "@/components/tools/WorldTimeBuddy";
+import { PasswordGenerator } from "@/components/tools/PasswordGenerator";
 
 // The data-backed tools read the board, which is rebuilt nightly.
 export const revalidate = 21600;
 export const dynamicParams = false;
 
+/** schema.org applicationCategory, where BusinessApplication would be wrong. */
+const APP_CATEGORY: Record<string, string> = {
+  "remote-salary-converter": "FinanceApplication",
+  "world-time-buddy": "UtilitiesApplication",
+  "password-generator": "SecurityApplication",
+};
+
 export function generateStaticParams() {
-  return TOOLS.filter((t) => !LEGACY_TOOL_SLUGS.has(t.slug)).map((t) => ({ slug: t.slug }));
+  return TOOLS.map((t) => ({ slug: t.slug }));
 }
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -40,7 +51,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   if (!tool) return {};
   const url = abs(`/tools/${slug}`);
   return {
-    title: tool.title,
+    title: TOOL_GUIDES[slug]?.metaTitle ?? tool.title,
     description: tool.description,
     keywords: tool.keywords,
     alternates: { canonical: url },
@@ -89,6 +100,14 @@ async function Widget({ slug }: { slug: string }) {
       return <JobTitleFinder data={await titleFinderData()} />;
     case "remote-field-explorer":
       return <RemoteFieldExplorer data={await fieldExplorerData()} />;
+    case "remote-salary-converter":
+      return <SalaryConverter />;
+    case "timezone-overlap":
+      return <TimezoneOverlap />;
+    case "world-time-buddy":
+      return <WorldTimeBuddy />;
+    case "password-generator":
+      return <PasswordGenerator />;
     default:
       return null;
   }
@@ -98,7 +117,7 @@ export default async function ToolPage(props: { params: Promise<{ slug: string }
   const { slug } = await props.params;
   const tool = getTool(slug);
   const guide = TOOL_GUIDES[slug];
-  if (!tool || !guide || LEGACY_TOOL_SLUGS.has(slug)) notFound();
+  if (!tool || !guide) notFound();
 
   const url = abs(`/tools/${slug}`);
   const siblings = TOOLS.filter((t) => t.group === tool.group && t.slug !== slug);
@@ -109,7 +128,7 @@ export default async function ToolPage(props: { params: Promise<{ slug: string }
       name: tool.title,
       description: tool.description,
       url,
-      applicationCategory: "BusinessApplication",
+      applicationCategory: APP_CATEGORY[slug] ?? "BusinessApplication",
       operatingSystem: "Web",
       isAccessibleForFree: true,
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },

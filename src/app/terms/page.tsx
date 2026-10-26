@@ -4,7 +4,7 @@ import { LegalShell } from "@/components/LegalShell";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
-  description: `The terms that govern your use of ${SITE.name}.`,
+  description: `The terms for using ${SITE.name}: what the service is, how accurate listings are, why applying is free, acceptable use and the limits of liability.`,
   alternates: { canonical: "/terms" },
 };
 

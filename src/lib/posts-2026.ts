@@ -89,7 +89,7 @@ export const POSTS_2026: Post[] = [
     slug: "remote-job-tier-list-2026",
     title: "The Remote Job Tier List: Ranked by Volume, Pay and Whether the Job Travels",
     description:
-      "Remote roles ranked from 3,998 live listings on three axes: how many exist, what they pay, and how likely they are to be open to someone anywhere. One popular 'remote job' still scores zero.",
+      "Remote roles ranked from 3,998 live listings on how many exist, what they pay and how often they are open anywhere. One popular 'remote job' still scores zero.",
     date: "2026-09-05T09:00:00.000Z",
     updated: "2026-10-04T07:00:00.000Z",
     author: "Bhargav",
@@ -299,7 +299,7 @@ export const POSTS_2026: Post[] = [
       <p>134 design roles with a median published midpoint of $232,500, the highest of any non-technical field here. Product design and UX carry it, and the portfolio does the work that a degree does elsewhere.</p>
 
       <h2>Where the worldwide non-technical roles come from</h2>
-      <p>A short list of employers supplies most of them: <a href="/companies/canonical">Canonical</a> (51 non-technical worldwide roles), <a href="/companies/remote">Remote</a> (25), <a href="/companies/elevenlabs">ElevenLabs</a> (14), <a href="/companies/supabase">Supabase</a> (11) and <a href="/companies/goodstack">Goodstack</a> (8). If location freedom matters more to you than field, following a handful of employers beats searching every day. The <a href="/tools/company-remote-score">company remote score</a> tool scores any employer on the board on how widely it hires.</p>
+      <p>A short list of employers supplies most of them: <a href="/companies/canonical">Canonical</a> (51 non-technical worldwide roles), Remote (25), <a href="/companies/elevenlabs">ElevenLabs</a> (14), <a href="/companies/supabase">Supabase</a> (11) and <a href="/companies/goodstack">Goodstack</a> (8). If location freedom matters more to you than field, following a handful of employers beats searching every day. The <a href="/tools/company-remote-score">company remote score</a> tool scores any employer on the board on how widely it hires.</p>
 
       <h2>The honest caveats</h2>
       <ul>
@@ -334,7 +334,7 @@ export const POSTS_2026: Post[] = [
     slug: "account-executives-beat-software-engineers-remote",
     title: "Remote Sales vs Remote Engineering: Which One Actually Travels",
     description:
-      "323 account executive roles against 511 engineering roles on our board. Engineering is four times more likely to be location-free, and its pay is a band where sales pay is a lottery.",
+      "323 account executive roles against 511 in engineering. Engineering is four times as likely to be location-free, and its pay is a band; sales pay is a lottery.",
     date: "2026-09-02T09:00:00.000Z",
     updated: "2026-10-04T07:00:00.000Z",
     author: "Bhargav",
@@ -523,7 +523,7 @@ export const POSTS_2026: Post[] = [
     slug: "remote-salaries-2026-negotiate-the-premium",
     title: "Remote Salaries in 2026: What the Published Ranges Actually Say",
     description:
-      "Only 18.3% of remote listings publish a salary. Here are the medians by role from the ones that do, why the usual explanations for a remote premium do not hold, and how to negotiate without a number.",
+      "Only 18.3% of remote listings publish a salary. Medians by role from those that do, why the remote premium story fails, and how to negotiate without a number.",
     date: "2026-08-31T09:00:00.000Z",
     updated: "2026-10-04T07:00:00.000Z",
     author: "Bhargav",
@@ -683,7 +683,7 @@ export const POSTS_2026: Post[] = [
     slug: "async-first-companies-hiring-2026",
     title: "Async-First Companies Are Hiring — But Async-First Does Not Mean Hire-From-Anywhere",
     description:
-      "GitLab has 127 open roles and not one is location-free. The companies that genuinely hire from anywhere are a different, much shorter list — and they hire differently.",
+      "GitLab has 127 open roles and not one is location-free. The companies that hire from anywhere are a different, much shorter list, and they hire differently.",
     date: "2026-08-29T09:00:00.000Z",
     updated: "2026-10-04T07:00:00.000Z",
     author: "Bhargav",
@@ -1211,7 +1211,7 @@ export const POSTS_2026: Post[] = [
     slug: "contractor-employee-or-employer-of-record",
     title: "Contractor, Employee or Employer of Record? How Remote Workers Abroad Actually Get Paid",
     description:
-      "The three ways a company abroad can pay you, what each one really costs you, and the arithmetic for turning a contractor rate into a number you can compare with a salary.",
+      "The three ways a company abroad can pay you, what each really costs you, and the arithmetic that turns a contractor rate into a salary you can compare.",
     date: "2026-10-04T07:00:00.000Z",
     updated: "2026-10-07T09:00:00.000Z",
     author: "Bhargav",
@@ -1398,7 +1398,7 @@ export const POSTS_2026: Post[] = [
     slug: "remote-design-jobs",
     title: "Remote Design Jobs: 87 Open, One Junior Role, and a Title That Has Swallowed the Field",
     description:
-      "Every remote design role on our board, counted: what they pay, why brand design earns $101,000 less than product design, and why almost nobody advertises for a UX designer any more.",
+      "Every remote design role on our board, counted: what they pay, why brand design earns $101,000 less than product design, and where the UX designer title went.",
     date: "2026-10-05T07:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Design Jobs", "Product Designer", "UX Design", "Remote Salaries", "Design Careers"],
@@ -1510,7 +1510,7 @@ export const POSTS_2026: Post[] = [
     slug: "remote-jobs-bay-area",
     title: "Remote Jobs in the Bay Area: The Biggest Single Market on Our Board",
     description:
-      "838 remote roles name the Bay Area — 17.7% of everything we list. What they pay, who is hiring, and why a third of them publish a salary when most of the board does not.",
+      "838 remote roles name the Bay Area, 17.7% of everything we list. What they pay, who is hiring, and why a third publish pay when most of the board does not.",
     date: "2026-10-06T07:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Jobs Bay Area", "San Francisco Remote Jobs", "Remote Salaries", "Tech Jobs", "Remote Job Market"],
@@ -1598,7 +1598,7 @@ export const POSTS_2026: Post[] = [
     slug: "remote-jobs-seattle",
     title: "Remote Jobs in Seattle: A Small Market That Pays Like a Big One",
     description:
-      "Only 71 remote roles name Seattle, but every published quartile lands on $275,000 — the highest of any place on our board. What is behind that, and who is hiring.",
+      "Only 71 remote roles name Seattle, but every published quartile lands on $275,000, the highest of any place on our board. What is behind it, and who hires.",
     date: "2026-10-06T08:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Jobs Seattle", "Seattle Tech Jobs", "Remote Salaries", "Remote Job Market"],
@@ -1680,7 +1680,7 @@ export const POSTS_2026: Post[] = [
     slug: "remote-jobs-london",
     title: "Remote Jobs in London and the UK: Big Market, Quiet About Pay",
     description:
-      "356 remote roles name London or the UK. Sales out-hires engineering, only one in seven publishes a salary, and the advertised median is far below the US markets. The numbers, and what they mean for a search.",
+      "356 remote roles name London or the UK. Sales out-hires engineering, one in seven publishes a salary, and the advertised median sits far below the US.",
     date: "2026-10-06T09:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Jobs London", "Remote Jobs UK", "Remote Salaries", "Remote Job Market"],
@@ -1769,7 +1769,7 @@ export const POSTS_2026: Post[] = [
     slug: "remote-jobs-germany",
     title: "Remote Jobs in Germany: 300 Roles, and Almost None of Them Will Tell You the Salary",
     description:
-      "Germany is one of the biggest remote markets on our board and the most secretive about pay — 10 of 300 listings publish a range. Marketing out-hires engineering two to one. The numbers.",
+      "Germany: a big remote market and the most secretive about pay, with 10 of 300 listings publishing a range. Marketing out-hires engineering two to one.",
     date: "2026-10-06T10:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Jobs Germany", "Remote Jobs Europe", "Remote Salaries", "Pay Transparency"],
@@ -1865,7 +1865,7 @@ export const POSTS_2026: Post[] = [
     slug: "remote-jobs-canada-latin-america",
     title: "Remote Jobs in Canada and Latin America: One Mature Market, One Barely Started",
     description:
-      "Canada has 222 remote roles, publishes pay on a fifth of them and is the freshest market on our board. Latin America has 76 and four published salaries. Why the gap, and how to search each.",
+      "Canada has 222 remote roles, publishes pay on a fifth and is our freshest market. Latin America has 76 and four published salaries. Why, and how to search.",
     date: "2026-10-06T11:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Jobs Canada", "Remote Jobs Latin America", "Remote Job Market", "Remote Salaries"],
@@ -1958,7 +1958,7 @@ export const POSTS_2026: Post[] = [
     slug: "online-jobs-what-they-actually-are",
     title: "\"Online Jobs\": What That Search Actually Returns on a Real Job Board",
     description:
-      "Data entry: 1 role. Transcription: 0. Typing: 0. Surveys: 0. We counted the jobs people search for under \"online jobs\" across 4,730 listings — and what to search instead.",
+      "Data entry: 1 role. Transcription, typing, surveys: 0. We counted what people search for as 'online jobs' across 4,730 listings, and what to search instead.",
     date: "2026-10-06T12:00:00.000Z",
     author: "Bhargav",
     tags: ["Online Jobs", "Work From Home", "Remote Job Scams", "Entry Level Remote"],
@@ -2057,7 +2057,7 @@ export const POSTS_2026: Post[] = [
     slug: "linkedin-for-remote-jobs",
     title: "LinkedIn for Remote Jobs: Use the Words Employers Actually Type",
     description:
-      "Nobody advertises for a UX designer any more — 62 listings say product designer and zero say UX designer. What our board shows about the titles, locations and seniority words that decide whether your profile is found.",
+      "62 listings say product designer and none say UX designer. What our board shows about the titles, places and seniority words that get a profile found.",
     date: "2026-10-07T07:00:00.000Z",
     author: "Bhargav",
     tags: ["LinkedIn", "Remote Job Search", "Job Search Strategy", "Personal Branding"],
@@ -2155,7 +2155,7 @@ export const POSTS_2026: Post[] = [
     slug: "upskilling-for-remote-work",
     title: "Upskilling for Remote Work: What Listings Reward, and What They Barely Mention",
     description:
-      "Certifications appear in almost no remote job titles — 3 of 4,722 say 'certified' and none say PMP or CPA. What the pay ladder actually rewards, and how to think about courses given that.",
+      "Only 3 of 4,722 remote job titles say 'certified', and none say PMP or CPA. What the pay ladder rewards instead, and how to think about courses.",
     date: "2026-10-07T08:00:00.000Z",
     author: "Bhargav",
     tags: ["Upskilling", "Remote Career", "Certifications", "Career Advancement"],
@@ -2249,7 +2249,7 @@ export const POSTS_2026: Post[] = [
     slug: "assessing-remote-fit-when-hiring",
     title: "Hiring for Distribution: How to Assess Remote Fit Without Guessing",
     description:
-      "97.8% of remote listings name a country, and most interviews still test for an office job. A practical guide to writing the posting, running the process, and the signals that actually predict remote performance.",
+      "97.8% of remote listings name a country, yet most interviews still test for an office job. How to write the post, run the process and spot real remote fit.",
     date: "2026-10-07T09:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Hiring", "Interviewing", "Distributed Teams", "Employers"],
@@ -2320,7 +2320,7 @@ export const POSTS_2026: Post[] = [
     slug: "setting-expectations-distributed-teams",
     title: "Setting Expectations in a Distributed Team: What to Write Down Before It Breaks",
     description:
-      "Most remote management problems are unwritten-expectation problems. The specific things to agree in writing — availability, response times, decision rights and what 'done' means — and why presence is the wrong measure.",
+      "Most remote management problems are unwritten expectations. What to agree in writing: availability, response times, decision rights and what 'done' means.",
     date: "2026-10-07T10:00:00.000Z",
     author: "Bhargav",
     tags: ["Remote Management", "Distributed Teams", "Employers", "Async Work"],

@@ -20,6 +20,22 @@ interface Opts {
   ambiguous: boolean; // include ambiguous chars (l, I, O, 0, 1)
 }
 
+/**
+ * A uniform index below n, by rejection sampling.
+ *
+ * `random % n` favours the start of the pool whenever 2^32 is not a multiple
+ * of n. The bias is tiny at these pool sizes, but a password generator should
+ * not have one at all, and discarding the few out-of-range draws removes it.
+ */
+function uniformIndex(n: number): number {
+  const limit = Math.floor(0x100000000 / n) * n;
+  const draw = new Uint32Array(1);
+  for (;;) {
+    crypto.getRandomValues(draw);
+    if (draw[0] < limit) return draw[0] % n;
+  }
+}
+
 /** Cryptographically-secure random password from a character pool. */
 function generate(o: Opts): string {
   let pool = "";
@@ -28,9 +44,7 @@ function generate(o: Opts): string {
   });
   if (!pool) return "";
   const out: string[] = [];
-  const rnd = new Uint32Array(o.length);
-  crypto.getRandomValues(rnd);
-  for (let i = 0; i < o.length; i++) out.push(pool[rnd[i] % pool.length]);
+  for (let i = 0; i < o.length; i++) out.push(pool[uniformIndex(pool.length)]);
   return out.join("");
 }
 
@@ -46,7 +60,10 @@ const check =
   "h-4 w-4 rounded border-ink-300 text-ink-900 focus:ring-ink-300";
 
 export function PasswordGenerator() {
-  const [opts, setOpts] = useState<Opts>({ length: 8, upper: true, lower: true, number: true, symbol: true, ambiguous: false });
+  // 16 by default: the page's own advice, and above the 15-character floor
+  // NIST now sets for a password used on its own. The old default of 8 opened
+  // on a password the meter itself rated only "Fair".
+  const [opts, setOpts] = useState<Opts>({ length: 16, upper: true, lower: true, number: true, symbol: true, ambiguous: false });
   const [pw, setPw] = useState("");
   const [copied, setCopied] = useState(false);
 

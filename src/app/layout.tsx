@@ -49,8 +49,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
     default: "Remote Jobs From Around the World | getremotejobsnow.com",
-    // Puts the "remote jobs" keyword in every page's <title>.
-    template: "%s | getremotejobsnow.com — Remote Jobs",
+    // The brand already carries "remote jobs". The old "— Remote Jobs" tail
+    // added 14 characters to every title and pushed 145 of the 164 pages in the
+    // sitemap past 70, so search results cut off the part people read.
+    template: "%s | getremotejobsnow.com",
   },
   description: SITE.description,
   keywords: [

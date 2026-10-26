@@ -57,17 +57,49 @@ export function toText(html: string): string {
 // description (e.g. Greenhouse's mission text on an unrelated company's posting).
 const VENDOR_BOILERPLATE = /mission at Greenhouse|make hiring work for everyone|Greenhouse Software|Lever builds modern recruiting/i;
 
+/**
+ * The employer's headings, re-levelled to sit under the job page's own.
+ *
+ * A description renders below the page's h1 (the job title) and its "About
+ * this role" h2. Employers head their own sections with anything from h1 down,
+ * so pages ended up with three or four h1s, one of them often the job title a
+ * second time. Headings are shifted by the description's own top level, so a
+ * post using h1 and h2 becomes h3 and h4, and each is also held to one level
+ * below the heading before it. That second rule is for posts that open on a
+ * lower level than they use later ("<h2>Join us</h2> … <h1>About us</h1>"),
+ * which a shift alone would have started at h4, skipping h3.
+ *
+ * sanitize-html calls the transforms in document order, which is what lets
+ * the previous level be carried from one heading to the next.
+ */
+const FIRST_LEVEL = 3;
+
+function headingTransforms(html: string): Record<string, sanitizeHtml.Transformer> {
+  const levels = [...html.matchAll(/<h([1-6])[\s>]/gi)].map((m) => Number(m[1]));
+  if (!levels.length) return {};
+  const shift = FIRST_LEVEL - Math.min(...levels);
+  let previous = FIRST_LEVEL - 1; // the page's own "About this role" h2
+  const to = (level: number): sanitizeHtml.Transformer => () => {
+    const next = Math.min(6, Math.max(FIRST_LEVEL, Math.min(level + shift, previous + 1)));
+    previous = next;
+    return { tagName: `h${next}`, attribs: {} };
+  };
+  return Object.fromEntries([1, 2, 3, 4, 5, 6].map((level) => [`h${level}`, to(level)]));
+}
+
 export function sanitizeDescription(html: string): string {
   // Reject vendor boilerplate so callers fall back to a clean generic line
   // rather than publishing the wrong company's copy.
   if (VENDOR_BOILERPLATE.test(html || "")) return "";
-  const clean = sanitizeHtml(repairText(html), {
+  const repaired = repairText(html);
+  const clean = sanitizeHtml(repaired, {
     allowedTags: [
       "p", "br", "b", "strong", "i", "em", "u", "ul", "ol", "li",
       "h1", "h2", "h3", "h4", "h5", "h6", "blockquote", "a", "code", "pre", "hr", "sup", "sub",
     ],
     allowedAttributes: { a: ["href", "target", "rel"] },
     transformTags: {
+      ...headingTransforms(repaired),
       a: sanitizeHtml.simpleTransform("a", { rel: "nofollow noopener noreferrer", target: "_blank" }),
     },
   });

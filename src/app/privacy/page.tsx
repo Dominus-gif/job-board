@@ -4,7 +4,7 @@ import { LegalShell } from "@/components/LegalShell";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: `How ${SITE.name} collects, uses, and protects your data, including cookies, analytics (Google Analytics 4 and Datafast) and advertising such as Google AdSense.`,
+  description: `How ${SITE.name} collects, uses and protects your data: cookies, analytics (Google Analytics 4 and Datafast) and advertising such as Google AdSense.`,
   alternates: { canonical: "/privacy" },
 };
 

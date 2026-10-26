@@ -37,7 +37,7 @@ export const TOOLS: ToolMeta[] = [
     group: "Stay safe",
     featured: true,
     description:
-      "Paste a job description to see whether it's really remote. Highlights hybrid, office, location, visa and timezone clauses using the same rules as our job filter.",
+      "Paste a job description to see whether it's really remote. Highlights hybrid, office, location, visa and timezone clauses using our job filter's rules.",
     keywords: ["is this job really remote", "hybrid job checker", "remote job description analyzer", "work from anywhere checker"],
   },
   {
@@ -120,7 +120,7 @@ export const TOOLS: ToolMeta[] = [
     short: "World clock",
     group: "Time zones and moving",
     description:
-      "Compare times across cities and timezones at a glance. Add any city, drag the timeline, and instantly see everyone's local time — perfect for planning remote meetings.",
+      "Compare times across cities at a glance. Add any city, drag the timeline to a time, and see everyone's local time, with daylight saving applied.",
     keywords: ["world clock", "meeting planner", "time zone converter", "compare time zones", "world time buddy"],
   },
   {
@@ -130,7 +130,7 @@ export const TOOLS: ToolMeta[] = [
     group: "Time zones and moving",
     featured: true,
     description:
-      "Enter your income to see which of 16 digital nomad and remote-worker visas you may qualify for, with 2026 thresholds, durations and the authority to confirm with.",
+      "Enter your income to see which of 16 digital nomad and remote-worker visas you may qualify for, with 2026 thresholds, durations and who to confirm with.",
     keywords: ["digital nomad visa checker", "digital nomad visa income requirements", "remote work visa eligibility", "nomad visa calculator"],
   },
   {
@@ -210,6 +210,3 @@ export const TOOLS: ToolMeta[] = [
 export function getTool(slug: string): ToolMeta | undefined {
   return TOOLS.find((t) => t.slug === slug);
 }
-
-/** Slugs served by the shared /tools/[slug] route (the rest have their own folders). */
-export const LEGACY_TOOL_SLUGS = new Set(["remote-salary-converter", "timezone-overlap", "world-time-buddy", "password-generator"]);

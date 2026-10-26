@@ -48,7 +48,7 @@ export const POSTS_CLUSTER_E: Post[] = [
       <h2>What hiring managers look for</h2>
       <ul>
         <li><strong>Clear writing.</strong> Remote support happens mostly in text. Your application is your first writing sample, so treat it like one.</li>
-        <li><strong>Tool familiarity.</strong> Help desk platforms such as Zendesk come up often in listings, along with CRM systems such as Salesforce. Browse <a href="/remote-zendesk-jobs">roles that mention Zendesk</a> to see how employers describe the skill.</li>
+        <li><strong>Tool familiarity.</strong> Help desk platforms such as Zendesk come up often in listings, along with CRM systems such as Salesforce. <a href="/jobs?q=zendesk">Search the board for Zendesk</a> to see how employers describe the skill.</li>
         <li><strong>Technical curiosity.</strong> Basic SQL, reading API responses or logs, and a working knowledge of how websites fail set candidates apart, even for roles that aren't labelled technical.</li>
         <li><strong>Comfort with metrics.</strong> First response time, resolution time and satisfaction scores are how support work gets measured. Bring your numbers to the interview.</li>
         <li><strong>Calm under pressure.</strong> Angry customers and outages come with the job. Prepare an example of each and how you handled it.</li>
