@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { filterJob, locationRequiresOffice, descriptionRequiresOffice, titleNamesRegion } from "./filter";
+import { classifyJob, filterJob, locationRequiresOffice, descriptionRequiresOffice, titleNamesRegion } from "./filter";
 import type { RawJob } from "../types";
 
 function raw(partial: Partial<RawJob>): RawJob {
@@ -174,6 +174,27 @@ describe("titles that name a place", () => {
     // "us" inside a sentence, "UK" inside a word, "Indiana" containing "India".
     for (const title of ["Join us as a Product Manager", "Senior Engineer, Ukulele Tech", "Field Rep, Indiana"]) {
       expect(titleNamesRegion(title), title).toBeNull();
+    }
+  });
+});
+
+describe("locations that name a place", () => {
+  // Employers put "work from anywhere" in the company copy of every posting, so
+  // the filter's global phrase turned up on roles the employer had located in
+  // one region. 91 of the 255 roles it accepted on 26 October 2026 were these.
+  const companyCopy = "<p>We are a distributed company and our people work from anywhere in the world.</p><p>You will own customer onboarding.</p>";
+
+  it("keeps a role the employer located in one region off the worldwide board", () => {
+    for (const location_raw of ["Remote, AMER", "North America", "Remote, APAC", "Spain", "Remote, San Francisco, CA", "Remote - US; Remote - Canada"]) {
+      const c = classifyJob(raw({ location_raw, description_html: companyCopy }));
+      expect(c.scope, location_raw).toBe("regional");
+      expect(c.region, location_raw).toBeTruthy();
+    }
+  });
+
+  it("still accepts a location that says nowhere in particular", () => {
+    for (const location_raw of ["", "Remote", "Anywhere in the World", "Home based - Worldwide", "Remote - Global", "Fully Remote"]) {
+      expect(classifyJob(raw({ location_raw, description_html: companyCopy })).scope, location_raw || "(empty)").toBe("worldwide");
     }
   });
 });

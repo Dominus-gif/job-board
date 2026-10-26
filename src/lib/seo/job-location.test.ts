@@ -22,6 +22,17 @@ describe("applicantAreas", () => {
     expect(names("Amsterdam")).toEqual(["Netherlands"]);
   });
 
+  // A two-letter code is a code only where nothing but punctuation follows it.
+  // "(no location restriction)" was reading as Norway, and "La Libertad" as
+  // Louisiana, which put a Peruvian role in the United States too.
+  it("does not read a word as a country or state code", () => {
+    expect(names("Worldwide (no location restriction)")).toEqual([]);
+    expect(names("Chepén, La Libertad, pe")).toEqual(["Peru"]);
+    expect(names("Austin, TX")).toEqual(["United States"]);
+    expect(names("San Francisco, CA (Remote)")).toEqual(["United States"]);
+    expect(names("Remote (US)")).toEqual(["United States"]);
+  });
+
   it("folds accents and letters NFD leaves alone", () => {
     expect(names("São Paulo")).toEqual(["Brazil"]);
     expect(names("München")).toEqual(["Germany"]);

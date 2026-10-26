@@ -400,12 +400,17 @@ const ISO2_COUNTRY: Record<string, string> = {
  * dash or opening bracket. Without that anchor "remote OR hybrid" reads as
  * Oregon and "work IN Berlin" as Indiana.
  *
+ * And not when another word follows. A code ends a location or sits before
+ * more punctuation ("Austin, TX", "San Francisco, CA (Remote)"), while "no" at
+ * the start of "Worldwide (no location restriction)" is just a word, and was
+ * putting the listing in Norway.
+ *
  * Case decides which table wins, because that is how the sources actually
  * write them: "Austin, TX" is a US state, "München, de" is a country code.
  */
 function matchCodes(original: string): string[] {
   const out = new Set<string>();
-  for (const m of original.matchAll(/[,(–—-]\s*([A-Za-z]{2})(?![A-Za-z])/g)) {
+  for (const m of original.matchAll(/[,(–—-]\s*([A-Za-z]{2})(?![A-Za-z])(?!\s+[A-Za-z])/g)) {
     const token = m[1];
     const lower = token.toLowerCase();
     const upper = token.toUpperCase();

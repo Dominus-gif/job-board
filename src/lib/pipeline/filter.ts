@@ -1,6 +1,7 @@
 import type { FilterResult, JobScope, RawJob } from "../types";
 import { ANYWHERE_LOCATION_TOKENS, ANYWHERE_SIGNALS, DISQUALIFYING_PHRASES, ONSITE_PHRASES, REMOTE_SIGNALS } from "./dictionaries";
 import { containsPhrase, firstMatch, toText } from "./text";
+import { applicantAreas } from "../seo/job-location";
 
 /**
  * Stage B — the "Work From Anywhere" filter (spec section 3B).
@@ -77,8 +78,21 @@ export function classifyJob(job: RawJob): Classification {
     // The filter reads the location and the description. A title like
     // "Senior Sales Engineer - UK" says the rest.
     const titled = titleNamesRegion(job.title);
-    if (!titled) return { scope: "worldwide", reason: worldwide.reason };
-    return { scope: "regional", region: titled, reason: `Title names a place ("${titled}").` };
+    if (titled) return { scope: "regional", region: titled, reason: `Title names a place ("${titled}").` };
+    // So does a location line that names one. The filter accepts on a global
+    // phrase anywhere in the record, and employers put "work from anywhere" or
+    // "anywhere in the world" in the company copy of every posting, so on 26
+    // October 2026 91 of the 255 roles it accepted from the ATS feeds were
+    // located "Remote, AMER", "North America", "Remote, APAC" or "Spain":
+    // Supabase's "Customer Solution Architect (AU, NZ, SG)" among them. The
+    // location is the employer's statement about this role; the company copy
+    // is about the company.
+    const places = applicantAreas(job.location_raw || "", "regional");
+    if (places.length) {
+      const region = (job.location_raw || "").trim().replace(/\s*;\s*/g, " · ");
+      return { scope: "regional", region, reason: `Location names a place (${places.map((p) => p.name).join(", ")}).` };
+    }
+    return { scope: "worldwide", reason: worldwide.reason };
   }
 
   const location = (job.location_raw || "").toLowerCase().trim();
