@@ -1045,6 +1045,7 @@ export const POSTS_2026: Post[] = [
       <p>If you spot something that looks wrong, tell me and I will check it: the address is on the <a href="/contact">contact page</a>. I plan to repeat this count each month, so the changes become visible over time.</p>
 
       <p>Browse the <a href="/work-from-anywhere-jobs">237 work-from-anywhere roles</a>, the <a href="/remote-regional-jobs">region-locked board</a>, or start from <a href="/jobs">search</a>.</p>
+      <p><em>The <a href="/posts/remote-hiring-report-october-2026">October 2026 edition</a> counts the board again, with a note on what we changed in between.</em></p>
     `,
     faq: [
       {
@@ -1062,6 +1063,148 @@ export const POSTS_2026: Post[] = [
       {
         q: "Which remote fields are most likely to hire worldwide?",
         a: "Engineering. 15.1% of backend roles and 14.0% of frontend roles were open worldwide on 29 September 2026. Product work is the least likely to be location-free: counted by job title on 2 October 2026, 2.3% of product management roles carried no location condition, against 5.9% of software engineering roles.",
+      },
+    ],
+  },
+  {
+    // Figures from scripts/report-monthly.ts, run on 26 October 2026 against the
+    // committed dataset after the snapshot fix (commit 4e86c40).
+    slug: "remote-hiring-report-october-2026",
+    title: "Remote Hiring Report, October 2026: 3,350 Jobs Analysed",
+    description:
+      "Every open role on our board on 26 October, counted: where remote jobs are, what they pay, who hires worldwide, and what we changed since September.",
+    date: "2026-10-26T12:00:00.000Z",
+    author: "Bhargav",
+    tags: ["Remote Work Data", "Remote Salaries", "Hiring Report", "Work From Anywhere", "Remote Job Market"],
+    readMinutes: 9,
+    html: `
+      <p>This is a count of every job on getremotejobsnow.com on <strong>26 October 2026</strong>: <strong>3,350 open remote roles from 609 employers</strong>. As in September, there is no survey and no estimate here, only what employers were advertising on the day. The board is rebuilt every night, so the live figures will have moved a little by the time you read this.</p>
+      <p>One warning before the numbers. We changed how the board is built several times this month, and two of the changes were large: we tightened what counts as work from anywhere, and we fixed a fault that had stopped half the board updating for almost three weeks. So a good part of the difference from September is ours, not the market's. The section on what changed on our side, near the end, sets it out, and the comparisons below say where it applies.</p>
+
+      <h2>The headline: 81 roles you can do from anywhere</h2>
+      <p>Of the 3,350 roles, only <strong>81 (2.4%)</strong> carry no location condition at all. The other 3,269 are remote but tied to a country, a region or a set of time zones. In September the figure was 237 (5.2%).</p>
+      <p>That fall has two main causes, and neither is employers giving up on remote work. First, we count more strictly. Since 1 October a role whose title names a place ("Senior Sales Engineer - UK") counts as region-locked, and since 26 October so does a role whose location line names one, even when the company's own copy says "work from anywhere". On the day we added the second rule, it applied to 91 of the 255 roles our filter had accepted from employers' feeds. Second, Canonical supplied 101 of September's 237. It still has more than 300 roles open on its own careers board, but 125 of the 144 its feed offers us were last updated in early August, and we retire a listing 60 days after its posting date. 24 of its worldwide roles are recent enough to count.</p>
+      <p>The concentration is as sharp as before. The 81 roles come from <strong>16 employers</strong>, and four of them supply 78%: Supabase and Canonical with 24 each, ElevenLabs with 10 and HFT Architecture with 5.</p>
+
+      <h2>Where the roles are</h2>
+      <p>Counting each region-locked role by the place it is open to, with the same location rules our job pages use:</p>
+      <table>
+        <thead><tr><th>Open to</th><th>Roles</th><th>Share</th></tr></thead>
+        <tbody>
+          <tr><td>United States</td><td>1,654</td><td>50.6%</td></tr>
+          <tr><td>Europe (excluding the UK)</td><td>406</td><td>12.4%</td></tr>
+          <tr><td>More than one region</td><td>234</td><td>7.2%</td></tr>
+          <tr><td>United Kingdom</td><td>223</td><td>6.8%</td></tr>
+          <tr><td>Canada</td><td>173</td><td>5.3%</td></tr>
+          <tr><td>Asia-Pacific</td><td>169</td><td>5.2%</td></tr>
+          <tr><td>India</td><td>99</td><td>3.0%</td></tr>
+          <tr><td>Latin America</td><td>56</td><td>1.7%</td></tr>
+          <tr><td>Middle East</td><td>26</td><td>0.8%</td></tr>
+          <tr><td>Africa</td><td>5</td><td>0.2%</td></tr>
+          <tr><td>Location we could not classify</td><td>224</td><td>6.9%</td></tr>
+        </tbody>
+      </table>
+      <p>The shape is close to September's. The United States is just over half of the region-locked market on its own, and Europe outside the UK comes next at about one role in eight. If you are outside the US, the practical move is still to work the worldwide board and your own region together: see <a href="/remote-jobs-in-europe">Europe</a>, <a href="/remote-jobs-in-uk">the UK</a>, <a href="/remote-jobs-in-canada">Canada</a> or <a href="/remote-jobs-in-india">India</a>, and read <a href="/posts/getting-hired-remotely-from-outside-the-us">getting hired remotely from outside the US</a>.</p>
+
+      <h2>Which fields hire, and which hire worldwide</h2>
+      <p>This month the fields are counted by job title, the method our field guides and the <a href="/tools/remote-field-explorer">remote field explorer</a> use, rather than by the category filter September's table relied on. A few titles fit two fields and are counted in both. Pay is the median midpoint of the US-dollar ranges, with the number of ranges in brackets, and is left out below 15 ranges.</p>
+      <table>
+        <thead><tr><th>Field (by title)</th><th>Roles</th><th>Worldwide</th><th>Share worldwide</th><th>Median pay</th></tr></thead>
+        <tbody>
+          <tr><td>Software engineering</td><td>709</td><td>30</td><td>4.2%</td><td>$215,500 (201)</td></tr>
+          <tr><td>Sales</td><td>542</td><td>8</td><td>1.5%</td><td>$172,000 (99)</td></tr>
+          <tr><td>Marketing</td><td>204</td><td>1</td><td>0.5%</td><td>$154,900 (56)</td></tr>
+          <tr><td>Data and machine learning</td><td>191</td><td>5</td><td>2.6%</td><td>$206,000 (56)</td></tr>
+          <tr><td>Operations and admin</td><td>145</td><td>3</td><td>2.1%</td><td>$140,600 (42)</td></tr>
+          <tr><td>Product management</td><td>120</td><td>4</td><td>3.3%</td><td>$226,800 (47)</td></tr>
+          <tr><td>Solutions and sales engineering</td><td>113</td><td>4</td><td>3.5%</td><td>$210,000 (25)</td></tr>
+          <tr><td>Customer support and success</td><td>111</td><td>2</td><td>1.8%</td><td>$111,725 (22)</td></tr>
+          <tr><td>Finance and accounting</td><td>87</td><td>1</td><td>1.1%</td><td>$150,700 (22)</td></tr>
+          <tr><td>Legal and compliance</td><td>75</td><td>0</td><td>0.0%</td><td>$200,000 (21)</td></tr>
+          <tr><td>Design</td><td>64</td><td>0</td><td>0.0%</td><td>$188,700 (18)</td></tr>
+          <tr><td>People, HR and recruiting</td><td>60</td><td>2</td><td>3.3%</td><td>$152,400 (20)</td></tr>
+          <tr><td>Project and program management</td><td>33</td><td>0</td><td>0.0%</td><td>too few ranges (14)</td></tr>
+        </tbody>
+      </table>
+      <p>Engineering is still the field most likely to be open anywhere, at 4.2% against 2.4% for the board, and it is the largest by a distance; our <a href="/posts/remote-software-engineering-jobs">remote software engineering guide</a> looks at it in detail. Sales is second by volume but rarely location-free. Design, legal and project roles had no worldwide openings at all on the day.</p>
+      <p>Customer support remains the outlier on pay: a median of $111,725 across 22 ranges, about half what engineering and product pay, in the field where the widest range of people can get in without a technical background. Our <a href="/posts/remote-customer-support-careers">remote customer support guide</a> covers what those roles involve.</p>
+
+      <h2>Pay: more listings publish a range, and the sample changed</h2>
+      <p><strong>26.1% of listings publish a salary range</strong> in some currency (875 of 3,350), and 24.0% do so in US dollars (805), against 17.3% in dollars in September. Read that rise with care: it comes mostly from what the board holds. The listings that came back from employers' own feeds on 26 October publish a dollar range 34.0% of the time, against 17.8% for the one-time import that makes up the rest of the board, because the feeds lean towards US software companies, which publish ranges where state law requires it.</p>
+      <p>Across the 805 US-dollar ranges, the median midpoint is <strong>$193,500</strong>, with the middle half between $150,700 and $234,600. Roles limited to the United States had a median of $199,403 across 634 ranges, and Canada $180,940 across 18. Everywhere else the samples are too thin to quote: Europe outside the UK produced 12 US-dollar ranges and the UK one.</p>
+      <p>By seniority, using the level named in the job title:</p>
+      <table>
+        <thead><tr><th>Level</th><th>Roles</th><th>With pay</th><th>Median</th><th>Middle half</th></tr></thead>
+        <tbody>
+          <tr><td>Entry</td><td>86</td><td>10</td><td>too few</td><td></td></tr>
+          <tr><td>Mid</td><td>1,434</td><td>275</td><td>$185,000</td><td>$130,000 to $232,500</td></tr>
+          <tr><td>Senior</td><td>472</td><td>127</td><td>$182,500</td><td>$157,500 to $212,000</td></tr>
+          <tr><td>Staff or lead</td><td>453</td><td>130</td><td>$220,000</td><td>$192,485 to $275,000</td></tr>
+          <tr><td>Manager</td><td>657</td><td>191</td><td>$175,000</td><td>$140,600 to $225,500</td></tr>
+          <tr><td>Director and above</td><td>248</td><td>72</td><td>$226,800</td><td>$198,200 to $300,000</td></tr>
+        </tbody>
+      </table>
+      <p>As in September, senior looks no better paid than mid, for the same reason: titles with no level word land in Mid, so it holds senior roles that do not say so. Manager here includes product and account managers, not only people who run a team. The pattern that holds is the step up at staff level and above, where the middle half starts close to $200,000.</p>
+      <p>The <strong>worldwide roles</strong> published only 9 US-dollar ranges this month, too few for a median; in September there were 24. <a href="/posts/what-work-from-anywhere-jobs-pay">What work-from-anywhere jobs pay</a> covers the wider picture, and the <a href="/tools/salary-band-estimator">salary band estimator</a> filters the same data by field, level and region.</p>
+
+      <h2>Who is actually hiring</h2>
+      <p>By open roles on the board:</p>
+      <ul>
+        <li><a href="/companies/gitlab">GitLab</a>: 216 roles, the largest employer on the board, and every one of them region-locked.</li>
+        <li><a href="/companies/grafana-labs">Grafana Labs</a>: 119, all region-locked. <a href="/companies/elevenlabs">ElevenLabs</a>: 91, of which 10 worldwide.</li>
+        <li>ClickHouse: 71. Directive: 59. Veeam Software: 56. <a href="/companies/supabase">Supabase</a>: 50, of which 24 worldwide. <a href="/companies/canonical">Canonical</a>: 37, of which 24 worldwide.</li>
+      </ul>
+      <p>For location-free work the order changes: Supabase and Canonical (24 each), ElevenLabs (10), HFT Architecture (5) and Camunda (4). Those five supply 83% of the worldwide roles on the board, so following a handful of employers is still a more efficient way to find work-from-anywhere roles than searching every day. Our guide to <a href="/posts/most-remote-friendly-companies-hiring-worldwide">the most remote-friendly companies hiring worldwide</a> covers what they have in common, and the <a href="/tools/company-remote-score">company remote score</a> rates any employer on the board.</p>
+      <p>At the other end, <strong>190 of the 609 employers (31%) have exactly one role open</strong>, and 75 have ten or more. Remote hiring on this board is still a long tail of single openings plus a short head of employers hiring at volume.</p>
+
+      <h2>What the roles ask for</h2>
+      <p>Across the board, the skills named most often are Salesforce (293 roles, 8.7%), Python (193), AWS (184), Kubernetes (167) and SQL (145). Among the 81 worldwide roles the list tilts towards infrastructure again: PostgreSQL appears in 21 of them, AWS in 16 and Python in 14. That PostgreSQL figure is one employer. All 21 are Supabase roles, a company built on PostgreSQL, which is a reminder of how much a single employer moves the worldwide numbers.</p>
+      <p>Almost everything is a permanent job: <strong>3,313 full-time</strong>, 26 contract and 11 part-time. If you are looking for part-time remote work, this board is still not where the volume is.</p>
+
+      <h2>How fresh the board is</h2>
+      <p>The median listing is 19 days old, against 25 in September. 643 roles (19.2%) were posted in the last week, and 2,290 (68.4%) in the last month. Nothing is older than 60 days, because listings expire at that point and their pages return a real "not found" rather than quietly showing a dead role.</p>
+
+      <h2>What changed on our side since September</h2>
+      <p>The board is smaller than in September, 3,350 roles against 4,581, and most of the difference is in how we build it:</p>
+      <ul>
+        <li><strong>The one-time import is ageing out.</strong> About three fifths of the board comes from a one-time import of roles from employers' own hiring systems. It is not refreshed, and listings expire 60 days after their posting date: of the 4,139 imported listings on the board on 28 September, 1,233 have since passed that limit.</li>
+        <li><strong>Dead listings are retired.</strong> Our liveness checks retired another 514 listings in October whose apply links no longer worked.</li>
+        <li><strong>Office and hybrid roles are removed.</strong> We drop any listing whose own text requires office attendance: 190 on 1 October, and 323 more on 26 October, once the check read each employer's whole posting rather than an excerpt of it.</li>
+        <li><strong>Work from anywhere is counted more strictly.</strong> The two rules described in the headline section keep roles whose title or location names a place off the worldwide count.</li>
+        <li><strong>The feed half was frozen, then fixed.</strong> From 7 to 26 October a fault in how we build the board stopped new roles from employers' feeds getting in while the existing ones expired. It was fixed on the day of this count, which took the board from 2,255 listings to 3,350.</li>
+      </ul>
+      <p>So treat changes in the totals between September and October with care. The proportions within one count, such as the regional split or pay by level, are more reliable than any comparison across the two.</p>
+
+      <h2>How these numbers were produced, and what they are not</h2>
+      <p>Everything above is counted from the same data the site serves, using the location rules described in <a href="/how-it-works">how the board works</a>. A few limits, stated plainly:</p>
+      <ul>
+        <li><strong>This board is a sample, not the market.</strong> It carries roles from employers' own hiring systems plus a few remote job sources, filtered for remote work. It is not everything being advertised anywhere.</li>
+        <li><strong>Pay covers only ranges quoted in US dollars</strong>: 805 of the 875 listings that quote a range. Figures are midpoints of the published range, so a role advertised at $180,000 to $220,000 counts as $200,000.</li>
+        <li><strong>Fields are counted by job title</strong>, with the same rules as the remote field explorer, and a few titles count in two fields.</li>
+        <li><strong>Regions come from the location line</strong>, read the way our job pages read it, so "San Francisco" counts as the United States. 224 listings name a location we could not place.</li>
+        <li><strong>Posting dates are approximate for some listings.</strong> 260 (7.8%) share an exact timestamp with at least nine others, which usually marks an import date rather than the employer's own.</li>
+        <li><strong>Seniority comes from the job title</strong>, not from the description, which is why the mid-level bucket is so large.</li>
+      </ul>
+      <p>If you spot something that looks wrong, tell me and I will check it: the address is on the <a href="/contact">contact page</a>. These figures come from a script that recounts the board the same way every month, so November's edition will compare with this one in a way this one cannot fully compare with September's.</p>
+
+      <p>Browse the <a href="/work-from-anywhere-jobs">work-from-anywhere roles</a>, the <a href="/remote-regional-jobs">region-locked board</a>, or start from <a href="/jobs">search</a>. Last month's count is in the <a href="/posts/remote-hiring-report-september-2026">September 2026 report</a>.</p>
+    `,
+    faq: [
+      {
+        q: "What share of remote jobs are truly work from anywhere?",
+        a: "On getremotejobsnow.com on 26 October 2026, 81 of 3,350 open remote roles carried no country, region or time zone condition: 2.4%. The share fell from 5.2% in September mostly because we now count more strictly, keeping roles whose title or location names a place off the worldwide count.",
+      },
+      {
+        q: "What do remote jobs pay in October 2026?",
+        a: "Among the 805 listings with a range in US dollars, the median midpoint was $193,500, with the middle half between $150,700 and $234,600. Roles limited to the United States had a median of $199,403 across 634 ranges. Worldwide roles published only 9 ranges, too few for a reliable median.",
+      },
+      {
+        q: "Which companies hire the most remote workers?",
+        a: "By open roles on our board on 26 October 2026: GitLab (216), Grafana Labs (119), ElevenLabs (91), ClickHouse (71), Directive (59) and Veeam Software (56). For roles with no location requirement, Supabase, Canonical, ElevenLabs, HFT Architecture and Camunda supplied 83% of what we list.",
+      },
+      {
+        q: "Which remote fields are most likely to hire worldwide?",
+        a: "Software engineering, counted by job title: 30 of 709 roles (4.2%) were open worldwide on 26 October 2026, against 2.4% for the board as a whole. Design, legal and project management roles had no worldwide openings on the day.",
       },
     ],
   },
