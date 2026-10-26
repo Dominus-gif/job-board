@@ -132,15 +132,106 @@ export function locationRequiresOffice(location: string | undefined | null): boo
 
 /** The description states an attendance requirement in so many words. */
 const OFFICE_STATEMENT =
-  /\b(?:\d\+?\s*days?\s*(?:a|per)\s*week\s*(?:in|at)\s*(?:the\s*)?office|in[- ]office\s*\d\s*days?|hybrid\s*(?:role|position|work\s*model|schedule|setup)|must\s*be\s*(?:able\s*to\s*)?commute|within\s*commuting\s*distance|relocation\s*(?:is\s*)?required)\b/i;
+  /\b(?:\d\+?\s*days?\s*(?:a|per)\s*week\s*(?:in|at)\s*(?:the\s*)?office|in[- ]office\s*\d\s*days?|hybrid\s*(?:work\s*model|schedule|setup)|must\s*be\s*(?:able\s*to\s*)?commute|within\s*commuting\s*distance|relocation\s*(?:is\s*)?required)\b/i;
 
-export function descriptionRequiresOffice(html: string | undefined | null): boolean {
-  return OFFICE_STATEMENT.test(toText(String(html || "")));
+/**
+ * "Hybrid role" only when the sentence goes on to say where or how often. On
+ * its own it as often means a job of two halves: "a genuinely hybrid role:
+ * you'll build detection systems while also owning…", "this hybrid role will
+ * focus on both commercial and consumer insights".
+ */
+const HYBRID_ROLE =
+  /\bhybrid\s*(?:role|position)\b(?=[^.]{0,80}\b(?:office|onsite|on-site|in[- ]person|days?\s*(?:a|per)\s*week|based\s*(?:in|at|out\s*of)|located\s*(?:in|at)|commut))/i;
+
+/*
+ * The forms the statement above missed, found by running it over the
+ * employers' full postings rather than the 500-character excerpts the board
+ * stores. OpenAI's "hybrid work model of 3 days in the office" was caught only
+ * once the whole text was read; these were not caught at all:
+ *
+ *   "hybrid working from our London office"
+ *   "work onsite in our Guatemala City (Zone 10) office, Monday-Friday"
+ *   "This is an in-person role. Our team comes together in the office Monday
+ *    through Thursday"
+ *   "in our Shoreditch office 3 days a week"
+ *
+ * Each still needs an attendance statement: a place of work that is an
+ * office, a count of days, or the employer's own workplace tag. So "you're
+ * welcome to use our Berlin office", "we meet in person at our annual
+ * retreat" and "hybrid cloud" all stay untouched.
+ */
+const DAYS = String.raw`(?:\d|one|two|three|four|five)\+?\s*days?\s*(?:a|per|each)\s*week`;
+const OFFICE_PLACE = String.raw`(?:the\s*|our\s*)?(?:[\w'’&.()-]+\s+){0,4}?(?:office|offices|hq|headquarters|studio|hub|campus)\b`;
+const MORE_OFFICE_STATEMENTS: RegExp[] = [
+  // "3 days a week in our London office", "two days per week at our NYC HQ"
+  new RegExp(String.raw`\b${DAYS}\s*(?:in|at|from)\s*${OFFICE_PLACE}`, "i"),
+  // "our Shoreditch office 3 days a week", "onsite 2 days a week", "in-office three days"
+  new RegExp(String.raw`\b(?:office|hq|headquarters|onsite|on-site|in[- ]office)\s*${DAYS}`, "i"),
+  new RegExp(String.raw`\bin[- ]office\s*(?:one|two|three|four|five)\s*days?\b`, "i"),
+  // "hybrid working policy", "on a hybrid basis", "a hybrid arrangement"
+  /\bhybrid\s*(?:work(?:ing)?\s*(?:model|policy|arrangement|schedule|setup|pattern|environment)|job|arrangement|basis)\b/i,
+  // "hybrid working from our London office"
+  new RegExp(String.raw`\bhybrid\s*work(?:ing)?\s*(?:from|at|in)\s*${OFFICE_PLACE}`, "i"),
+  // "work onsite in our Guatemala City (Zone 10) office", "based on-site at our campus"
+  new RegExp(String.raw`\b(?:work|working|based|located)\s*(?:onsite|on-site|on\s*site|in[- ]office|in[- ]person)\s*(?:in|at|from|out\s*of)\s*${OFFICE_PLACE}`, "i"),
+  // "required to work from our Austin office", "expected to be in the office",
+  // but not "if the posting is specified as onsite, you are required to work
+  // from an office", which is boilerplate about other postings.
+  new RegExp(String.raw`(?<!\bif\b[^.;]{0,80})\b(?:required|expected)\s*to\s*(?:work|be)\s*(?:from|in|at)\s*${OFFICE_PLACE}`, "i"),
+  // "This is an in-person role", but not "you prefer an in-person role over remote"
+  /\b(?:this|it|the\s*role|the\s*position)\s*is\s*an?\s*(?:fully\s*)?in[- ]person\s*(?:role|position|job)\b/i,
+  // "in the office Monday through Thursday", "in our Paris office, Monday to Friday"
+  new RegExp(
+    String.raw`\b(?:in|at)\s*${OFFICE_PLACE},?\s*(?:on\s*)?(?:monday|tuesday|wednesday)s?\s*(?:through|to|thru|-|–|and)\s*(?:wednesday|thursday|friday)s?\b`,
+    "i",
+  ),
+  // "work Tuesdays through Thursdays from our HQ"
+  new RegExp(
+    String.raw`\b(?:monday|tuesday|wednesday)s?\s*(?:through|to|thru|-|–|and)\s*(?:wednesday|thursday|friday)s?\s*(?:from|in|at)\s*${OFFICE_PLACE}`,
+    "i",
+  ),
+];
+
+/**
+ * "Fully remote or hybrid position" offers remote work; it is not an
+ * attendance requirement. Read naively it trips "hybrid position" and would
+ * have dropped one of the few work-from-anywhere roles on the board.
+ */
+const REMOTE_ALTERNATIVE = /\b(?:fully\s+)?remote\s*(?:or|\/|and)\s*hybrid\b|\bhybrid\s*(?:or|\/)\s*(?:fully\s+)?remote\b/g;
+
+/**
+ * The workplace tags employers add to their own postings for LinkedIn. They
+ * are set per posting and usually agree with the location ("#LI-Remote" on a
+ * "Remote U.S." role, "#LI-Hybrid" on the Dublin one at the same company), so
+ * an onsite or hybrid tag is the employer's own statement. It does not count
+ * when the same posting also carries a remote tag, or when the location says
+ * remote: one employer stamps "#LI-Onsite" on every posting, its remote ones
+ * included.
+ */
+const OFFICE_TAG = /#li-(?:onsite|hybrid)\b/i;
+const REMOTE_TAG = /#li-remote\b/i;
+
+/**
+ * The description states an attendance requirement.
+ *
+ * Pass the location when you have it: a location line that itself offers
+ * remote work ("Remote, US", "New York, NY / Remote") wins over the
+ * description. Run over the employers' full postings, those listings mostly
+ * tripped on company-wide copy ("we operate a hybrid work model with offices
+ * in 8 cities") or on terms for people who live near an office ("employees
+ * local to NYC are expected in Tuesday to Thursday"), neither of which is a
+ * condition on the role being offered.
+ */
+export function descriptionRequiresOffice(html: string | undefined | null, location?: string | null): boolean {
+  if (REMOTE_OPTION.test(String(location || ""))) return false;
+  const text = toText(String(html || "")).replace(REMOTE_ALTERNATIVE, "remote");
+  if (OFFICE_STATEMENT.test(text) || HYBRID_ROLE.test(text) || MORE_OFFICE_STATEMENTS.some((re) => re.test(text))) return true;
+  return OFFICE_TAG.test(text) && !REMOTE_TAG.test(text);
 }
 
 /** Either test, for callers that have the whole record. */
 export function statesOfficeRequirement(location: string | undefined | null, descriptionHtml?: string | null): boolean {
-  return locationRequiresOffice(location) || descriptionRequiresOffice(descriptionHtml);
+  return locationRequiresOffice(location) || descriptionRequiresOffice(descriptionHtml, location);
 }
 
 

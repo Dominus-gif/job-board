@@ -38,7 +38,7 @@ for (const j of rows) {
     // generated file a complete picture of what the board excludes and why.
     if (!ids.has(j.id)) byLocation++;
     ids.add(j.id);
-  } else if (descriptionRequiresOffice(j.description_html)) {
+  } else if (descriptionRequiresOffice(j.description_html, j.location)) {
     if (!ids.has(j.id)) byDescription++;
     ids.add(j.id);
   }

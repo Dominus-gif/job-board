@@ -88,6 +88,54 @@ describe("office-based listings", () => {
     expect(descriptionRequiresOffice("<p>We take a hybrid approach to testing.</p>")).toBe(false);
     expect(descriptionRequiresOffice("<p>Fully remote, with an optional office in Berlin.</p>")).toBe(false);
   });
+
+  // Phrasings from employers' full postings that the original statement
+  // missed. Until the check read the full text, it saw only a 500-character
+  // excerpt and none of these was ever tested at all.
+  it("reads the ways employers actually state attendance", () => {
+    for (const text of [
+      "Fin has a hybrid working policy. We believe working in person helps us stay connected.",
+      "This is a full time role with hybrid working from our London office.",
+      "Ability to work onsite in our Guatemala City (Zone 10) office, Monday–Friday.",
+      "This is an in-person role. Our team comes together in the office Monday through Thursday.",
+      "We ask that you're in our (dog-friendly) Shoreditch office 3 days a week.",
+      "Our expectation is that this role will be hybrid, requiring 3 days a week in our San Francisco office.",
+      "Must be willing and able to work onsite five days per week.",
+      "Individuals are expected to work from the office 3+ days a week.",
+      "Competitive equity package. #LI-Onsite",
+    ]) {
+      expect(descriptionRequiresOffice(`<p>${text}</p>`, "London"), text).toBe(true);
+    }
+  });
+
+  it("does not mistake an offer of remote work, or a conditional, for a requirement", () => {
+    for (const text of [
+      // A remote option beside the hybrid one.
+      "Fully remote or hybrid position. No visa sponsorship provided.",
+      // "Hybrid role" meaning a job of two halves.
+      "This is a genuinely hybrid role: you'll build detection systems while also owning corporate security.",
+      // Boilerplate about other postings.
+      "If the posting is specified as onsite, you are required to work from an office.",
+      // A preference, in a "you won't like it here if" list.
+      "You might not enjoy it here if you prefer an in-person role over remote.",
+      "We meet in person at our annual retreat, and you're welcome to work from our Berlin office.",
+    ]) {
+      expect(descriptionRequiresOffice(`<p>${text}</p>`, "London"), text).toBe(false);
+    }
+  });
+
+  it("lets a location that offers remote work win over the description", () => {
+    const local = "<p>Employees local to NYC are expected to work Tuesdays through Thursdays from our HQ.</p>";
+    expect(descriptionRequiresOffice(local, "Remote, US")).toBe(false);
+    expect(descriptionRequiresOffice(local, "New York, NY / Remote")).toBe(false);
+    expect(descriptionRequiresOffice(local, "New York, NY")).toBe(true);
+  });
+
+  it("trusts an onsite or hybrid workplace tag only when nothing says remote", () => {
+    expect(descriptionRequiresOffice("<p>#LI-Hybrid</p>", "Dublin, Ireland")).toBe(true);
+    expect(descriptionRequiresOffice("<p>#LI-Onsite</p>", "Remote, USA")).toBe(false);
+    expect(descriptionRequiresOffice("<p>#LI-Hybrid #LI-Remote</p>", "Prague")).toBe(false);
+  });
 });
 
 describe("titles that name a place", () => {

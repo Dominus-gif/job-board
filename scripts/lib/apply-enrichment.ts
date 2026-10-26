@@ -91,9 +91,11 @@ export interface EnrichResult {
   available: number;
 }
 
-export function applyEnrichment(jobs: Enrichable[]): EnrichResult {
-  // Two capture files: the ATS board sweep and the generic pass. Merged here so
-  // the rest of the build does not care which route found a description.
+// Two capture files: the ATS board sweep and the generic pass. Merged here so
+// the rest of the build does not care which route found a description. Read
+// once per process; job-content.json alone is about 40 MB.
+let captured: Record<string, ContentRec> | null = null;
+function readCaptures(): Record<string, ContentRec> {
   const read = (name: string): Record<string, ContentRec> => {
     try {
       return JSON.parse(readFileSync(join(process.cwd(), "src", "lib", "generated", name), "utf8")) as Record<
@@ -104,7 +106,28 @@ export function applyEnrichment(jobs: Enrichable[]): EnrichResult {
       return {};
     }
   };
-  const content = { ...read("job-content.json"), ...read("job-content-generic.json") };
+  captured ??= { ...read("job-content.json"), ...read("job-content-generic.json") };
+  return captured;
+}
+
+/**
+ * The employer's whole captured posting, as markup, for an apply URL.
+ *
+ * What a listing stores is a 500-character snippet (STORE_CHARS), which is
+ * enough for a card and far too little for any test that has to read the
+ * posting. The office-attendance check ran on that snippet and caught none of
+ * the postings whose own text says "hybrid work model" or "3 days a week in
+ * the office": measured on 26 October 2026, 14 of 296 such postings said it
+ * within the first 500 characters, and the median sat two thirds of the way
+ * down, under benefits or location.
+ */
+export function capturedPosting(applyUrl: string): string | undefined {
+  const rec = readCaptures()[applyUrl];
+  return rec ? decodeEntities(decodeEntities(rec.html)) : undefined;
+}
+
+export function applyEnrichment(jobs: Enrichable[]): EnrichResult {
+  const content = readCaptures();
   if (Object.keys(content).length === 0) return { enriched: 0, strippedWords: 0, available: 0 };
 
   // Group by employer: the template can only be found by comparing one

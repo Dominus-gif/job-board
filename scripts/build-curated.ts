@@ -21,7 +21,7 @@ import remoteJobsRoles from "../src/lib/seed/remotejobs-roles.json";
 import capitalOneRoles from "../src/lib/seed/capitalone-roles.json";
 import ashbyRoles from "../src/lib/seed/ashby-roles.json";
 import realSlugs from "../src/lib/seed/real-company-slugs.json";
-import { applyEnrichment, dropIncompleteDescriptions } from "./lib/apply-enrichment";
+import { applyEnrichment, capturedPosting, dropIncompleteDescriptions } from "./lib/apply-enrichment";
 
 const DAY = 24 * 60 * 60 * 1000;
 const slugify = (n: string) => n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -472,7 +472,13 @@ const notRetired = all.filter((j) => !j.apply_url || !retiredUrls.has(j.apply_ur
 // Office and hybrid listings: the curated seeds set their own scope and so
 // never met classifyJob, which would have rejected them. See
 // statesOfficeRequirement for why the test is deliberately narrow.
-const officeBased = notRetired.filter((j) => statesOfficeRequirement(j.location, j.description_html));
+//
+// Read against the employer's whole posting where we captured it. By this
+// point description_html is the 500-character card snippet, and attendance is
+// almost always stated further down, so on the snippet the test found nothing.
+const officeBased = notRetired.filter((j) =>
+  statesOfficeRequirement(j.location, (j.apply_url && capturedPosting(j.apply_url)) || j.description_html),
+);
 const officeIds = new Set(officeBased.map((j) => j.id));
 
 const keepIncomplete = process.env.KEEP_INCOMPLETE === "1";
