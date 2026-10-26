@@ -89,6 +89,8 @@ export interface EnrichResult {
   enriched: number;
   strippedWords: number;
   available: number;
+  /** Of `enriched`, how many used the feed's own text because nothing was captured. */
+  fromFeed: number;
 }
 
 // Two capture files: the ATS board sweep and the generic pass. Merged here so
@@ -126,29 +128,42 @@ export function capturedPosting(applyUrl: string): string | undefined {
   return rec ? decodeEntities(decodeEntities(rec.html)) : undefined;
 }
 
-export function applyEnrichment(jobs: Enrichable[]): EnrichResult {
+/**
+ * Swap each job's description for a snippet of the employer's own posting,
+ * with the company's repeated template removed, and mark it as rendering the
+ * whole posting.
+ *
+ * The posting comes from the capture files. `feedPosting`, when given, supplies
+ * it for jobs that were never captured: see build-snapshot.ts for why the ATS
+ * half of the board needs that and the curated half must not have it.
+ */
+export function applyEnrichment(jobs: Enrichable[], feedPosting?: (job: Enrichable) => string | null): EnrichResult {
   const content = readCaptures();
-  if (Object.keys(content).length === 0) return { enriched: 0, strippedWords: 0, available: 0 };
 
   // Group by employer: the template can only be found by comparing one
-  // company's postings against each other.
-  const byCompany = new Map<string, Enrichable[]>();
+  // company's postings against each other. Sources are read before anything is
+  // rewritten, because feedPosting reads the description this loop replaces.
+  const byCompany = new Map<string, { job: Enrichable; html: string; feed: boolean }[]>();
   let available = 0;
   for (const j of jobs) {
-    if (!content[j.apply_url]) continue;
+    const captured = content[j.apply_url]?.html;
+    const feed = captured ? null : (feedPosting?.(j) ?? null);
+    const html = captured ?? feed;
+    if (!html) continue;
     available++;
     const key = j.company_slug || j.company_name;
+    const entry = { job: j, html, feed: !captured };
     const group = byCompany.get(key);
-    if (group) group.push(j);
-    else byCompany.set(key, [j]);
+    if (group) group.push(entry);
+    else byCompany.set(key, [entry]);
   }
 
   let enriched = 0;
   let strippedWords = 0;
+  let fromFeed = 0;
   for (const group of byCompany.values()) {
-    const texts = group.map((j) => plainText(content[j.apply_url].html));
-    const stripped = stripCompanyBoilerplate(texts);
-    group.forEach((j, i) => {
+    const stripped = stripCompanyBoilerplate(group.map((e) => plainText(e.html)));
+    group.forEach(({ job: j, feed }, i) => {
       const { text, removed } = stripped[i];
       const body = trimToSentence(text, STORE_CHARS).trim();
       if (body.length < MIN_BODY_CHARS) return; // keep what we had
@@ -157,9 +172,10 @@ export function applyEnrichment(jobs: Enrichable[]): EnrichResult {
       j.has_full_description = true;
       strippedWords += removed;
       enriched++;
+      if (feed) fromFeed++;
     });
   }
-  return { enriched, strippedWords, available };
+  return { enriched, strippedWords, available, fromFeed };
 }
 
 
