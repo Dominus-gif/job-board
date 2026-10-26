@@ -233,7 +233,7 @@ export const POSTS_CLUSTER_E: Post[] = [
       <p>For that last question, the <a href="/tools/timezone-overlap">timezone overlap finder</a> shows how a territory's business hours line up with your own day.</p>
 
       <h2>Where to look</h2>
-      <p>Our <a href="/remote-sales-marketing-jobs">remote sales and marketing jobs</a> page covers the whole category. If you already know the main CRM tools, <a href="/remote-salesforce-jobs">roles that mention Salesforce</a> and <a href="/remote-hubspot-jobs">roles that mention HubSpot</a> are useful shortcuts. Salesforce is the skill we see most often across sales and marketing listings.</p>
+      <p>Our <a href="/remote-sales-marketing-jobs">remote sales and marketing jobs</a> page covers the whole category. If you already know the main CRM tools, searching the board for <a href="/jobs?q=salesforce">Salesforce</a> or <a href="/jobs?q=hubspot">HubSpot</a> is a useful shortcut. Salesforce is the skill we see most often across sales and marketing listings.</p>
     `,
     faq: [
       {
