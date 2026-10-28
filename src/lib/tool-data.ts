@@ -13,6 +13,7 @@ import type { Job } from "./types";
 import { salaryMidpointUsd } from "./salary";
 import { applicantAreas } from "./seo/job-location";
 import { FAMILIES, JUNIOR_TITLE, baseTitle, inFamily } from "./title-families";
+import { openCountries } from "./toolkit/location-check";
 
 async function board(): Promise<Job[]> {
   const [w, r] = await Promise.all([getAllJobs(), getRegionalJobs()]);
@@ -318,5 +319,47 @@ export async function homeInsights(): Promise<HomeInsightsData> {
     sweJunior: sweJobs.filter((j) => JUNIOR_TITLE.test(j.title)).length,
     productDesigner: bases.filter((b) => b.includes("product designer")).length,
     uxDesigner: bases.filter((b) => /\bux designer\b|\bui\/ux designer\b|\bux\/ui designer\b/.test(b)).length,
+  };
+}
+
+/* ------------------------------------------------------------------------ */
+/* Remote job location checker                                               */
+/* ------------------------------------------------------------------------ */
+
+export interface LocationCheckerData {
+  asOf: string;
+  total: number;
+  worldwide: number;
+  /** Per country code: [region-locked roles open to it, its top employers by those roles]. */
+  countries: Record<string, [number, string[]]>;
+}
+
+/**
+ * How many listings on the board each country can apply to, read with the
+ * same rules as the checker itself, so the count beside a verdict and the
+ * verdict can never disagree. Only clear inclusions count: a listing for
+ * "North America" is not counted for Mexico.
+ */
+export async function locationCheckerData(): Promise<LocationCheckerData> {
+  const jobs = await board();
+  const per = new Map<string, Map<string, number>>();
+  for (const j of jobs) {
+    if (j.scope === "worldwide") continue;
+    for (const c of openCountries(j.location)) {
+      const m = per.get(c) ?? new Map<string, number>();
+      m.set(j.company_name, (m.get(j.company_name) ?? 0) + 1);
+      per.set(c, m);
+    }
+  }
+  const countries: LocationCheckerData["countries"] = {};
+  for (const [c, m] of per) {
+    const n = [...m.values()].reduce((a, b) => a + b, 0);
+    countries[c] = [n, [...m].sort((a, b) => b[1] - a[1]).slice(0, 5).map(([name]) => name)];
+  }
+  return {
+    asOf: new Date().toISOString().slice(0, 10),
+    total: jobs.length,
+    worldwide: jobs.filter((j) => j.scope === "worldwide").length,
+    countries,
   };
 }

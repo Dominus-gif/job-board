@@ -6,7 +6,7 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 import { TOOLS, getTool } from "@/lib/tools";
 import { TOOL_GUIDES } from "@/lib/tool-guides";
 import { CATEGORIES } from "@/lib/taxonomy";
-import { companyScoreData, fieldExplorerData, salaryBandData, searchCounts, titleFinderData } from "@/lib/tool-data";
+import { companyScoreData, fieldExplorerData, locationCheckerData, salaryBandData, searchCounts, titleFinderData } from "@/lib/tool-data";
 import { Faq } from "@/components/Faq";
 import { ArrowUpRightIcon } from "@/components/icons";
 import { FakeJobChecker } from "@/components/tools/FakeJobChecker";
@@ -29,6 +29,9 @@ import { SalaryConverter } from "@/components/tools/SalaryConverter";
 import { TimezoneOverlap } from "@/components/tools/TimezoneOverlap";
 import { WorldTimeBuddy } from "@/components/tools/WorldTimeBuddy";
 import { PasswordGenerator } from "@/components/tools/PasswordGenerator";
+import { LocationChecker } from "@/components/tools/LocationChecker";
+import { RemoteCoverLetter } from "@/components/tools/RemoteCoverLetter";
+import { ContractorInvoice } from "@/components/tools/ContractorInvoice";
 
 // The data-backed tools read the board, which is rebuilt nightly.
 export const revalidate = 21600;
@@ -108,6 +111,12 @@ async function Widget({ slug }: { slug: string }) {
       return <WorldTimeBuddy />;
     case "password-generator":
       return <PasswordGenerator />;
+    case "remote-job-location-checker":
+      return <LocationChecker data={await locationCheckerData()} />;
+    case "remote-cover-letter-builder":
+      return <RemoteCoverLetter />;
+    case "contractor-invoice-generator":
+      return <ContractorInvoice />;
     default:
       return null;
   }

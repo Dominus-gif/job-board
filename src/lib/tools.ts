@@ -205,6 +205,34 @@ export const TOOLS: ToolMeta[] = [
       "Compare remote job fields on our board: how many roles each has, how many are open worldwide, how many are junior, where they hire and who hires most.",
     keywords: ["remote job market by field", "most remote jobs by field", "remote jobs statistics", "which remote jobs are hiring"],
   },
+  {
+    slug: "remote-job-location-checker",
+    title: "Remote Job Location Checker",
+    short: "Location checker",
+    group: "Search and apply",
+    featured: true,
+    description:
+      "Paste a remote job's location line, like Remote - EMEA or UTC-3 to UTC+3, pick your country, and see if you can apply and how many roles are open to you.",
+    keywords: ["can i apply for this remote job", "what does emea mean in a job posting", "remote job location requirements", "which countries are in latam emea apac"],
+  },
+  {
+    slug: "remote-cover-letter-builder",
+    title: "Remote Cover Letter Builder",
+    short: "Cover letter builder",
+    group: "Search and apply",
+    description:
+      "Build a remote job cover letter from your own answers: why this company, results with numbers, where you are, the hours you overlap and how you can be hired.",
+    keywords: ["remote job cover letter", "cover letter for remote position", "remote cover letter template", "cover letter work from home job"],
+  },
+  {
+    slug: "contractor-invoice-generator",
+    title: "Contractor Invoice Generator",
+    short: "Invoice generator",
+    group: "Pay and money",
+    description:
+      "Make a clean invoice for a foreign client in any currency, with payment terms, tax or reverse charge and bank details, then print it or save it as a PDF.",
+    keywords: ["invoice generator", "contractor invoice template", "freelance invoice for international client", "reverse charge invoice"],
+  },
 ];
 
 export function getTool(slug: string): ToolMeta | undefined {

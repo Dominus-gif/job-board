@@ -9,6 +9,7 @@ import { GUIDES_A } from "./tool-guides-a";
 import { GUIDES_B } from "./tool-guides-b";
 import { GUIDES_C } from "./tool-guides-c";
 import { GUIDES_D } from "./tool-guides-d";
+import { GUIDES_E } from "./tool-guides-e";
 
 export interface ToolGuide {
   h1: string;
@@ -24,4 +25,4 @@ export interface ToolGuide {
   related: { href: string; label: string }[];
 }
 
-export const TOOL_GUIDES: Record<string, ToolGuide> = { ...GUIDES_A, ...GUIDES_B, ...GUIDES_C, ...GUIDES_D };
+export const TOOL_GUIDES: Record<string, ToolGuide> = { ...GUIDES_A, ...GUIDES_B, ...GUIDES_C, ...GUIDES_D, ...GUIDES_E };

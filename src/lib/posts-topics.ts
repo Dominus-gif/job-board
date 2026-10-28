@@ -55,6 +55,7 @@ export const POST_TOPICS: PostTopic[] = [
       "remote-product-manager-jobs",
       "remote-design-jobs",
       "remote-software-engineering-jobs",
+      "remote-devops-sre-jobs",
       "remote-data-and-machine-learning-jobs",
     ],
   },
@@ -100,6 +101,9 @@ export const POST_TOPICS: PostTopic[] = [
       "psychology-of-remote-job-hunting",
           "linkedin-for-remote-jobs",
       "remote-job-interview-questions",
+      "remote-job-region-labels-explained",
+      "how-to-write-a-remote-job-cover-letter",
+      "remote-job-resume-tips",
 ],
   },
   {
@@ -130,6 +134,7 @@ export const POST_TOPICS: PostTopic[] = [
       "contractor-employee-or-employer-of-record",
       "before-you-accept-a-remote-job-offer",
       "remote-work-time-off-and-public-holidays",
+      "how-to-invoice-international-clients",
     ],
   },
   {
