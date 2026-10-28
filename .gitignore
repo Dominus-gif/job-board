@@ -35,3 +35,6 @@ test-results/
 
 # MailForge (separate local app with its own repo and SMTP credentials). Never commit.
 /NM/
+
+# Launch marketing: HyperFrames video projects, carousels and social posts. Local only.
+/marketing/
