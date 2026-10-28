@@ -10,7 +10,36 @@
  * sweep (scripts/verify-and-enrich.ts) so the two can never disagree about
  * which posting a listing points at.
  */
+import companies from "./seed/companies.json";
+
 export type AtsPlatform = "ashby" | "greenhouse" | "lever" | "smartrecruiters" | "workable";
+
+/**
+ * Greenhouse boards that publish on the employer's own careers site.
+ *
+ * Their apply URLs look like stripe.com/jobs/search?gh_jid=8172508, so the
+ * board slug is not in the URL. Without it these roles had no address, the
+ * snapshot dropped them as descriptions it could not fetch, and on 28 October
+ * 2026 Stripe, Coinbase, Datadog, Elastic and Dropbox added 6 roles to the
+ * board between them instead of about 550. The allow-list already says which
+ * board each employer's domain belongs to.
+ */
+const GREENHOUSE_HOSTS = new Map<string, string>(
+  (companies as { provider?: string; domain?: string; board_token?: string; slug: string }[])
+    .filter((c) => c.provider === "greenhouse" && c.domain)
+    .map((c) => [c.domain!.replace(/^www\./, "").toLowerCase(), c.board_token || c.slug]),
+);
+// Careers pages on a domain the allow-list doesn't name (Upsun still hires on platform.sh).
+GREENHOUSE_HOSTS.set("platform.sh", "platformsh");
+
+function greenhouseBoardFor(host: string): string | undefined {
+  const parts = host.toLowerCase().split(".");
+  for (let i = 0; i < parts.length - 1; i++) {
+    const board = GREENHOUSE_HOSTS.get(parts.slice(i).join("."));
+    if (board) return board;
+  }
+  return undefined;
+}
 
 export interface AtsAddress {
   platform: AtsPlatform;
@@ -36,6 +65,11 @@ export function atsAddress(applyUrl: string | undefined | null): AtsAddress | nu
     // /<board>/jobs/<id>, or an embed carrying ?gh_jid=
     const id = seg[2] ?? u.searchParams.get("gh_jid") ?? "";
     return id ? { platform: "greenhouse", org: seg[0], id } : null;
+  }
+  const ghJid = u.searchParams.get("gh_jid");
+  if (ghJid && /^\d+$/.test(ghJid)) {
+    const board = greenhouseBoardFor(host);
+    if (board) return { platform: "greenhouse", org: board, id: ghJid };
   }
   if (host === "jobs.lever.co" && seg[1]) return { platform: "lever", org: seg[0], id: seg[1] };
   if (host === "jobs.smartrecruiters.com" && seg[1]) return { platform: "smartrecruiters", org: seg[0], id: seg[1] };
