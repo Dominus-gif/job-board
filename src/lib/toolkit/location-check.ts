@@ -256,15 +256,18 @@ export function checkLocation(line: string, code: string, offset: number | null)
   }
 
   if (timezone) {
-    const window = `${fmtOffset(timezone.lo)} to ${fmtOffset(timezone.hi)}`;
+    // A line that already gives the window in UTC ("UTC-3 to UTC+3") is not repeated back.
+    const asked = /\b(UTC|GMT)\s*[+\-−–]\s*\d/i.test(timezone.label) && !/±|\+\/-|within/i.test(timezone.label)
+      ? timezone.label
+      : `${timezone.label} (${fmtOffset(timezone.lo)} to ${fmtOffset(timezone.hi)})`;
     if (timezone.fits === false) {
       verdict = "closed";
-      reasons.push(`It asks for ${timezone.label} (${window}), and ${fmtOffset(offset!)} is outside that window.`);
+      reasons.push(`It asks for ${asked}, and ${fmtOffset(offset!)} is outside that window.`);
     } else if (timezone.fits === true) {
       if (verdict === "unclear" && !places.length) verdict = "open";
-      reasons.push(`It asks for ${timezone.label} (${window}), and ${fmtOffset(offset!)} is inside it.`);
+      reasons.push(`It asks for ${asked}, and ${fmtOffset(offset!)} is inside it.`);
     } else {
-      reasons.push(`It asks for ${timezone.label} (${window}). Set your time zone to check it.`);
+      reasons.push(`It asks for ${asked}. Set your time zone to check it.`);
     }
   }
 

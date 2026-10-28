@@ -79,3 +79,11 @@ describe("remote job location checker", () => {
     expect(openCountries("Remote")).toEqual([]);
   });
 });
+
+describe("location checker wording", () => {
+  it("does not repeat a window the line already gave in UTC", () => {
+    const r = checkLocation("UTC-3 to UTC+3", "US", 10);
+    expect(r.reasons.join(" ")).toContain("It asks for UTC-3 to UTC+3, and UTC+10 is outside that window.");
+    expect(checkLocation("CET ± 3 hours", "US", 10).reasons.join(" ")).toContain("(UTC−2 to UTC+4)");
+  });
+});

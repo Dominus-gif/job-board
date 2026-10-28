@@ -65,3 +65,11 @@ describe("contractor invoice generator", () => {
     expect(nextNumber("2026-17")).toBe("2026-18");
   });
 });
+
+describe("cover letter with fields left empty", () => {
+  it("never writes 'the this role role'", () => {
+    const letter = buildLetter({ ...base, role: "", company: "" });
+    expect(letter).toContain("I'm applying for the open role on your team.");
+    expect(buildLetter({ ...base, role: "" })).toContain("I'm applying for the open role at Acme.");
+  });
+});

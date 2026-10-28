@@ -57,6 +57,12 @@ const TAX_MODES: { value: TaxMode; label: string }[] = [
 
 const textareaClass = `${fieldClass} min-h-[76px] resize-y`;
 
+/** Today in the visitor's own calendar: an invoice is dated where it is written, not in UTC. */
+const localToday = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
+
 const fmtDate = (iso: string) => {
   if (!iso) return "";
   const d = new Date(`${iso}T00:00:00Z`);
@@ -70,7 +76,7 @@ export function ContractorInvoice() {
   // Today's date and any saved draft, read after hydration so the server
   // render and the first client render agree.
   useEffect(() => {
-    const today = new Date().toISOString().slice(0, 10);
+    const today = localToday();
     const saved = loadJson<Partial<Draft>>(KEY, {});
     setD({ ...START, ...saved, issued: saved.issued || today });
     setLoaded(true);
@@ -87,7 +93,7 @@ export function ContractorInvoice() {
   const due = dueDate(d.issued, term.days);
 
   function startNext() {
-    setD((p) => ({ ...p, number: nextNumber(p.number), issued: new Date().toISOString().slice(0, 10), items: [blankItem()], notes: "" }));
+    setD((p) => ({ ...p, number: nextNumber(p.number), issued: localToday(), items: [blankItem()], notes: "" }));
   }
 
   return (
@@ -183,7 +189,7 @@ export function ContractorInvoice() {
           <button type="button" onClick={startNext} className={ghostButtonClass}>
             Start the next invoice
           </button>
-          <button type="button" onClick={() => setD({ ...START, issued: new Date().toISOString().slice(0, 10) })} className={ghostButtonClass}>
+          <button type="button" onClick={() => setD({ ...START, issued: localToday() })} className={ghostButtonClass}>
             Clear everything
           </button>
         </div>

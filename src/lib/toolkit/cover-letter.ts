@@ -46,11 +46,14 @@ const asClause = (s: string) => {
 };
 
 export function buildLetter(i: LetterInput): string {
-  const company = clean(i.company) || "your team";
-  const role = clean(i.role) || "this role";
+  const company = clean(i.company);
+  const role = clean(i.role);
   const paras: string[] = [];
 
-  paras.push([`I'm applying for the ${role} role at ${company}.`, sentence(i.why)].filter(Boolean).join(" "));
+  const opener = role
+    ? `I'm applying for the ${role} role ${company ? `at ${company}` : "on your team"}.`
+    : `I'm applying for the open role ${company ? `at ${company}` : "on your team"}.`;
+  paras.push([opener, sentence(i.why)].filter(Boolean).join(" "));
 
   const wins = i.wins.map(asClause).filter(Boolean);
   if (wins.length === 1) paras.push(`${wins[0]}.`);
@@ -77,7 +80,7 @@ export function buildLetter(i: LetterInput): string {
   if (i.authorisation === "eor") remote.push("I can be employed through an employer of record if you don't have an entity where I live.");
   paras.push(remote.join(" "));
 
-  paras.push(`I'd welcome the chance to talk about how I could help ${company}. Thank you for reading.`);
+  paras.push(`I'd welcome the chance to talk about how I could help ${company || "your team"}. Thank you for reading.`);
 
   const greeting = clean(i.greeting) || "Hello";
   const sign = clean(i.name);
