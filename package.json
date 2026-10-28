@@ -19,7 +19,7 @@
     "test:e2e": "playwright test",
     "cf:build": "opennextjs-cloudflare build",
     "cf:preview": "opennextjs-cloudflare preview",
-    "cf:deploy": "opennextjs-cloudflare deploy"
+    "cf:deploy": "tsx scripts/carry-static-assets.ts && opennextjs-cloudflare deploy"
   },
   "browserslist": [
     "chrome >= 93",

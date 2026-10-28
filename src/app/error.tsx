@@ -3,12 +3,20 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { LostPage } from "@/components/lost/LostPage";
+import { useStaleBuildReload } from "@/lib/stale-build";
 
-/** App-wide error boundary — any unhandled render error gets a styled page. */
+/**
+ * App-wide error boundary — any unhandled render error gets a styled page.
+ * A tab left open across a deploy reloads once instead (see lib/stale-build).
+ */
 export default function AppError({ error }: { error: Error & { digest?: string }; reset: () => void }) {
+  const reloading = useStaleBuildReload(error);
   useEffect(() => {
+    if (reloading) return;
     console.error("[unhandled]", JSON.stringify({ context: "app render", message: error.message, digest: error.digest }));
-  }, [error]);
+  }, [error, reloading]);
+
+  if (reloading) return null;
 
   return (
     <LostPage

@@ -51,13 +51,21 @@ redeploy, not just a variable edit.
 
 ```bash
 npm run cf:preview   # build + run the real Worker locally (workerd)
-npm run cf:deploy    # build + deploy
+npm run cf:build     # build (cf:deploy does NOT rebuild)
+npm run cf:deploy    # carry recent builds' static files, then deploy
 ```
+
+`cf:deploy` first runs `scripts/carry-static-assets.ts`, which copies the
+`/_next/static` files of every build replaced in the last 7 days (read from the
+live site's `/_next/static/builds.json`) into the new upload. Without it, a tab
+opened before a deploy 404s on the next chunk it needs. `src/lib/stale-build.ts`
+reloads the page once for anything still missing. A bare `wrangler deploy`
+skips the carry step, so open tabs then fall back to that reload.
 
 In the Cloudflare dashboard (Workers → Build), use:
 
 - **Build command:** `NODE_OPTIONS=--max-old-space-size=4096 npm run cf:build`
-- **Deploy command:** `npx wrangler deploy`
+- **Deploy command:** `npm run cf:deploy`
 
 The `NODE_OPTIONS` bump is **required**: the build prerenders ~675 pages and each
 worker parses ~10k job records, which overflows Node's default heap.
