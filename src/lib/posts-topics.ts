@@ -10,6 +10,8 @@
  * neutral label, so publishing never depends on remembering to edit this file.
  */
 
+import { POSTS_NEWS } from "./posts-news";
+
 export interface PostTopic {
   id: string;
   title: string;
@@ -58,6 +60,13 @@ export const POST_TOPICS: PostTopic[] = [
       "remote-devops-sre-jobs",
       "remote-data-and-machine-learning-jobs",
     ],
+  },
+  {
+    id: "in-the-news",
+    title: "In the news",
+    blurb: "AI, tech and the jobs market as they are reported, with what each story means for a remote job search.",
+    // Every article in the news series, so a new batch never needs listing here.
+    slugs: POSTS_NEWS.map((p) => p.slug),
   },
   {
     id: "breaking-in",

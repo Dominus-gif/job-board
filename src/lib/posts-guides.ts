@@ -32,6 +32,7 @@ import { POSTS_CLUSTER_H2 } from "./posts-guides-h2";
 import { POSTS_CLUSTER_I } from "./posts-guides-i";
 import { POSTS_CLUSTER_J } from "./posts-guides-j";
 import { POSTS_CLUSTER_K } from "./posts-guides-k";
+import { POSTS_NEWS } from "./posts-news";
 
 export const POSTS_GUIDES: Post[] = [
   ...POSTS_CLUSTER_A,
@@ -46,4 +47,5 @@ export const POSTS_GUIDES: Post[] = [
   ...POSTS_CLUSTER_I,
   ...POSTS_CLUSTER_J,
   ...POSTS_CLUSTER_K,
+  ...POSTS_NEWS,
 ];
