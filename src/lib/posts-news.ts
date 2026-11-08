@@ -4,5 +4,6 @@
  */
 import type { Post } from "./posts";
 import { POSTS_NEWS_A } from "./posts-news-a";
+import { POSTS_NEWS_B } from "./posts-news-b";
 
-export const POSTS_NEWS: Post[] = [...POSTS_NEWS_A];
+export const POSTS_NEWS: Post[] = [...POSTS_NEWS_A, ...POSTS_NEWS_B];
